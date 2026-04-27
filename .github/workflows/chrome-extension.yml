@@ -1,0 +1,72 @@
+name: Build and Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci || npm install
+
+    - name: Build and Pack All Versions
+      run: npm run pack:all
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: extension-packages
+        path: build/*.zip
+        retention-days: 30
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: build/*.zip
+        name: Release ${{ github.ref_name }}
+        body: |
+          ## 🚀 石墨文档导出工具发布
+          
+          ### 📦 下载安装包
+          - [Chrome 版本] (shimo-export-chrome.zip)
+          - [Firefox 版本] (shimo-export-firefox.zip)
+          - [Edge 版本] (shimo-export-edge.zip)
+          
+          ### 🔧 主要功能
+          - ✅ 跨浏览器支持 (Chrome, Firefox, Edge)
+          - ✅ 一键批量导出石墨文档
+          - ✅ 支持多种格式: Markdown, PDF, Word, JPG
+          - ✅ 保留原始文件夹层级结构
+          - ✅ 实时进度显示与导出性能监控
+          
+          ### 📝 更新说明
+          见提交历史记录。
+          
+          ---
+          **注意**: 请根据您的浏览器下载对应的安装包，并在浏览器扩展管理页面开启开发者模式后“加载已解压的扩展程序”。
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
