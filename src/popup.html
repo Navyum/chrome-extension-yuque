@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=400, height=600, user-scalable=no">
+  <title data-i18n="popupTitle">YuqueOut 语雀导出助手</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <div class="container" tabindex="-1" autofocus>
+    <div class="header-actions">
+      <!-- Login/Avatar button: shows avatar when logged in, login icon when not -->
+      <button id="login-btn" class="top-right-btn login-avatar-btn" data-i18n-title="loginToYuque" title="前往语雀登录">
+        <img id="loginIcon" src="../asserts/login.svg" alt="登录" class="btn-icon login-icon">
+        <img id="loginAvatar" src="" alt="" class="login-avatar-img" style="display:none;">
+      </button>
+      <button id="sponsor-btn" class="top-right-btn" data-i18n-title="sponsorSupport" title="赞助支持">
+        <img src="../asserts/sponsors.png" data-i18n-alt="sponsorAlt" alt="赞助" class="btn-icon sponsor-icon">
+      </button>
+      <button id="settings-btn" class="top-right-btn" data-i18n-title="openSettings" title="打开设置">
+        <img src="../asserts/setting.svg" data-i18n-alt="settingsAlt" alt="设置" class="btn-icon settings-icon">
+      </button>
+      <button id="reset-btn" class="top-right-btn btn-exit" data-i18n-title="exitTitle" title="退出">
+        <img src="../asserts/exit.svg" data-i18n-alt="exitAlt" alt="退出" class="btn-icon settings-icon">
+      </button>
+    </div>
+
+    <div class="header">
+      <a href="https://yuque.toolab.top" target="_blank" title="访问官网" class="header-link">
+        <img src="../icons/icon48.png" data-i18n-alt="popupTitle" alt="YuqueOut" class="header-icon">
+      </a>
+      <h2 data-i18n="popupTitle">YuqueOut 语雀导出助手</h2>
+    </div>
+
+    <!-- User info popup (shown on avatar click when logged in) -->
+    <div id="userInfoPopup" class="user-info-popup" style="display:none;">
+      <img id="userAvatar" class="user-popup-avatar" src="" alt="">
+      <div class="user-popup-detail">
+        <span id="userName" class="user-popup-name"></span>
+        <span id="userLogin" class="user-popup-login"></span>
+      </div>
+    </div>
+
+    <!-- Knowledge base dropdown selector -->
+    <div class="form-group select-group" id="bookSelectGroup">
+      <label><svg class="label-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> <span data-i18n="selectBookLabel">选择知识库:</span></label>
+      <div class="book-dropdown">
+        <button type="button" id="bookSelectTrigger" class="book-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+          <span id="bookSelectLabel" class="book-dropdown-label" data-i18n="selectBookPlaceholder">请先登录语雀...</span>
+          <span class="book-dropdown-arrow"></span>
+        </button>
+        <ul id="bookSelectOptions" class="book-dropdown-options" role="listbox"></ul>
+      </div>
+    </div>
+
+    <!-- Selection summary -->
+    <div class="selection-bar" id="selectionBar">
+      <label class="select-all-label">
+        <input id="selectAll" type="checkbox" class="select-all-checkbox">
+        <span data-i18n="selectAll">全选</span>
+      </label>
+      <span class="selection-summary">
+        <span data-i18n="selectedLabel">已选:</span>
+        <span id="selectedCount" class="selection-count">0</span>
+        <span data-i18n="booksUnit">个知识库</span>
+        <span class="selection-sep">·</span>
+        <span data-i18n="aboutLabel">约</span>
+        <span id="selectedDocs" class="selection-count">0</span>
+        <span data-i18n="docsUnit">篇</span>
+      </span>
+    </div>
+
+    <!-- Export format selector -->
+    <div class="form-group select-group">
+      <label for="exportType"><svg class="label-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> <span data-i18n="exportFormatLabel">导出格式:</span></label>
+      <div class="book-dropdown">
+        <button type="button" id="exportTypeTrigger" class="book-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+          <span id="exportTypeLabel" class="book-dropdown-label">智能导出</span>
+          <span class="book-dropdown-arrow"></span>
+        </button>
+        <ul id="exportTypeOptions" class="book-dropdown-options" role="listbox">
+          <li class="select-option-item is-active" data-value="smart"><button type="button" class="book-option-button is-checked" data-value="smart"><svg class="option-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>智能导出</span></button></li>
+          <li class="select-option-item" data-value="md"><button type="button" class="book-option-button" data-value="md"><img class="option-icon-img" src="../asserts/markdown.png" alt=""><span>Markdown (.md)</span></button></li>
+          <li class="select-option-item" data-value="docx"><button type="button" class="book-option-button" data-value="docx"><img class="option-icon-img" src="../asserts/word.png" alt=""><span>Word (.docx)</span></button></li>
+          <li class="select-option-item" data-value="pdf"><button type="button" class="book-option-button" data-value="pdf"><img class="option-icon-img" src="../asserts/pdf.png" alt=""><span>PDF (.pdf)</span></button></li>
+          <li class="select-option-item" data-value="jpg"><button type="button" class="book-option-button" data-value="jpg"><img class="option-icon-img" src="../asserts/jpg.png" alt=""><span>JPG (.jpg)</span></button></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- File info -->
+    <div id="fileInfo" class="file-info" style="display: none;">
+      <span class="file-stat-label"><svg class="stat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> <span data-i18n="docLabel">文档</span>:</span>
+      <span id="totalFiles" class="file-stat-value">0</span>
+      <span class="file-stat-sep">|</span>
+      <span class="file-stat-label"><svg class="stat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> <span data-i18n="folderLabel">文件夹</span>:</span>
+      <span id="folderCount" class="file-stat-value">0</span>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="form-group">
+      <button id="getInfo" type="button" class="btn btn-primary">
+        <span data-i18n="getFileInfoBtn">🔍 获取文件信息</span>
+      </button>
+    </div>
+
+    <div class="form-group action-buttons">
+      <button id="startExport" type="button" class="btn btn-start" disabled>
+        <span data-i18n="startExport">🚀 开始导出</span>
+      </button>
+      <button id="pauseExport" type="button" class="btn btn-pause" style="display: none;">
+        <span data-i18n="pauseExport">⏸️ 暂停导出</span>
+      </button>
+    </div>
+
+    <!-- Retry section -->
+    <div id="retrySection" style="display:none;" class="form-group">
+      <button id="retryFailedBtn" type="button" class="btn btn-retry">
+        <span data-i18n="retryFailed">🔄 重试失败的文件</span>
+      </button>
+      <div id="failedList"></div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar" style="display: none;">
+      <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-text" id="progressText"></div>
+    </div>
+
+    <div id="status" class="status" style="display: none;"></div>
+
+    <!-- Log container -->
+    <div class="log-container" id="logContainer">
+      <div class="log-placeholder">
+        <p>👏👏👏</p>
+        <p data-i18n="welcomeTitle">欢迎使用语雀导出助手！</p>
+        <p class="log-tip">✨ <span data-i18n="welcomeTip1">请先在浏览器中登录语雀</span></p>
+        <p class="log-tip">✨ <span data-i18n="welcomeTip2">选择知识库后点击🔍获取信息</span></p>
+        <p class="log-tip">✨ <span data-i18n="welcomeTip3">然后点击🚀按钮开始导出</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sponsor Modal -->
+  <div id="sponsorModal" class="sponsor-modal" aria-hidden="true">
+    <div class="sponsor-modal-card" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
+      <button id="sponsorModalClose" class="sponsor-modal-close" aria-label="关闭">&times;</button>
+      <div class="sponsor-modal-header">
+        <h3 id="sponsorTitle" data-i18n="sponsorModalTitle">请我喝杯咖啡 ☕️</h3>
+        <p data-i18n="sponsorModalDesc">如果这个工具帮到了你，欢迎小额赞助支持我继续维护。</p>
+      </div>
+      <div class="sponsor-modal-body">
+        <img src="../asserts/sp.jpeg" alt="赞助二维码" class="sponsor-qr">
+        <p class="sponsor-tip" data-i18n="sponsorTip">长按或扫描二维码，金额随意，感谢支持！</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

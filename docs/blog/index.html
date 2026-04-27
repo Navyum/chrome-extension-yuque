@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YuqueOut 博客 - 语雀知识库导出教程、备份指南、工具对比评测，帮你高效管理语雀文档数据。">
+    <meta name="keywords" content="语雀知识库导出,语雀批量导出,语雀备份教程,语雀Markdown导出,语雀数据迁移,语雀导出工具对比">
+    <meta name="author" content="YuqueOut 语雀导出助手">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="YuqueOut 博客">
+    <meta property="og:title" content="YuqueOut 博客 - 语雀知识库导出教程与指南">
+    <meta property="og:description" content="语雀知识库导出教程、备份指南、工具对比评测，帮你高效管理语雀文档数据。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/">
+    <meta property="og:locale" content="zh_CN">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="YuqueOut 博客 - 语雀知识库导出教程与指南">
+    <meta name="twitter:description" content="语雀知识库导出教程、备份指南、工具对比评测。">
+
+    <meta name="theme-color" content="#060b22">
+    <title>博客 - YuqueOut 语雀导出助手 | 语雀知识库导出教程与指南</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "YuqueOut 博客",
+      "description": "语雀知识库导出教程、备份指南、工具对比评测",
+      "url": "https://yuque.toolab.top/blog/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "YuqueOut 语雀导出助手",
+        "url": "https://yuque.toolab.top/"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "语雀用户最头疼的7个问题及解决方案",
+          "url": "https://yuque.toolab.top/blog/yuque-user-pain-points.html",
+          "datePublished": "2025-04-20"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "语雀知识库导出工具全面对比评测",
+          "url": "https://yuque.toolab.top/blog/yuque-export-tools-comparison.html",
+          "datePublished": "2025-04-18"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "语雀知识库批量导出完整教程",
+          "url": "https://yuque.toolab.top/blog/yuque-batch-export-tutorial.html",
+          "datePublished": "2025-04-15"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "为什么你应该定期备份语雀知识库",
+          "url": "https://yuque.toolab.top/blog/why-backup-yuque.html",
+          "datePublished": "2025-04-12"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "语雀文档批量转Markdown完整指南",
+          "url": "https://yuque.toolab.top/blog/yuque-to-markdown-guide.html",
+          "datePublished": "2025-04-10"
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture>
+                            <img src="../images/icon-36x36.png" alt="YuqueOut">
+                        </picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link" style="color:#fff;">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Blog Hero -->
+        <section class="blog-hero">
+            <h1 class="blog-hero-title">YuqueOut 博客</h1>
+            <p class="blog-hero-desc">语雀知识库导出教程、数据备份指南、工具对比评测。帮助你高效管理和保护你的语雀文档资产。</p>
+        </section>
+
+        <!-- Blog Grid -->
+        <section class="blog-grid">
+            <!-- Featured Post -->
+            <a href="yuque-user-pain-points.html" class="blog-card featured">
+                <div>
+                    <div class="blog-card-meta">
+                        <span class="blog-card-tag">痛点解析</span>
+                        <span>2025-04-20</span>
+                        <span>12 分钟阅读</span>
+                    </div>
+                    <h2 class="blog-card-title">语雀用户最头疼的7个问题（附解决方案）</h2>
+                    <p class="blog-card-excerpt">从「无法批量导出」到「图片防盗链失效」，我们深入剖析语雀用户在数据导出和备份中遭遇的真实痛点，并提供一站式解决方案。数千文档一键导出不再是梦。</p>
+                    <span class="blog-card-readmore">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                </div>
+                <div></div>
+            </a>
+
+            <!-- Post 2 -->
+            <a href="yuque-export-tools-comparison.html" class="blog-card">
+                <div class="blog-card-meta">
+                    <span class="blog-card-tag">工具对比</span>
+                    <span>2025-04-18</span>
+                    <span>15 分钟阅读</span>
+                </div>
+                <h2 class="blog-card-title">语雀知识库导出工具全面对比评测</h2>
+                <p class="blog-card-excerpt">YuqueOut、yuque-exporter、语雀官方导出、elog……哪个工具最适合你？我们从功能、易用性、安全性等6个维度进行深度评测。</p>
+                <span class="blog-card-readmore">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </a>
+
+            <!-- Post 3 -->
+            <a href="yuque-batch-export-tutorial.html" class="blog-card">
+                <div class="blog-card-meta">
+                    <span class="blog-card-tag">实操教程</span>
+                    <span>2025-04-15</span>
+                    <span>8 分钟阅读</span>
+                </div>
+                <h2 class="blog-card-title">语雀知识库批量导出完整教程：3步搞定</h2>
+                <p class="blog-card-excerpt">手把手教你使用 YuqueOut 批量导出语雀知识库。从安装到导出，零技术门槛，支持 Markdown、PDF、Word 多种格式。</p>
+                <span class="blog-card-readmore">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </a>
+
+            <!-- Post 4 -->
+            <a href="why-backup-yuque.html" class="blog-card">
+                <div class="blog-card-meta">
+                    <span class="blog-card-tag">数据安全</span>
+                    <span>2025-04-12</span>
+                    <span>10 分钟阅读</span>
+                </div>
+                <h2 class="blog-card-title">为什么你应该定期备份语雀知识库？</h2>
+                <p class="blog-card-excerpt">语雀服务中断、会员到期、内容误删……多个真实案例告诉你，不备份的代价有多大。附自动定时备份方案。</p>
+                <span class="blog-card-readmore">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </a>
+
+            <!-- Post 5 -->
+            <a href="yuque-to-markdown-guide.html" class="blog-card">
+                <div class="blog-card-meta">
+                    <span class="blog-card-tag">迁移指南</span>
+                    <span>2025-04-10</span>
+                    <span>11 分钟阅读</span>
+                </div>
+                <h2 class="blog-card-title">语雀文档批量转Markdown：博客迁移完整指南</h2>
+                <p class="blog-card-excerpt">想把语雀文档迁移到 Hexo、Hugo、VitePress 或 Notion？本文详解从语雀到 Markdown 的完整工作流，含图片处理方案。</p>
+                <span class="blog-card-readmore">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture>
+                                <img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image">
+                            </picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../#privacy">隐私保护</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+    <script>
+    // Blog card glow effect
+    document.querySelectorAll('.blog-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--glow-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--glow-y', `${e.clientY - rect.top}px`);
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私政策 — YuqueOut 语雀导出助手</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .privacy-page { max-width: 720px; margin: 0 auto; padding: 100px 24px 60px; }
+        .privacy-page h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+        .privacy-page .subtitle { color: var(--text-3); font-size: 0.9rem; margin-bottom: 32px; }
+        .privacy-page h2 { font-size: 1.1rem; font-weight: 700; margin: 28px 0 10px; color: var(--primary); }
+        .privacy-page p, .privacy-page li { font-size: 0.9rem; color: var(--text-2); line-height: 1.8; margin-bottom: 10px; }
+        .privacy-page ul { padding-left: 20px; }
+        .privacy-page a { color: var(--primary); }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo"><img src="images/icon-36x36.png" alt="YuqueOut" width="28" height="28"><span>YuqueOut</span></a>
+            <div class="nav-links"><a href="/">首页</a></div>
+            <span></span>
+        </div>
+    </nav>
+    <div class="privacy-page">
+        <h1>隐私政策</h1>
+        <p class="subtitle">最后更新：2025 年 4 月</p>
+
+        <h2>1. 概述</h2>
+        <p>YuqueOut 语雀导出助手（以下简称"本扩展"）尊重并保护用户的隐私。本隐私政策说明了本扩展如何处理您的数据。</p>
+
+        <h2>2. 数据收集</h2>
+        <p>本扩展<strong>不收集、不存储、不传输任何用户数据</strong>到外部服务器。具体来说：</p>
+        <ul>
+            <li>不收集您的个人身份信息</li>
+            <li>不收集您的文档内容</li>
+            <li>不收集您的浏览历史</li>
+            <li>不使用任何第三方分析或跟踪服务</li>
+            <li>不包含任何广告 SDK</li>
+        </ul>
+
+        <h2>3. 数据处理</h2>
+        <p>本扩展的所有数据处理均在您的本地浏览器中完成：</p>
+        <ul>
+            <li><strong>Cookie 读取：</strong>仅读取 yuque.com 域名下的 <code>_yuque_session</code> Cookie，用于验证登录状态。该信息仅在本地使用，不会传输到任何外部服务器。</li>
+            <li><strong>API 请求：</strong>直接向 yuque.com 发送请求获取您的知识库和文档数据。所有请求均通过您浏览器已有的登录态完成。</li>
+            <li><strong>文件下载：</strong>导出的文件直接下载到您指定的本地目录，不经过任何中间服务器。</li>
+            <li><strong>本地存储：</strong>使用 Chrome Storage API 存储您的设置偏好和导出记录，所有数据仅保存在您的浏览器本地。</li>
+        </ul>
+
+        <h2>4. 权限说明</h2>
+        <ul>
+            <li><strong>cookies：</strong>读取 yuque.com 的登录 Cookie，用于验证登录状态</li>
+            <li><strong>storage：</strong>保存设置和导出记录到浏览器本地</li>
+            <li><strong>downloads：</strong>将导出的文件保存到您的下载目录</li>
+            <li><strong>declarativeNetRequest：</strong>修改图片下载请求的 Referer 头，绕过语雀 CDN 的防盗链保护</li>
+            <li><strong>alarms：</strong>支持定时自动备份功能</li>
+        </ul>
+
+        <h2>5. 第三方服务</h2>
+        <p>本扩展不使用任何第三方分析、广告或数据收集服务。唯一的外部通信是直接与 yuque.com 及其 CDN（cdn.nlark.com、cdn.yuque.com）的 API 交互。</p>
+
+        <h2>6. 数据安全</h2>
+        <p>由于所有数据处理在本地完成，您的数据安全取决于您本地设备的安全性。我们建议：</p>
+        <ul>
+            <li>保持浏览器和操作系统更新</li>
+            <li>不在公共计算机上使用本扩展</li>
+            <li>定期检查已安装的浏览器扩展</li>
+        </ul>
+
+        <h2>7. 免责声明</h2>
+        <p>本扩展为个人开源项目，与语雀（yuque.com）官方无任何关联。使用本工具导出的内容，其版权归原作者所有。作者不对因使用本工具导致的任何数据丢失、账号风险或其他损失承担责任。</p>
+
+        <h2>8. 联系方式</h2>
+        <p>如有隐私相关问题，请联系：<a href="mailto:yhj2433488839@gmail.com">yhj2433488839@gmail.com</a></p>
+
+        <h2>9. 政策更新</h2>
+        <p>我们可能会不时更新本隐私政策。更新后的版本将发布在本页面。</p>
+    </div>
+</body>
+</html>

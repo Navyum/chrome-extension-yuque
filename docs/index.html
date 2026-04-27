@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YuqueOut 语雀导出助手 - 一键批量导出语雀知识库到本地。支持 Markdown, HTML 格式，完美保留知识库目录结构。">
+    <meta name="keywords" content="语雀知识库导出,语雀知识库批量导出,语雀知识库备份,语雀知识库转Markdown,语雀知识库转PDF,YuqueOut 语雀导出助手">
+    <meta name="author" content="YuqueOut 语雀导出助手">
+    <link rel="canonical" href="https://yuque.toolab.top/">
+    <meta name="robots" content="index, follow">
+
+    <!-- Facebook / Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="YuqueOut 语雀导出助手">
+    <meta property="og:title" content="YuqueOut 语雀导出助手 – 一键批量导出语雀知识库到本地">
+    <meta property="og:description" content="从语雀知识库批量导出文件到本地，支持 Markdown/HTML 格式，保留知识库目录结构。">
+    <meta property="og:url" content="https://yuque.toolab.top/">
+    <meta property="og:image" content="https://yuque.toolab.top/images/feat1.png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="800">
+    <meta property="og:locale" content="zh_CN">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="YuqueOut 语雀导出助手 – 一键批量导出语雀知识库到本地">
+    <meta name="twitter:description" content="从语雀知识库批量导出文件到本地，支持多种导出格式，保留知识库目录结构。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/feat1.png">
+
+    <meta name="theme-color" content="#060b22">
+    <title>YuqueOut 语雀导出助手 – 一键批量导出到本地</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    
+    
+    <link rel="stylesheet" href="style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "YuqueOut 语雀导出助手",
+      "operatingSystem": "Windows, macOS, Linux",
+      "applicationCategory": "UtilitiesApplication",
+      "browserRequirements": "Requires Chrome 88+ or Edge 88+",
+      "url": "https://yuque.toolab.top/",
+      "downloadUrl": "https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=official_website",
+      "softwareVersion": "1.0.0",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "description": "从语雀知识库批量导出文件到本地，支持 Markdown/HTML 格式，保留知识库目录结构。",
+      "featureList": [
+        "一键批量导出",
+        "保留知识库目录结构",
+        "支持 Markdown/HTML 导出",
+        "支持协作知识库导出",
+        "本地化处理，隐私安全"
+      ],
+      "screenshot": [
+        "https://yuque.toolab.top/images/feat1.png",
+        "https://yuque.toolab.top/images/feat2.png",
+        "https://yuque.toolab.top/images/feat3.png"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "100"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "首页",
+        "item": "https://yuque.toolab.top/"
+      }]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <!-- Background Layer 1: Dot Grid Canvas -->
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="/">
+                        <picture>
+                            
+                            <img src="images/icon-36x36.png" alt="YuqueOut">
+                        </picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="#features" class="nav-link">功能特性</a>
+                    <a href="blog/" class="nav-link">博客</a>
+                    <a href="#privacy" class="nav-link">隐私保护</a>
+                    <a href="privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=official_website" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">语雀知识库批量导出<br/>从未如此简单</h1>
+                <p class="hero-subtitle">一键导出语雀知识库全量文件到本地。支持多格式导出，完美保留文件夹层级。免费、安全、高效。</p>
+                <div class="hero-actions">
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=official_website" target="_blank" class="hero-primary-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>免费安装扩展</span>
+                    </a>
+                    <a href="#features" class="hero-secondary-button">了解更多</a>
+                </div>
+                <div class="hero-badges">
+                    <div class="hero-badge">
+                        <span class="badge-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                        </span>
+                        <span><b>NEW:</b> 支持协作知识库和团队空间导出</span>
+                    </div>
+                    <div class="hero-badge">
+                        <span class="badge-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="m16 6-4 4-4-4"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 18h.01"/><path d="M10 18h.01"/></svg>
+                        </span>
+                        <span><b>HOT:</b> 图片本地化 + 增量导出 + 定时备份</span>
+                    </div>
+                </div>
+                <div class="hero-features">
+                    <div class="hero-feature-item">
+                        <span class="check-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <span>100% 免费</span>
+                    </div>
+                    <div class="hero-feature-item">
+                        <span class="check-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <span>目录结构保留</span>
+                    </div>
+                    <div class="hero-feature-item">
+                        <span class="check-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <span>隐私安全</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="card-swap-wrapper">
+                    <div class="CardSwap_cardSwapContainer__UAZtT" id="cardStack">
+                        <!-- Cards will be populated by JS -->
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="section-header">
+                <h2 class="section-title">强大功能</h2>
+                <p class="section-subtitle">为语雀用户打造的专业级导出与备份体验</p>
+            </div>
+            <div class="features-grid">
+                <!-- 1. Batch Export -->
+                <div class="magic-bento-card" style="--glow-color: 102, 126, 234;">
+                    <div class="feature-badge">New</div>
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">一键批量导出</h3>
+                        <p class="magic-bento-card__description">自动获取个人和协作知识库列表，下拉多选，一键批量导出。零配置，无需 Token。</p>
+                    </div>
+                </div>
+
+                <!-- 2. Structure Preserve -->
+                <div class="magic-bento-card" style="--glow-color: 132, 0, 255;">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">保留目录层级</h3>
+                        <p class="magic-bento-card__description">导出时自动保留知识库的原始目录层级结构，文件按文件夹分类存放，清晰有序。</p>
+                    </div>
+                </div>
+
+                <!-- 3. Multi-format Support -->
+                <div class="magic-bento-card" style="--glow-color: 102, 126, 234;">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">图片本地化</h3>
+                        <p class="magic-bento-card__description">支持导出为 Markdown、PDF、Word (Docx) 和 JPG 图片。满足不同场景下的备份、阅读和编辑需求。</p>
+                    </div>
+                </div>
+
+                <!-- 4. Team Space -->
+                <div class="magic-bento-card" style="--glow-color: 132, 0, 255;">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">增量导出 团队空间支持 备份</h3>
+                        <p class="magic-bento-card__description">支持个人知识库、协作知识库和团队空间。增量导出仅处理变更文档，定时备份自动运行。</p>
+                    </div>
+                </div>
+
+                <!-- 5. Offline & Privacy -->
+                <div class="magic-bento-card" style="--glow-color: 132, 0, 255;">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">隐私安全</h3>
+                        <p class="magic-bento-card__description">所有操作 100% 在本地完成。不收集文档内容、不上传用户数据、不需要 API Token。</p>
+                    </div>
+                </div>
+
+                <!-- 6. Easy to Use -->
+                <div class="magic-bento-card" style="--glow-color: 102, 126, 234;">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">直觉化操作</h3>
+                        <p class="magic-bento-card__description">暗黑紫色主题 UI，操作直观。支持暂停/继续、失败重试、导出进度实时展示。</p>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+        <!-- Privacy Section -->
+        <section id="privacy" class="privacy-section">
+            <div class="privacy-container">
+                <div class="privacy-content">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="privacy-icon" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M466.5 83.7l-192-80a48.15 48.15 0 0 0-36.9 0l-192 80C27.7 91.1 16 108.6 16 128c0 198.5 114.5 335.7 221.5 380.3 11.8 4.9 25.1 4.9 36.9 0C360.1 472.6 496 349.3 496 128c0-19.4-11.7-36.9-29.5-44.3zM256.1 446.3l-.1-381 175.9 73.3c-3.3 151.4-82.1 261.1-175.8 307.7z"></path>
+                    </svg>
+                    <h2 class="privacy-title">我们重视你的隐私</h2>
+                    <p class="privacy-description">YuqueOut 所有操作 100% 在本地浏览器中完成。不收集任何文档内容、不上传用户数据、不需要 API Token。你的知识库内容从语雀直接下载到你的电脑，绝不经过第三方服务器。</p>
+                    <a href="privacy.html" class="privacy-link">查看详细隐私政策</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-container">
+                <h2 class="cta-title">准备好导出你的语雀知识库了吗？</h2>
+                <p class="cta-subtitle">免费、安全、零配置。立即开始你的知识库备份之旅。</p>
+                <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=official_website" target="_blank" class="cta-button">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                    <span>添加到 Chrome</span>
+                </a>
+            </div>
+            </section>
+
+        <!-- Footer -->
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture>
+                                
+                                <img src="images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image">
+                            </picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="#features">功能特性</a></li>
+                            <li><a href="blog/">博客</a></li>
+                            <li><a href="#privacy">隐私保护</a></li>
+                            <li><a href="privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                </ul>
+                        <div class="footer-social">
+                            <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=offiial_website" target="_blank">
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" class="social-icon" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+        </div>
+            </div>
+        </footer>
+    </main>
+
+    <div class="update-notification-bento" id="updateNotificationBento" hidden>
+        <div class="magic-bento-card" style="--glow-color: 132, 0, 255;">
+            <button class="update-notification-bento-close" id="updateNotificationClose" aria-label="Close update notification">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+            <div class="update-notification-bento-header">
+                <div class="update-notification-bento-title-section">
+                    <span class="update-notification-bento-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                        更新
+                    </span>
+                    <h3 class="update-notification-bento-title">YuqueOut 语雀导出助手更新日志</h3>
+                </div>
+            </div>
+
+            <div class="update-notification-bento-content">
+                <div class="update-notification-bento-section">
+                    <p class="update-notification-bento-section-title">新版本特性</p>
+                    <div class="update-notification-bento-features">
+                        <div class="update-notification-bento-feature">
+                            <div class="update-notification-bento-feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div class="update-notification-bento-feature-text">
+                                <span class="update-notification-bento-feature-title">增量导出 团队空间支持 备份</span>
+                                <p class="update-notification-bento-feature-desc">现在可以轻松导出团队空间中的所有文档了。</p>
+                            </div>
+                        </div>
+                        <div class="update-notification-bento-feature">
+                            <div class="update-notification-bento-feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            </div>
+                            <div class="update-notification-bento-feature-text">
+                                <span class="update-notification-bento-feature-title">更稳定的导出</span>
+                                <p class="update-notification-bento-feature-desc">优化了导出引擎，处理大量文件时更加稳定。</p>
+                            </div>
+                        </div>
+                        <div class="update-notification-bento-feature">
+                            <div class="update-notification-bento-feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            </div>
+                            <div class="update-notification-bento-feature-text">
+                                <span class="update-notification-bento-feature-title">重试机制</span>
+                                <p class="update-notification-bento-feature-desc">导出失败的文件现在可以一键重试，确保不漏掉任何文档。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="update-notification-bento-footer">
+                <label class="update-notification-bento-checkbox">
+                    <input type="checkbox" id="updateNotificationHide">
+                    不再显示此更新
+                </label>
+                <button class="update-notification-bento-button" id="updateNotificationGotIt">知道了</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

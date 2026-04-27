@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="手把手教你使用 YuqueOut 批量导出语雀知识库。从安装到导出只需3步，零技术门槛，支持 Markdown、PDF、Word 多格式导出，完美保留目录结构。">
+    <meta name="keywords" content="语雀批量导出教程,语雀知识库怎么导出,语雀导出Markdown,语雀一键导出,语雀备份教程,YuqueOut使用教程">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-batch-export-tutorial.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀知识库批量导出完整教程：3步搞定所有文档备份">
+    <meta property="og:description" content="零技术门槛的语雀批量导出教程，支持 Markdown、PDF、Word 多格式。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-batch-export-tutorial.html">
+    <meta property="article:published_time" content="2025-04-15">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀知识库批量导出完整教程：3步搞定 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何批量导出语雀知识库",
+      "description": "使用 YuqueOut Chrome 扩展批量导出语雀知识库到本地的完整教程",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "安装 YuqueOut 扩展",
+          "text": "打开 Chrome 网上应用店，搜索 YuqueOut 语雀导出助手，点击添加到 Chrome。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "选择要导出的知识库",
+          "text": "打开语雀网站并登录，点击浏览器工具栏中的 YuqueOut 图标，扩展会自动获取你的知识库列表。勾选要导出的知识库。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "选择格式并开始导出",
+          "text": "选择导出格式（Markdown、PDF、Word 或 JPG），点击开始导出按钮。导出完成后文件会自动保存到本地下载文件夹。"
+        }
+      ],
+      "totalTime": "PT5M"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "批量导出教程", "item": "https://yuque.toolab.top/blog/yuque-batch-export-tutorial.html" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../"><picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture><span class="logo-text">YuqueOut 语雀导出助手</span></a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">批量导出教程</span>
+                </div>
+                <span class="blog-article-tag">实操教程</span>
+                <h1 class="blog-article-title">语雀知识库批量导出完整教程：3步搞定所有文档备份</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2025-04-15
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        8 分钟阅读
+                    </span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <p>想把语雀知识库里的所有文档备份到本地，但不知道怎么批量操作？本教程用 <strong>3 个简单步骤</strong>，手把手教你完成语雀知识库的批量导出。全程不需要任何技术知识，不需要命令行，不需要 API Token。</p>
+
+                <div class="info-box">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        前提条件
+                    </div>
+                    <p>你需要一台安装了 <strong>Chrome</strong> 或 <strong>Edge</strong> 浏览器的电脑，并且有一个语雀账号。就这些。</p>
+                </div>
+
+                <h2>第一步：安装 YuqueOut 扩展</h2>
+
+                <ol class="step-list">
+                    <li>
+                        <p><strong>打开 Chrome 网上应用店</strong>，搜索「YuqueOut 语雀导出助手」，或者直接点击<a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog_tutorial" target="_blank">安装链接</a>。</p>
+                    </li>
+                    <li>
+                        <p>点击<strong>「添加到 Chrome」</strong>按钮，在弹出的权限确认中点击「添加扩展程序」。</p>
+                    </li>
+                    <li>
+                        <p>安装完成后，你会在浏览器右上角的工具栏中看到 YuqueOut 的图标。如果看不到，点击工具栏的「拼图」图标，将 YuqueOut <strong>固定到工具栏</strong>。</p>
+                    </li>
+                </ol>
+
+                <h2>第二步：选择要导出的知识库</h2>
+
+                <ol class="step-list">
+                    <li>
+                        <p>打开<strong>语雀网站</strong>（yuque.com）并<strong>确保已登录</strong>你的账号。</p>
+                    </li>
+                    <li>
+                        <p>点击浏览器工具栏中的 <strong>YuqueOut 图标</strong>，扩展弹窗会自动获取你的知识库列表。</p>
+                    </li>
+                    <li>
+                        <p>在知识库列表中，<strong>勾选你想导出的知识库</strong>。你可以：</p>
+                        <ul>
+                            <li>逐个勾选特定知识库</li>
+                            <li>使用「全选」功能选择所有知识库</li>
+                            <li>在「个人知识库」和「协作知识库」之间切换</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h2>第三步：选择格式并开始导出</h2>
+
+                <ol class="step-list">
+                    <li>
+                        <p><strong>选择导出格式</strong>。YuqueOut 支持以下格式：</p>
+                        <ul>
+                            <li><strong>Markdown</strong>：最通用的格式，可被各种编辑器和平台识别</li>
+                            <li><strong>PDF</strong>：适合归档和分享，格式固定不变</li>
+                            <li><strong>Word (Docx)</strong>：适合需要二次编辑的场景</li>
+                            <li><strong>JPG 图片</strong>：适合长图分享或截图存档</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>根据需要开启<strong>图片本地化</strong>选项（建议开启，确保图片在离线环境下可用）。</p>
+                    </li>
+                    <li>
+                        <p>点击<strong>「开始导出」</strong>按钮。YuqueOut 会：</p>
+                        <ul>
+                            <li>自动遍历知识库中的所有文档</li>
+                            <li>按原始目录结构创建文件夹</li>
+                            <li>逐篇下载文档并保存</li>
+                            <li>实时显示导出进度</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>导出完成后，文件会自动保存到<strong>浏览器的下载文件夹</strong>中。</p>
+                    </li>
+                </ol>
+
+                <p>就是这么简单。<strong>三步完成</strong>，你的所有语雀文档就安全地备份到了本地。</p>
+
+                <h2>进阶技巧</h2>
+
+                <h3>技巧一：使用增量导出</h3>
+                <p>如果你之前已经导出过，下次只想导出<strong>新增和变更的文档</strong>，可以开启「增量导出」选项。YuqueOut 会自动对比，只处理有变化的文档，大幅节省时间。</p>
+
+                <h3>技巧二：设置定时自动备份</h3>
+                <p>在 YuqueOut 的设置中，你可以配置<strong>定时备份</strong>。设置好备份周期（比如每周一次），YuqueOut 会在后台自动执行备份，你完全不需要手动操作。</p>
+
+                <h3>技巧三：导出协作知识库和团队空间</h3>
+                <p>在知识库列表中切换到「协作知识库」或「团队空间」标签，即可看到你有权限访问的所有共享知识库。选中后按同样的方式导出即可。</p>
+
+                <h3>技巧四：处理导出失败的文档</h3>
+                <p>网络波动可能导致个别文档导出失败。YuqueOut 会在导出结束后列出失败的文档，你可以<strong>一键重试</strong>这些文档，无需重新导出整个知识库。</p>
+
+                <h2>各格式适用场景对比</h2>
+
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>格式</th>
+                                <th>适用场景</th>
+                                <th>优势</th>
+                                <th>注意事项</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Markdown</strong></td>
+                                <td>博客迁移、知识管理、版本控制</td>
+                                <td>通用性最强，可被各种工具识别</td>
+                                <td>建议同时开启图片本地化</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PDF</strong></td>
+                                <td>文档归档、打印、正式分享</td>
+                                <td>格式固定，排版一致</td>
+                                <td>文件体积较大</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Word</strong></td>
+                                <td>二次编辑、团队协作</td>
+                                <td>可直接在 Office 中编辑</td>
+                                <td>复杂排版可能有差异</td>
+                            </tr>
+                            <tr>
+                                <td><strong>JPG</strong></td>
+                                <td>社交分享、长图存档</td>
+                                <td>所见即所得</td>
+                                <td>不可编辑，不可搜索文本</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>常见问题</h2>
+
+                <div class="faq-section">
+                    <div class="faq-item">
+                        <div class="faq-question">导出速度慢怎么办？</div>
+                        <div class="faq-answer">
+                            <p>YuqueOut 为了避免触发语雀的请求频率限制，会控制导出速度。文档量大时（500+ 篇），导出可能需要几分钟到十几分钟。这是正常的，导出过程中可以正常使用浏览器做其他事情。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">导出的文件保存在哪里？</div>
+                        <div class="faq-answer">
+                            <p>文件保存在浏览器的默认下载目录中。你可以在 Chrome 设置 > 下载内容中查看或修改下载路径。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">需要语雀会员才能使用吗？</div>
+                        <div class="faq-answer">
+                            <p>不需要。YuqueOut 不依赖语雀的任何付费功能，只要你能在浏览器中正常访问和阅读文档，就可以导出。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">导出过程中可以关闭浏览器吗？</div>
+                        <div class="faq-answer">
+                            <p>不建议在导出过程中关闭浏览器或关闭语雀页面。YuqueOut 需要在浏览器中运行来处理导出。但你可以正常切换到其他标签页或使用其他程序。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-cta">
+                    <h3>开始你的第一次批量导出</h3>
+                    <p>免费安装 YuqueOut，3步完成语雀知识库备份</p>
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog_tutorial" target="_blank" class="blog-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        免费安装 YuqueOut
+                    </a>
+                </div>
+
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="yuque-export-tools-comparison.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀导出工具全面对比评测</span>
+                            <span class="blog-related-card-excerpt">6维度深度对比各类导出方案</span>
+                        </a>
+                        <a href="yuque-to-markdown-guide.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀文档批量转Markdown指南</span>
+                            <span class="blog-related-card-excerpt">从语雀到博客平台的完整迁移工作流</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links"><li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+    <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+    });
+    </script>
+</body>
+</html>

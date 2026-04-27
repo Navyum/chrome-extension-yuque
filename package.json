@@ -1,0 +1,22 @@
+{
+  "name": "chrome-extension-yuque-export",
+  "version": "1.0.0",
+  "description": "一键批量导出语雀知识库为 Markdown/HTML，自动下载图片和附件，保留目录结构。支持增量导出、协作库导出、定时备份等高级功能。",
+  "main": "src/background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "build:watch": "cross-env NODE_ENV=development webpack --watch --config webpack.config.js",
+    "pack": "npm run build && mkdir -pv build && cd dist && zip -r ../build/chrome-extension-yuque-export.zip *"
+  },
+  "keywords": ["yuque", "export", "chrome-extension", "markdown"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "copy-webpack-plugin": "^13.0.1",
+    "cross-env": "^10.1.0",
+    "webpack": "^5.103.0",
+    "webpack-cli": "^6.0.1"
+  }
+}

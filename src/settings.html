@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="settingsPageTitle">YuqueOut - 设置</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="settings-container">
+    <!-- Left: Sidebar -->
+    <div class="settings-sidebar">
+      <div class="sidebar-header">
+        <img src="../icons/icon48.png" alt="YuqueOut" class="sidebar-icon">
+        <span>YuqueOut</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="general">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span data-i18n="navGeneral">通用设置</span>
+        </a>
+        <a href="#" class="nav-item" data-section="about">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+          <span data-i18n="navAbout">关于</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="sidebar-version" data-version>v1.0.0</span>
+      </div>
+    </div>
+
+    <!-- Center: Content -->
+    <div class="settings-content">
+      <!-- General -->
+      <section id="general" class="settings-section active">
+        <header class="section-header">
+          <h2 data-i18n="navGeneral">通用设置</h2>
+          <p data-i18n="settingsGeneralDesc">管理导出相关的配置选项。</p>
+        </header>
+
+        <div class="form-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span data-i18n="cardExportConfig">导出配置</span></h4>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg><span data-i18n="subfolderLabel">下载子文件夹</span></label>
+            <p class="setting-desc" data-i18n="subfolderDesc">文件将保存到浏览器「下载」目录下的指定子文件夹中。留空则保存到根目录。</p>
+            <input id="subfolder" type="text" data-i18n-placeholder="subfolderPlaceholder" placeholder="例如: 语雀备份">
+          </div>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="settingsDocFormat">文档默认导出格式</span></label>
+            <p class="setting-desc" data-i18n="settingsDocFormatDesc">语雀「文档」类型的默认导出格式。</p>
+            <select id="docExportFormat">
+              <option value="md">Markdown (.md)</option>
+              <option value="docx">Word (.docx)</option>
+              <option value="pdf">PDF (.pdf)</option>
+              <option value="jpg">JPG (.jpg)</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg><span data-i18n="settingsSheetFormat">表格/数据表导出格式</span></label>
+            <p class="setting-desc" data-i18n="settingsSheetFormatDesc">语雀「表格」和「数据表」类型的导出格式。</p>
+            <select id="sheetExportFormat">
+              <option value="xlsx">Excel (.xlsx)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="cardPerformance">性能调优</span></h4>
+          <div class="setting-item">
+            <label class="toggle-label">
+              <input id="downloadImages" type="checkbox" checked>
+              <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span data-i18n="settingsDownloadImages">Markdown 图片本地化</span>
+            </label>
+            <p class="setting-desc" data-i18n="downloadImagesDesc">导出 Markdown 时，自动下载文档中的 CDN 图片到本地 assets/ 目录，并替换为相对路径。</p>
+          </div>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg><span data-i18n="imageConcurrencyLabel">图片并发数</span></label>
+            <p class="setting-desc" data-i18n="imageConcurrencyDesc">同时下载图片的并发连接数。建议 1-5。</p>
+            <input id="imageConcurrency" type="number" min="1" max="10" step="1" value="3">
+          </div>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="requestIntervalLabel">请求间隔 (毫秒)</span></label>
+            <p class="setting-desc" data-i18n="requestIntervalDesc">每个 API 请求之间的等待时间，防止触发语雀限流。建议 500-2000ms。</p>
+            <input id="requestInterval" type="number" min="200" max="5000" step="100" value="500">
+          </div>
+        </div>
+
+        <div class="form-card tip-card">
+          <p class="tip-text"><svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6m-5-4h4m.5-8a4 4 0 1 1-5 0V7a2 2 0 0 1 4 0v-.5z"/><line x1="12" y1="2" x2="12" y2="2.01"/></svg><span data-i18n="settingsAuthTip"><strong>鉴权说明：</strong>只要保持在浏览器中登录 yuque.com，扩展会自动读取 Cookie 完成鉴权，无需手动配置 Token。</span></p>
+        </div>
+
+        <div id="saveStatus" class="save-status" style="display:none;"></div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="settings-section">
+        <header class="section-header">
+          <h2 data-i18n="aboutTitle">关于 YuqueOut</h2>
+          <p data-i18n="aboutDesc">零门槛、一键式的语雀知识库批量导出工具</p>
+        </header>
+
+        <div class="form-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="aboutProjectTitle">项目说明</span></h4>
+          <p class="about-text" data-i18n="aboutProjectDesc1">YuqueOut 是一款专为语雀用户打造的 Chrome 扩展，帮助你一键批量导出知识库内容。无论是个人笔记迁移到 Obsidian，还是团队知识库的定期备份，YuqueOut 都能轻松搞定。</p>
+          <p class="about-text" data-i18n="aboutProjectDesc2">所有数据处理完全在本地完成，不收集、不上传任何用户数据。</p>
+        </div>
+
+        <div class="form-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span data-i18n="featuresTitle">功能特性</span></h4>
+          <div class="feature-grid">
+            <div class="feature-item"><svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><div class="feature-detail"><strong data-i18n="featureBooks">知识库管理</strong><span data-i18n="featureBooksDesc">自动获取个人 + 协作知识库列表，支持多选批量导出</span></div></div>
+            <div class="feature-item"><svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><div class="feature-detail"><strong data-i18n="featureFormats">多格式导出</strong><span data-i18n="featureFormatsDesc">Markdown（含 Front Matter）和 HTML 格式，保留完整目录层级</span></div></div>
+            <div class="feature-item"><svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="feature-detail"><strong data-i18n="featureImages">图片本地化</strong><span data-i18n="featureImagesDesc">自动下载语雀 CDN 图片，智能处理防盗链，替换为本地路径</span></div></div>
+            <div class="feature-item"><svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg><div class="feature-detail"><strong data-i18n="featureAttachments">附件下载</strong><span data-i18n="featureAttachmentsDesc">文档中嵌入的 PDF、Word 等附件一并下载保存</span></div></div>
+            <div class="feature-item"><svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><div class="feature-detail"><strong data-i18n="featureIncremental">增量导出</strong><span data-i18n="featureIncrementalDesc">记录导出历史，仅处理新增/修改的文档，节省大量时间</span></div></div>
+            <div class="feature-item"><svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div class="feature-detail"><strong data-i18n="featureBackup">定时备份</strong><span data-i18n="featureBackupDesc">设置每天/每周/每月自动增量备份，数据安全无忧</span></div></div>
+            <div class="feature-item"><svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="feature-detail"><strong data-i18n="featureCollab">协作库支持</strong><span data-i18n="featureCollabDesc">导出你参与的所有协作知识库和团队空间文档</span></div></div>
+            <div class="feature-item"><svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><div class="feature-detail"><strong data-i18n="featurePrivacy">隐私安全</strong><span data-i18n="featurePrivacyDesc">纯本地处理，零数据上传，不存储任何密码或 Token</span></div></div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span data-i18n="versionTitle">版本信息</span></h4>
+          <div class="version-info">
+            <div class="version-row"><span class="version-label" data-i18n="versionCurrent">当前版本</span><span class="version-value" data-version>v1.0.0</span></div>
+            <div class="version-row"><span class="version-label">Manifest</span><span class="version-value">V3</span></div>
+            <div class="version-row"><span class="version-label" data-i18n="versionBrowser">兼容浏览器</span><span class="version-value">Chrome 88+ / Edge 88+</span></div>
+            <div class="version-row"><span class="version-label" data-i18n="versionI18n">国际化</span><span class="version-value">中文 / English</span></div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-i18n="contactTitle">联系反馈</span></h4>
+          <p class="about-text" data-i18n="contactDesc">如果你在使用中遇到问题，或有好的建议，欢迎通过以下方式联系：</p>
+          <div class="about-links">
+            <a href="https://yuque.toolab.top" target="_blank" class="about-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span data-i18n="linkWebsite">官方网站</span>
+            </a>
+            <a href="mailto:yhj2433488839@gmail.com" class="about-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span data-i18n="linkEmail">邮件反馈</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="form-card disclaimer-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span data-i18n="disclaimerTitle">免责声明</span></h4>
+          <ul class="disclaimer-list">
+            <li data-i18n="disclaimer1">本扩展为个人开源项目，与语雀（yuque.com）官方无任何关联。</li>
+            <li data-i18n="disclaimer2">仅供用户导出和备份自己有权访问的文档内容，请勿用于未经授权的数据采集。</li>
+            <li data-i18n="disclaimer3">使用本工具导出的内容，其版权归原作者所有，用户应遵守相关法律法规及语雀平台的服务条款。</li>
+            <li data-i18n="disclaimer4">作者不对因使用本工具导致的任何数据丢失、账号风险或其他损失承担责任。</li>
+            <li data-i18n="disclaimer5">本工具不收集、不存储、不上传任何用户数据，所有操作均在本地浏览器中完成。</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right: Ads/Sponsor -->
+    <div class="settings-ads">
+      <div class="ads-card">
+        <div class="ads-header">
+          <svg class="ads-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <h4 data-i18n="adsSponsorTitle">支持与鼓励</h4>
+        </div>
+        <p class="ads-desc" data-i18n="adsSponsorDesc">如果 YuqueOut 帮到了你，不妨请我喝杯咖啡！你的支持是持续维护的最大动力。</p>
+        <div class="ads-qr">
+          <img src="../asserts/sp.jpeg" data-i18n-alt="sponsorQrAlt" alt="赞助二维码">
+        </div>
+        <p class="ads-tip"><svg class="ads-tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><span data-i18n="adsSponsorTip">微信扫码，金额随意</span></p>
+      </div>
+
+      <div class="ads-card ads-stats">
+        <div class="ads-header">
+          <svg class="ads-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+          <h4 data-i18n="adsTipsTitle">使用小贴士</h4>
+        </div>
+        <ul class="tips-list">
+          <li data-i18n="tip1">建议请求间隔 500ms+</li>
+          <li data-i18n="tip2">图片并发数建议 ≤ 3</li>
+          <li data-i18n="tip3">大知识库请开启增量导出</li>
+          <li data-i18n="tip4">定时备份确保数据安全</li>
+          <li data-i18n="tip5">导出前请确认已登录语雀</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="settings.js"></script>
+</body>
+</html>
