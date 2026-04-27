@@ -44,6 +44,7 @@ chrome.declarativeNetRequest.updateDynamicRules({
       action: {
         type: 'modifyHeaders',
         requestHeaders: [
+          { header: 'Origin', operation: 'set', value: 'https://www.yuque.com' },
           { header: 'Referer', operation: 'set', value: 'https://www.yuque.com/' }
         ]
       },

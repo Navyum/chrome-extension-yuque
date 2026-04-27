@@ -39,7 +39,6 @@ export async function sendMessageToPopup(payload) {
     await chrome.runtime.sendMessage(payload);
   } catch (error) {
     if (!error?.message?.includes('Receiving end does not exist')) {
-      console.warn('向 popup 发送消息失败:', error);
     }
   }
 }

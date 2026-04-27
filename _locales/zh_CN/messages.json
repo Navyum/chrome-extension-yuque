@@ -103,7 +103,7 @@
   "settingsDownloadAttachments": { "message": "下载附件" },
   "settingsIncremental": { "message": "增量导出" },
   "settingsAutoBackup": { "message": "定时自动备份" },
-  "settingsAuthTip": { "message": "<strong>鉴权说明：</strong>只要保持在浏览器中登录 yuque.com，扩展会自动读取 Cookie 完成鉴权，无需手动配置 Token。" },
+  "settingsAuthTip": { "message": "鉴权说明：只要保持在浏览器中登录 yuque.com，扩展会自动读取 Cookie 完成鉴权，无需手动配置 Token。" },
   "disclaimerTitle": { "message": "免责声明" },
   "disclaimer1": { "message": "本扩展为个人开源项目，与语雀（yuque.com）官方无任何关联。" },
   "disclaimer2": { "message": "仅供用户导出和备份自己有权访问的文档内容，请勿用于未经授权的数据采集。" },

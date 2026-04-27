@@ -85,6 +85,32 @@ export async function saveBlobToDisk(blob, relativePath) {
   return relativePath;
 }
 
+/**
+ * Download a file from URL directly via chrome.downloads, with filename override.
+ * Used for external URLs (OSS etc.) that can't be fetched due to CORS.
+ */
+export async function downloadUrlToDisk(url, relativePath) {
+  pendingDownloadUrlMap.set(url, relativePath);
+
+  try {
+    await chrome.downloads.download({
+      url,
+      filename: relativePath,
+      saveAs: false,
+      conflictAction: 'uniquify'
+    });
+  } catch (error) {
+    pendingDownloadUrlMap.delete(url);
+    throw error;
+  } finally {
+    if (pendingDownloadUrlMap.get(url) === relativePath) {
+      pendingDownloadUrlMap.delete(url);
+    }
+  }
+
+  return relativePath;
+}
+
 function blobToDataUrl(blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

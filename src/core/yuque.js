@@ -61,7 +61,6 @@ export async function fetchAllBooks() {
       });
     });
   } catch (e) {
-    console.warn('获取个人知识库失败:', e);
   }
 
   // Collaboration books via /api/mine/raw_collab_books
@@ -85,7 +84,6 @@ export async function fetchAllBooks() {
       }
     });
   } catch (e) {
-    console.warn('获取协作知识库失败:', e);
   }
 
   // Group/Team books via /api/mine/user_books?user_type=Group
@@ -124,164 +122,19 @@ export async function fetchBookDocs(bookId) {
 }
 
 /**
- * Get the TOC (table of contents) of a knowledge base by fetching the book page.
- * Falls back to /api/v2/repos/:namespace/toc if available.
- */
-export async function fetchBookToc(namespace) {
-  // Try the v2 API for TOC
-  try {
-    const data = await fetchYuqueRaw(`${YUQUE_API.HOME_PAGE}/api/v2/repos/${namespace}/toc`);
-    if (data && Array.isArray(data.data)) {
-      return data.data;
-    }
-  } catch {
-    // fallback below
-  }
-
-  // Fallback: fetch book page and extract TOC from embedded data
-  try {
-    const resp = await fetch(`${YUQUE_API.HOME_PAGE}/${namespace}`, {
-      headers: {
-        'x-requested-with': 'XMLHttpRequest',
-        'Referer': YUQUE_API.HOME_PAGE,
-      },
-      credentials: 'include',
-      signal: getAbortSignal()
-    });
-    const html = await resp.text();
-    const match = /decodeURIComponent\("(.+?)"\)/.exec(html);
-    if (match) {
-      const jsonStr = decodeURIComponent(match[1]);
-      const pageData = JSON.parse(jsonStr);
-      if (pageData.book && Array.isArray(pageData.book.toc)) {
-        return pageData.book.toc;
-      }
-    }
-  } catch {
-    // fallback failed
-  }
-
-  return [];
-}
-
-/**
- * Resolve the REAL document type from API response fields.
- * The /api/docs endpoint returns type="Doc" for ALL entries.
- * Real type must be inferred from format, sub_type, or slug patterns.
- */
-function resolveDocType(doc) {
-  const format = (doc.format || '').toLowerCase();
-  const subType = (doc.sub_type || '').toLowerCase();
-  const type = (doc.type || '').toLowerCase();
-  const slug = (doc.slug || '').toLowerCase();
-
-  // Check format field (most reliable)
-  if (format === 'lakeboard' || format === 'board') return DOC_TYPES.BOARD;
-  if (format === 'lakesheet' || format === 'sheet') return DOC_TYPES.SHEET;
-  if (format === 'laketable' || format === 'table') return DOC_TYPES.TABLE;
-
-  // Check sub_type field
-  if (subType === 'board' || subType === 'lakeboard') return DOC_TYPES.BOARD;
-  if (subType === 'sheet' || subType === 'lakesheet') return DOC_TYPES.SHEET;
-  if (subType === 'table' || subType === 'laketable') return DOC_TYPES.TABLE;
-
-  // Check type field (sometimes it's correct)
-  if (type === 'sheet') return DOC_TYPES.SHEET;
-  if (type === 'board') return DOC_TYPES.BOARD;
-  if (type === 'table') return DOC_TYPES.TABLE;
-
-  // Default: standard document
-  return DOC_TYPES.DOC;
-}
-
-/**
- * Build a flat document list by merging TOC (for folder paths) with /api/docs (for real doc types).
- *
- * CRITICAL: TOC node.type is always "DOC" for all document entries — it does NOT distinguish
- * Sheet/Board/Table. The REAL doc type comes from /api/docs?book_id= response (doc.type field).
- * We MUST use /api/docs to get the actual type, then merge with TOC for folder paths.
- */
-export async function buildDocListFromToc(toc, bookName, bookId) {
-  const files = [];
-  const folderSet = new Set();
-
-  // Step 1: Fetch real doc types from /api/docs
-  // CRITICAL: TOC type is always "DOC" — real type (Doc/Sheet/Board/Table) comes from this API
-  let realDocTypes = new Map();
-  if (bookId) {
-    try {
-      const docs = await fetchBookDocs(bookId);
-      docs.forEach(doc => {
-        console.log(`[YuqueOut] doc id=${doc.id}(${typeof doc.id}), type="${doc.type}", format="${doc.format}", title="${doc.title}"`);
-        const realType = resolveDocType(doc);
-        // Store with both number and string key to handle type mismatch
-        realDocTypes.set(doc.id, realType);
-        realDocTypes.set(String(doc.id), realType);
-      });
-      console.log(`[YuqueOut] realDocTypes size: ${realDocTypes.size}`);
-    } catch (e) {
-      console.warn('[YuqueOut] Failed to fetch doc types:', e);
-    }
-  }
-
-  // Step 2: Build uuid -> node map for folder path resolution
-  const nodeMap = new Map();
-  toc.forEach(node => { nodeMap.set(node.uuid, node); });
-
-  const getPath = (node) => {
-    const parts = [];
-    let current = node;
-    while (current && current.parent_uuid && current.parent_uuid !== '') {
-      const parent = nodeMap.get(current.parent_uuid);
-      if (parent && parent.type === 'TITLE') {
-        parts.unshift(sanitizePathComponent(parent.title) || '未命名文件夹');
-        folderSet.add(parent.uuid);
-      }
-      current = parent;
-    }
-    return parts.join('/');
-  };
-
-  // Step 3: Build file list, using REAL type from /api/docs
-  toc.forEach(node => {
-    // TOC type "DOC" means it's a document entry (not a folder "TITLE")
-    if (node.type !== 'DOC' || !(node.url || node.slug)) return;
-
-    const docId = node.doc_id || node.id;
-    // Try both number and string lookups
-    const realType = realDocTypes.get(docId) || realDocTypes.get(String(docId)) || realDocTypes.get(Number(docId)) || DOC_TYPES.DOC;
-    console.log(`[YuqueOut] TOC node: docId=${docId}(${typeof docId}), resolved=${realType}, title="${node.title}"`);
-
-    if (!SUPPORTED_DOC_TYPES.has(realType)) return;
-
-    files.push({
-      id: docId,
-      slug: node.url || node.slug,
-      title: node.title || '未命名文档',
-      docType: realType,  // REAL type from API, not TOC
-      folderPath: getPath(node),
-      status: 'pending',
-      localPath: '',
-    });
-  });
-
-  return { files, folderCount: folderSet.size };
-}
-
-/**
- * Build a flat document list from /api/docs response (no folder structure).
- * Fallback when TOC is unavailable.
+ * Build a flat document list from /api/docs?book_id= response.
+ * The API returns the real doc type directly (Doc/Sheet/Board/Table).
  */
 export function buildDocListFromApiDocs(docs) {
   const files = [];
   docs.forEach(doc => {
-    const docType = resolveDocType(doc);
+    const docType = doc.type || DOC_TYPES.DOC;
     if (!SUPPORTED_DOC_TYPES.has(docType)) return;
     files.push({
       id: doc.id,
       slug: doc.slug,
       title: doc.title || '未命名文档',
-      docType: docType,
+      docType,
       folderPath: '',
       status: 'pending',
       localPath: '',
@@ -289,17 +142,6 @@ export function buildDocListFromApiDocs(docs) {
     });
   });
   return { files, folderCount: 0 };
-}
-
-/**
- * Get a single document's detail.
- * Uses /api/docs/{slug}?book_id={bookId}&mode=markdown for Markdown source.
- * Uses /api/docs/{slug}?book_id={bookId}&merge_dynamic_data=false for HTML.
- */
-export async function fetchDocDetail(bookId, docSlug, options = {}) {
-  const mode = options.markdown ? '&mode=markdown' : '';
-  const data = await fetchYuqueAPI(`/docs/${docSlug}?book_id=${bookId}&merge_dynamic_data=false${mode}`);
-  return data.data || {};
 }
 
 // ═══════════════════════════════════════════
@@ -389,7 +231,6 @@ export async function exportDocAsync(docId, docType, exportFormat) {
   }
 
   const exportUrl = `${YUQUE_API.BASE}/docs/${docId}/export`;
-  console.log(`[YuqueOut] POST ${exportUrl}`, JSON.stringify(body), `csrf="${csrfToken}"`);
 
   let resp;
   try {
@@ -405,11 +246,9 @@ export async function exportDocAsync(docId, docType, exportFormat) {
       body: JSON.stringify(body),
     });
   } catch (fetchErr) {
-    console.error(`[YuqueOut] fetch error:`, fetchErr);
     throw new Error(`导出请求网络错误: ${fetchErr.message}`);
   }
 
-  console.log(`[YuqueOut] POST response: ${resp.status}`);
 
   if (resp.status === 401 || resp.status === 403) {
     cachedCsrfToken = null;
@@ -419,11 +258,10 @@ export async function exportDocAsync(docId, docType, exportFormat) {
     // 422 means our type param is wrong for this doc type.
     // Parse error to find accepted types and auto-retry with first valid one.
     const errJson = await resp.json().catch(() => null);
-    console.error(`[YuqueOut] Export 422:`, JSON.stringify(errJson));
 
     const acceptedTypes = parseAcceptedTypes(errJson);
     if (acceptedTypes.length > 0) {
-      console.log(`[YuqueOut] 422 auto-retry with accepted type: "${acceptedTypes[0]}"`);
+
       const retryBody = { ...body, type: acceptedTypes[0] };
       if (EXPORT_OPTIONS[acceptedTypes[0]]) retryBody.options = EXPORT_OPTIONS[acceptedTypes[0]];
       else delete retryBody.options;
@@ -454,7 +292,6 @@ export async function exportDocAsync(docId, docType, exportFormat) {
     // 422 retry with pending result — skip to polling
   } else if (!resp.ok) {
     const errText = await resp.text().catch(() => '');
-    console.error(`[YuqueOut] Export API error: ${resp.status}`, errText);
     throw new Error(`导出请求失败: HTTP ${resp.status}`);
   } else {
     // Normal 200 response
@@ -505,18 +342,22 @@ export async function exportDocAsync(docId, docType, exportFormat) {
  * Download the exported file from the URL returned by the export API.
  */
 async function downloadExportedFile(url) {
-  console.log(`[YuqueOut] Downloading exported file: ${url}`);
-  // For yuque.com URLs: use credentials (may need cookie for auth)
-  // For non-yuque URLs or /attachments/ paths that redirect to OSS: no credentials
-  // because OSS returns Access-Control-Allow-Origin:* which conflicts with credentials:include
   const isYuqueDirectUrl = url.includes('yuque.com/') && !url.includes('/attachments/__temp/');
-  const fetchOpts = { headers: { 'Referer': 'https://www.yuque.com/' } };
-  if (isYuqueDirectUrl) fetchOpts.credentials = 'include';
 
-  const resp = await fetch(url, fetchOpts);
-  if (!resp.ok) throw new Error(`下载导出文件失败: HTTP ${resp.status}`);
-  const blob = await resp.blob();
-  return { url, blob };
+  if (isYuqueDirectUrl) {
+    // Yuque direct URLs (e.g. markdown export) need cookie auth → fetch as blob
+    const resp = await fetch(url, {
+      headers: { 'Referer': 'https://www.yuque.com/' },
+      credentials: 'include',
+    });
+    if (!resp.ok) throw new Error(`下载导出文件失败: HTTP ${resp.status}`);
+    const blob = await resp.blob();
+    return { url, blob };
+  }
+
+  // External URLs (OSS etc.) have CORS restrictions → use directUrl mode
+  // Return url only, let exporter use chrome.downloads.download() directly
+  return { url, blob: null, directUrl: true };
 }
 
 /**
@@ -562,25 +403,6 @@ async function fetchYuqueAPI(path, retries = 3) {
       await new Promise(r => setTimeout(r, 1000 * (i + 1)));
     }
   }
-}
-
-/**
- * Raw fetch for specific URLs (e.g., v2 API).
- */
-async function fetchYuqueRaw(url) {
-  await throttle.wait();
-  const resp = await fetch(url, {
-    headers: {
-      'Accept': 'application/json',
-      'x-requested-with': 'XMLHttpRequest',
-      'Referer': 'https://www.yuque.com/',
-    },
-    credentials: 'include',
-    signal: getAbortSignal()
-  });
-  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-  throttle.onSuccess();
-  return await resp.json();
 }
 
 /**

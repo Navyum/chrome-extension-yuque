@@ -1,7 +1,7 @@
 import { exportState, resetExportState, saveState } from './state.js';
 import { sendLog, sendProgress, sendComplete, sendError } from './messaging.js';
-import { checkAuth, fetchAllBooks, fetchBookToc, fetchBookDocs, buildDocListFromToc, buildDocListFromApiDocs, exportDocAsync, downloadImage, resetThrottle } from './yuque.js';
-import { saveBlobToDisk, saveContentToDisk } from './downloads.js';
+import { checkAuth, fetchAllBooks, fetchBookDocs, buildDocListFromApiDocs, exportDocAsync, downloadImage, resetThrottle } from './yuque.js';
+import { saveBlobToDisk, saveContentToDisk, downloadUrlToDisk } from './downloads.js';
 import { delay, sanitizePathComponent, sanitizePathSegments, guessImageExt } from './utils.js';
 import { refreshAbortController, abortActiveTasks } from './task-controller.js';
 import { EXPORT_FORMATS, DEFAULT_SETTINGS, DOC_TYPES, DOC_TYPE_EXPORT_OPTIONS, SMART_EXPORT_KEY } from './constants.js';
@@ -101,17 +101,9 @@ async function handleGetFileInfo(data, sendResponse) {
       const book = exportState.bookList.find(b => b.id === bookId);
       if (!book) continue;
 
-      sendLog(`获取知识库「${book.name}」的文档目录...`);
-      let files, folderCount;
-
-      const toc = await fetchBookToc(book.namespace);
-      if (toc.length > 0) {
-        ({ files, folderCount } = await buildDocListFromToc(toc, book.name, book.id));
-      } else {
-        sendLog(`  TOC 不可用，使用文档列表 API...`);
-        const docs = await fetchBookDocs(book.id);
-        ({ files, folderCount } = buildDocListFromApiDocs(docs));
-      }
+      sendLog(`获取知识库「${book.name}」的文档列表...`);
+      const docs = await fetchBookDocs(book.id);
+      const { files, folderCount } = buildDocListFromApiDocs(docs);
 
       files.forEach(f => {
         f.bookId = book.id;
@@ -303,20 +295,21 @@ async function exportFiles() {
           sendLog(`  类型: ${docType} → ${format.label}`);
 
           // Use async export API for all types
-          const { blob } = await exportDocAsync(file.id, docType, perTypeFormat);
+          const result = await exportDocAsync(file.id, docType, perTypeFormat);
+          const savedPath = buildFilePath(file, format.extension);
 
-          let savedPath;
-
-          // For Markdown: optionally download images to local and replace URLs
-          if (perTypeFormat === 'md' && exportState.downloadImages) {
-            const mdText = await blob.text();
+          if (result.directUrl) {
+            // External URL (OSS) — use chrome.downloads directly to bypass CORS
+            await downloadUrlToDisk(result.url, savedPath);
+          } else if (perTypeFormat === 'md' && exportState.downloadImages && result.blob) {
+            // Markdown with image localization
+            const mdText = await result.blob.text();
             const { localizedMd, imageCount } = await localizeMarkdownImages(mdText, file);
-            savedPath = buildFilePath(file, format.extension);
             await saveContentToDisk(localizedMd, file, format.extension, 'text/markdown');
             if (imageCount > 0) sendLog(`  图片本地化: ${imageCount} 张`);
-          } else {
-            savedPath = buildFilePath(file, format.extension);
-            await saveBlobToDisk(blob, savedPath);
+          } else if (result.blob) {
+            // Yuque direct URL — already fetched as blob
+            await saveBlobToDisk(result.blob, savedPath);
           }
 
           file.status = 'success';
@@ -411,7 +404,6 @@ async function localizeMarkdownImages(mdText, file) {
         await saveBlobToDisk(blob, downloadPath);
         localizedMd = localizedMd.replace(img.fullMatch, `![${img.alt}](${localName})`);
       } catch (e) {
-        console.warn(`[YuqueOut] Image download failed: ${img.url}`, e);
       }
     }
   });

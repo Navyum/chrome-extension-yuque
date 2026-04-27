@@ -103,7 +103,7 @@
   "settingsDownloadAttachments": { "message": "Download Attachments" },
   "settingsIncremental": { "message": "Incremental Export" },
   "settingsAutoBackup": { "message": "Scheduled Backup" },
-  "settingsAuthTip": { "message": "<strong>Authentication:</strong> Just stay logged in to yuque.com — the extension reads cookies automatically. No token configuration needed." },
+  "settingsAuthTip": { "message": "Authentication: Just stay logged in to yuque.com — the extension reads cookies automatically. No token configuration needed." },
   "disclaimerTitle": { "message": "Disclaimer" },
   "disclaimer1": { "message": "This extension is an independent open-source project, not affiliated with Yuque (yuque.com) in any way." },
   "disclaimer2": { "message": "Only for exporting and backing up content you have authorized access to. Do not use for unauthorized data collection." },

@@ -385,7 +385,6 @@ export function toggleSponsorModal(shouldShow) {
     sponsorModal.classList.add('is-visible');
     document.body.classList.add('modal-open');
     if (mainContainer) mainContainer.setAttribute('inert', '');
-    setTimeout(() => sponsorModalClose?.focus(), 50);
   } else {
     // Move focus out BEFORE hiding to avoid aria-hidden conflict
     sponsorModalClose?.blur();
