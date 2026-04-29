@@ -355,3 +355,120 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* ── Icon Select Component ── */
+
+.icon-select {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+.icon-select.is-open {
+  z-index: 100;
+}
+.form-card:has(.icon-select.is-open) {
+  z-index: 10;
+}
+
+.icon-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--surface-1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-size: 0.88rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.icon-select-trigger:hover {
+  border-color: var(--primary);
+}
+.icon-select.is-open .icon-select-trigger {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.icon-select-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon-select-display .opt-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.icon-select-arrow {
+  flex-shrink: 0;
+  color: var(--primary);
+  transition: transform 0.2s ease;
+}
+.icon-select.is-open .icon-select-arrow {
+  transform: rotate(180deg);
+}
+
+.icon-select-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: #121230;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  padding: 4px 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.icon-select.is-open .icon-select-dropdown {
+  display: block;
+}
+
+.icon-select-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--text-1);
+  transition: background 0.15s ease;
+}
+.icon-select-option .opt-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.icon-select-option:hover {
+  background: rgba(139, 92, 246, 0.08);
+}
+.icon-select-option.is-selected {
+  background: rgba(139, 92, 246, 0.12);
+  font-weight: 500;
+}
+
+.engine-fixed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--surface-1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-size: 0.88rem;
+  opacity: 0.7;
+}
+.engine-fixed .opt-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}

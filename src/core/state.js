@@ -13,6 +13,8 @@ function createInitialState() {
     logs: [],
     // User info
     userInfo: null,     // { id, login, name, avatar_url }
+    // Encrypted bookmark items pending password
+    encryptedItems: [], // { type:'book'|'doc', id, title, bookId?, bookName }
   };
 }
 
@@ -31,9 +33,9 @@ export function resetExportState() {
 export { exportState };
 
 export async function saveState() {
-  await chrome.storage.local.set({ exportState });
+  const payload = { exportState };
   if (exportState.fileList && exportState.fileList.length > 0) {
-    await chrome.storage.local.set({
+    Object.assign(payload, {
       fileInfo: {
         totalFiles: exportState.totalFiles,
         folderCount: exportState.folderCount || 0,
@@ -44,6 +46,7 @@ export async function saveState() {
       folderCount: exportState.folderCount || 0
     });
   }
+  await chrome.storage.local.set(payload);
 }
 
 export async function loadState() {

@@ -2,6 +2,7 @@ import { domRefs } from './dom.js';
 import { uiState, updateUiState } from './state.js';
 import { START_BUTTON_DEFAULT_TEXT } from './constants.js';
 import { i18n } from './i18n.js';
+import { BOOKMARKS_VIRTUAL_BOOK_ID, BOOKMARKS_VIRTUAL_BOOK_NAME } from '../core/constants.js';
 
 const STATUS_ICONS = { success: '🎉', error: '⚠️', info: 'ℹ️' };
 let statusHideTimer = null;
@@ -58,7 +59,21 @@ export function renderBookDropdown(books) {
   const personalBooks = books.filter(b => b.type === 'personal');
   const collabBooks = books.filter(b => b.type === 'collab');
 
+  // "Select All" as the first item in the dropdown
+  appendSelectAllOption(bookSelectOptions);
+
+  // Bookmarks virtual entry
+  appendGroupHeader(bookSelectOptions, BOOKMARKS_VIRTUAL_BOOK_NAME);
+  appendBookOption(bookSelectOptions, {
+    id: BOOKMARKS_VIRTUAL_BOOK_ID,
+    name: '我的收藏',
+    docs_count: null,
+    groupName: '',
+    _isBookmark: true,
+  });
+
   if (personalBooks.length) {
+    appendGroupHeader(bookSelectOptions, '个人知识库');
     personalBooks.forEach(b => appendBookOption(bookSelectOptions, b));
   }
   if (collabBooks.length) {
@@ -73,21 +88,11 @@ export function renderBookDropdown(books) {
     bookSelectOptions.appendChild(empty);
   }
 
-  // Default: select all books
-  bookSelectOptions.querySelectorAll('.book-option-button').forEach(btn => {
-    if (btn._bookId && !selectedBookIdSet.has(btn._bookId)) {
-      const cb = btn.querySelector('.book-option-cb');
-      if (cb) { cb.checked = true; btn.classList.add('is-checked'); selectedBookIdSet.add(btn._bookId); }
-    }
-  });
-
+  // Default: select all (including bookmarks)
+  toggleAllBooks(true);
   updateBookDropdownLabel();
   updateSelectedCount();
   saveBookSelection();
-
-  // Sync select-all checkbox
-  const { selectAllCheckbox } = domRefs;
-  if (selectAllCheckbox) selectAllCheckbox.checked = true;
 
   // Setup trigger click (once)
   if (bookSelectTrigger && !bookSelectTrigger._bound) {
@@ -113,6 +118,71 @@ function appendGroupHeader(container, label) {
   container.appendChild(li);
 }
 
+function appendSelectAllOption(container) {
+  const li = document.createElement('li');
+  li.className = 'select-option-item select-all-item';
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'book-option-button';
+
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.className = 'book-option-cb select-all-cb';
+  cb.checked = true; // default all selected
+
+  const info = document.createElement('div');
+  info.className = 'book-option-info';
+  const nameSpan = document.createElement('span');
+  nameSpan.className = 'book-option-name';
+  nameSpan.style.fontWeight = '600';
+  nameSpan.textContent = '全选';
+  info.appendChild(nameSpan);
+
+  btn.appendChild(cb);
+  btn.appendChild(info);
+  li.appendChild(btn);
+  container.appendChild(li);
+
+  // Separator after select-all
+  const sep = document.createElement('li');
+  sep.className = 'book-option-group-header';
+  sep.style.borderBottom = '1px solid var(--border-primary)';
+  sep.style.padding = '0';
+  sep.style.margin = '2px 0';
+  container.appendChild(sep);
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    cb.checked = !cb.checked;
+    btn.classList.toggle('is-checked', cb.checked);
+    toggleAllBooks(cb.checked);
+    updateBookDropdownLabel();
+    updateSelectedCount();
+    saveBookSelection();
+  });
+}
+
+/**
+ * Toggle all book checkboxes on/off.
+ */
+function toggleAllBooks(checked) {
+  const { bookSelectOptions } = domRefs;
+  if (!bookSelectOptions) return;
+  bookSelectOptions.querySelectorAll('.book-option-button').forEach(btn => {
+    if (!btn._bookId) return; // skip select-all itself
+    const cb = btn.querySelector('.book-option-cb');
+    if (!cb) return;
+    if (cb.checked !== checked) {
+      cb.checked = checked;
+      btn.classList.toggle('is-checked', checked);
+      if (checked) selectedBookIdSet.add(btn._bookId);
+      else selectedBookIdSet.delete(btn._bookId);
+    }
+  });
+}
+
 function appendBookOption(container, book) {
   const li = document.createElement('li');
   li.className = 'select-option-item';
@@ -133,7 +203,9 @@ function appendBookOption(container, book) {
   nameSpan.textContent = book.name;
   const metaSpan = document.createElement('span');
   metaSpan.className = 'book-option-meta';
-  metaSpan.textContent = `${book.docs_count || 0} 篇${book.groupName ? ' · ' + book.groupName : ''}`;
+  metaSpan.textContent = book._isBookmark
+    ? '收藏的文档和知识库'
+    : `${book.docs_count || 0} 篇${book.groupName ? ' · ' + book.groupName : ''}`;
   info.appendChild(nameSpan);
   info.appendChild(metaSpan);
 
@@ -152,6 +224,7 @@ function appendBookOption(container, book) {
     else selectedBookIdSet.delete(book.id);
     updateBookDropdownLabel();
     updateSelectedCount();
+    syncSelectAllCheckbox();
     saveBookSelection();
   });
 }
@@ -186,8 +259,13 @@ function updateBookDropdownLabel() {
   if (!bookSelectLabel) return;
   const count = selectedBookIdSet.size;
   const hasBooks = bookSelectOptions && bookSelectOptions.querySelector('.book-option-button');
+  const hasBookmark = selectedBookIdSet.has(BOOKMARKS_VIRTUAL_BOOK_ID);
+  const bookCount = hasBookmark ? count - 1 : count;
   if (count > 0) {
-    bookSelectLabel.textContent = `已选 ${count} 个知识库`;
+    const parts = [];
+    if (bookCount > 0) parts.push(`${bookCount} 个知识库`);
+    if (hasBookmark) parts.push('收藏');
+    bookSelectLabel.textContent = `已选 ${parts.join(' + ')}`;
   } else if (hasBooks) {
     bookSelectLabel.textContent = '请选择知识库...';
   } else {
@@ -241,6 +319,23 @@ function updateSelectedCount() {
   if (getInfoBtn && !uiState.isExporting) {
     getInfoBtn.disabled = selectedIds.length === 0;
   }
+}
+
+/**
+ * Sync the "select all" checkbox in dropdown based on individual selections.
+ */
+function syncSelectAllCheckbox() {
+  const { bookSelectOptions } = domRefs;
+  if (!bookSelectOptions) return;
+  const selectAllCb = bookSelectOptions.querySelector('.select-all-cb');
+  if (!selectAllCb) return;
+  // Check only book checkboxes (not the select-all itself)
+  const bookCbs = Array.from(bookSelectOptions.querySelectorAll('.book-option-cb:not(.select-all-cb)'));
+  if (!bookCbs.length) return;
+  const allChecked = bookCbs.every(cb => cb.checked);
+  selectAllCb.checked = allChecked;
+  const selectAllBtn = selectAllCb.closest('.book-option-button');
+  if (selectAllBtn) selectAllBtn.classList.toggle('is-checked', allChecked);
 }
 
 // ── Sync UI ──
@@ -304,17 +399,8 @@ export function syncUiWithState(state) {
     if (!nextFileInfo && progressBar) progressBar.style.display = 'none';
   }
 
-  if (state.logs && state.logs.length > 0 && logContainer) {
-    const placeholder = logContainer.querySelector('.log-placeholder');
-    if (placeholder) logContainer.innerHTML = '';
-    logContainer.innerHTML = '';
-    state.logs.forEach(log => {
-      const logEntry = document.createElement('div');
-      logEntry.className = 'log-entry';
-      logEntry.textContent = log;
-      logContainer.appendChild(logEntry);
-    });
-    logContainer.scrollTop = logContainer.scrollHeight;
+  if (logContainer && state.logs && state.logs.length > 0) {
+    renderLogs(mergeLogs(state.logs));
   }
 }
 
@@ -359,14 +445,8 @@ export function showStatus(message, type = 'info') {
 export function addLog(message) {
   const { logContainer } = domRefs;
   if (!logContainer) return;
-  const placeholder = logContainer.querySelector('.log-placeholder');
-  if (placeholder) logContainer.innerHTML = '';
-  const logEntry = document.createElement('div');
-  logEntry.className = 'log-entry';
   const content = message.startsWith('[') ? message : `[${new Date().toLocaleTimeString()}] ${message}`;
-  logEntry.textContent = content;
-  logContainer.appendChild(logEntry);
-  logContainer.scrollTop = logContainer.scrollHeight;
+  renderLogs(mergeLogs([content]));
 }
 
 export function updateProgress(exported, total) {
@@ -377,24 +457,61 @@ export function updateProgress(exported, total) {
   progressText.textContent = `${exported}/${total} (${percentage}%)`;
 }
 
+function readRenderedLogs(logContainer) {
+  return Array.from(logContainer.querySelectorAll('.log-entry'))
+    .map(entry => entry.textContent)
+    .filter(Boolean);
+}
+
+function mergeLogs(incomingLogs = []) {
+  const { logContainer } = domRefs;
+  const existingLogs = logContainer ? readRenderedLogs(logContainer) : [];
+  const mergedLogs = [...existingLogs];
+  const seen = new Set(existingLogs);
+
+  incomingLogs.forEach(log => {
+    if (!log || seen.has(log)) return;
+    seen.add(log);
+    mergedLogs.push(log);
+  });
+
+  return mergedLogs;
+}
+
+function renderLogs(logs = []) {
+  const { logContainer } = domRefs;
+  if (!logContainer) return;
+
+  const placeholder = logContainer.querySelector('.log-placeholder');
+  if (placeholder) logContainer.innerHTML = '';
+  if (!logs.length) return;
+
+  logContainer.innerHTML = '';
+  logs.forEach(log => {
+    const logEntry = document.createElement('div');
+    logEntry.className = 'log-entry';
+    logEntry.textContent = log;
+    logContainer.appendChild(logEntry);
+  });
+  logContainer.scrollTop = logContainer.scrollHeight;
+}
+
 export function toggleSponsorModal(shouldShow) {
   const { sponsorModal, mainContainer, sponsorModalClose, sponsorBtn } = domRefs;
   if (!sponsorModal) return;
   if (shouldShow) {
-    sponsorModal.removeAttribute('aria-hidden');
+    sponsorModal.removeAttribute('inert');
     sponsorModal.classList.add('is-visible');
     document.body.classList.add('modal-open');
     if (mainContainer) mainContainer.setAttribute('inert', '');
   } else {
-    // Move focus out BEFORE hiding to avoid aria-hidden conflict
     sponsorModalClose?.blur();
     if (sponsorBtn) sponsorBtn.focus();
     else if (mainContainer) mainContainer.focus();
     if (mainContainer) mainContainer.removeAttribute('inert');
     document.body.classList.remove('modal-open');
     sponsorModal.classList.remove('is-visible');
-    // Delay aria-hidden until after transition
-    setTimeout(() => { sponsorModal.setAttribute('aria-hidden', 'true'); }, 300);
+    setTimeout(() => { sponsorModal.setAttribute('inert', ''); }, 300);
   }
 }
 

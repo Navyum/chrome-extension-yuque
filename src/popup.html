@@ -54,12 +54,8 @@
       </div>
     </div>
 
-    <!-- Selection summary -->
+    <!-- Selection summary (updated by JS) -->
     <div class="selection-bar" id="selectionBar">
-      <label class="select-all-label">
-        <input id="selectAll" type="checkbox" class="select-all-checkbox">
-        <span data-i18n="selectAll">全选</span>
-      </label>
       <span class="selection-summary">
         <span data-i18n="selectedLabel">已选:</span>
         <span id="selectedCount" class="selection-count">0</span>
@@ -142,8 +138,29 @@
     </div>
   </div>
 
+  <!-- Password Modal (for encrypted bookmarks) -->
+  <div id="passwordModal" class="password-modal" inert>
+    <div class="password-modal-card" role="dialog" aria-modal="true" aria-labelledby="passwordTitle">
+      <button id="passwordModalClose" class="sponsor-modal-close" aria-label="关闭">&times;</button>
+      <div class="password-modal-header">
+        <h3 id="passwordTitle">输入密码</h3>
+        <p class="password-item-label">当前需要密码的内容</p>
+        <p id="passwordItemName" class="password-item-name"></p>
+      </div>
+      <div class="password-modal-body">
+        <input id="passwordInput" type="password" maxlength="4" placeholder="请输入4位密码" class="password-input" autocomplete="off">
+        <p id="passwordError" class="password-error" style="display:none;"></p>
+        <div class="password-actions">
+          <button id="passwordSubmitBtn" type="button" class="btn btn-primary password-btn">确认</button>
+          <button id="passwordSkipBtn" type="button" class="btn password-btn password-skip-btn">跳过</button>
+        </div>
+        <p id="passwordRemaining" class="password-remaining"></p>
+      </div>
+    </div>
+  </div>
+
   <!-- Sponsor Modal -->
-  <div id="sponsorModal" class="sponsor-modal" aria-hidden="true">
+  <div id="sponsorModal" class="sponsor-modal" inert>
     <div class="sponsor-modal-card" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
       <button id="sponsorModalClose" class="sponsor-modal-close" aria-label="关闭">&times;</button>
       <div class="sponsor-modal-header">

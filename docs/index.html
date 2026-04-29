@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="YuqueOut 语雀导出助手 - 一键批量导出语雀知识库到本地。支持 Markdown, HTML 格式，完美保留知识库目录结构。">
-    <meta name="keywords" content="语雀知识库导出,语雀知识库批量导出,语雀知识库备份,语雀知识库转Markdown,语雀知识库转PDF,YuqueOut 语雀导出助手">
+    <meta name="description" content="YuqueOut 语雀导出助手 - 一键批量导出语雀知识库到本地。支持收藏导出、表格多格式、画板导出图片，Markdown/Word/PDF/Excel/CSV/PNG/SVG 全格式覆盖。">
+    <meta name="keywords" content="语雀知识库导出,语雀收藏导出,语雀表格导出CSV,语雀画板导出图片,语雀知识库批量导出,语雀知识库备份,语雀知识库转Markdown,YuqueOut">
     <meta name="author" content="YuqueOut 语雀导出助手">
     <link rel="canonical" href="https://yuque.toolab.top/">
     <meta name="robots" content="index, follow">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="YuqueOut 语雀导出助手">
     <meta property="og:title" content="YuqueOut 语雀导出助手 – 一键批量导出语雀知识库到本地">
-    <meta property="og:description" content="从语雀知识库批量导出文件到本地，支持 Markdown/HTML 格式，保留知识库目录结构。">
+    <meta property="og:description" content="从语雀批量导出知识库、收藏、画板到本地。支持 Markdown/Word/PDF/Excel/CSV/PNG/SVG，双引擎架构，官方不支持的也能导。">
     <meta property="og:url" content="https://yuque.toolab.top/">
     <meta property="og:image" content="https://yuque.toolab.top/images/feat1.png">
     <meta property="og:image:width" content="1280">
@@ -23,7 +23,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="YuqueOut 语雀导出助手 – 一键批量导出语雀知识库到本地">
-    <meta name="twitter:description" content="从语雀知识库批量导出文件到本地，支持多种导出格式，保留知识库目录结构。">
+    <meta name="twitter:description" content="从语雀批量导出知识库、收藏、画板到本地。双引擎架构，支持 9 种导出格式，官方不支持的也能导。">
     <meta name="twitter:image" content="https://yuque.toolab.top/images/feat1.png">
 
     <meta name="theme-color" content="#060b22">
@@ -48,13 +48,16 @@
         "price": "0",
         "priceCurrency": "CNY"
       },
-      "description": "从语雀知识库批量导出文件到本地，支持 Markdown/HTML 格式，保留知识库目录结构。",
+      "description": "从语雀批量导出知识库、收藏、画板到本地，支持 Markdown/Word/PDF/Excel/CSV/PNG/SVG 等 9 种格式。",
       "featureList": [
-        "一键批量导出",
-        "保留知识库目录结构",
-        "支持 Markdown/HTML 导出",
-        "支持协作知识库导出",
-        "本地化处理，隐私安全"
+        "收藏批量导出（官方不支持）",
+        "表格多格式导出：Excel/CSV/Markdown/HTML",
+        "画板导出为 PNG/JPG/SVG（官方不支持）",
+        "加密文档导出",
+        "双引擎：本地转换 + 官方 API 可切换",
+        "图片本地化 + 目录结构保留",
+        "协作知识库导出",
+        "隐私安全，零数据上传"
       ],
       "screenshot": [
         "https://yuque.toolab.top/images/feat1.png",
@@ -120,8 +123,8 @@
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-content">
-                <h1 class="hero-title">语雀知识库批量导出<br/>从未如此简单</h1>
-                <p class="hero-subtitle">一键导出语雀知识库全量文件到本地。支持多格式导出，完美保留文件夹层级。免费、安全、高效。</p>
+                <h1 class="hero-title">语雀知识库批量导出<br/>官方做不到的，我们帮你搞定</h1>
+                <p class="hero-subtitle">收藏批量导出、表格多格式转换、画板导出图片 — 这些语雀官方不支持的能力，YuqueOut 全部搞定。9 种导出格式，双引擎架构，免费开源。</p>
                 <div class="hero-actions">
                     <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=official_website" target="_blank" class="hero-primary-button">
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
@@ -134,13 +137,13 @@
                         <span class="badge-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                         </span>
-                        <span><b>NEW:</b> 支持协作知识库和团队空间导出</span>
+                        <span><b>NEW:</b> 收藏批量导出 + 画板导出图片 + 表格 4 格式</span>
                     </div>
                     <div class="hero-badge">
                         <span class="badge-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="m16 6-4 4-4-4"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 18h.01"/><path d="M10 18h.01"/></svg>
                         </span>
-                        <span><b>HOT:</b> 图片本地化 + 增量导出 + 定时备份</span>
+                        <span><b>HOT:</b> 双引擎架构 — 本地转换 + 官方 API 可切换</span>
                     </div>
                 </div>
                 <div class="hero-features">
@@ -180,70 +183,73 @@
                 <p class="section-subtitle">为语雀用户打造的专业级导出与备份体验</p>
             </div>
             <div class="features-grid">
-                <!-- 1. Batch Export -->
+                <!-- 1. Bookmark Export -->
+                <div class="magic-bento-card" style="--glow-color: 255, 107, 107;">
+                    <div class="feature-badge">独有</div>
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">收藏批量导出</h3>
+                        <p class="magic-bento-card__description">语雀官方没有的功能。一键导出你收藏的文档和知识库，支持加密内容密码验证后导出。</p>
+                    </div>
+                </div>
+
+                <!-- 2. Sheet Multi-format -->
+                <div class="magic-bento-card" style="--glow-color: 255, 107, 107;">
+                    <div class="feature-badge">独有</div>
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">表格 4 种格式导出</h3>
+                        <p class="magic-bento-card__description">本地解压 Lakesheet 数据，支持 Excel、CSV、Markdown、HTML 四种格式。官方仅支持 Excel。</p>
+                    </div>
+                </div>
+
+                <!-- 3. Board Export -->
+                <div class="magic-bento-card" style="--glow-color: 255, 107, 107;">
+                    <div class="feature-badge">独有</div>
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="m9.75 9 2.25 3 2.25-3"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="magic-bento-card__title">画板导出为图片</h3>
+                        <p class="magic-bento-card__description">本地 SVG 渲染引擎，将画板/白板导出为 PNG、JPG、SVG。语雀官方 API 完全不支持此功能。</p>
+                    </div>
+                </div>
+
+                <!-- 4. Dual Engine -->
                 <div class="magic-bento-card" style="--glow-color: 102, 126, 234;">
                     <div class="feature-badge">New</div>
                     <div class="feature-icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                     </div>
                     <div class="feature-content">
-                        <h3 class="magic-bento-card__title">一键批量导出</h3>
-                        <p class="magic-bento-card__description">自动获取个人和协作知识库列表，下拉多选，一键批量导出。零配置，无需 Token。</p>
+                        <h3 class="magic-bento-card__title">双引擎架构</h3>
+                        <p class="magic-bento-card__description">本地转换引擎 + 官方 API 可切换。无导出权限的文档（收藏/协作）自动使用本地引擎，不受限制。</p>
                     </div>
                 </div>
 
-                <!-- 2. Structure Preserve -->
+                <!-- 5. 9 Formats -->
                 <div class="magic-bento-card" style="--glow-color: 132, 0, 255;">
-                    <div class="feature-icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="magic-bento-card__title">保留目录层级</h3>
-                        <p class="magic-bento-card__description">导出时自动保留知识库的原始目录层级结构，文件按文件夹分类存放，清晰有序。</p>
-                    </div>
-                </div>
-
-                <!-- 3. Multi-format Support -->
-                <div class="magic-bento-card" style="--glow-color: 102, 126, 234;">
                     <div class="feature-icon-wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                     </div>
                     <div class="feature-content">
-                        <h3 class="magic-bento-card__title">图片本地化</h3>
-                        <p class="magic-bento-card__description">支持导出为 Markdown、PDF、Word (Docx) 和 JPG 图片。满足不同场景下的备份、阅读和编辑需求。</p>
+                        <h3 class="magic-bento-card__title">9 种导出格式</h3>
+                        <p class="magic-bento-card__description">Markdown、Word、PDF、JPG、Excel、CSV、HTML、PNG、SVG。自动识别文档类型匹配最佳格式。</p>
                     </div>
                 </div>
 
-                <!-- 4. Team Space -->
-                <div class="magic-bento-card" style="--glow-color: 132, 0, 255;">
-                    <div class="feature-icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="magic-bento-card__title">增量导出 团队空间支持 备份</h3>
-                        <p class="magic-bento-card__description">支持个人知识库、协作知识库和团队空间。增量导出仅处理变更文档，定时备份自动运行。</p>
-                    </div>
-                </div>
-
-                <!-- 5. Offline & Privacy -->
+                <!-- 6. Privacy -->
                 <div class="magic-bento-card" style="--glow-color: 132, 0, 255;">
                     <div class="feature-icon-wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
                     </div>
                     <div class="feature-content">
-                        <h3 class="magic-bento-card__title">隐私安全</h3>
-                        <p class="magic-bento-card__description">所有操作 100% 在本地完成。不收集文档内容、不上传用户数据、不需要 API Token。</p>
-                    </div>
-                </div>
-
-                <!-- 6. Easy to Use -->
-                <div class="magic-bento-card" style="--glow-color: 102, 126, 234;">
-                    <div class="feature-icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="magic-bento-card__title">直觉化操作</h3>
-                        <p class="magic-bento-card__description">暗黑紫色主题 UI，操作直观。支持暂停/继续、失败重试、导出进度实时展示。</p>
+                        <h3 class="magic-bento-card__title">隐私安全 零配置</h3>
+                        <p class="magic-bento-card__description">100% 本地处理，零数据上传。自动读取登录态，无需 Token。保留目录层级，暂停/重试全支持。</p>
                     </div>
                 </div>
                 </div>
@@ -338,29 +344,29 @@
                     <div class="update-notification-bento-features">
                         <div class="update-notification-bento-feature">
                             <div class="update-notification-bento-feature-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
                             </div>
                             <div class="update-notification-bento-feature-text">
-                                <span class="update-notification-bento-feature-title">增量导出 团队空间支持 备份</span>
-                                <p class="update-notification-bento-feature-desc">现在可以轻松导出团队空间中的所有文档了。</p>
+                                <span class="update-notification-bento-feature-title">收藏批量导出 + 加密文档</span>
+                                <p class="update-notification-bento-feature-desc">一键导出收藏内容，支持加密文档密码验证后导出。</p>
                             </div>
                         </div>
                         <div class="update-notification-bento-feature">
                             <div class="update-notification-bento-feature-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
                             </div>
                             <div class="update-notification-bento-feature-text">
-                                <span class="update-notification-bento-feature-title">更稳定的导出</span>
-                                <p class="update-notification-bento-feature-desc">优化了导出引擎，处理大量文件时更加稳定。</p>
+                                <span class="update-notification-bento-feature-title">表格 + 画板本地转换引擎</span>
+                                <p class="update-notification-bento-feature-desc">表格支持 Excel/CSV/Markdown/HTML，画板支持 PNG/JPG/SVG 导出。</p>
                             </div>
                         </div>
                         <div class="update-notification-bento-feature">
                             <div class="update-notification-bento-feature-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                             </div>
                             <div class="update-notification-bento-feature-text">
-                                <span class="update-notification-bento-feature-title">重试机制</span>
-                                <p class="update-notification-bento-feature-desc">导出失败的文件现在可以一键重试，确保不漏掉任何文档。</p>
+                                <span class="update-notification-bento-feature-title">双引擎可切换</span>
+                                <p class="update-notification-bento-feature-desc">本地转换引擎 + 官方 API，可在设置中按文档类型独立切换。</p>
                             </div>
                         </div>
                     </div>

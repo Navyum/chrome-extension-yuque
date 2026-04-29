@@ -8,7 +8,8 @@
     "cookies",
     "storage",
     "downloads",
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "offscreen"
   ],
   "host_permissions": [
     "https://*.yuque.com/*",

@@ -1,7 +1,17 @@
 import { exportState } from './state.js';
 
+let lastProgressSentAt = 0;
+let lastProgressSnapshot = '';
+
 export function sendProgress() {
   const exportedCount = exportState.fileList.filter(file => file.status === 'success').length;
+  const snapshot = `${exportedCount}/${exportState.totalFiles}`;
+  const now = Date.now();
+  if (snapshot === lastProgressSnapshot && now - lastProgressSentAt < 500) {
+    return;
+  }
+  lastProgressSnapshot = snapshot;
+  lastProgressSentAt = now;
   sendMessageToPopup({
     action: 'exportProgress',
     data: {
@@ -12,10 +22,14 @@ export function sendProgress() {
 }
 
 export function sendComplete() {
+  lastProgressSnapshot = '';
+  lastProgressSentAt = 0;
   sendMessageToPopup({ action: 'exportComplete' });
 }
 
 export function sendError(error) {
+  lastProgressSnapshot = '';
+  lastProgressSentAt = 0;
   sendMessageToPopup({
     action: 'exportError',
     data: { error }

@@ -9,7 +9,8 @@ const config = {
   entry: {
     background: path.resolve(__dirname, 'src/background.js'),
     popup: path.resolve(__dirname, 'src/popup.js'),
-    settings: path.resolve(__dirname, 'src/settings.js')
+    settings: path.resolve(__dirname, 'src/settings.js'),
+    offscreen: path.resolve(__dirname, 'src/offscreen.js')
   },
   output: {
     filename: 'src/[name].js',
@@ -18,7 +19,14 @@ const config = {
   },
   devtool: isProduction ? false : 'source-map',
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js'],
+    // Disable "browser" field so turndown uses Node build with domino DOM parser
+    // (Service Worker has no `document` object)
+    aliasFields: [],
+    fallback: {
+      fs: false,
+      stream: false,
+    },
   },
   performance: {
     hints: false

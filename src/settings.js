@@ -3,12 +3,14 @@ import { applyI18n } from './ui/i18n.js';
 const SETTINGS_KEYS = [
   'subfolder', 'requestInterval',
   'downloadImages', 'imageConcurrency',
-  'docExportFormat', 'sheetExportFormat', 'tableExportFormat'
+  'docExportFormat', 'sheetExportFormat', 'tableExportFormat', 'boardExportFormat',
+  'skipEncryptedBookmarks', 'markdownMode', 'sheetMode'
 ];
 
 document.addEventListener('DOMContentLoaded', async () => {
   applyI18n();
   applyVersion();
+  initIconSelects();
   await loadSettings();
   bindNavigation();
   bindAutoSave();
@@ -24,13 +26,17 @@ function applyVersion() {
 async function loadSettings() {
   const data = await chrome.storage.local.get(SETTINGS_KEYS);
 
-  setVal('subfolder', data.subfolder || '');
+  setVal('subfolder', data.subfolder ?? '语雀备份');
   setVal('requestInterval', data.requestInterval || 500);
   setChecked('downloadImages', data.downloadImages !== false);
   setVal('imageConcurrency', data.imageConcurrency || 3);
   setVal('docExportFormat', data.docExportFormat || 'md');
   setVal('sheetExportFormat', data.sheetExportFormat || 'xlsx');
   setVal('tableExportFormat', data.tableExportFormat || 'xlsx');
+  setVal('boardExportFormat', data.boardExportFormat || 'png');
+  setChecked('skipEncryptedBookmarks', data.skipEncryptedBookmarks === true);
+  setVal('markdownMode', data.markdownMode || 'local');
+  setVal('sheetMode', data.sheetMode || 'local');
 }
 
 function bindNavigation() {
@@ -64,17 +70,75 @@ async function saveAllSettings() {
     docExportFormat: getVal('docExportFormat'),
     sheetExportFormat: getVal('sheetExportFormat'),
     tableExportFormat: getVal('tableExportFormat'),
+    boardExportFormat: getVal('boardExportFormat'),
+    skipEncryptedBookmarks: getChecked('skipEncryptedBookmarks'),
+    markdownMode: getVal('markdownMode') || 'local',
+    sheetMode: getVal('sheetMode') || 'local',
   };
 
   await chrome.storage.local.set(settings);
-
   showSaveToast();
 }
 
-function setVal(id, value) { const el = document.getElementById(id); if (el) el.value = value; }
+function setVal(id, value) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.value = value;
+  // Sync icon-select display if it's a hidden input inside one
+  const wrapper = el.closest('.icon-select');
+  if (wrapper) syncIconSelectDisplay(wrapper, value);
+}
 function getVal(id) { const el = document.getElementById(id); return el ? el.value : ''; }
 function setChecked(id, checked) { const el = document.getElementById(id); if (el) el.checked = checked; }
 function getChecked(id) { const el = document.getElementById(id); return el ? el.checked : false; }
+
+// ── Icon Select Component ──
+
+function initIconSelects() {
+  document.querySelectorAll('.icon-select').forEach(wrapper => {
+    const trigger = wrapper.querySelector('.icon-select-trigger');
+    const dropdown = wrapper.querySelector('.icon-select-dropdown');
+    const hiddenInput = wrapper.querySelector('input[type="hidden"]');
+
+    // Toggle dropdown
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeAllIconSelects();
+      wrapper.classList.toggle('is-open');
+    });
+
+    // Option click
+    dropdown.querySelectorAll('.icon-select-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const value = opt.dataset.value;
+        hiddenInput.value = value;
+        syncIconSelectDisplay(wrapper, value);
+        wrapper.classList.remove('is-open');
+        hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', closeAllIconSelects);
+}
+
+function syncIconSelectDisplay(wrapper, value) {
+  const display = wrapper.querySelector('.icon-select-display');
+  const options = wrapper.querySelectorAll('.icon-select-option');
+  options.forEach(opt => {
+    opt.classList.toggle('is-selected', opt.dataset.value === value);
+    if (opt.dataset.value === value) {
+      display.innerHTML = opt.innerHTML;
+    }
+  });
+}
+
+function closeAllIconSelects() {
+  document.querySelectorAll('.icon-select.is-open').forEach(s => s.classList.remove('is-open'));
+}
+
+// ── Utilities ──
 
 let toastEl = null;
 function showSaveToast() {
