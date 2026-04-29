@@ -4,7 +4,7 @@ const SETTINGS_KEYS = [
   'subfolder', 'requestInterval',
   'downloadImages', 'imageConcurrency',
   'docExportFormat', 'sheetExportFormat', 'tableExportFormat', 'boardExportFormat',
-  'skipEncryptedBookmarks', 'markdownMode', 'sheetMode'
+  'showBubble', 'skipEncryptedBookmarks', 'markdownMode', 'sheetMode'
 ];
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -34,6 +34,7 @@ async function loadSettings() {
   setVal('sheetExportFormat', data.sheetExportFormat || 'xlsx');
   setVal('tableExportFormat', data.tableExportFormat || 'xlsx');
   setVal('boardExportFormat', data.boardExportFormat || 'png');
+  setChecked('showBubble', data.showBubble !== false);
   setChecked('skipEncryptedBookmarks', data.skipEncryptedBookmarks === true);
   setVal('markdownMode', data.markdownMode || 'local');
   setVal('sheetMode', data.sheetMode || 'local');
@@ -71,6 +72,7 @@ async function saveAllSettings() {
     sheetExportFormat: getVal('sheetExportFormat'),
     tableExportFormat: getVal('tableExportFormat'),
     boardExportFormat: getVal('boardExportFormat'),
+    showBubble: getChecked('showBubble'),
     skipEncryptedBookmarks: getChecked('skipEncryptedBookmarks'),
     markdownMode: getVal('markdownMode') || 'local',
     sheetMode: getVal('sheetMode') || 'local',

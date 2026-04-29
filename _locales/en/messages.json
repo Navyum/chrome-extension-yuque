@@ -154,5 +154,21 @@
   "settingsSheetFormatDesc": { "message": "Export format for Yuque 'Sheet' and 'Table' types." },
   "settingsBoardFormat": { "message": "Board export format" },
   "settingsBoardFormatDesc": { "message": "Export format for Yuque 'Board' type." },
-  "formatHint": { "message": "Smart export: Doc→Markdown · Sheet/Table→Excel · Board→JPG (customizable in settings)" }
+  "formatHint": { "message": "Smart export: Doc→Markdown · Sheet/Table→Excel · Board→JPG (customizable in settings)" },
+  "cardQuickExport": { "message": "Quick Export" },
+  "showBubbleLabel": { "message": "Show floating bubble" },
+  "showBubbleDesc": { "message": "Display a draggable floating bubble on Yuque doc pages. Click to instantly export the current document. Format and directory follow settings above. Documents without export permission auto-convert to Markdown via local engine." },
+  "bubbleTooltip": { "message": "Click to export this doc" },
+  "cardConvertEngine": { "message": "Conversion Engine" },
+  "engineMarkdownLabel": { "message": "Markdown engine" },
+  "engineMarkdownDesc": { "message": "How to convert docs to Markdown. Local engine parses content directly — fast, no permission needed. Official API uses server-side export — more standard but may lack permission for others' docs." },
+  "engineSheetLabel": { "message": "Sheet engine" },
+  "engineSheetDesc": { "message": "How to convert Sheets. Local engine supports all 4 formats with no permission limits. Official API only supports xlsx and only for your own repos." },
+  "engineBoardLabel": { "message": "Board engine" },
+  "engineBoardDesc": { "message": "Board always uses local SVG rendering engine. Yuque's official API does not support exporting boards as images." },
+  "engineLocal": { "message": "Local engine (recommended)" },
+  "engineLocalSheet": { "message": "Local engine (recommended)" },
+  "engineLocalFixed": { "message": "Local engine (fixed)" },
+  "engineApi": { "message": "Official export API" },
+  "settingsBoardFormatDesc2": { "message": "Export format for Yuque Board/Whiteboard. Always uses local rendering engine." }
 }

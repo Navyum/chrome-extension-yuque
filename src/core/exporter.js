@@ -42,6 +42,12 @@ export function registerRuntimeHandlers() {
       case 'skipEncrypted':
         handleSkipEncrypted(message.data, sendResponse);
         return true;
+      case 'getPageDocInfo':
+        handleGetPageDocInfo(sender, sendResponse);
+        return true;
+      case 'quickExport':
+        handleQuickExport(message.data, sendResponse);
+        return true;
       default:
         return false;
     }
@@ -481,7 +487,7 @@ async function exportFiles() {
 /**
  * Parse Markdown text, download CDN images to local, replace URLs.
  */
-async function localizeMarkdownImages(mdText, file) {
+async function localizeMarkdownImages(mdText, file, imageBasePath, imageConcurrencyOverride, logFn = sendLog) {
   const cdnHosts = ['cdn.nlark.com', 'cdn.yuque.com', 'cdn-china-mainland.yuque.com'];
   const imgRegex = /!\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g;
   const images = [];
@@ -497,7 +503,7 @@ async function localizeMarkdownImages(mdText, file) {
   if (!images.length) return { localizedMd: mdText, imageCount: 0 };
 
   const concurrency = Math.min(
-    exportState.imageConcurrency || DEFAULT_SETTINGS.imageConcurrency,
+    imageConcurrencyOverride ?? exportState.imageConcurrency ?? DEFAULT_SETTINGS.imageConcurrency,
     3
   );
 
@@ -512,7 +518,9 @@ async function localizeMarkdownImages(mdText, file) {
       try {
         const ext = guessImageExt(task.url);
         const localName = `assets/${sanitizePathComponent(file.title)}-${task.idx}.${ext}`;
-        const downloadPath = buildImagePath(file, localName);
+        const downloadPath = imageBasePath !== undefined && imageBasePath !== null
+          ? (imageBasePath ? `${imageBasePath}/${localName}` : localName)
+          : buildImagePath(file, localName);
         const cleanUrl = task.url.replace(/x-oss-process=image%2Fwatermark%2C[^&]*/, '');
         let blob;
         try {
@@ -529,7 +537,7 @@ async function localizeMarkdownImages(mdText, file) {
 
         results.push({ fullMatch: task.fullMatch, alt: task.alt, localName });
       } catch (e) {
-        sendLog(`  图片下载失败: ${task.url.substring(0, 80)}... ${e.message}`);
+        logFn(`  图片下载失败: ${task.url.substring(0, 80)}... ${e.message}`);
       }
     }
   });
@@ -652,29 +660,44 @@ async function exportViaBoardContent(file, perTypeFormat) {
 /**
  * Use Chrome offscreen API to convert SVG → PNG/JPG.
  */
+let offscreenTaskQueue = Promise.resolve();
+
 async function svgToImageViaOffscreen(svg, width, height, format) {
-  // Ensure offscreen document exists
-  const offscreenUrl = 'src/offscreen.html';
-  const existingContexts = await chrome.runtime.getContexts({
-    contextTypes: ['OFFSCREEN_DOCUMENT'],
-    documentUrls: [chrome.runtime.getURL(offscreenUrl)]
-  });
-
-  if (!existingContexts.length) {
-    await chrome.offscreen.createDocument({
-      url: offscreenUrl,
-      reasons: ['DOM_PARSER'],
-      justification: 'Convert SVG to image via Canvas'
+  const runTask = async () => {
+    // Ensure offscreen document exists. This is serialized because the offscreen
+    // document uses a shared canvas and Chrome only allows one instance anyway.
+    const offscreenUrl = 'src/offscreen.html';
+    const existingContexts = await chrome.runtime.getContexts({
+      contextTypes: ['OFFSCREEN_DOCUMENT'],
+      documentUrls: [chrome.runtime.getURL(offscreenUrl)]
     });
-  }
 
-  const response = await chrome.runtime.sendMessage({
-    action: 'svgToImage',
-    data: { svg, width, height, format }
-  });
+    if (!existingContexts.length) {
+      try {
+        await chrome.offscreen.createDocument({
+          url: offscreenUrl,
+          reasons: ['DOM_PARSER'],
+          justification: 'Convert SVG to image via Canvas'
+        });
+      } catch (error) {
+        if (!String(error?.message || '').includes('Only a single offscreen')) {
+          throw error;
+        }
+      }
+    }
 
-  if (response?.error) throw new Error(`图片转换失败: ${response.error}`);
-  return response.dataUrl;
+    const response = await chrome.runtime.sendMessage({
+      action: 'svgToImage',
+      data: { svg, width, height, format }
+    });
+
+    if (response?.error) throw new Error(`图片转换失败: ${response.error}`);
+    return response.dataUrl;
+  };
+
+  const task = offscreenTaskQueue.then(runTask, runTask);
+  offscreenTaskQueue = task.catch(() => {});
+  return task;
 }
 
 /**
@@ -925,4 +948,214 @@ function getBookNamespace(book) {
   const login = book.user?.login || book.creator?.login || book.owner?.login || '';
   const slug = book.slug || '';
   return login && slug ? `${login}/${slug}` : '';
+}
+
+// ═══════════════════════════════════════════
+// Page Doc Info (read from dva store via MAIN world)
+// ═══════════════════════════════════════════
+
+async function handleGetPageDocInfo(sender, sendResponse) {
+  try {
+    const tabId = sender.tab?.id;
+    if (!tabId) { sendResponse({ data: null }); return; }
+
+    const results = await chrome.scripting.executeScript({
+      target: { tabId },
+      world: 'MAIN',
+      func: () => {
+        try {
+          const state = window.g_app?._store?.getState();
+          const doc = state?.doc;
+          const book = state?.book;
+          if (!doc?.id) return null;
+          return {
+            docId: doc.id,
+            slug: doc.slug || '',
+            title: doc.title || '',
+            docType: doc.type || 'Doc',
+            bookId: doc.book_id || book?.id || null,
+            content: doc.content || doc.body || null,
+            namespace: (book?.user?.login || '') + '/' + (book?.slug || ''),
+            canExport: doc.abilities?.export === true,
+          };
+        } catch { return null; }
+      },
+    });
+
+    sendResponse({ data: results?.[0]?.result || null });
+  } catch (err) {
+    sendResponse({ data: null, error: err.message });
+  }
+}
+
+// ═══════════════════════════════════════════
+// Quick Export (floating bubble, single doc)
+// ═══════════════════════════════════════════
+
+async function handleQuickExport(data, sendResponse) {
+  try {
+    const { slug, namespace, title, bookId, docId, docType: pageDocType, content: pageContent, canExport } = data;
+    if (!slug) throw new Error('缺少文档 slug');
+
+    // Step 1: Load user settings early so we can determine whether we need full content
+    const settings = await chrome.storage.local.get([
+      'subfolder', 'docExportFormat', 'sheetExportFormat', 'boardExportFormat',
+      'markdownMode', 'sheetMode', 'downloadImages', 'imageConcurrency'
+    ]);
+
+    const subfolder = settings.subfolder ?? DEFAULT_SETTINGS.subfolder;
+    const downloadImages = settings.downloadImages !== false;
+    const markdownMode = settings.markdownMode || DEFAULT_SETTINGS.markdownMode;
+    const sheetMode = settings.sheetMode || DEFAULT_SETTINGS.sheetMode;
+    const imageConcurrency = settings.imageConcurrency || DEFAULT_SETTINGS.imageConcurrency;
+
+    const docType = pageDocType || DOC_TYPES.DOC;
+
+    // Step 3: Determine export format based on doc type
+    const typeOptions = DOC_TYPE_EXPORT_OPTIONS[docType];
+    const noPermission = canExport !== true;
+    let perTypeFormat;
+    if (noPermission && docType === DOC_TYPES.DOC) {
+      perTypeFormat = 'md';
+    } else {
+      switch (docType) {
+        case DOC_TYPES.SHEET: perTypeFormat = settings.sheetExportFormat || DEFAULT_SETTINGS.sheetExportFormat; break;
+        case DOC_TYPES.BOARD: perTypeFormat = settings.boardExportFormat || DEFAULT_SETTINGS.boardExportFormat; break;
+        default: perTypeFormat = settings.docExportFormat || DEFAULT_SETTINGS.docExportFormat; break;
+      }
+      if (typeOptions && !typeOptions.formats.includes(perTypeFormat)) {
+        perTypeFormat = typeOptions.defaultFormat;
+      }
+    }
+
+    const needsLocalContent =
+      docType === DOC_TYPES.BOARD ||
+      (docType === DOC_TYPES.SHEET && (sheetMode === 'local' || perTypeFormat !== 'xlsx' || noPermission)) ||
+      (docType === DOC_TYPES.DOC && perTypeFormat === 'md' && (markdownMode === 'local' || noPermission));
+
+    // Step 2: Resolve doc info from page store data or API
+    let resolvedBookId = bookId;
+    if ((!docId || needsLocalContent) && !resolvedBookId) {
+      resolvedBookId = await resolveBookId(namespace);
+    }
+
+    let docInfo;
+    if (!docId) {
+      if (!resolvedBookId) throw new Error('无法获取知识库信息');
+      docInfo = await resolveFullDocInfo(slug, resolvedBookId);
+    } else {
+      docInfo = {
+        id: docId,
+        title: title || slug,
+        type: docType,
+        content: pageContent || '',
+        body: pageContent || '',
+      };
+      if (needsLocalContent && !pageContent) {
+        if (!resolvedBookId) throw new Error('无法获取知识库信息');
+        const full = await fetchDocContent(slug, resolvedBookId);
+        docInfo.content = full.content || '';
+        docInfo.body = full.body || '';
+        if (full.title) docInfo.title = full.title;
+      }
+    }
+
+    const format = EXPORT_FORMATS[perTypeFormat];
+    if (!format) throw new Error(`不支持的格式: ${perTypeFormat}`);
+    const actualTitle = docInfo.title || title || slug;
+
+    // Build file object + save path
+    const file = {
+      id: docInfo.id, slug, title: actualTitle, docType,
+      bookId: resolvedBookId, bookSourceId: resolvedBookId,
+      bookName: '', folderPath: '',
+    };
+    const segments = [];
+    if (subfolder) segments.push(...sanitizePathSegments(subfolder));
+    segments.push(`${sanitizePathComponent(actualTitle) || '未命名文档'}.${format.extension}`);
+    const savedPath = segments.filter(Boolean).join('/');
+
+    // Step 5: Execute export
+    const isSheet = docType === DOC_TYPES.SHEET;
+    const isBoard = docType === DOC_TYPES.BOARD;
+    const content = docInfo.content || docInfo.body || '';
+
+    const saveText = (text, mime) => {
+      const blob = new Blob([text], { type: mime });
+      return saveBlobToDisk(blob, savedPath);
+    };
+
+    if (isBoard) {
+      const { svg, width, height } = await convertBoardToSvg(content);
+      if (perTypeFormat === 'svg') {
+        await saveText(svg, 'image/svg+xml');
+      } else {
+        const dataUrl = await svgToImageViaOffscreen(svg, width, height, perTypeFormat);
+        const resp = await fetch(dataUrl);
+        await saveBlobToDisk(await resp.blob(), savedPath);
+      }
+    } else if (isSheet && (sheetMode === 'local' || perTypeFormat !== 'xlsx' || noPermission)) {
+      const result = convertLakeSheet(content, perTypeFormat);
+      if (result.blob) await saveBlobToDisk(result.blob, savedPath);
+      else await saveText(result.text, result.mime);
+    } else if (perTypeFormat === 'md' && (markdownMode === 'local' || noPermission) && content) {
+      const markdown = lakeToMarkdown(content);
+      if (downloadImages) {
+        const imgBase = segments.slice(0, -1).filter(Boolean).join('/'); // subfolder path without filename
+        const { localizedMd } = await localizeMarkdownImages(markdown, file, imgBase, imageConcurrency, () => {});
+        await saveText(localizedMd, 'text/markdown');
+      } else {
+        await saveText(markdown, 'text/markdown');
+      }
+    } else {
+      const result = await exportDocAsync(docInfo.id, docType, perTypeFormat);
+      if (result.directUrl) await downloadUrlToDisk(result.url, savedPath);
+      else if (result.blob) await saveBlobToDisk(result.blob, savedPath);
+    }
+
+    sendResponse({ success: true, title: actualTitle, format: perTypeFormat });
+  } catch (error) {
+    sendResponse({ success: false, error: error.message });
+  }
+}
+
+async function resolveBookId(namespace) {
+  if (!namespace) return null;
+  try {
+    const resp = await fetch(`https://www.yuque.com/api/v2/repos/${namespace}`, {
+      headers: {
+        'Accept': 'application/json',
+        'x-requested-with': 'XMLHttpRequest',
+        'Origin': 'https://www.yuque.com',
+        'Referer': 'https://www.yuque.com/',
+      },
+      credentials: 'include',
+    });
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    return data.data?.id || null;
+  } catch { return null; }
+}
+
+async function resolveFullDocInfo(slug, bookId) {
+  const resp = await fetch(`https://www.yuque.com/api/docs/${slug}?book_id=${bookId}&merge_dynamic_data=false`, {
+    headers: {
+      'Accept': 'application/json',
+      'x-requested-with': 'XMLHttpRequest',
+      'Origin': 'https://www.yuque.com',
+      'Referer': 'https://www.yuque.com/',
+    },
+    credentials: 'include',
+  });
+  if (!resp.ok) throw new Error(`获取文档信息失败: HTTP ${resp.status}`);
+  const json = await resp.json();
+  const d = json.data;
+  return {
+    id: d?.id,
+    title: d?.title,
+    type: d?.type || 'Doc',
+    format: d?.format,
+    content: d?.content || '',
+    body: d?.body || '',
+  };
 }
