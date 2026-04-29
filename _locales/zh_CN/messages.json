@@ -154,5 +154,21 @@
   "settingsSheetFormatDesc": { "message": "语雀「表格」和「数据表」类型的导出格式。" },
   "settingsBoardFormat": { "message": "画板导出格式" },
   "settingsBoardFormatDesc": { "message": "语雀「画板」类型的导出格式。" },
-  "formatHint": { "message": "智能导出：文档→Markdown · 表格/数据表→Excel · 画板→JPG（可在设置中修改）" }
+  "formatHint": { "message": "智能导出：文档→Markdown · 表格/数据表→Excel · 画板→JPG（可在设置中修改）" },
+  "cardQuickExport": { "message": "快捷导出" },
+  "showBubbleLabel": { "message": "显示浮动气泡" },
+  "showBubbleDesc": { "message": "在语雀文档页面右侧显示一个可拖拽的浮动气泡，点击即可快速导出当前正在浏览的文档。导出格式和目录遵循上方设置，无导出权限的文档自动使用本地引擎转为 Markdown。" },
+  "bubbleTooltip": { "message": "点击导出当前文档" },
+  "cardConvertEngine": { "message": "转换引擎" },
+  "engineMarkdownLabel": { "message": "Markdown 转换引擎" },
+  "engineMarkdownDesc": { "message": "文档转 Markdown 的方式。本地转换直接解析文档内容，速度快且无权限限制；官方 API 依赖服务端导出，格式更标准但对他人文档可能无权限。" },
+  "engineSheetLabel": { "message": "表格转换引擎" },
+  "engineSheetDesc": { "message": "表格(Sheet)的转换方式。本地引擎支持全部 4 种格式，无权限限制；官方 API 仅支持 xlsx，且仅对自己的知识库有效，收藏/协作文档自动使用本地引擎。" },
+  "engineBoardLabel": { "message": "白板转换引擎" },
+  "engineBoardDesc": { "message": "白板(Board)固定使用本地 SVG 渲染引擎，语雀官方 API 不支持白板导出为图片。" },
+  "engineLocal": { "message": "本地转换（推荐）" },
+  "engineLocalSheet": { "message": "本地引擎（推荐）" },
+  "engineLocalFixed": { "message": "本地引擎（固定）" },
+  "engineApi": { "message": "官方导出 API" },
+  "settingsBoardFormatDesc2": { "message": "语雀「画板/白板」类型的导出格式。固定使用本地引擎渲染。" }
 }

@@ -10,7 +10,8 @@ const config = {
     background: path.resolve(__dirname, 'src/background.js'),
     popup: path.resolve(__dirname, 'src/popup.js'),
     settings: path.resolve(__dirname, 'src/settings.js'),
-    offscreen: path.resolve(__dirname, 'src/offscreen.js')
+    offscreen: path.resolve(__dirname, 'src/offscreen.js'),
+    'content/bubble': path.resolve(__dirname, 'src/content/bubble.js')
   },
   output: {
     filename: 'src/[name].js',

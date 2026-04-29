@@ -22,7 +22,15 @@ export async function convertBoardToSvg(docOrContent) {
   const diagram = parsed.diagramData;
   if (!diagram?.body) throw new Error('Invalid lakeboard: missing diagramData.body');
 
-  const bbox = parsed.graphicsBBox || computeBBox(diagram.body);
+  const apiBBox = parsed.graphicsBBox;
+  const computedBBox = computeBBox(diagram.body);
+  // Merge: use the union of API bbox and computed bbox (mindmap layout may exceed API bbox)
+  const bbox = apiBBox ? {
+    x: Math.min(apiBBox.x, computedBBox.x),
+    y: Math.min(apiBBox.y, computedBBox.y),
+    width: Math.max(apiBBox.x + apiBBox.width, computedBBox.x + computedBBox.width) - Math.min(apiBBox.x, computedBBox.x),
+    height: Math.max(apiBBox.y + apiBBox.height, computedBBox.y + computedBBox.height) - Math.min(apiBBox.y, computedBBox.y),
+  } : computedBBox;
   const padding = 40;
   const vx = bbox.x - padding;
   const vy = bbox.y - padding;
@@ -111,12 +119,32 @@ function computeBBox(elements) {
         maxX = Math.max(maxX, el.x + (el.width || 0));
         maxY = Math.max(maxY, el.y + (el.height || 0));
       }
-      if (el.children) scan(el.children);
-      if (el.contain) scan(el.contain);
+      // For mindmap: estimate bounds from leaf count and depth in both directions
+      if (el.type === 'mindmap' && el.children) {
+        const leaves = countLeavesForBBox(el);
+        const estH = leaves * 40;
+        minY = Math.min(minY, (el.y || 0) - estH / 2);
+        maxY = Math.max(maxY, (el.y || 0) + estH / 2);
+        const depth = maxDepthForBBox(el);
+        const spread = depth * 180 + 150;
+        maxX = Math.max(maxX, (el.x || 0) + spread);
+        minX = Math.min(minX, (el.x || 0) - spread);
+      }
+      if (el.children && Array.isArray(el.children)) scan(el.children);
+      if (el.contain && Array.isArray(el.contain)) scan(el.contain);
     }
   }
   scan(elements);
   return { x: minX, y: minY, width: maxX - minX, height: maxY - minY };
+}
+
+function countLeavesForBBox(node) {
+  if (!node.children || !node.children.length) return 1;
+  return node.children.reduce((s, c) => s + countLeavesForBBox(c), 0);
+}
+function maxDepthForBBox(node, d = 0) {
+  if (!node.children || !node.children.length) return d;
+  return Math.max(...node.children.map(c => maxDepthForBBox(c, d + 1)));
 }
 
 // ── Defs ──
@@ -139,7 +167,8 @@ function renderElement(el, index, imageCache) {
     case 'group': return renderGroup(el, index, imageCache);
     case 'image': return renderImage(el, imageCache);
     case 'swimlane': return renderSwimlane(el, index, imageCache);
-    default: return `<!-- unknown type: ${el.type} -->`;
+    case 'mindmap': return renderMindmap(el);
+    default: return '';
   }
 }
 
@@ -184,6 +213,11 @@ function renderGeometry(el) {
     case 'manual-input': {
       const slant = 10;
       shapeSvg = `<polygon points="${x},${y + slant} ${x + w},${y} ${x + w},${y + h} ${x},${y + h}" fill="${fc}" stroke="${sc}" stroke-width="${sw}"/>`;
+      break;
+    }
+    case 'rounded-rect': {
+      const rx = el.round || 8;
+      shapeSvg = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${fc}" stroke="${sc}" stroke-width="${sw}"/>`;
       break;
     }
     default:
@@ -298,6 +332,118 @@ function resolvePoint(endpoint, index) {
   }
 
   return null;
+}
+
+// ── Mindmap ──
+
+function renderMindmap(el) {
+  const rootX = el.x || 0;
+  const rootY = el.y || 0;
+  const nodeH = 30;
+  const nodeGapY = 10;
+  const levelGapX = 180;
+
+  let svg = '';
+
+  function countLeaves(node) {
+    if (!node.children || !node.children.length) return 1;
+    return node.children.reduce((s, c) => s + countLeaves(c), 0);
+  }
+
+  function stripText(html) {
+    return (html || '').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+  }
+
+  function layoutBranch(node, depth, yCenter, direction, edgeColor) {
+    const text = stripText(node.html);
+    const w = Math.max(text.length * 13 + 24, 80);
+    const dir = direction; // 1 = right, -1 = left
+    const x = dir === 1 ? rootX + depth * levelGapX : rootX - depth * levelGapX - w;
+    const y = yCenter - nodeH / 2;
+
+    const fill = node.border?.fill || (depth === 0 ? '#e6f4ff' : '#fafafa');
+    const stroke = node.border?.stroke || 'transparent';
+    const rx = node.border?.shape === 'capsule' ? nodeH / 2 : 6;
+    const color = node.treeEdge?.stroke || edgeColor || '#bfbfbf';
+
+    svg += `<rect x="${x}" y="${y}" width="${w}" height="${nodeH}" rx="${rx}" fill="${fill}" stroke="${stroke === 'transparent' ? 'none' : stroke}"/>`;
+    svg += `<text x="${x + w / 2}" y="${yCenter + 5}" text-anchor="middle" font-size="13" fill="#333" font-family="-apple-system,BlinkMacSystemFont,sans-serif">${escapeXml(text)}</text>`;
+
+    if (node.children && node.children.length) {
+      const leaves = node.children.map(c => countLeaves(c));
+      const totalLeaves = leaves.reduce((a, b) => a + b, 0);
+      const totalH = totalLeaves * (nodeH + nodeGapY) - nodeGapY;
+      let cy = yCenter - totalH / 2 + (leaves[0] * (nodeH + nodeGapY) - nodeGapY) / 2;
+
+      const parentEdge = dir === 1 ? x + w : x;
+
+      node.children.forEach((child, i) => {
+        const childLeafH = leaves[i] * (nodeH + nodeGapY) - nodeGapY;
+        const childW = Math.max(stripText(child.html).length * 13 + 24, 80);
+        const childX = dir === 1 ? rootX + (depth + 1) * levelGapX : rootX - (depth + 1) * levelGapX - childW;
+        const childEdge = dir === 1 ? childX : childX + childW;
+        const midX = parentEdge + (childEdge - parentEdge) / 2;
+
+        svg += `<path d="M${parentEdge},${yCenter} C${midX},${yCenter} ${midX},${cy} ${childEdge},${cy}" fill="none" stroke="${color}" stroke-width="2"/>`;
+        layoutBranch(child, depth + 1, cy, direction, color);
+
+        if (i < node.children.length - 1) {
+          cy += (leaves[i] + leaves[i + 1]) * (nodeH + nodeGapY) / 2;
+        }
+      });
+    }
+  }
+
+  // Separate children into left (quadrant 2) and right (quadrant 1)
+  const rightChildren = (el.children || []).filter(c => (c.layout?.quadrant || 1) === 1);
+  const leftChildren = (el.children || []).filter(c => c.layout?.quadrant === 2);
+
+  // Draw root node
+  const rootText = stripText(el.html);
+  const rootW = Math.max(rootText.length * 16 + 32, 100);
+  const rootH = 36;
+  const rx = el.border?.shape === 'capsule' ? rootH / 2 : 8;
+  const rootFill = el.border?.fill || '#F5F5F5';
+  svg += `<rect x="${rootX - rootW / 2}" y="${rootY - rootH / 2}" width="${rootW}" height="${rootH}" rx="${rx}" fill="${rootFill}" stroke="none"/>`;
+  svg += `<text x="${rootX}" y="${rootY + 6}" text-anchor="middle" font-size="16" font-weight="bold" fill="#333" font-family="-apple-system,BlinkMacSystemFont,sans-serif">${escapeXml(rootText)}</text>`;
+
+  // Layout right branches
+  if (rightChildren.length) {
+    const rightLeaves = rightChildren.map(c => countLeaves(c));
+    const totalR = rightLeaves.reduce((a, b) => a + b, 0);
+    const totalRH = totalR * (nodeH + nodeGapY) - nodeGapY;
+    let cy = rootY - totalRH / 2 + (rightLeaves[0] * (nodeH + nodeGapY) - nodeGapY) / 2;
+
+    rightChildren.forEach((child, i) => {
+      const color = child.treeEdge?.stroke || '#bfbfbf';
+      const childX = rootX + rootW / 2 + levelGapX;
+      const midX = rootX + rootW / 2 + (childX - rootX - rootW / 2) / 2;
+      svg += `<path d="M${rootX + rootW / 2},${rootY} C${midX},${rootY} ${midX},${cy} ${childX},${cy}" fill="none" stroke="${color}" stroke-width="2"/>`;
+      layoutBranch(child, 1, cy, 1, color);
+      if (i < rightChildren.length - 1) cy += (rightLeaves[i] + rightLeaves[i + 1]) * (nodeH + nodeGapY) / 2;
+    });
+  }
+
+  // Layout left branches
+  if (leftChildren.length) {
+    const leftLeaves = leftChildren.map(c => countLeaves(c));
+    const totalL = leftLeaves.reduce((a, b) => a + b, 0);
+    const totalLH = totalL * (nodeH + nodeGapY) - nodeGapY;
+    let cy = rootY - totalLH / 2 + (leftLeaves[0] * (nodeH + nodeGapY) - nodeGapY) / 2;
+
+    leftChildren.forEach((child, i) => {
+      const color = child.treeEdge?.stroke || '#bfbfbf';
+      const childW = Math.max(stripText(child.html).length * 13 + 24, 80);
+      const childX = rootX - rootW / 2 - levelGapX - childW;
+      const childEdge = childX + childW;
+      const midX = rootX - rootW / 2 + (childEdge - rootX + rootW / 2) / 2;
+      svg += `<path d="M${rootX - rootW / 2},${rootY} C${midX},${rootY} ${midX},${cy} ${childEdge},${cy}" fill="none" stroke="${color}" stroke-width="2"/>`;
+      layoutBranch(child, 1, cy, -1, color);
+      if (i < leftChildren.length - 1) cy += (leftLeaves[i] + leftLeaves[i + 1]) * (nodeH + nodeGapY) / 2;
+    });
+  }
+
+  return svg;
 }
 
 // ── Group ──
@@ -424,7 +570,16 @@ function parseHtmlToLines(html) {
 }
 
 function stripHtml(html) {
-  return html.replace(/<[^>]+>/g, '');
+  return html
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#8203;/g, '')
+    .replace(/&#x200B;/g, '')
+    .replace(/&#\d+;/g, '')
+    .replace(/\u200B/g, '');
 }
 
 function escapeXml(str) {
