@@ -139,14 +139,5 @@ function bindEventListeners() {
   loginBtn?.addEventListener('click', handleLoginClick);
   settingsBtn?.addEventListener('click', () => { chrome.runtime.openOptionsPage(); });
 
-  selectAllCheckbox?.addEventListener('change', (e) => {
-    const buttons = document.querySelectorAll('.book-option-button[data-value]');
-    // Only toggle book checkboxes (those with book-option-cb), not export type buttons
-    document.querySelectorAll('.book-option-cb').forEach(cb => {
-      const btn = cb.closest('.book-option-button');
-      if (btn && cb.checked !== e.target.checked) {
-        btn.click();
-      }
-    });
-  });
+  // Select-all is now inside the dropdown, handled by ui.js
 }

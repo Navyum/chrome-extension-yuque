@@ -48,19 +48,105 @@
           <div class="setting-item">
             <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="settingsDocFormat">文档默认导出格式</span></label>
             <p class="setting-desc" data-i18n="settingsDocFormatDesc">语雀「文档」类型的默认导出格式。</p>
-            <select id="docExportFormat">
-              <option value="md">Markdown (.md)</option>
-              <option value="docx">Word (.docx)</option>
-              <option value="pdf">PDF (.pdf)</option>
-              <option value="jpg">JPG (.jpg)</option>
-            </select>
+            <div class="icon-select" data-for="docExportFormat">
+              <input type="hidden" id="docExportFormat">
+              <div class="icon-select-trigger">
+                <span class="icon-select-display"></span>
+                <svg class="icon-select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="icon-select-dropdown">
+                <div class="icon-select-option" data-value="md"><img src="../asserts/markdown.png" class="opt-icon"><span>Markdown (.md)</span></div>
+                <div class="icon-select-option" data-value="docx"><img src="../asserts/word.png" class="opt-icon"><span>Word (.docx)</span></div>
+                <div class="icon-select-option" data-value="pdf"><img src="../asserts/pdf.png" class="opt-icon"><span>PDF (.pdf)</span></div>
+                <div class="icon-select-option" data-value="jpg"><img src="../asserts/jpg.png" class="opt-icon"><span>JPG (.jpg)</span></div>
+              </div>
+            </div>
           </div>
           <div class="setting-item">
-            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg><span data-i18n="settingsSheetFormat">表格/数据表导出格式</span></label>
-            <p class="setting-desc" data-i18n="settingsSheetFormatDesc">语雀「表格」和「数据表」类型的导出格式。</p>
-            <select id="sheetExportFormat">
-              <option value="xlsx">Excel (.xlsx)</option>
-            </select>
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg><span data-i18n="settingsSheetFormat">表格导出格式</span></label>
+            <p class="setting-desc" data-i18n="settingsSheetFormatDesc">语雀「表格」类型的导出格式。</p>
+            <div class="icon-select" data-for="sheetExportFormat">
+              <input type="hidden" id="sheetExportFormat">
+              <div class="icon-select-trigger">
+                <span class="icon-select-display"></span>
+                <svg class="icon-select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="icon-select-dropdown">
+                <div class="icon-select-option" data-value="xlsx"><img src="../asserts/excel.svg" class="opt-icon"><span>Excel (.xlsx)</span></div>
+                <div class="icon-select-option" data-value="csv"><img src="../asserts/csv.svg" class="opt-icon"><span>CSV (.csv)</span></div>
+                <div class="icon-select-option" data-value="md"><img src="../asserts/markdown.png" class="opt-icon"><span>Markdown (.md)</span></div>
+                <div class="icon-select-option" data-value="html"><img src="../asserts/html.png" class="opt-icon"><span>HTML (.html)</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20v18H2z"/><path d="m9.75 9l2.25 3l2.25-3"/></svg><span>白板导出格式</span></label>
+            <p class="setting-desc">语雀「画板/白板」类型的导出格式。固定使用本地引擎渲染。</p>
+            <div class="icon-select" data-for="boardExportFormat">
+              <input type="hidden" id="boardExportFormat">
+              <div class="icon-select-trigger">
+                <span class="icon-select-display"></span>
+                <svg class="icon-select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="icon-select-dropdown">
+                <div class="icon-select-option" data-value="png"><img src="../asserts/jpg.png" class="opt-icon"><span>PNG (.png)</span></div>
+                <div class="icon-select-option" data-value="jpg"><img src="../asserts/jpg.png" class="opt-icon"><span>JPG (.jpg)</span></div>
+                <div class="icon-select-option" data-value="svg"><img src="../asserts/board.svg" class="opt-icon"><span>SVG (.svg)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg><span>转换引擎</span></h4>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Markdown 转换引擎</span></label>
+            <p class="setting-desc">文档转 Markdown 的方式。本地转换直接解析文档内容，速度快且无权限限制；官方 API 依赖服务端导出，格式更标准但对他人文档可能无权限。</p>
+            <div class="icon-select" data-for="markdownMode">
+              <input type="hidden" id="markdownMode">
+              <div class="icon-select-trigger">
+                <span class="icon-select-display"></span>
+                <svg class="icon-select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="icon-select-dropdown">
+                <div class="icon-select-option" data-value="local"><img src="../asserts/engine-local.svg" class="opt-icon"><span>本地转换（推荐）</span></div>
+                <div class="icon-select-option" data-value="api"><img src="../asserts/engine-api.svg" class="opt-icon"><span>官方导出 API</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg><span>表格转换引擎</span></label>
+            <p class="setting-desc">表格(Sheet)的转换方式。本地引擎支持全部 4 种格式，无权限限制；官方 API 仅支持 xlsx，且仅对自己的知识库有效，收藏/协作文档自动使用本地引擎。</p>
+            <div class="icon-select" data-for="sheetMode">
+              <input type="hidden" id="sheetMode">
+              <div class="icon-select-trigger">
+                <span class="icon-select-display"></span>
+                <svg class="icon-select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="icon-select-dropdown">
+                <div class="icon-select-option" data-value="local"><img src="../asserts/engine-local.svg" class="opt-icon"><span>本地引擎（推荐）</span></div>
+                <div class="icon-select-option" data-value="api"><img src="../asserts/engine-api.svg" class="opt-icon"><span>官方导出 API</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20v18H2z"/><path d="m9.75 9l2.25 3l2.25-3"/></svg><span>白板转换引擎</span></label>
+            <p class="setting-desc">白板(Board)固定使用本地 SVG 渲染引擎，语雀官方 API 不支持白板导出为图片。</p>
+            <div class="engine-fixed">
+              <img src="../asserts/engine-local.svg" class="opt-icon"><span>本地引擎（固定）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h4 class="card-title"><svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span>收藏设置</span></h4>
+          <div class="setting-item">
+            <label class="toggle-label">
+              <input id="skipEncryptedBookmarks" type="checkbox">
+              <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>跳过加密内容</span>
+            </label>
+            <p class="setting-desc">导出收藏时，自动跳过需要密码的文档和知识库，不再弹出密码输入框。</p>
           </div>
         </div>
 
@@ -75,8 +161,8 @@
             <p class="setting-desc" data-i18n="downloadImagesDesc">导出 Markdown 时，自动下载文档中的 CDN 图片到本地 assets/ 目录，并替换为相对路径。</p>
           </div>
           <div class="setting-item">
-            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg><span data-i18n="imageConcurrencyLabel">图片并发数</span></label>
-            <p class="setting-desc" data-i18n="imageConcurrencyDesc">同时下载图片的并发连接数。建议 1-5。</p>
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg><span data-i18n="imageConcurrencyLabel">图片下载并发数</span></label>
+            <p class="setting-desc" data-i18n="imageConcurrencyDesc">仅控制单篇 Markdown 文档内图片本地化时的下载并发。当前实际最大并发为 3，建议 1-3。</p>
             <input id="imageConcurrency" type="number" min="1" max="10" step="1" value="3">
           </div>
           <div class="setting-item">

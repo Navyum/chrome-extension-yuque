@@ -4,6 +4,7 @@ import {
   addLog, resetUiToIdle, setStartButtonLabel,
   showStatus, showConfetti, syncUiWithState, updateProgress
 } from './ui.js';
+import { showPasswordModal } from './password.js';
 import { i18n } from './i18n.js';
 
 let listenerRegistered = false;
@@ -40,6 +41,13 @@ export function initRuntimeMessaging() {
       }
       case 'exportLog': {
         addLog(message.data.message);
+        break;
+      }
+      case 'showPasswordDialog': {
+        const items = message.data?.encryptedItems || [];
+        if (items.length > 0) {
+          showPasswordModal(items);
+        }
         break;
       }
       default:

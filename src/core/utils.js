@@ -2,13 +2,32 @@ export function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const WINDOWS_RESERVED_NAMES = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\..*)?$/i;
+const MAX_PATH_COMPONENT_LENGTH = 120;
+
 export function sanitizePathComponent(name) {
   if (!name || typeof name !== 'string') return '';
-  return name
+
+  let result = name.normalize('NFKC')
+    .replace(/[\u0000-\u001f\u007f]/g, '')
     .replace(/[\\/<>:"|?*]/g, '_')
-    .replace(/\s+/g, ' ')
+    .replace(/\s+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/[. ]+$/g, '')
     .trim()
     .replace(/^\.+|\.+$/g, '');
+
+  if (!result) return '';
+
+  if (WINDOWS_RESERVED_NAMES.test(result)) {
+    result = `_${result}`;
+  }
+
+  if (result.length > MAX_PATH_COMPONENT_LENGTH) {
+    result = result.slice(0, MAX_PATH_COMPONENT_LENGTH).replace(/[. ]+$/g, '');
+  }
+
+  return result;
 }
 
 export function sanitizePathSegments(pathString = '') {

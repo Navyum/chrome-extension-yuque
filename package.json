@@ -9,10 +9,22 @@
     "build:watch": "cross-env NODE_ENV=development webpack --watch --config webpack.config.js",
     "pack": "npm run build && mkdir -pv build && cd dist && zip -r ../build/chrome-extension-yuque-export.zip *"
   },
-  "keywords": ["yuque", "export", "chrome-extension", "markdown"],
+  "keywords": [
+    "yuque",
+    "export",
+    "chrome-extension",
+    "markdown"
+  ],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@mixmark-io/domino": "^2.2.0",
+    "iconify-icon": "^3.0.2",
+    "jsencrypt": "^3.5.4",
+    "pako": "^2.1.0",
+    "turndown": "^7.2.4",
+    "xlsx-js-style": "^1.2.0"
+  },
   "devDependencies": {
     "copy-webpack-plugin": "^13.0.1",
     "cross-env": "^10.1.0",

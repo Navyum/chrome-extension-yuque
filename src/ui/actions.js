@@ -79,7 +79,6 @@ export async function handleGetFileInfo() {
     });
     if (response?.success) {
       showStatus(i18n('fileInfoSuccess'), 'success');
-      addLog(i18n('foundFiles', [String(response.data.totalFiles)]));
       syncUiWithState({ ...response.data, isExporting: false, isPaused: false });
       setStartButtonLabel(START_BUTTON_DEFAULT_TEXT());
       restoreGetInfoButton();
