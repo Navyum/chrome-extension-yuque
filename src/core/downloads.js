@@ -71,16 +71,14 @@ export function initDownloadHooks() {
   if (hooksInitialized) return;
   hooksInitialized = true;
 
+  if (chrome?.downloads?.onChanged) {
+    chrome.downloads.onChanged.addListener(handleDownloadChanged);
+  }
   if (chrome?.downloads?.onCreated) {
     chrome.downloads.onCreated.addListener(handleDownloadCreated);
   }
-
   if (chrome?.downloads?.onDeterminingFilename) {
     chrome.downloads.onDeterminingFilename.addListener(handleDownloadFilename);
-  }
-
-  if (chrome?.downloads?.onChanged) {
-    chrome.downloads.onChanged.addListener(handleDownloadChanged);
   }
 }
 

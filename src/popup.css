@@ -381,6 +381,30 @@ body.modal-open .container { filter: blur(2px) saturate(0.9); transform: scale(0
 .sponsor-modal-header h3 { font-size: 18px; margin-bottom: 6px; color: #fff; }
 .sponsor-modal-header p { color: var(--text-secondary); font-size: 12px; }
 .sponsor-modal-body { margin-top: 14px; text-align: center; }
+.sponsor-qr-wrap {
+  position: relative;
+  display: inline-block;
+  padding-top: 22px;
+}
+.sponsor-qr-badge {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7c3aed 0%, #14b8a6 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.32);
+  white-space: nowrap;
+  z-index: 1;
+}
 .sponsor-qr { width: 200px; height: 200px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); object-fit: cover; background: var(--bg-secondary); }
 .sponsor-tip { margin-top: 10px; font-size: 12px; color: var(--text-secondary); }
 .sponsor-modal-close {

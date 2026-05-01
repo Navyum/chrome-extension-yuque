@@ -19,6 +19,10 @@
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
           <span data-i18n="navGeneral">通用设置</span>
         </a>
+        <a href="#" class="nav-item" data-section="performance">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-3 3 2 4-6"/></svg>
+          <span data-i18n="navPerformance">性能监控</span>
+        </a>
         <a href="#" class="nav-item" data-section="about">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
           <span data-i18n="navAbout">关于</span>
@@ -44,6 +48,12 @@
             <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg><span data-i18n="subfolderLabel">下载子文件夹</span></label>
             <p class="setting-desc" data-i18n="subfolderDesc">文件将保存到浏览器「下载」目录下的指定子文件夹中。留空则保存到根目录。</p>
             <input id="subfolder" type="text" data-i18n-placeholder="subfolderPlaceholder" placeholder="例如: 语雀备份">
+          </div>
+          <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span data-i18n="downloadPromptLabel">系统批量下载每次询问</span></label>
+            <p class="setting-desc" data-i18n="downloadPromptDesc">如果批量导出时总是弹出保存位置确认，请前往浏览器下载设置，关闭“下载前询问每个文件的保存位置”。</p>
+            <button id="openDownloadsBtn" class="download-settings-btn" type="button" data-i18n="openDownloadsSettings">打开下载设置</button>
+            <div id="downloadSettingsStatus" class="save-status download-settings-status" style="display:none;"></div>
           </div>
           <div class="setting-item">
             <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="settingsDocFormat">文档默认导出格式</span></label>
@@ -191,6 +201,56 @@
         <div id="saveStatus" class="save-status" style="display:none;"></div>
       </section>
 
+      <section id="performance" class="settings-section">
+        <header class="section-header">
+          <h2 data-i18n="performanceTitle">性能监控</h2>
+          <p data-i18n="performanceDesc">查看最近一次导出的统计结果、耗时分布和文件明细。</p>
+        </header>
+
+        <div class="form-card">
+          <div class="performance-header">
+            <h4 class="card-title">
+              <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-3 3 2 4-6"/></svg>
+              <span data-i18n="performanceOverview">导出概览</span>
+            </h4>
+            <button id="refreshPerformanceBtn" class="refresh-btn" type="button" data-i18n="performanceRefresh">刷新数据</button>
+          </div>
+          <div id="performanceSummary" class="metrics-grid"></div>
+        </div>
+
+        <div class="form-card">
+          <h4 class="card-title">
+            <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18"/><path d="M6 3h12v8H6z"/><path d="M6 13h12v8H6z"/></svg>
+            <span data-i18n="performanceTreeTitle">目录结构视图</span>
+          </h4>
+          <div id="performanceTree" class="performance-tree"></div>
+        </div>
+
+        <div class="form-card">
+          <h4 class="card-title">
+            <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="m18 20-6-6-6 6"/><path d="M12 4v2"/></svg>
+            <span data-i18n="performanceSlowestTitle">下载最慢的 10 个文件</span>
+          </h4>
+          <div id="slowestFilesContainer" class="slow-list"></div>
+        </div>
+
+        <div class="form-card">
+          <div class="performance-header">
+            <h4 class="card-title">
+              <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+              <span data-i18n="performanceFileListTitle">文件明细</span>
+            </h4>
+            <div id="performanceFilters" class="status-filter-group">
+              <button class="status-filter-btn active" type="button" data-status="all" data-i18n="filterAll">全部</button>
+              <button class="status-filter-btn" type="button" data-status="success" data-i18n="filterSuccess">成功</button>
+              <button class="status-filter-btn" type="button" data-status="failed" data-i18n="filterFailed">失败</button>
+              <button class="status-filter-btn" type="button" data-status="pending" data-i18n="filterPending">未完成</button>
+            </div>
+          </div>
+          <div id="performanceFileList" class="performance-table-wrap"></div>
+        </div>
+      </section>
+
       <!-- About -->
       <section id="about" class="settings-section">
         <header class="section-header">
@@ -265,7 +325,10 @@
         </div>
         <p class="ads-desc" data-i18n="adsSponsorDesc">如果 YuqueOut 帮到了你，不妨请我喝杯咖啡！你的支持是持续维护的最大动力。</p>
         <div class="ads-qr">
-          <img src="../asserts/sp.jpeg" data-i18n-alt="sponsorQrAlt" alt="赞助二维码">
+          <div class="sponsor-qr-wrap">
+            <span class="sponsor-qr-badge">❤️ 赞助开发者</span>
+            <img src="../asserts/sp.jpeg" data-i18n-alt="sponsorQrAlt" alt="赞助二维码">
+          </div>
         </div>
         <p class="ads-tip"><svg class="ads-tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><span data-i18n="adsSponsorTip">微信扫码，金额随意</span></p>
       </div>
