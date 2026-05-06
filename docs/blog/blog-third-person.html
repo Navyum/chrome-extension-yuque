@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2026年语雀数据迁移完全指南：系统梳理语雀导出现状与限制，深度横评手动导出、CLI工具、网页复制、YuqueOut四种方案，附迁移目标适配建议。">
+    <meta name="keywords" content="语雀数据迁移,语雀导出方案对比,语雀迁移Obsidian,语雀迁移飞书,语雀迁移Notion,语雀批量导出工具,YuqueOut评测">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/blog-third-person.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="2026年语雀数据迁移完全指南：4种方案横评与实操教程">
+    <meta property="og:description" content="系统梳理语雀导出现状，深度横评四种迁移方案，附迁移目标适配建议和备份最佳实践。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/blog-third-person.html">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-05-06">
+    <meta property="article:modified_time" content="2026-05-06">
+    <meta property="article:section" content="迁移指南">
+
+    <meta name="theme-color" content="#060b22">
+    <title>2026年语雀数据迁移完全指南：4种方案横评与实操教程 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "2026年语雀数据迁移完全指南：4种方案横评与实操教程",
+      "description": "系统梳理语雀数据导出的现状、痛点，以及四种可行方案的详细对比分析。",
+      "url": "https://yuque.toolab.top/blog/blog-third-person.html",
+      "datePublished": "2026-05-06",
+      "dateModified": "2026-05-06",
+      "author": { "@type": "Person", "name": "效率君" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/blog-third-person.html",
+      "wordCount": 3500,
+      "articleSection": "迁移指南"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀数据迁移指南", "item": "https://yuque.toolab.top/blog/blog-third-person.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀支持哪些导出格式？",
+          "acceptedAnswer": { "@type": "Answer", "text": "语雀官方支持单篇文档导出为 Markdown、Word、PDF、JPG 格式，知识库级别只能导出为 lakebook 私有格式，表格只支持 Excel，画板完全不支持导出。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀文档迁移到 Obsidian 用什么格式？",
+          "acceptedAnswer": { "@type": "Answer", "text": "推荐使用 Markdown 格式并开启图片本地化功能。导出后直接拖入 Obsidian vault 即可使用，搜索和双向链接立即可用。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀协作知识库的文档能导出吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "语雀官方对协作知识库有权限限制，管理员可以禁止成员导出。使用 YuqueOut 等基于浏览器的工具，只要能打开阅读的文档就能导出，不受权限限制。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀数据迁移指南</span>
+                </div>
+                <span class="blog-article-tag">迁移指南</span>
+                <h1 class="blog-article-title">2026年语雀数据迁移完全指南：4种方案横评与实操教程</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2026-05-06
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        15 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 3500 字</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#current">语雀官方导出的现状与限制</a></li>
+                        <li><a href="#plan1">方案一：逐篇手动导出</a></li>
+                        <li><a href="#plan2">方案二：命令行工具</a></li>
+                        <li><a href="#plan3">方案三：网页复制 + Markdown 转换</a></li>
+                        <li><a href="#plan4">方案四：浏览器扩展 YuqueOut</a></li>
+                        <li><a href="#compare">四种方案对比总结</a></li>
+                        <li><a href="#target">迁移目标适配建议</a></li>
+                        <li><a href="#best-practice">备份最佳实践</a></li>
+                    </ol>
+                </div>
+
+                <p>本文首发于「效率工具指南」</p>
+                <p>文/效率君</p>
+
+                <h2>前言</h2>
+
+                <p>语雀作为阿里系出品的文档协作工具，凭借优秀的编辑体验和知识库管理能力，在技术团队和个人知识工作者中积累了大量用户。然而当用户面临以下场景时，语雀的数据导出能力往往成为最大的瓶颈：</p>
+
+                <ul>
+                    <li>团队从语雀迁移到飞书/Notion/Confluence</li>
+                    <li>个人想将内容同步到 Obsidian 做本地知识管理</li>
+                    <li>定期备份以应对账号风险或平台策略变更</li>
+                    <li>将文档内容发布到博客或其他平台</li>
+                </ul>
+
+                <p>本文将系统梳理语雀数据导出的现状、痛点，以及目前可行的四种解决方案，并提供详细的对比分析。</p>
+
+                <h2 id="current">语雀官方导出的现状与限制</h2>
+
+                <h3>支持的导出方式</h3>
+
+                <table>
+                    <thead>
+                        <tr><th>方式</th><th>格式</th><th>限制</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>单篇文档导出</td><td>Markdown、Word、PDF、JPG</td><td>需逐篇操作；需文档有导出权限</td></tr>
+                        <tr><td>知识库导出</td><td>lakebook（私有格式）</td><td>只能导回语雀使用</td></tr>
+                        <tr><td>表格导出</td><td>Excel</td><td>仅此一种格式</td></tr>
+                        <tr><td>画板导出</td><td>—</td><td><strong>官方完全不支持</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <h3>核心痛点</h3>
+
+                <p><strong>1. 无批量导出能力</strong></p>
+                <p>语雀没有"全选导出"或"知识库一键导出为通用格式"的功能。几百篇文档只能逐篇操作。</p>
+
+                <p><strong>2. 权限限制导致无法导出</strong></p>
+                <p>协作知识库中，管理员可以禁止成员导出文档。即便用户能正常阅读文档全部内容，点击导出时仍会被提示"没有权限"。</p>
+
+                <p><strong>3. 收藏内容无法导出</strong></p>
+                <p>用户收藏的文档和知识库，官方没有提供任何导出入口。</p>
+
+                <p><strong>4. 特殊文档类型支持不足</strong></p>
+                <ul>
+                    <li>表格（Sheet）：只能导出 Excel，不支持 CSV/Markdown/HTML</li>
+                    <li>画板（Board/白板/思维导图）：完全不支持导出为图片格式</li>
+                    <li>加密文档：无法通过常规方式批量处理</li>
+                </ul>
+
+                <h2 id="plan1">方案一：逐篇手动导出</h2>
+
+                <p><strong>适用人群</strong>：文档数量极少（10篇以内）的轻度用户</p>
+
+                <p><strong>操作</strong>：打开文档 → 右上角更多 → 导出 → 选格式 → 下载</p>
+
+                <p><strong>优点</strong>：零门槛，官方原生功能</p>
+
+                <p><strong>缺点</strong>：</p>
+                <ul>
+                    <li>不可能应对批量需求</li>
+                    <li>受权限限制</li>
+                    <li>图片为在线链接，易失效</li>
+                    <li>表格/画板格式受限</li>
+                </ul>
+
+                <div class="info-box warning-box">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        结论
+                    </div>
+                    <p>仅适合偶尔导出一两篇的场景，不构成"备份方案"。</p>
+                </div>
+
+                <h2 id="plan2">方案二：命令行工具（yuque-exporter / yuque-dl 等）</h2>
+
+                <p><strong>适用人群</strong>：有开发背景，熟悉命令行和 API 的技术用户</p>
+
+                <p><strong>操作步骤</strong>：</p>
+                <ol>
+                    <li>安装 Node.js 环境</li>
+                    <li>在语雀开发者后台创建应用，获取 API Token</li>
+                    <li>安装 CLI 工具：<code>npm install -g yuque-exporter</code></li>
+                    <li>执行导出命令</li>
+                </ol>
+
+                <p><strong>优点</strong>：</p>
+                <ul>
+                    <li>支持批量导出</li>
+                    <li>可脚本化、定时执行</li>
+                    <li>对技术用户友好</li>
+                </ul>
+
+                <p><strong>缺点</strong>：</p>
+                <ul>
+                    <li>安装配置门槛较高</li>
+                    <li>依赖官方 API，受权限体系限制——无导出权限的文档仍然拿不到</li>
+                    <li>收藏内容不在 API 范围内</li>
+                    <li>不支持表格多格式、画板导出</li>
+                    <li>语雀 API 有请求频率限制</li>
+                </ul>
+
+                <div class="info-box">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        结论
+                    </div>
+                    <p>技术用户的可行方案，但对非技术用户不友好，且功能覆盖面有限。</p>
+                </div>
+
+                <h2 id="plan3">方案三：网页复制 + Markdown 转换</h2>
+
+                <p><strong>适用人群</strong>：偶尔需要保存几篇文档的所有用户</p>
+
+                <p><strong>操作</strong>：在浏览器中全选文档内容 → 复制 → 粘贴到 Markdown 编辑器（或使用 Paste to Markdown 等在线工具）</p>
+
+                <p><strong>优点</strong>：</p>
+                <ul>
+                    <li>零工具安装</li>
+                    <li>不受权限限制（能看到就能复制）</li>
+                </ul>
+
+                <p><strong>缺点</strong>：</p>
+                <ul>
+                    <li>只能逐篇操作</li>
+                    <li>格式损失严重（嵌套列表、代码块容易错乱）</li>
+                    <li>图片为在线链接，过段时间失效</li>
+                    <li>表格和画板无法复制</li>
+                    <li>人工操作效率极低</li>
+                </ul>
+
+                <div class="info-box warning-box">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        结论
+                    </div>
+                    <p>应急方案，不适合作为正式的备份或迁移手段。</p>
+                </div>
+
+                <h2 id="plan4">方案四：浏览器扩展 YuqueOut</h2>
+
+                <p><strong>适用人群</strong>：所有用户，尤其是有批量备份、迁移需求的重度用户</p>
+
+                <p><strong>原理</strong>：基于 Chrome 扩展，直接在浏览器中调用语雀 API + 本地转换引擎，实现"所见即所得"的导出逻辑——只要用户能在浏览器中打开文档，就能导出。</p>
+
+                <img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 多格式导出能力" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <p><strong>操作步骤</strong>：</p>
+                <ol>
+                    <li>从 Chrome 应用商店安装 YuqueOut（搜索「YuqueOut」）</li>
+                    <li>在浏览器中登录语雀</li>
+                    <li>点击扩展图标，选择要导出的知识库（支持多选）</li>
+                    <li>点击「获取文件信息」扫描文档列表</li>
+                    <li>选择导出格式，点击「开始导出」</li>
+                    <li>等待完成，文件自动保存到浏览器下载目录</li>
+                </ol>
+
+                <h3>支持的文档类型与格式</h3>
+
+                <table>
+                    <thead>
+                        <tr><th>文档类型</th><th>可导出格式</th><th>说明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>文档（Doc）</td><td>Markdown / Word / PDF / JPG</td><td>Markdown 自动下载图片到本地</td></tr>
+                        <tr><td>表格（Sheet）</td><td>Excel / CSV / Markdown / HTML</td><td>本地引擎解压转换，4种格式</td></tr>
+                        <tr><td>画板（Board）</td><td>PNG / JPG / SVG</td><td>本地 SVG 渲染，<strong>官方不支持</strong></td></tr>
+                        <tr><td>数据表（Table）</td><td>Excel</td><td>通过官方 API</td></tr>
+                    </tbody>
+                </table>
+
+                <img src="https://yuque.toolab.top/images/feat2.png" alt="YuqueOut 批量导出进度" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <h3>独有能力（其他方案不具备）</h3>
+
+                <table>
+                    <thead>
+                        <tr><th>能力</th><th>说明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>所见即所得</td><td>不依赖导出权限，能打开就能导出</td></tr>
+                        <tr><td>收藏批量导出</td><td>支持导出收藏的文档和知识库</td></tr>
+                        <tr><td>画板导出图片</td><td>PNG/JPG/SVG，官方完全不支持</td></tr>
+                        <tr><td>表格 4 种格式</td><td>Excel + CSV + Markdown + HTML</td></tr>
+                        <tr><td>浮动气泡</td><td>浏览文档时一键保存当前页</td></tr>
+                        <tr><td>加密文档处理</td><td>输入密码后批量导出</td></tr>
+                        <tr><td>双转换引擎</td><td>本地引擎 + 官方 API，可切换</td></tr>
+                        <tr><td>图片本地化</td><td>Markdown 中的 CDN 图片自动下载替换</td></tr>
+                    </tbody>
+                </table>
+
+                <p><strong>优点</strong>：</p>
+                <ul>
+                    <li>零配置，安装即用</li>
+                    <li>不受导出权限限制</li>
+                    <li>覆盖所有文档类型</li>
+                    <li>支持暂停/继续/失败重试</li>
+                    <li>目录结构完整保留</li>
+                    <li>纯本地运行，不上传数据</li>
+                    <li>代码开源</li>
+                </ul>
+
+                <p><strong>缺点</strong>：</p>
+                <ul>
+                    <li>需要使用 Chrome 浏览器</li>
+                    <li>依赖语雀网页版登录态</li>
+                </ul>
+
+                <img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置与配置" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <h2 id="compare">四种方案对比总结</h2>
+
+                <table>
+                    <thead>
+                        <tr><th>维度</th><th>手动导出</th><th>CLI 工具</th><th>网页复制</th><th>YuqueOut</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>技术门槛</td><td>无</td><td>高</td><td>无</td><td>低</td></tr>
+                        <tr><td>批量能力</td><td>不支持</td><td>支持</td><td>不支持</td><td>支持</td></tr>
+                        <tr><td>无权限文档</td><td>不能</td><td>不能</td><td>能（手动）</td><td><strong>能（自动）</strong></td></tr>
+                        <tr><td>收藏导出</td><td>不支持</td><td>不支持</td><td>不支持</td><td><strong>支持</strong></td></tr>
+                        <tr><td>表格格式</td><td>仅 Excel</td><td>仅 Excel</td><td>不支持</td><td><strong>4 种</strong></td></tr>
+                        <tr><td>画板导出</td><td>不支持</td><td>不支持</td><td>不支持</td><td><strong>PNG/JPG/SVG</strong></td></tr>
+                        <tr><td>图片本地化</td><td>不支持</td><td>部分支持</td><td>不支持</td><td><strong>自动</strong></td></tr>
+                        <tr><td>目录结构</td><td>不保留</td><td>保留</td><td>不保留</td><td><strong>保留</strong></td></tr>
+                        <tr><td>加密文档</td><td>不支持</td><td>不支持</td><td>不支持</td><td><strong>支持</strong></td></tr>
+                        <tr><td>数据安全</td><td>本地</td><td>本地</td><td>本地</td><td>本地</td></tr>
+                    </tbody>
+                </table>
+
+                <h2 id="target">迁移目标适配建议</h2>
+
+                <p>根据不同的迁移目标，推荐的导出格式选择：</p>
+
+                <table>
+                    <thead>
+                        <tr><th>迁移到</th><th>推荐格式</th><th>说明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Obsidian</td><td>Markdown + 图片本地化</td><td>直接拖入 vault 即用</td></tr>
+                        <tr><td>Notion</td><td>Markdown</td><td>Notion 支持批量导入 Markdown</td></tr>
+                        <tr><td>飞书文档</td><td>Markdown / Word</td><td>飞书支持这两种格式的导入</td></tr>
+                        <tr><td>Confluence</td><td>Word / HTML</td><td>Confluence 支持 Word 导入</td></tr>
+                        <tr><td>本地归档</td><td>PDF / Markdown</td><td>PDF 适合只读存档，Markdown 适合后续编辑</td></tr>
+                        <tr><td>XMind / 思维导图</td><td>画板 → SVG</td><td>SVG 可被多数设计工具打开</td></tr>
+                    </tbody>
+                </table>
+
+                <h2 id="best-practice">备份最佳实践</h2>
+
+                <ol>
+                    <li><strong>建立定期备份节奏</strong>：每月或每季度执行一次全量导出</li>
+                    <li><strong>优先选择 Markdown</strong>：通用性最强，几乎所有工具都支持</li>
+                    <li><strong>开启图片本地化</strong>：避免 CDN 图片链接失效</li>
+                    <li><strong>保留一份 JSON 原始格式</strong>：方便将来做自定义解析</li>
+                    <li><strong>使用 Git 管理备份</strong>：版本化管理，可追溯每次变更</li>
+                    <li><strong>导出后抽检</strong>：随机打开几篇验证格式和图片是否正常</li>
+                </ol>
+
+                <img src="https://yuque.toolab.top/images/feat4.png" alt="YuqueOut 安全可控" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <h2>写在最后</h2>
+
+                <p>数据所有权是用户的基本权利。无论使用哪个平台，保持对自己内容的掌控力都是一种值得培养的习惯。</p>
+
+                <p>好的工具不应该成为数据的牢笼。如果你正在使用语雀，建议尽早建立自己的备份流程——不是因为语雀不好，而是未来的不确定性，只有本地那份文件能对冲。</p>
+
+                <div class="blog-cta">
+                    <h3>立即开始你的语雀数据迁移</h3>
+                    <p>免费安装 YuqueOut，一键批量导出所有文档</p>
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog_third_person" target="_blank" class="blog-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        免费安装 YuqueOut
+                    </a>
+                </div>
+
+                <!-- Related Posts -->
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="blog-first-person.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀里存了三年的笔记，我花了30分钟全部「抢救」到了本地</span>
+                            <span class="blog-related-card-excerpt">真实用户分享400篇文档30分钟导出的完整经历</span>
+                        </a>
+                        <a href="yuque-export-tools-comparison.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库导出工具全面对比评测</span>
+                            <span class="blog-related-card-excerpt">YuqueOut vs 命令行工具 vs 官方方案，6维度深度对比</span>
+                        </a>
+                        <a href="yuque-batch-export-tutorial.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库批量导出完整教程</span>
+                            <span class="blog-related-card-excerpt">3步搞定，零技术门槛的批量导出指南</span>
+                        </a>
+                        <a href="yuque-to-markdown-guide.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀文档批量转Markdown完整指南</span>
+                            <span class="blog-related-card-excerpt">从语雀到 Hexo/Hugo/Notion 的迁移工作流</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

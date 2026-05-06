@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="真实用户分享：语雀里存了三年的400多篇笔记，如何在30分钟内全部批量导出到本地硬盘。从手动导出的痛苦到一键搞定的完整经历。">
+    <meta name="keywords" content="语雀批量导出,语雀备份经历,语雀导出教程,语雀迁移飞书,语雀Markdown导出,YuqueOut使用体验">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/blog-first-person.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀里存了三年的笔记，我花了30分钟全部「抢救」到了本地">
+    <meta property="og:description" content="400多篇文档，30分钟批量导出到本地。从手动导出的崩溃到一键搞定的真实经历分享。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/blog-first-person.html">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-04-20">
+    <meta property="article:modified_time" content="2026-04-20">
+    <meta property="article:section" content="用户故事">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀里存了三年的笔记，我花了30分钟全部「抢救」到了本地 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀里存了三年的笔记，我花了30分钟全部「抢救」到了本地",
+      "description": "真实用户分享：400多篇语雀文档如何在30分钟内全部批量导出到本地硬盘。",
+      "url": "https://yuque.toolab.top/blog/blog-first-person.html",
+      "datePublished": "2026-04-20",
+      "dateModified": "2026-04-20",
+      "author": { "@type": "Person", "name": "安哥拉" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/blog-first-person.html",
+      "wordCount": 2800,
+      "articleSection": "用户故事"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "30分钟抢救语雀笔记", "item": "https://yuque.toolab.top/blog/blog-first-person.html" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">30分钟抢救语雀笔记</span>
+                </div>
+                <span class="blog-article-tag">用户故事</span>
+                <h1 class="blog-article-title">语雀里存了三年的笔记，我花了30分钟全部「抢救」到了本地</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2026-04-20
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        10 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 2800 字</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#origin">事情的起因</a></li>
+                        <li><a href="#difficulty">语雀的导出有多难用</a></li>
+                        <li><a href="#detour">网上找方案走了不少弯路</a></li>
+                        <li><a href="#solution">转折：所见即所得的思路</a></li>
+                        <li><a href="#result">30分钟，400篇文档到手</a></li>
+                        <li><a href="#details">几个让我真香的细节</a></li>
+                        <li><a href="#after">导出后我做了什么</a></li>
+                        <li><a href="#security">关于安全性</a></li>
+                    </ol>
+                </div>
+
+                <p>本文首发于「效率工具指南」</p>
+                <p>文/安哥拉</p>
+                <p>Hello 大家好，我是安哥。</p>
+                <p>今天想跟大家聊聊一件我拖了很久、最终花了 30 分钟搞定的事——把我在语雀里积累了三年的所有文档，完整地备份到了本地硬盘。</p>
+
+                <h2 id="origin">01. 事情的起因</h2>
+
+                <p>我用语雀写东西已经三年了。从最初的读书笔记、技术文档，到后来的项目复盘、团队 wiki，陆续积累了 400 多篇文档，分散在七八个知识库里。</p>
+
+                <p>一直以来都用得很舒服——直到上个月发生了两件事：</p>
+
+                <p>第一，公司决定从语雀迁移到飞书。领导说"下周大家把语雀里的文档搬过来"，轻飘飘一句话。</p>
+
+                <p>第二，我看到一条新闻，说某云笔记产品突然调整会员策略，免费用户只能保留有限数量的笔记，超出部分要么升级要么删除。</p>
+
+                <p>这两件事叠在一起，让我突然意识到一个问题：<strong>我在语雀里的内容，我真的能随时拿走吗？</strong></p>
+
+                <h2 id="difficulty">02. 语雀的导出有多难用</h2>
+
+                <p>抱着侥幸心理打开了语雀的导出功能，结果发现：</p>
+
+                <p><strong>没有批量导出。</strong></p>
+
+                <p>要导出一篇文档，流程是：打开文档 → 点右上角「更多」→ 选「导出」→ 选格式 → 等待生成 → 下载。</p>
+
+                <p>400 篇文档，每篇 30 秒，做个简单数学：400 × 30 = 12000 秒 = 200 分钟 = 超过 3 个小时的纯机械操作。</p>
+
+                <p>但这还不是最让我崩溃的。</p>
+
+                <p><strong>同事分享给我的协作文档，点导出直接提示"没有权限"。</strong> 我明明能打开、能阅读、能评论——就是不让我下载。</p>
+
+                <p><strong>收藏夹里收藏了上百篇别人的好文章，没有任何导出入口。</strong> 收藏功能只管"收"，不管"出"。</p>
+
+                <p><strong>语雀的表格只能导出 Excel。</strong> 如果我想要 CSV 或者 Markdown 格式的表格呢？不支持。</p>
+
+                <p><strong>画板（流程图、思维导图）完全不支持导出为图片。</strong> 我辛苦画的系统架构图，想存一张 PNG 都不行，只能截屏。</p>
+
+                <h2 id="detour">03. 网上找方案走了不少弯路</h2>
+
+                <p>搜了一圈发现有几类方案：</p>
+
+                <h3>方案一：GitHub 上的命令行工具</h3>
+
+                <p>确实有人写了语雀导出的 CLI 工具。但使用门槛不低：要安装 Node.js、去语雀开发者后台申请 API Token、在终端里敲命令。</p>
+
+                <p>我自己是技术出身还能操作，但团队里的产品、运营同事，我总不能让每个人都去学命令行吧？</p>
+
+                <p>而且这些工具只能导出有"导出权限"的文档。协作库里那些管理员限制了导出的内容？照样拿不到。</p>
+
+                <h3>方案二：网页复制 + 粘贴到编辑器</h3>
+
+                <p>最笨的办法。全选文档内容 → Ctrl+C → 打开 Typora → Ctrl+V。</p>
+
+                <p>格式乱七八糟不说，图片全是语雀 CDN 的在线链接，过段时间就失效。表格和画板更是完全没法复制。</p>
+
+                <h3>方案三：语雀自带的"知识库导出"</h3>
+
+                <p>后来发现语雀其实有知识库级别的导出入口——但只支持导出为 lakebook 格式。这是语雀的私有格式，导出来了也只能再导回语雀用，等于没导。</p>
+
+                <h2 id="solution">04. 转折：一个"所见即所得"的思路</h2>
+
+                <p>折腾了大半天一无所获，我突然想到一个问题：</p>
+
+                <p>既然我能在浏览器里看到这篇文档的完整内容，为什么不能直接把"看到的"保存下来？</p>
+
+                <p>带着这个思路搜了一下，还真找到了一款 Chrome 扩展——<strong>YuqueOut</strong>。</p>
+
+                <p>它的核心逻辑很简单：<strong>只要你能打开这篇文档，就能导出它。</strong> 不依赖语雀的导出权限设置，不需要 API Token，不需要命令行。</p>
+
+                <img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 多格式导出" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <h2 id="result">05. 30 分钟，400 篇文档到手</h2>
+
+                <p>安装完扩展后，我点开弹窗，它自动列出了我所有的知识库——个人的、协作的、甚至收藏夹里的内容。</p>
+
+                <p>我全选了所有知识库，点击「获取文件信息」。大概 20 秒后显示：<strong>7 个知识库，412 篇文档</strong>。</p>
+
+                <p>格式选了 Markdown（因为要导入 Obsidian），点击「开始导出」。</p>
+
+                <p>然后我去倒了杯水，回来一看进度条已经跑到 80% 了。</p>
+
+                <p>最终结果：</p>
+                <ul>
+                    <li>412 篇文档全部导出成功</li>
+                    <li>文件按知识库目录结构整齐存放</li>
+                    <li>Markdown 里的图片全部下载到了本地 <code>assets/</code> 目录</li>
+                    <li>包括那些「无导出权限」的协作文档——照样拿到了</li>
+                </ul>
+
+                <p>整个过程大概 25 分钟（主要是图片下载花了时间）。<strong>没有打开过一篇文档，没有点过一次「更多」菜单。</strong></p>
+
+                <img src="https://yuque.toolab.top/images/feat2.png" alt="YuqueOut 批量导出进度" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <h2 id="details">06. 几个让我"真香"的细节</h2>
+
+                <h3>收藏夹也能导出</h3>
+
+                <p>这是最让我惊喜的。我收藏了 130 多篇别人写的好文章，之前以为只有作者才能导出。结果 YuqueOut 把收藏夹也列为了一个虚拟知识库，勾选就能导出。130 篇收藏全部变成了本地 Markdown 文件。</p>
+
+                <h3>浮动气泡</h3>
+
+                <p>导出完毕后的日常使用中，我发现每次打开语雀文档页面，右侧会有一个小小的浮动气泡。看到一篇好文章想存起来？点一下气泡，当前文档直接保存为 Markdown。比浏览器「另存为」聪明太多。</p>
+
+                <h3>表格支持 4 种格式</h3>
+
+                <p>语雀官方只支持表格导出 Excel。YuqueOut 支持导出为 Excel、CSV、Markdown 表格、HTML。我经常需要把表格转成 CSV 导入其他工具，这个功能帮了大忙。</p>
+
+                <h3>画板终于能导出图片了</h3>
+
+                <p>语雀的画板功能（流程图、思维导图、白板），官方完全不支持导出为图片。YuqueOut 可以把画板导出为 PNG、JPG、SVG。我的系统架构图再也不用截屏了。</p>
+
+                <img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置面板" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <h2 id="after">07. 导出后我做了什么</h2>
+
+                <p>拿到所有 Markdown 文件后：</p>
+
+                <ol>
+                    <li>把个人知识库的内容直接拖进了 Obsidian vault，搜索和双向链接立即可用</li>
+                    <li>协作库里的项目文档，一批批上传到了飞书（Markdown 格式飞书可以直接导入）</li>
+                    <li>收藏的好文章整理成了一个本地文档库，用 VS Code 全文搜索随时翻阅</li>
+                    <li>画板导出的 SVG 文件放进了设计稿归档</li>
+                </ol>
+
+                <p>整个迁移工作一个下午搞定。领导第二天问"搬完了吗？"，我说"昨天就好了"。</p>
+
+                <h2 id="security">08. 关于安全性</h2>
+
+                <p>有人可能担心：装了这个扩展，我的文档会不会被上传到什么地方？</p>
+
+                <p>我看了一下：</p>
+                <ul>
+                    <li>代码开源，GitHub 上能看到所有逻辑</li>
+                    <li>不需要输入任何 Token 或密码（自动复用浏览器登录态）</li>
+                    <li>不连接任何第三方服务器</li>
+                    <li>所有转换在本地浏览器内完成</li>
+                </ul>
+
+                <p>简单说，它只是帮你自动完成了"打开文档 → 保存内容"这个动作，只是速度比你手动快了几百倍。</p>
+
+                <h2>写在最后</h2>
+
+                <p>经历了这次"数据搬家"之后，我总结了一个朴素的道理：</p>
+
+                <p><strong>无论用什么在线工具，内容都应该有一份本地备份。</strong></p>
+
+                <p>不是因为不信任产品方，而是作为内容创作者对自己知识资产负责的基本意识。毕竟谁也不知道哪天会出现账号风险、产品停服、策略调整。</p>
+
+                <p>本地硬盘上的那份文件，永远是最可靠的。</p>
+
+                <p>如果你也在用语雀，建议趁周末花半小时把内容备份一次。</p>
+
+                <div class="blog-cta">
+                    <h3>30分钟备份你的语雀知识库</h3>
+                    <p>免费安装 YuqueOut，一键批量导出所有文档</p>
+                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog_first_person" target="_blank" class="blog-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        免费安装 YuqueOut
+                    </a>
+                </div>
+
+                <!-- Related Posts -->
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="blog-third-person.html" class="blog-related-card">
+                            <span class="blog-related-card-title">2024年语雀数据迁移完全指南：4种方案横评</span>
+                            <span class="blog-related-card-excerpt">系统梳理语雀导出现状与四种解决方案深度对比</span>
+                        </a>
+                        <a href="yuque-export-tools-comparison.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库导出工具全面对比评测</span>
+                            <span class="blog-related-card-excerpt">YuqueOut vs 命令行工具 vs 官方方案，6维度深度对比</span>
+                        </a>
+                        <a href="yuque-batch-export-tutorial.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库批量导出完整教程</span>
+                            <span class="blog-related-card-excerpt">3步搞定，零技术门槛的批量导出指南</span>
+                        </a>
+                        <a href="why-backup-yuque.html" class="blog-related-card">
+                            <span class="blog-related-card-title">为什么你应该定期备份语雀知识库？</span>
+                            <span class="blog-related-card-excerpt">真实案例告诉你不备份的代价</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>
