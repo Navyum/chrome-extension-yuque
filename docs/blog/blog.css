@@ -1,189 +1,322 @@
 /* Blog Styles - Extends main style.css */
 
-/* Blog Index Page */
-.blog-hero {
-    position: relative;
-    z-index: 2;
-    padding: 160px 24px 60px;
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
+/* Blog page nav - solid background */
+.blog-page-nav.homepage-nav {
+    background: rgba(6, 0, 16, 0.95) !important;
+    backdrop-filter: blur(10px) saturate(180%) !important;
 }
 
-@media (max-width: 640px) {
-    .blog-hero {
-        padding: 120px 16px 40px;
+/* =========================================
+   HubSpot Style Blog Homepage Layout
+   ========================================= */
+
+/* Hero Container */
+.hubspot-hero-container {
+    position: relative;
+    z-index: 2;
+    display: grid !important;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 24px 0;
+}
+
+@media (max-width: 768px) {
+    .hubspot-hero-container {
+        grid-template-columns: 1fr !important;
+        padding: 100px 16px 0;
     }
 }
 
-.blog-hero-title {
-    font-size: 3rem;
+/* Main Feature (Left Column) */
+.hubspot-main-feature {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.hubspot-main-feature:hover {
+    transform: translateY(-5px);
+    border-color: rgba(102, 126, 234, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.hubspot-main-feature-img {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hubspot-main-feature-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.hubspot-main-feature:hover .hubspot-main-feature-img img {
+    transform: scale(1.03);
+}
+
+.hubspot-main-feature-content {
+    padding: 48px;
+}
+
+@media (max-width: 640px) {
+    .hubspot-main-feature-content {
+        padding: 24px;
+    }
+}
+
+.hubspot-main-feature-title {
+    font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 16px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    line-height: 1.3;
 }
 
 @media (max-width: 640px) {
-    .blog-hero-title { font-size: 2rem; }
+    .hubspot-main-feature-title {
+        font-size: 1.5rem;
+    }
 }
 
-.blog-hero-desc {
-    font-size: 1.15rem;
+.hubspot-main-feature-title a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.hubspot-main-feature-title a:hover {
+    color: #667eea;
+}
+
+.hubspot-main-feature-desc {
     color: hsla(0, 0%, 100%, 0.7);
-    max-width: 600px;
-    margin: 0 auto;
+    font-size: 1.05rem;
     line-height: 1.7;
+    margin-bottom: 24px;
 }
 
-/* Blog Post Grid */
-.blog-grid {
-    position: relative;
-    z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px 100px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+.hubspot-meta {
+    font-size: 0.9rem;
+    color: hsla(0, 0%, 100%, 0.4);
+    font-weight: 500;
+    display: flex;
+    gap: 16px;
 }
 
-@media (max-width: 900px) {
-    .blog-grid { grid-template-columns: 1fr; }
+.hubspot-list-category {
+    font-size: 0.8rem;
+    color: #667eea;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
 }
 
-@media (max-width: 640px) {
-    .blog-grid { padding: 0 16px 60px; }
-}
-
-.blog-card {
-    background: rgba(6, 0, 16, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 36px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
-    backdrop-filter: blur(10px);
+/* Featured List (Right Column) */
+.hubspot-featured-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    text-decoration: none;
-    color: inherit;
-    --glow-color: 102, 126, 234;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.blog-card:nth-child(even) { --glow-color: 132, 0, 255; }
-
-.blog-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        600px circle at var(--glow-x, 50%) var(--glow-y, 50%),
-        rgba(var(--glow-color), 0.15),
-        transparent 80%
-    );
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.blog-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 2px;
-    background: radial-gradient(
-        300px circle at var(--glow-x, 50%) var(--glow-y, 50%),
-        #ffffff 0%,
-        rgba(var(--glow-color), 1) 30%,
-        rgba(var(--glow-color), 0.2) 60%,
-        transparent 100%
-    );
-    border-radius: inherit;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 10;
-}
-
-.blog-card:hover {
-    transform: translateY(-5px);
-    background: rgba(6, 0, 16, 0.7);
-    border-color: rgba(var(--glow-color), 0.3);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--glow-color), 0.15);
-}
-
-.blog-card:hover::before,
-.blog-card:hover::after { opacity: 1; }
-
-.blog-card-meta {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.85rem;
-    color: hsla(0, 0%, 100%, 0.5);
-}
-
-.blog-card-tag {
-    padding: 4px 10px;
-    background: rgba(102, 126, 234, 0.15);
-    border: 1px solid rgba(102, 126, 234, 0.3);
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #667eea;
-    text-transform: uppercase;
-}
-
-.blog-card-title {
-    position: relative;
-    z-index: 5;
-    font-size: 1.4rem;
-    font-weight: 700;
+.hubspot-section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
     color: #fff;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+}
+
+.hubspot-list-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hubspot-list-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.hubspot-list-title {
+    font-size: 1.05rem;
+    font-weight: 600;
     line-height: 1.4;
     margin: 0;
 }
 
-.blog-card-excerpt {
+.hubspot-list-title a {
+    color: #eee;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.hubspot-list-title a:hover {
+    color: #667eea;
+}
+
+/* Grid Section */
+.hubspot-grid-section {
     position: relative;
-    z-index: 5;
-    font-size: 0.95rem;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 60px auto;
+    padding: 0 24px;
+}
+
+@media (max-width: 640px) {
+    .hubspot-grid-section {
+        margin: 32px auto;
+        padding: 0 16px;
+    }
+}
+
+.hubspot-grid-header {
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hubspot-grid-title {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+}
+
+@media (max-width: 640px) {
+    .hubspot-grid-title {
+        font-size: 1.5rem;
+    }
+}
+
+.hubspot-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 1024px) {
+    .hubspot-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .hubspot-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.hubspot-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(6, 0, 16, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.hubspot-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(102, 126, 234, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(102, 126, 234, 0.1);
+}
+
+/* Card Visual Header */
+.hubspot-card-visual {
+    display: block;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.hubspot-card-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.hubspot-card:hover .hubspot-card-visual img {
+    transform: scale(1.05);
+}
+
+.hubspot-card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.hubspot-card-category {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hubspot-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.hubspot-card-title a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.hubspot-card-title a:hover {
+    color: #667eea;
+}
+
+.hubspot-card-desc {
+    font-size: 0.9rem;
     color: hsla(0, 0%, 100%, 0.6);
-    line-height: 1.7;
-    margin: 0;
+    line-height: 1.6;
+    margin-bottom: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.blog-card-readmore {
-    position: relative;
-    z-index: 5;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #667eea;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+.hubspot-card-meta {
+    font-size: 0.85rem;
+    color: hsla(0, 0%, 100%, 0.4);
     margin-top: auto;
-    transition: gap 0.3s ease;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.blog-card:hover .blog-card-readmore { gap: 10px; }
+/* =========================================
+   Blog Article Page Styles
+   ========================================= */
 
-/* Blog Article Page */
 .blog-article-section {
     position: relative;
     z-index: 2;
@@ -674,26 +807,3 @@
 }
 
 .blog-toc a:hover { color: #667eea; }
-
-/* Featured blog card (first post, spans full width) */
-.blog-card.featured {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    align-items: center;
-}
-
-@media (max-width: 900px) {
-    .blog-card.featured {
-        grid-template-columns: 1fr;
-    }
-}
-
-.blog-card.featured .blog-card-title {
-    font-size: 1.75rem;
-}
-
-.blog-card.featured .blog-card-excerpt {
-    -webkit-line-clamp: 5;
-}

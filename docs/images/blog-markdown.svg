@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <defs>
+    <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a18cd1"/>
+      <stop offset="100%" stop-color="#fbc2eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#bg6)"/>
+  <!-- Document left -->
+  <rect x="100" y="50" width="70" height="90" rx="6" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  <path d="M115 70 h40 M115 82 h35 M115 94 h40 M115 106 h25 M115 118 h30" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Yuque logo hint -->
+  <text x="135" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.6)">Lake</text>
+  <!-- Arrow -->
+  <path d="M185 95 L215 95" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M210 88 L220 95 L210 102" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Markdown document right -->
+  <rect x="230" y="50" width="70" height="90" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+  <!-- Markdown syntax hints -->
+  <text x="245" y="72" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.8)"># Title</text>
+  <text x="245" y="88" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.6)">## Sub</text>
+  <text x="245" y="102" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.6)">- item</text>
+  <text x="245" y="116" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.6)">- item</text>
+  <text x="245" y="130" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.5)">`code`</text>
+  <!-- MD badge -->
+  <rect x="275" y="142" width="28" height="14" rx="3" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="1"/>
+  <text x="289" y="152" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="white">MD</text>
+  <!-- Text -->
+  <text x="200" y="175" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="rgba(255,255,255,0.9)">Lake to Markdown</text>
+  <text x="200" y="195" text-anchor="middle" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.6)">Blog Migration Workflow</text>
+</svg>

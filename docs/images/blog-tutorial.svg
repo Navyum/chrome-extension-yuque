@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#43e97b"/>
+      <stop offset="100%" stop-color="#38f9d7"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#bg4)"/>
+  <!-- Steps visualization -->
+  <g transform="translate(70, 55)">
+    <!-- Step 1 -->
+    <circle cx="30" cy="40" r="22" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+    <text x="30" y="46" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="white">1</text>
+    <!-- Connector -->
+    <path d="M55 40 L95 40" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="4 3"/>
+    <!-- Step 2 -->
+    <circle cx="120" cy="40" r="22" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+    <text x="120" y="46" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="white">2</text>
+    <!-- Connector -->
+    <path d="M145 40 L185 40" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="4 3"/>
+    <!-- Step 3 -->
+    <circle cx="210" cy="40" r="22" fill="rgba(255,255,255,0.35)" stroke="white" stroke-width="2.5"/>
+    <text x="210" y="46" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="white">3</text>
+    <!-- Check mark at end -->
+    <path d="M240 35 L250 40 L240 45" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="265" cy="40" r="12" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="2"/>
+    <path d="M259 40 L263 44 L271 36" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Labels -->
+    <text x="30" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.8)">Install</text>
+    <text x="120" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.8)">Select</text>
+    <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.8)">Export</text>
+    <text x="265" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.8)">Done!</text>
+  </g>
+  <!-- Text -->
+  <text x="200" y="175" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="rgba(255,255,255,0.9)">3-Step Tutorial</text>
+  <text x="200" y="195" text-anchor="middle" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.6)">Zero Technical Barrier</text>
+</svg>

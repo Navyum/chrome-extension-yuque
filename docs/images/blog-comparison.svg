@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4facfe"/>
+      <stop offset="100%" stop-color="#00f2fe"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#bg3)"/>
+  <!-- Comparison bars -->
+  <g transform="translate(80, 50)">
+    <!-- Bar chart -->
+    <rect x="0" y="80" width="40" height="60" rx="4" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+    <rect x="60" y="50" width="40" height="90" rx="4" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+    <rect x="120" y="20" width="40" height="120" rx="4" fill="rgba(255,255,255,0.5)" stroke="white" stroke-width="2"/>
+    <rect x="180" y="65" width="40" height="75" rx="4" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+    <!-- Star on winner -->
+    <path d="M140 10 L143 16 L150 17 L145 22 L146 29 L140 26 L134 29 L135 22 L130 17 L137 16 Z" fill="white" opacity="0.9"/>
+    <!-- Labels -->
+    <text x="20" y="155" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Tool A</text>
+    <text x="80" y="155" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Tool B</text>
+    <text x="140" y="155" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="white">YuqueOut</text>
+    <text x="200" y="155" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Tool D</text>
+  </g>
+  <!-- Text -->
+  <text x="200" y="200" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="rgba(255,255,255,0.9)">Tools Comparison</text>
+</svg>

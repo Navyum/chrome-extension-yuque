@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#16213e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#5a67d8"/>
+    </linearGradient>
+    <linearGradient id="docGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e8ecf4"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#skyGrad)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.05">
+    <line x1="0" y1="50" x2="800" y2="50" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="800" y2="100" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="800" y2="150" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="800" y2="200" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="250" x2="800" y2="250" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="350" x2="800" y2="350" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="800" y2="400" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="450" x2="800" y2="450" stroke="white" stroke-width="0.5"/>
+    <line x1="100" y1="0" x2="100" y2="500" stroke="white" stroke-width="0.5"/>
+    <line x1="200" y1="0" x2="200" y2="500" stroke="white" stroke-width="0.5"/>
+    <line x1="300" y1="0" x2="300" y2="500" stroke="white" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="500" stroke="white" stroke-width="0.5"/>
+    <line x1="500" y1="0" x2="500" y2="500" stroke="white" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="500" stroke="white" stroke-width="0.5"/>
+    <line x1="700" y1="0" x2="700" y2="500" stroke="white" stroke-width="0.5"/>
+  </g>
+
+  <!-- Ambient glow -->
+  <ellipse cx="400" cy="250" rx="300" ry="200" fill="url(#glowGrad)" opacity="0.08"/>
+
+  <!-- LEFT SIDE: Cloud with documents (语雀) -->
+  <!-- Cloud shape -->
+  <g filter="url(#softShadow)" transform="translate(80, 120)">
+    <ellipse cx="120" cy="140" rx="100" ry="70" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <ellipse cx="80" cy="130" rx="60" ry="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    <ellipse cx="160" cy="125" rx="55" ry="45" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  </g>
+
+  <!-- Documents floating in cloud -->
+  <g filter="url(#softShadow)">
+    <!-- Doc 1 -->
+    <rect x="130" y="200" width="44" height="56" rx="4" fill="url(#docGrad)" opacity="0.9"/>
+    <rect x="137" y="212" width="24" height="3" rx="1.5" fill="#667eea" opacity="0.6"/>
+    <rect x="137" y="219" width="30" height="2" rx="1" fill="#ccc"/>
+    <rect x="137" y="225" width="26" height="2" rx="1" fill="#ccc"/>
+    <rect x="137" y="231" width="28" height="2" rx="1" fill="#ccc"/>
+    <rect x="137" y="237" width="20" height="2" rx="1" fill="#ccc"/>
+
+    <!-- Doc 2 -->
+    <rect x="185" y="215" width="44" height="56" rx="4" fill="url(#docGrad)" opacity="0.85"/>
+    <rect x="192" y="227" width="24" height="3" rx="1.5" fill="#764ba2" opacity="0.6"/>
+    <rect x="192" y="234" width="30" height="2" rx="1" fill="#ccc"/>
+    <rect x="192" y="240" width="26" height="2" rx="1" fill="#ccc"/>
+    <rect x="192" y="246" width="28" height="2" rx="1" fill="#ccc"/>
+
+    <!-- Doc 3 -->
+    <rect x="155" y="260" width="44" height="56" rx="4" fill="url(#docGrad)" opacity="0.8"/>
+    <rect x="162" y="272" width="24" height="3" rx="1.5" fill="#10b981" opacity="0.6"/>
+    <rect x="162" y="279" width="30" height="2" rx="1" fill="#ccc"/>
+    <rect x="162" y="285" width="22" height="2" rx="1" fill="#ccc"/>
+
+    <!-- Doc 4 (partially hidden) -->
+    <rect x="112" y="245" width="38" height="48" rx="4" fill="url(#docGrad)" opacity="0.6"/>
+    <rect x="119" y="255" width="20" height="2.5" rx="1" fill="#f59e0b" opacity="0.6"/>
+    <rect x="119" y="261" width="24" height="2" rx="1" fill="#ccc"/>
+  </g>
+
+  <!-- "400+" badge -->
+  <g transform="translate(105, 330)">
+    <rect width="70" height="28" rx="14" fill="url(#glowGrad)" opacity="0.9"/>
+    <text x="35" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="white">400+</text>
+  </g>
+
+  <!-- CENTER: Animated transfer flow -->
+  <!-- Main arrow path -->
+  <g filter="url(#glow)">
+    <path d="M 300 260 C 360 260, 380 240, 400 240 C 420 240, 440 260, 500 260"
+          stroke="url(#glowGrad)" stroke-width="3" stroke-linecap="round" fill="none" stroke-dasharray="12 6" opacity="0.8">
+      <animate attributeName="stroke-dashoffset" values="0;-36" dur="2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Flying documents along the path -->
+  <g opacity="0.9">
+    <rect x="345" y="230" width="28" height="35" rx="3" fill="white" opacity="0.9" filter="url(#softShadow)">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 20,-5; 40,0" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="352" y="238" width="14" height="2" rx="1" fill="#667eea" opacity="0.5">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 20,-5; 40,0" dur="3s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <g opacity="0.7">
+    <rect x="380" y="245" width="24" height="30" rx="3" fill="white" opacity="0.7" filter="url(#softShadow)">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 15,-3; 30,0" dur="2.5s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- Timer badge: 30 min -->
+  <g transform="translate(365, 185)">
+    <rect width="72" height="32" rx="16" fill="rgba(16, 185, 129, 0.9)" filter="url(#softShadow)"/>
+    <text x="36" y="21" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="white">30 min</text>
+  </g>
+
+  <!-- RIGHT SIDE: Local folder structure -->
+  <g filter="url(#softShadow)" transform="translate(520, 150)">
+    <!-- Main folder -->
+    <rect x="0" y="20" width="200" height="200" rx="12" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <!-- Folder tab -->
+    <path d="M 12 20 L 12 8 C 12 4 16 0 20 0 L 75 0 L 85 12 L 188 12 C 192 12 196 16 196 20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+
+    <!-- Sub-folders -->
+    <g transform="translate(20, 45)">
+      <!-- Folder 1 -->
+      <rect x="0" y="0" width="72" height="55" rx="6" fill="rgba(102, 126, 234, 0.15)" stroke="rgba(102, 126, 234, 0.4)" stroke-width="1"/>
+      <path d="M 4 0 L 4 -5 C 4 -8 7 -10 10 -10 L 28 -10 L 32 -4 L 68 -4 C 70 -4 72 -2 72 0" fill="rgba(102, 126, 234, 0.1)" stroke="rgba(102, 126, 234, 0.3)" stroke-width="0.8"/>
+      <text x="36" y="32" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Work</text>
+
+      <!-- Folder 2 -->
+      <rect x="84" y="0" width="72" height="55" rx="6" fill="rgba(118, 75, 162, 0.15)" stroke="rgba(118, 75, 162, 0.4)" stroke-width="1"/>
+      <path d="M 88 0 L 88 -5 C 88 -8 91 -10 94 -10 L 112 -10 L 116 -4 L 152 -4 C 154 -4 156 -2 156 0" fill="rgba(118, 75, 162, 0.1)" stroke="rgba(118, 75, 162, 0.3)" stroke-width="0.8"/>
+      <text x="120" y="32" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Notes</text>
+
+      <!-- Folder 3 -->
+      <rect x="0" y="70" width="72" height="55" rx="6" fill="rgba(16, 185, 129, 0.15)" stroke="rgba(16, 185, 129, 0.4)" stroke-width="1"/>
+      <path d="M 4 70 L 4 65 C 4 62 7 60 10 60 L 28 60 L 32 66 L 68 66 C 70 66 72 68 72 70" fill="rgba(16, 185, 129, 0.1)" stroke="rgba(16, 185, 129, 0.3)" stroke-width="0.8"/>
+      <text x="36" y="102" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Projects</text>
+
+      <!-- Folder 4 -->
+      <rect x="84" y="70" width="72" height="55" rx="6" fill="rgba(245, 158, 11, 0.15)" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1"/>
+      <path d="M 88 70 L 88 65 C 88 62 91 60 94 60 L 112 60 L 116 66 L 152 66 C 154 66 156 68 156 70" fill="rgba(245, 158, 11, 0.1)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="0.8"/>
+      <text x="120" y="102" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Archive</text>
+    </g>
+
+    <!-- File count -->
+    <g transform="translate(20, 175)">
+      <rect x="0" y="0" width="160" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+      <rect x="0" y="0" width="144" height="6" rx="3" fill="url(#glowGrad)" opacity="0.8">
+        <animate attributeName="width" values="0;144" dur="2s" fill="freeze"/>
+      </rect>
+    </g>
+  </g>
+
+  <!-- Success checkmark -->
+  <g transform="translate(670, 155)" filter="url(#glow)">
+    <circle cx="20" cy="20" r="18" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2"/>
+    <path d="M 11 20 L 17 26 L 29 14" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Decorative particles -->
+  <circle cx="320" cy="150" r="3" fill="#667eea" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="480" cy="170" r="2.5" fill="#764ba2" opacity="0.4">
+    <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="350" cy="320" r="2" fill="#10b981" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="450" cy="310" r="2.5" fill="#667eea" opacity="0.3">
+    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Bottom label area -->
+  <g transform="translate(400, 420)">
+    <text x="0" y="0" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="white" opacity="0.9">3 Years of Notes → 30 Minutes</text>
+    <text x="0" y="32" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="rgba(255,255,255,0.5)">400+ docs across 8 knowledge bases, safely exported to local</text>
+  </g>
+</svg>

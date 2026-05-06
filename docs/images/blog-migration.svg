@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+    <linearGradient id="shine1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.15)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#bg1)"/>
+  <rect width="400" height="225" fill="url(#shine1)"/>
+  <!-- Cloud -->
+  <ellipse cx="120" cy="100" rx="40" ry="28" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <ellipse cx="140" cy="90" rx="25" ry="20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  <!-- Arrow -->
+  <path d="M175 105 L225 105" stroke="white" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 4"/>
+  <path d="M220 98 L230 105 L220 112" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Folder -->
+  <rect x="245" y="80" width="50" height="45" rx="4" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  <path d="M245 88 L245 84 Q245 80 249 80 L265 80 L270 85 L291 85 Q295 85 295 89" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="rgba(255,255,255,0.08)"/>
+  <!-- File icons in folder -->
+  <rect x="255" y="95" width="12" height="16" rx="2" fill="rgba(255,255,255,0.3)"/>
+  <rect x="272" y="95" width="12" height="16" rx="2" fill="rgba(255,255,255,0.25)"/>
+  <!-- Text -->
+  <text x="200" y="165" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="rgba(255,255,255,0.9)">Data Migration Guide</text>
+  <text x="200" y="185" text-anchor="middle" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.6)">4 Solutions Compared</text>
+</svg>
