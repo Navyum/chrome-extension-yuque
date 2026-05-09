@@ -3,7 +3,7 @@ import { sendLog, sendProgress, sendComplete, sendError } from './messaging.js';
 import { checkAuth, fetchAllBooks, fetchBookDocs, buildDocListFromApiDocs, exportDocAsync, downloadImage, resetThrottle, fetchBookmarks, fetchBookDocsWithPasswordCheck, verifyBookPassword, verifyDocPassword, fetchBookToc } from './yuque.js';
 import { lakeToMarkdown, fetchDocContent } from './lake-converter.js';
 import { convertLakeSheet } from './sheet-converter.js';
-import { convertBoardToSvg } from './board-converter.js';
+import { convertBoardToSvg, convertBoardToMermaid } from './board-converter.js';
 import { saveBlobToDisk, saveContentToDisk, downloadUrlToDisk } from './downloads.js';
 import { delay, sanitizePathComponent, sanitizePathSegments, guessImageExt } from './utils.js';
 import { refreshAbortController, abortActiveTasks } from './task-controller.js';
@@ -578,7 +578,7 @@ async function renderEmbeddedBoardsToAssets(lakeHtml, file, imageBasePath, logFn
       continue;
     }
 
-    if (data.src || !data.diagramData?.body) continue;
+    if (!data.diagramData?.body) continue;
 
     boardIndex += 1;
     try {
@@ -589,13 +589,14 @@ async function renderEmbeddedBoardsToAssets(lakeHtml, file, imageBasePath, logFn
         : buildImagePath(file, localName);
       await saveBlobToDisk(new Blob([svg], { type: 'image/svg+xml' }), downloadPath);
 
-      const imageCardData = {
-        src: localName,
-        name: `${sanitizePathComponent(file.title) || '未命名文档'}-白板-${boardIndex}.svg`,
-        title: '白板',
-      };
-      const imageCard = `<card type="inline" name="image" value="data:${encodeURIComponent(JSON.stringify(imageCardData))}"></card>`;
-      replacements.push({ from: match[0], to: imageCard });
+      const mermaid = convertBoardToMermaid(data);
+      const markdown = [
+        mermaid ? `\`\`\`mermaid\n${mermaid}\n\`\`\`` : '',
+        `![白板 ${boardIndex}](${localName})`
+      ].filter(Boolean).join('\n\n');
+      const markdownCardData = { markdown };
+      const markdownCard = `<card type="inline" name="markdown" value="data:${encodeURIComponent(JSON.stringify(markdownCardData))}"></card>`;
+      replacements.push({ from: match[0], to: markdownCard });
       renderedCount += 1;
     } catch (error) {
       logFn(`  内嵌白板渲染失败: ${error.message}`);

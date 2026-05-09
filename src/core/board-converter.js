@@ -62,6 +62,37 @@ export async function convertBoardToSvg(docOrContent) {
   return { svg, width: Math.ceil(vw), height: Math.ceil(vh) };
 }
 
+/**
+ * Convert structured lakeboard content to Mermaid when possible.
+ * This is a semantic reconstruction, not a pixel-perfect rendering.
+ * @param {string|object} docOrContent
+ * @returns {string} Mermaid code without surrounding fences, or an empty string.
+ */
+export function convertBoardToMermaid(docOrContent) {
+  const contentStr = typeof docOrContent === 'string'
+    ? docOrContent
+    : (docOrContent.content || docOrContent.body || JSON.stringify(docOrContent || {}));
+
+  let parsed;
+  try {
+    parsed = typeof contentStr === 'string' ? JSON.parse(contentStr) : contentStr;
+  } catch {
+    return '';
+  }
+
+  const body = parsed?.diagramData?.body;
+  if (!Array.isArray(body) || !body.length) return '';
+
+  const mindmap = body.find(el => el.type === 'mindmap');
+  if (mindmap) return renderMermaidMindmap(mindmap);
+
+  const hasSemanticGeometry = body.some(el => el.type === 'geometry' || el.type === 'text');
+  const hasFreehand = body.some(el => el.type === 'freehand');
+  if (hasSemanticGeometry && !hasFreehand) return renderMermaidFlowchart(body);
+
+  return '';
+}
+
 // ── Image prefetch ──
 
 async function prefetchImages(elements) {
@@ -93,6 +124,141 @@ function collectImageUrls(elements, urls) {
     if (el.children) collectImageUrls(el.children, urls);
     if (el.contain) collectImageUrls(el.contain, urls);
   }
+}
+
+// ── Mermaid export ──
+
+function renderMermaidMindmap(root) {
+  const lines = ['mindmap'];
+
+  function appendNode(node, depth, isRoot = false) {
+    const text = normalizeMermaidText(stripHtml(node.html || node.text || node.name || '节点')) || '节点';
+    const prefix = '  '.repeat(depth);
+    lines.push(isRoot ? `${prefix}root((${text}))` : `${prefix}${text}`);
+    (node.children || []).forEach(child => appendNode(child, depth + 1));
+  }
+
+  appendNode(root, 1, true);
+  return lines.join('\n');
+}
+
+function renderMermaidFlowchart(elements) {
+  const byId = new Map();
+  elements.forEach(el => {
+    if (el.id) byId.set(el.id, el);
+  });
+
+  const textLabels = elements.filter(el => el.type === 'text' && el.html);
+  const semanticNodes = elements
+    .filter(el => el.id && el.type === 'geometry')
+    .sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
+  const lines = ['flowchart LR'];
+  const nodeIds = new Map();
+
+  semanticNodes.forEach((el, index) => {
+    const nodeId = `n${index + 1}`;
+    nodeIds.set(el.id, nodeId);
+    lines.push(`  ${nodeId}${mermaidNodeShape(el)}`);
+  });
+
+  elements
+    .filter(el => el.type === 'line')
+    .sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0))
+    .forEach(line => {
+      const sourceId = line.source?.id;
+      const targetId = line.target?.id;
+      if (!sourceId || !targetId || !nodeIds.has(sourceId) || !nodeIds.has(targetId)) return;
+
+      const source = nodeIds.get(sourceId);
+      const target = nodeIds.get(targetId);
+      const label = inferMermaidLineLabel(line, byId, textLabels);
+      const arrow = mermaidArrow(line, label);
+      lines.push(`  ${source} ${arrow} ${target}`);
+    });
+
+  return lines.length > 1 ? lines.join('\n') : '';
+}
+
+function inferMermaidLineLabel(line, byId, textLabels) {
+  const ownLabel = normalizeMermaidText(stripHtml(line.html || ''));
+  if (ownLabel) return ownLabel;
+  if (!textLabels.length) return '';
+
+  const source = byId.get(line.source?.id);
+  const target = byId.get(line.target?.id);
+  if (!source || !target) return '';
+
+  const sp = mermaidEndpointPoint(line.source, source);
+  const tp = mermaidEndpointPoint(line.target, target);
+  if (!sp || !tp) return '';
+
+  const midX = (sp.x + tp.x) / 2;
+  const midY = (sp.y + tp.y) / 2;
+  let best = null;
+
+  textLabels.forEach(label => {
+    const text = normalizeMermaidText(stripHtml(label.html || ''));
+    if (!text) return;
+    const x = label.x || 0;
+    const y = label.y || 0;
+    const distance = Math.hypot(x - midX, y - midY);
+    if (!best || distance < best.distance) best = { text, distance };
+  });
+
+  return best && best.distance < 90 ? best.text : '';
+}
+
+function mermaidEndpointPoint(endpoint, el) {
+  if (!endpoint || !el) return null;
+  const x = el.x || 0;
+  const y = el.y || 0;
+  const w = el.width || 0;
+  const h = el.height || 0;
+  switch (endpoint.connection) {
+    case 'N': return { x: x + w / 2, y };
+    case 'S': return { x: x + w / 2, y: y + h };
+    case 'E': return { x: x + w, y: y + h / 2 };
+    case 'W': return { x, y: y + h / 2 };
+    default: return { x: x + w / 2, y: y + h / 2 };
+  }
+}
+
+function mermaidNodeShape(el) {
+  const text = normalizeMermaidText(stripHtml(el.html || el.text || el.name || '节点')) || '节点';
+  switch (el.shape) {
+    case 'start-end':
+      return `([${quoteMermaidLabel(text)}])`;
+    case 'decision':
+      return `{${quoteMermaidLabel(text)}}`;
+    case 'use-case':
+      return `((${quoteMermaidLabel(text)}))`;
+    case 'actor':
+      return `[${quoteMermaidLabel(text)}]`;
+    case 'text':
+      return `[${quoteMermaidLabel(text)}]`;
+    default:
+      return `[${quoteMermaidLabel(text)}]`;
+  }
+}
+
+function mermaidArrow(line, label) {
+  const isDashed = line.stroke?.style === 'dash';
+  const cleanLabel = label && label !== '\u200b' ? label : '';
+  if (isDashed && cleanLabel) return `-. "${cleanLabel}" .->`;
+  if (isDashed) return '-.->';
+  if (cleanLabel) return `-- "${cleanLabel}" -->`;
+  return '-->';
+}
+
+function normalizeMermaidText(text = '') {
+  return String(text)
+    .replace(/\u200b/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function quoteMermaidLabel(text = '') {
+  return `"${String(text).replace(/"/g, '\\"')}"`;
 }
 
 // ── Index ──

@@ -239,6 +239,10 @@ function convertCard(name, value) {
       return `\n\`\`\`${lang}\n${code}\n\`\`\`\n`;
     }
 
+    case 'markdown': {
+      return data.markdown ? `\n${data.markdown}\n` : '';
+    }
+
     case 'math': {
       const code = data.code || '';
       return code ? `\n$$\n${code}\n$$\n` : '';
