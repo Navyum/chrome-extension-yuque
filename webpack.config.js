@@ -37,8 +37,13 @@ const config = {
       patterns: [
         { from: 'manifest.json', to: '.' },
         { from: '_locales', to: '_locales' },
-        { from: 'icons', to: 'icons' },
-        { from: 'asserts', to: 'asserts' },
+        { from: 'icons/icon16.png', to: 'icons/icon16.png' },
+        { from: 'icons/icon32.png', to: 'icons/icon32.png' },
+        { from: 'icons/icon48.png', to: 'icons/icon48.png' },
+        { from: 'icons/icon64.png', to: 'icons/icon64.png' },
+        { from: 'icons/icon128.png', to: 'icons/icon128.png' },
+        { from: 'icons/icon-round.png', to: 'icons/icon-round.png' },
+        { from: 'assets', to: 'assets' },
         {
           from: 'src',
           to: 'src',

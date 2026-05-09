@@ -87,7 +87,7 @@ chrome-extension-yuque/
 │   ├── zh_CN/messages.json
 │   └── en/messages.json
 ├── icons/                     # 扩展图标
-├── asserts/                   # UI 资源（含 Iconify SVG 图标）
+├── assets/                   # UI 资源（含 Iconify SVG 图标）
 ├── manifest.json
 ├── webpack.config.js
 └── package.json

@@ -154,6 +154,12 @@ function buildDefs() {
   <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
     <polygon points="0 0, 10 3.5, 0 7" fill="#8C8C8C"/>
   </marker>
+  <marker id="open-triangle" markerWidth="12" markerHeight="10" refX="12" refY="5" orient="auto" markerUnits="strokeWidth">
+    <path d="M1,1 L11,5 L1,9" fill="none" stroke="#585A5A" stroke-width="1.5"/>
+  </marker>
+  <marker id="hollow-triangle" markerWidth="12" markerHeight="10" refX="12" refY="5" orient="auto" markerUnits="strokeWidth">
+    <path d="M1,1 L11,5 L1,9 Z" fill="#fff" stroke="#585A5A" stroke-width="1.5"/>
+  </marker>
 </defs>`;
 }
 
@@ -198,6 +204,16 @@ function renderGeometry(el) {
       shapeSvg = `<polygon points="${cx},${y} ${x + w},${cy} ${cx},${y + h} ${x},${cy}" fill="${fc}" stroke="${sc}" stroke-width="${sw}"/>`;
       break;
     }
+    case 'process':
+      shapeSvg = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fc}" stroke="${sc}" stroke-width="${sw}"/>`;
+      break;
+    case 'use-case': {
+      const cx = x + w / 2, cy = y + h / 2;
+      shapeSvg = `<ellipse cx="${cx}" cy="${cy}" rx="${w / 2}" ry="${h / 2}" fill="${fc}" stroke="${sc}" stroke-width="${sw}"/>`;
+      break;
+    }
+    case 'actor':
+      return renderActor(el);
     case 'subroutine': {
       const inset = 8;
       shapeSvg = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fc}" stroke="${sc}" stroke-width="${sw}"/>` +
@@ -250,6 +266,36 @@ function renderText(el) {
   return svg;
 }
 
+function renderActor(el) {
+  const { x, y, width: w, height: h, stroke, html } = el;
+  const sc = stroke?.color || '#333';
+  const sw = stroke?.width || 2;
+  const cx = x + w / 2;
+  const headR = Math.max(Math.min(w, h) * 0.18, 5);
+  const headCy = y + headR + 2;
+  const neckY = headCy + headR;
+  const bodyBottomY = y + h * 0.62;
+  const armY = y + h * 0.33;
+  const legBottomY = y + h * 0.9;
+  const armSpan = Math.max(w * 0.7, 24);
+  const legSpan = Math.max(w * 0.6, 22);
+
+  const figure = [
+    `<circle cx="${cx}" cy="${headCy}" r="${headR}" fill="#fff" stroke="${sc}" stroke-width="${sw}"/>`,
+    `<line x1="${cx}" y1="${neckY}" x2="${cx}" y2="${bodyBottomY}" stroke="${sc}" stroke-width="${sw}"/>`,
+    `<line x1="${cx - armSpan / 2}" y1="${armY}" x2="${cx + armSpan / 2}" y2="${armY}" stroke="${sc}" stroke-width="${sw}"/>`,
+    `<line x1="${cx}" y1="${bodyBottomY}" x2="${cx - legSpan / 2}" y2="${legBottomY}" stroke="${sc}" stroke-width="${sw}"/>`,
+    `<line x1="${cx}" y1="${bodyBottomY}" x2="${cx + legSpan / 2}" y2="${legBottomY}" stroke="${sc}" stroke-width="${sw}"/>`,
+  ].join('');
+
+  const text = stripHtml(html || '').trim();
+  const label = text
+    ? `<text x="${cx}" y="${y + h + 22}" text-anchor="middle" font-size="14" fill="${sc}" font-family="-apple-system,BlinkMacSystemFont,sans-serif">${escapeXml(text)}</text>`
+    : '';
+
+  return `<g>${figure}${label}</g>`;
+}
+
 // ── Image ──
 
 function renderImage(el, imageCache = {}) {
@@ -265,13 +311,14 @@ function renderLine(el, index) {
   const { source, target, stroke, html } = el;
   const sc = stroke?.color || '#8C8C8C';
   const sw = stroke?.width || 1;
-  const hasArrow = target?.marker === 'arrow';
+  const markerId = normalizeMarker(target?.marker);
 
   const sp = resolvePoint(source, index);
   const tp = resolvePoint(target, index);
   if (!sp || !tp) return `<!-- line: unresolved endpoints -->`;
 
-  const markerAttr = hasArrow ? ' marker-end="url(#arrow)"' : '';
+  const markerAttr = markerId ? ` marker-end="url(#${markerId})"` : '';
+  const dashAttr = stroke?.style === 'dash' ? ' stroke-dasharray="6 6"' : '';
 
   // For elbow lines, draw right-angle path
   // Simple approach: if horizontal diff is significant, go horizontal then vertical
@@ -295,7 +342,7 @@ function renderLine(el, index) {
     path = `M${sp[0]},${sp[1]} L${tp[0]},${tp[1]}`;
   }
 
-  let svg = `<path d="${path}" fill="none" stroke="${sc}" stroke-width="${sw}"${markerAttr}/>`;
+  let svg = `<path d="${path}" fill="none" stroke="${sc}" stroke-width="${sw}"${dashAttr}${markerAttr}/>`;
 
   // Render line label at midpoint
   if (html) {
@@ -305,6 +352,19 @@ function renderLine(el, index) {
   }
 
   return svg;
+}
+
+function normalizeMarker(marker) {
+  switch (marker) {
+    case 'arrow':
+      return 'arrow';
+    case 'open-triangle':
+      return 'open-triangle';
+    case 'hollow-triangle':
+      return 'hollow-triangle';
+    default:
+      return '';
+  }
 }
 
 function resolvePoint(endpoint, index) {

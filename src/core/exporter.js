@@ -553,6 +553,63 @@ async function localizeMarkdownImages(mdText, file, imageBasePath, imageConcurre
   return { localizedMd, imageCount: results.length };
 }
 
+async function renderEmbeddedBoardsToAssets(lakeHtml, file, imageBasePath, logFn = sendLog) {
+  if (!lakeHtml || !lakeHtml.includes('name="board"')) {
+    return { content: lakeHtml, boardCount: 0 };
+  }
+
+  let boardIndex = 0;
+  let renderedCount = 0;
+  const cardRegex = /<card\s+([^>]*)><\/card>/gi;
+  const replacements = [];
+
+  for (const match of lakeHtml.matchAll(cardRegex)) {
+    const attrs = match[1] || '';
+    const name = (attrs.match(/name="([^"]*)"/) || [])[1] || '';
+    if (name !== 'board') continue;
+
+    const value = (attrs.match(/value="([^"]*)"/) || [])[1] || '';
+    if (!value.startsWith('data:')) continue;
+
+    let data;
+    try {
+      data = JSON.parse(decodeURIComponent(value.slice(5)));
+    } catch {
+      continue;
+    }
+
+    if (data.src || !data.diagramData?.body) continue;
+
+    boardIndex += 1;
+    try {
+      const { svg } = await convertBoardToSvg(JSON.stringify(data));
+      const localName = `assets/${sanitizePathComponent(file.title) || '未命名文档'}-白板-${boardIndex}.svg`;
+      const downloadPath = imageBasePath !== undefined && imageBasePath !== null
+        ? (imageBasePath ? `${imageBasePath}/${localName}` : localName)
+        : buildImagePath(file, localName);
+      await saveBlobToDisk(new Blob([svg], { type: 'image/svg+xml' }), downloadPath);
+
+      const imageCardData = {
+        src: localName,
+        name: `${sanitizePathComponent(file.title) || '未命名文档'}-白板-${boardIndex}.svg`,
+        title: '白板',
+      };
+      const imageCard = `<card type="inline" name="image" value="data:${encodeURIComponent(JSON.stringify(imageCardData))}"></card>`;
+      replacements.push({ from: match[0], to: imageCard });
+      renderedCount += 1;
+    } catch (error) {
+      logFn(`  内嵌白板渲染失败: ${error.message}`);
+    }
+  }
+
+  let content = lakeHtml;
+  for (const item of replacements) {
+    content = content.replace(item.from, item.to);
+  }
+
+  return { content, boardCount: renderedCount };
+}
+
 function buildImagePath(file, localName) {
   const segments = [];
   if (exportState.subfolder) segments.push(...sanitizePathSegments(exportState.subfolder));
@@ -620,7 +677,9 @@ async function exportViaLakeContent(file, format, perTypeFormat) {
   }
 
   // Convert Lake HTML to Markdown
-  const markdown = lakeToMarkdown(content);
+  const { content: contentWithBoards, boardCount } = await renderEmbeddedBoardsToAssets(content, file);
+  if (boardCount > 0) sendLog(`  内嵌白板渲染: ${boardCount} 个`);
+  const markdown = lakeToMarkdown(contentWithBoards);
 
   if (exportState.downloadImages) {
     const { localizedMd, imageCount } = await localizeMarkdownImages(markdown, file);
@@ -1099,9 +1158,10 @@ async function handleQuickExport(data, sendResponse) {
       if (result.blob) await saveBlobToDisk(result.blob, savedPath);
       else await saveText(result.text, result.mime);
     } else if (perTypeFormat === 'md' && (markdownMode === 'local' || noPermission) && content) {
-      const markdown = lakeToMarkdown(content);
+      const imgBase = segments.slice(0, -1).filter(Boolean).join('/'); // subfolder path without filename
+      const { content: contentWithBoards } = await renderEmbeddedBoardsToAssets(content, file, imgBase, () => {});
+      const markdown = lakeToMarkdown(contentWithBoards);
       if (downloadImages) {
-        const imgBase = segments.slice(0, -1).filter(Boolean).join('/'); // subfolder path without filename
         const { localizedMd } = await localizeMarkdownImages(markdown, file, imgBase, imageConcurrency, () => {});
         await saveText(localizedMd, 'text/markdown');
       } else {
@@ -1138,7 +1198,7 @@ async function resolveBookId(namespace) {
 }
 
 async function resolveFullDocInfo(slug, bookId) {
-  const resp = await fetch(`https://www.yuque.com/api/docs/${slug}?book_id=${bookId}&merge_dynamic_data=false`, {
+  const resp = await fetch(`https://www.yuque.com/api/docs/${slug}?book_id=${bookId}&merge_dynamic_data=true`, {
     headers: {
       'Accept': 'application/json',
       'x-requested-with': 'XMLHttpRequest',

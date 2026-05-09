@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "build:watch": "cross-env NODE_ENV=development webpack --watch --config webpack.config.js",
-    "pack": "npm run build && mkdir -pv build && cd dist && zip -r ../build/chrome-extension-yuque-export.zip *"
+    "pack": "npm run build && mkdir -pv build && rm -f build/chrome-extension-yuque-export.zip && cd dist && zip -r ../build/chrome-extension-yuque-export.zip *"
   },
   "keywords": [
     "yuque",
