@@ -1,72 +1,79 @@
-name: Build and Release Extension
+name: Build Chrome Extension
 
 on:
-  push:
-    tags:
-      - 'v*'
-    branches:
-      - main
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
   workflow_dispatch:
 
+concurrency:
+  group: chrome-extension-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build-and-release:
+  build:
+    name: Build and package
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
 
-    - name: Install dependencies
-      run: npm ci || npm install
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build and Pack All Versions
-      run: npm run pack:all
+      - name: Build and package extension
+        run: npm run pack
 
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: extension-packages
-        path: build/*.zip
-        retention-days: 30
+      - name: Generate checksum
+        run: |
+          mkdir -p build
+          sha256sum build/chrome-extension-yuque-export.zip > build/chrome-extension-yuque-export.zip.sha256
 
-    - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/v')
-      uses: softprops/action-gh-release@v2
-      with:
-        files: build/*.zip
-        name: Release ${{ github.ref_name }}
-        body: |
-          ## 🚀 石墨文档导出工具发布
-          
-          ### 📦 下载安装包
-          - [Chrome 版本] (shimo-export-chrome.zip)
-          - [Firefox 版本] (shimo-export-firefox.zip)
-          - [Edge 版本] (shimo-export-edge.zip)
-          
-          ### 🔧 主要功能
-          - ✅ 跨浏览器支持 (Chrome, Firefox, Edge)
-          - ✅ 一键批量导出石墨文档
-          - ✅ 支持多种格式: Markdown, PDF, Word, JPG
-          - ✅ 保留原始文件夹层级结构
-          - ✅ 实时进度显示与导出性能监控
-          
-          ### 📝 更新说明
-          见提交历史记录。
-          
-          ---
-          **注意**: 请根据您的浏览器下载对应的安装包，并在浏览器扩展管理页面开启开发者模式后“加载已解压的扩展程序”。
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chrome-extension-yuque-export
+          path: |
+            build/chrome-extension-yuque-export.zip
+            build/chrome-extension-yuque-export.zip.sha256
+          retention-days: 30
+
+      - name: Create GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: YuqueOut ${{ github.ref_name }}
+          files: |
+            build/chrome-extension-yuque-export.zip
+            build/chrome-extension-yuque-export.zip.sha256
+          body: |
+            ## YuqueOut ${{ github.ref_name }}
+
+            ### 安装包
+            - `chrome-extension-yuque-export.zip`
+            - `chrome-extension-yuque-export.zip.sha256`
+
+            ### 使用方式
+            1. 下载并解压 zip。
+            2. 打开 Chrome 扩展管理页 `chrome://extensions/`。
+            3. 开启“开发者模式”。
+            4. 点击“加载已解压的扩展程序”，选择解压后的目录。
+
+            ### 发布说明
+            详细更新内容请查看本次 tag 对应的提交记录。
+          draft: false
+          prerelease: false
