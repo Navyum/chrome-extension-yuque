@@ -1,0 +1,78 @@
+<!DOCTYPE lake>
+<html>
+ <head>
+  <meta name="\&quot;doc-version\&quot;" content="\&quot;1\&quot;" />
+  <meta name="\&quot;viewport\&quot;" content="\&quot;adapt\&quot;" />
+  <meta name="\&quot;typography\&quot;" content="\&quot;classic\&quot;" />
+  <meta name="\&quot;paragraphSpacing\&quot;" content="\&quot;relax\&quot;" />
+  <meta name="\&quot;defaultFontsize\&quot;" content="\&quot;16\&quot;" />
+ </head>
+ <body>
+  <h2 data-lake-id="\&quot;aa678afb\&quot;" id="\&quot;aa678afb\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u0169cd03\&quot;" id="\&quot;u0169cd03\&quot;">主要研发过程</span></h2>
+  <p data-lake-id="\&quot;u1b1c22cb\&quot;" id="\&quot;u1b1c22cb\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u7416d33e\&quot;" id="\&quot;u7416d33e\&quot;">立项-&gt;需求共识-&gt;需求评审&amp;设计评审-&gt;技术评审-&gt;开发-&gt;测试用例评审-&gt;提测-&gt;Debug-&gt;测试报告-&gt;灰度发布-&gt;全量发布。</span></p>
+  <p data-lake-id="\&quot;ud1bfb187\&quot;" id="\&quot;ud1bfb187\&quot;" style="\&quot;text-align:" left\"="">
+   <card type="\&quot;inline\&quot;" name="\&quot;image\&quot;" value="\&quot;data:%7B%22src%22%3A%22https%3A%2F%2Fcdn.nlark.com%2Fyuque%2F0%2F2025%2Fjpeg%2F34523858%2F1736243213957-bd67991f-b71f-40f6-9fa1-59cf1561a0f5.jpeg%22%2C%22taskId%22%3A%22u2bdf3a0f-d464-4b10-9188-a9545ff38db%22%2C%22clientId%22%3A%22u1452309d-b948-4%22%2C%22originalType%22%3A%22url%22%2C%22width%22%3A815%2C%22height%22%3A801%2C%22linkTarget%22%3A%22_blank%22%2C%22from%22%3A%22paste%22%2C%22originWidth%22%3A1086%2C%22originHeight%22%3A1068%2C%22ratio%22%3A2%2C%22status%22%3A%22done%22%2C%22style%22%3A%22stroke%22%2C%22showTitle%22%3Afalse%2C%22title%22%3A%22%22%2C%22rotation%22%3A0%2C%22crop%22%3A%5B0%2C0%2C1%2C1%5D%2C%22averageHue%22%3A%22%23fafafa%22%2C%22id%22%3A%22u81bcb1b9%22%7D\&quot;"></card></p>
+  <p data-lake-id="\&quot;ub5385019\&quot;" id="\&quot;ub5385019\&quot;"><br /></p>
+  <h2 data-lake-id="\&quot;ac651e39\&quot;" id="\&quot;ac651e39\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u0d9ba4d8\&quot;" id="\&quot;u0d9ba4d8\&quot;">核心流程</span></h2>
+  <h3 data-lake-id="\&quot;b8b2440f\&quot;" id="\&quot;b8b2440f\&quot;" data-lake-index-type="\&quot;2\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;uc9355b1f\&quot;" id="\&quot;uc9355b1f\&quot;">需求评审</span></h3>
+  <ul list="\&quot;u6f3a2ec2\&quot;">
+   <li fid="\&quot;u053d08b5\&quot;" data-lake-id="\&quot;ud42267a2\&quot;" id="\&quot;ud42267a2\&quot;"><span data-lake-id="\&quot;ueb7c02c4\&quot;" id="\&quot;ueb7c02c4\&quot;">与产品深度讨论需求的目标，是否与我们OKR方向相符，是否有明确的预期提升哪些指标，这些要作为验收标准；</span></li>
+   <li fid="\&quot;u053d08b5\&quot;" data-lake-id="\&quot;u3672d22e\&quot;" id="\&quot;u3672d22e\&quot;"><span data-lake-id="\&quot;ueae007de\&quot;" id="\&quot;ueae007de\&quot;">与产品明确需求细节，是否可实现，实现有哪些困难；可以给出研发侧的建议，怎么做更好，便于后续代码维护；</span></li>
+   <li fid="\&quot;u053d08b5\&quot;" data-lake-id="\&quot;u60dd9811\&quot;" id="\&quot;u60dd9811\&quot;"><span data-lake-id="\&quot;uf06dc6c4\&quot;" id="\&quot;uf06dc6c4\&quot;">对于边界条件或其它逻辑，多思考，多确认需求细节，尽可能补充技术侧的细节；</span></li>
+  </ul>
+  <p data-lake-id="\&quot;u77703e0f\&quot;" id="\&quot;u77703e0f\&quot;"><br /></p>
+  <h3 data-lake-id="\&quot;497ea622\&quot;" id="\&quot;497ea622\&quot;" data-lake-index-type="\&quot;2\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u9a7b5862\&quot;" id="\&quot;u9a7b5862\&quot;">技术评审</span></h3>
+  <p data-lake-id="\&quot;u27c26e0c\&quot;" id="\&quot;u27c26e0c\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u99e0c90e\&quot;" id="\&quot;u99e0c90e\&quot;">根据产品需求的理解，明确技术上如何实现，具体要求有以下几点：</span></p>
+  <ul list="\&quot;u5bc7d120\&quot;">
+   <li fid="\&quot;u583f5cf8\&quot;" data-lake-id="\&quot;ufbe35030\&quot;" id="\&quot;ufbe35030\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;ub3747371\&quot;" id="\&quot;ub3747371\&quot;">涉及多端配合一定要有技术评审；</span></li>
+   <li fid="\&quot;u583f5cf8\&quot;" data-lake-id="\&quot;u3dcfbb9f\&quot;" id="\&quot;u3dcfbb9f\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;ubb8989da\&quot;" id="\&quot;ubb8989da\&quot;">涉及多地配合的一定要有技术评审；</span></li>
+   <li fid="\&quot;u583f5cf8\&quot;" data-lake-id="\&quot;ua7e4aa11\&quot;" id="\&quot;ua7e4aa11\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u2c2c7291\&quot;" id="\&quot;u2c2c7291\&quot;">工期超过3天务必要有技术评审；</span></li>
+   <li fid="\&quot;u583f5cf8\&quot;" data-lake-id="\&quot;u193d27f4\&quot;" id="\&quot;u193d27f4\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u1712269a\&quot;" id="\&quot;u1712269a\&quot;">技术评审需要有清晰明确的技术文档，号召产品、所有相关研发、测试来听。</span></li>
+  </ul>
+  <p data-lake-id="\&quot;ub168c6eb\&quot;" id="\&quot;ub168c6eb\&quot;"><br /></p>
+  <h3 data-lake-id="\&quot;d93d8a2b\&quot;" id="\&quot;d93d8a2b\&quot;" style="\&quot;text-align:" left\"=""><strong><span data-lake-id="\&quot;u12c6004b\&quot;" id="\&quot;u12c6004b\&quot;" class="\&quot;lake-fontsize-14\&quot;">3. 工期评估法</span></strong></h3>
+  <p data-lake-id="\&quot;ufff98ee7\&quot;" id="\&quot;ufff98ee7\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u7d59addb\&quot;" id="\&quot;u7d59addb\&quot;">对于</span><strong><span data-lake-id="\&quot;u254319cc\&quot;" id="\&quot;u254319cc\&quot;">工期超过2天</span></strong><span data-lake-id="\&quot;u0ddbe144\&quot;" id="\&quot;u0ddbe144\&quot;">的需求或项目，适用本方法。</span></p>
+  <p data-lake-id="\&quot;u97a67af1\&quot;" id="\&quot;u97a67af1\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u4b1a480d\&quot;" id="\&quot;u4b1a480d\&quot;">项目成员基于对技术方案的理解，以及</span><strong><span data-lake-id="\&quot;u65af8678\&quot;" id="\&quot;u65af8678\&quot;">梳理出各模块的功能 List 和技术难点</span></strong><span data-lake-id="\&quot;ufb2b99b8\&quot;" id="\&quot;ufb2b99b8\&quot;">，进行工期的评估。</span></p>
+  <p data-lake-id="\&quot;u022fccb0\&quot;" id="\&quot;u022fccb0\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;uc6fd4923\&quot;" id="\&quot;uc6fd4923\&quot;">工期评估后，同项目经理或产品经理进行开发排期，对于有资源冲突的情况，需要再拉通各方共识优先级进行调整。</span></p>
+  <p data-lake-id="\&quot;u5aa4fef7\&quot;" id="\&quot;u5aa4fef7\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u7489452b\&quot;" id="\&quot;u7489452b\&quot;">工期评估需要包含以下要素 （1+5+1 工时评估法）：</span></p>
+  <ul list="\&quot;u4afdb101\&quot;">
+   <li fid="\&quot;ube898080\&quot;" data-lake-id="\&quot;u31ca0c2c\&quot;" id="\&quot;u31ca0c2c\&quot;" style="\&quot;text-align:" left\"=""><strong><span data-lake-id="\&quot;uc1aae188\&quot;" id="\&quot;uc1aae188\&quot;">1</span></strong><span data-lake-id="\&quot;u4c515aaf\&quot;" id="\&quot;u4c515aaf\&quot;">： 实际业务需求开发时间</span></li>
+   <li fid="\&quot;ube898080\&quot;" data-lake-id="\&quot;u86af96ff\&quot;" id="\&quot;u86af96ff\&quot;" style="\&quot;text-align:" left\"=""><strong><span data-lake-id="\&quot;u6d901c5b\&quot;" id="\&quot;u6d901c5b\&quot;">5</span></strong><span data-lake-id="\&quot;u8c9beed3\&quot;" id="\&quot;u8c9beed3\&quot;">： 其他时间</span></li>
+  </ul>
+  <ul list="\&quot;u4afdb101\&quot;" data-lake-indent="\&quot;1\&quot;">
+   <li fid="\&quot;uc5424c18\&quot;" data-lake-id="\&quot;ua3cf6b10\&quot;" id="\&quot;ua3cf6b10\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;ude292fea\&quot;" id="\&quot;ude292fea\&quot;">前置： 技术方案设计时间</span></li>
+   <li fid="\&quot;uc5424c18\&quot;" data-lake-id="\&quot;ue01d74bf\&quot;" id="\&quot;ue01d74bf\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;ud4c62fe7\&quot;" id="\&quot;ud4c62fe7\&quot;">沟通： 技术方案与协作方（产品、运营、外部 AI 团队、外部其他技术或需求提供方）沟通/会议的时间</span></li>
+   <li fid="\&quot;uc5424c18\&quot;" data-lake-id="\&quot;uf111f64a\&quot;" id="\&quot;uf111f64a\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u5cec30ec\&quot;" id="\&quot;u5cec30ec\&quot;">沟通： 同其他端联调时间</span></li>
+   <li fid="\&quot;uc5424c18\&quot;" data-lake-id="\&quot;u67349972\&quot;" id="\&quot;u67349972\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u8238ba63\&quot;" id="\&quot;u8238ba63\&quot;">技术： 技术难题攻克的时间</span></li>
+   <li fid="\&quot;uc5424c18\&quot;" data-lake-id="\&quot;ub6201c04\&quot;" id="\&quot;ub6201c04\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u900baa11\&quot;" id="\&quot;u900baa11\&quot;">技术： 依赖的技术基础模块开发时间</span></li>
+  </ul>
+  <ul list="\&quot;u4afdb101\&quot;" start="\&quot;3\&quot;">
+   <li fid="\&quot;ube898080\&quot;" data-lake-id="\&quot;u78eb5c76\&quot;" id="\&quot;u78eb5c76\&quot;" style="\&quot;text-align:" left\"=""><strong><span data-lake-id="\&quot;u2888cbb1\&quot;" id="\&quot;u2888cbb1\&quot;">1</span></strong><span data-lake-id="\&quot;u9b05177d\&quot;" id="\&quot;u9b05177d\&quot;">：改前置版本的 Bug 时间</span></li>
+  </ul>
+  <p data-lake-id="\&quot;uc6352c69\&quot;" id="\&quot;uc6352c69\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;uca6e4560\&quot;" id="\&quot;uca6e4560\&quot;">在每个项目结束后，务必留出一定时间进行 Code Review ，确保代码质量</span></p>
+  <p data-lake-id="\&quot;u1e26bcc7\&quot;" id="\&quot;u1e26bcc7\&quot;"><br /></p>
+  <h3 data-lake-id="\&quot;12bfa634\&quot;" id="\&quot;12bfa634\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u7b71f7b7\&quot;" id="\&quot;u7b71f7b7\&quot;">4. 功能开发</span></h3>
+  <p data-lake-id="\&quot;u5619a6b5\&quot;" id="\&quot;u5619a6b5\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;uccc4d9da\&quot;" id="\&quot;uccc4d9da\&quot;">开发完毕，对照 PRD，逐条核对每个需求都已经实现，避免漏做需求。</span></p>
+  <p data-lake-id="\&quot;u3e3cb9b4\&quot;" id="\&quot;u3e3cb9b4\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u7752c7b6\&quot;" id="\&quot;u7752c7b6\&quot;">​</span><br /></p>
+  <h3 data-lake-id="\&quot;5eb2f9a7\&quot;" id="\&quot;5eb2f9a7\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u86c23458\&quot;" id="\&quot;u86c23458\&quot;">5. 测试Case评审</span></h3>
+  <p data-lake-id="\&quot;u4df465ff\&quot;" id="\&quot;u4df465ff\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u067054d2\&quot;" id="\&quot;u067054d2\&quot;">对于需求的第三次理解（需求评审是第一次，技术评审是第二次），是从测试角度。一般会在开发阶段，提测前进行。具体要求如下：</span></p>
+  <ul list="\&quot;ud4dbd505\&quot;">
+   <li fid="\&quot;u70e261e6\&quot;" data-lake-id="\&quot;u8de411fc\&quot;" id="\&quot;u8de411fc\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u1f06ab9c\&quot;" id="\&quot;u1f06ab9c\&quot;">所有相关研发务必参与，并且认真听讲，每条测试 Case 都要认真思考是否与自己的理解一致，有疑问或不太确定务必当场提出进行确认</span></li>
+  </ul>
+  <p data-lake-id="\&quot;u1ba8b656\&quot;" id="\&quot;u1ba8b656\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;ucb47c25c\&quot;" id="\&quot;ucb47c25c\&quot;">​</span><br /></p>
+  <h3 data-lake-id="\&quot;ed519acb\&quot;" id="\&quot;ed519acb\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u05225af8\&quot;" id="\&quot;u05225af8\&quot;">6. 提测规范</span></h3>
+  <p data-lake-id="\&quot;u9a329a72\&quot;" id="\&quot;u9a329a72\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;uaf89b445\&quot;" id="\&quot;uaf89b445\&quot;">重点：</span></p>
+  <ul list="\&quot;ubb1e5cc2\&quot;">
+   <li fid="\&quot;u06c91c5b\&quot;" data-lake-id="\&quot;u587a7fbe\&quot;" id="\&quot;u587a7fbe\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u5318d163\&quot;" id="\&quot;u5318d163\&quot;">修改点不管多小，都需要写到 ReleaseNotes 中，让测试知晓。</span></li>
+   <li fid="\&quot;u06c91c5b\&quot;" data-lake-id="\&quot;u70815c97\&quot;" id="\&quot;u70815c97\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;u0dc5c292\&quot;" id="\&quot;u0dc5c292\&quot;">给出提测时间前，</span><strong><span data-lake-id="\&quot;u1706fee7\&quot;" id="\&quot;u1706fee7\&quot;">务必需要与协同方确认好联调计划</span></strong><span data-lake-id="\&quot;u8b04a370\&quot;" id="\&quot;u8b04a370\&quot;">（明确时间是否符合预期）。</span></li>
+  </ul>
+  <h3 data-lake-id="\&quot;7c5f2e1b\&quot;" id="\&quot;7c5f2e1b\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;ubdab4f37\&quot;" id="\&quot;ubdab4f37\&quot;">7. Debug阶段</span></h3>
+  <ul list="\&quot;u534a24fa\&quot;">
+   <li fid="\&quot;u6176f606\&quot;" data-lake-id="\&quot;u82decf7b\&quot;" id="\&quot;u82decf7b\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;ub8ec475f\&quot;" id="\&quot;ub8ec475f\&quot;">对于 </span><code data-lake-id="\&quot;u7780f044\&quot;" id="\&quot;u7780f044\&quot;"><span data-lake-id="\&quot;u416c1c3a\&quot;" id="\&quot;u416c1c3a\&quot;">P0</span></code><span data-lake-id="\&quot;u528c26c5\&quot;" id="\&quot;u528c26c5\&quot;">，</span><code data-lake-id="\&quot;u4a8e9cab\&quot;" id="\&quot;u4a8e9cab\&quot;"><span data-lake-id="\&quot;u501c46d8\&quot;" id="\&quot;u501c46d8\&quot;">block</span></code><span data-lake-id="\&quot;u93c34c7c\&quot;" id="\&quot;u93c34c7c\&quot;">的 bug，需要</span><strong><span data-lake-id="\&quot;u2d0e3325\&quot;" id="\&quot;u2d0e3325\&quot;">每天同步进展</span></strong><span data-lake-id="\&quot;ud10efc99\&quot;" id="\&quot;ud10efc99\&quot;">，最长</span><strong><span data-lake-id="\&quot;uaed79d55\&quot;" id="\&quot;uaed79d55\&quot;">3</span></strong><span data-lake-id="\&quot;u187e38fd\&quot;" id="\&quot;u187e38fd\&quot;">天内解决，如果解决不了，需要向上请求支援；</span></li>
+   <li fid="\&quot;u6176f606\&quot;" data-lake-id="\&quot;u0bee8a20\&quot;" id="\&quot;u0bee8a20\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;uf598082d\&quot;" id="\&quot;uf598082d\&quot;">所有 bug，在解决时，务必要有</span><strong><span data-lake-id="\&quot;u731ae945\&quot;" id="\&quot;u731ae945\&quot;">问题原因</span></strong><span data-lake-id="\&quot;u98afe33a\&quot;" id="\&quot;u98afe33a\&quot;">以及</span><strong><span data-lake-id="\&quot;u3b9c86a1\&quot;" id="\&quot;u3b9c86a1\&quot;">解决办法，影响范围。</span></strong></li>
+   <li fid="\&quot;u6176f606\&quot;" data-lake-id="\&quot;u96e8fc75\&quot;" id="\&quot;u96e8fc75\&quot;" style="\&quot;text-align:" left\"=""><span data-lake-id="\&quot;ua33942d3\&quot;" id="\&quot;ua33942d3\&quot;">已在 TB 为 bug 添加了『</span><strong><span data-lake-id="\&quot;uada80529\&quot;" id="\&quot;uada80529\&quot;">已确认</span></strong><span data-lake-id="\&quot;u18981420\&quot;" id="\&quot;u18981420\&quot;">』状态，请当天进行确认。</span></li>
+  </ul>
+  <card type="\&quot;inline\&quot;" name="\&quot;codeblock\&quot;" value="\&quot;data:%7B%22search%22%3A%22%22%2C%22mode%22%3A%22plain%22%2C%22code%22%3A%22%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0%EF%BC%9A%5Cn%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%EF%BC%9A%5Cn%E5%BD%B1%E5%93%8D%E8%8C%83%E5%9B%B4%EF%BC%9A%22%2C%22autoWrap%22%3Afalse%2C%22lineNumbers%22%3Atrue%2C%22heightLimit%22%3Atrue%2C%22collapsed%22%3Afalse%2C%22hideToolbar%22%3Afalse%2C%22name%22%3A%22%22%2C%22tabSize%22%3Anull%2C%22indentWithTab%22%3Afalse%2C%22lightLines%22%3A%5B%5D%2C%22foldLines%22%3A%5B%5D%2C%22theme%22%3A%22default%22%2C%22__spacing%22%3A%22both%22%2C%22__widthMode%22%3A%22normal%22%2C%22id%22%3A%22bZYLI%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%2C%22widthMode%22%3A%22normal%22%7D\&quot;" hindent="\&quot;2em\&quot;"></card>
+  <p data-lake-id="\&quot;u1f3adf90\&quot;" id="\&quot;u1f3adf90\&quot;" style="\&quot;text-align:" left\"=""><br /></p>
+ </body>
+</html>

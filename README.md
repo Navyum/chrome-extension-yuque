@@ -31,12 +31,28 @@
 - **所见即所得** — 只要你能打开文档，就能导出。无需导出权限，不依赖官方导出功能
 - **浮动气泡一键导出** — 文档页面右侧浮动气泡，点击即导出当前正在浏览的文档
 - **收藏批量导出** — 语雀官方无此功能，支持收藏的单篇文档和整个知识库
+- **Lake 文档本地转换** — 直接解析 Lake HTML，保留标题、列表、表格、图片、代码块、折叠块、分栏、公式等常见内容
 - **表格本地转换** — 直接解压 Lakesheet 压缩数据，支持 4 种导出格式（官方仅 xlsx）
 - **画板本地渲染** — Lakeboard JSON → SVG → PNG/JPG，官方 API 完全不支持画板导出为图片
 - **协作库无权限文档** — 对无导出权限的文档自动切换本地转换引擎
 - **加密内容导出** — RSA 加密验证后导出，支持批量处理
 - **Markdown 图片本地化** — 自动下载 CDN 图片到本地 `assets/` 目录，替换为相对路径
 - **不依赖页面 UI** — 直接调用 API + 本地引擎，语雀改版不影响使用
+
+### 本地 Markdown 转换能力
+
+本地 Lake→Markdown 引擎用于无导出权限、收藏文档、协作库文档等场景，也可作为默认 Markdown 转换方式。
+
+| 内容类型 | 转换说明 |
+|----------|----------|
+| 段落与标题 | 保留标题层级、加粗、斜体、删除线、行内代码、链接 |
+| 列表 | 支持有序列表、无序列表及语雀导出的起始编号 |
+| 表格 | 转为 Markdown 表格，保留单元格内链接、图片、代码、加粗和公式 |
+| 数学公式 | 句内和表格公式使用 `$...$`，独立公式段落使用 `$$...$$` |
+| 图片与附件 | 转为 Markdown 图片或链接，Markdown 导出时可下载到本地 |
+| 代码块 | 保留语言类型和代码内容 |
+| 折叠块与分栏 | 折叠块保留为 `<details>`，分栏降级为 Markdown 表格 |
+| 图表与画板 | 图表尽量保留可编辑代码或图片；画板走本地 SVG 渲染链路 |
 
 ### 其他特性
 
@@ -96,7 +112,7 @@ npm run build
 Service Worker (background.js)
 ├── yuque.js          — 语雀 API 封装（含 RSA 加密验证）
 ├── exporter.js       — 导出引擎（调度本地/API 两种路径）
-├── lake-converter.js — Lake HTML → Markdown（Turndown + domino）
+├── lake-converter.js — Lake HTML → Markdown（Turndown + domino，含公式/表格/卡片处理）
 ├── sheet-converter.js — Lakesheet → xlsx/csv/md/html（pako + xlsx-js-style）
 ├── board-converter.js — Lakeboard → SVG（纯字符串拼接，无 DOM 依赖）
 ├── downloads.js      — chrome.downloads 文件保存

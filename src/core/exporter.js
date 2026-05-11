@@ -3,7 +3,7 @@ import { sendLog, sendProgress, sendComplete, sendError } from './messaging.js';
 import { checkAuth, fetchAllBooks, fetchBookDocs, buildDocListFromApiDocs, exportDocAsync, downloadImage, resetThrottle, fetchBookmarks, fetchBookDocsWithPasswordCheck, verifyBookPassword, verifyDocPassword, fetchBookToc } from './yuque.js';
 import { lakeToMarkdown, fetchDocContent } from './lake-converter.js';
 import { convertLakeSheet } from './sheet-converter.js';
-import { convertBoardToSvg, convertBoardToMermaid } from './board-converter.js';
+import { convertBoardToSvg, convertBoardToMermaid, convertBoardToECharts } from './board-converter.js';
 import { saveBlobToDisk, saveContentToDisk, downloadUrlToDisk } from './downloads.js';
 import { delay, sanitizePathComponent, sanitizePathSegments, guessImageExt } from './utils.js';
 import { refreshAbortController, abortActiveTasks } from './task-controller.js';
@@ -560,7 +560,9 @@ async function renderEmbeddedBoardsToAssets(lakeHtml, file, imageBasePath, logFn
 
   let boardIndex = 0;
   let renderedCount = 0;
-  const cardRegex = /<card\s+([^>]*)><\/card>/gi;
+  // Lake may serialize cards as either `<card></card>` or self-closing
+  // `<card />`; both forms must be replaced before the Markdown pass.
+  const cardRegex = /<card\s+([^>]*?)(?:>\s*<\/card>|\/>)/gi;
   const replacements = [];
 
   for (const match of lakeHtml.matchAll(cardRegex)) {
@@ -590,8 +592,10 @@ async function renderEmbeddedBoardsToAssets(lakeHtml, file, imageBasePath, logFn
       await saveBlobToDisk(new Blob([svg], { type: 'image/svg+xml' }), downloadPath);
 
       const mermaid = convertBoardToMermaid(data);
+      const echarts = mermaid ? '' : convertBoardToECharts(data);
       const markdown = [
         mermaid ? `\`\`\`mermaid\n${mermaid}\n\`\`\`` : '',
+        echarts ? `\`\`\`echarts\n${echarts}\n\`\`\`` : '',
         `![白板 ${boardIndex}](${localName})`
       ].filter(Boolean).join('\n\n');
       const markdownCardData = { markdown };

@@ -1,0 +1,660 @@
+<!DOCTYPE lake>
+<html>
+ <head>
+  <meta name="\&quot;doc-version\&quot;" content="\&quot;1\&quot;" />
+  <meta name="\&quot;viewport\&quot;" content="\&quot;adapt\&quot;" />
+  <meta name="\&quot;typography\&quot;" content="\&quot;classic\&quot;" />
+  <meta name="\&quot;paragraphSpacing\&quot;" content="\&quot;relax\&quot;" />
+  <meta name="\&quot;defaultFontsize\&quot;" content="\&quot;16\&quot;" />
+ </head>
+ <body>
+  <h2 data-lake-id="\&quot;Ovg51\&quot;" id="\&quot;Ovg51\&quot;"><span data-lake-id="\&quot;u90110b18\&quot;" id="\&quot;u90110b18\&quot;">关联人员</span></h2>
+  <table data-lake-id="\&quot;hYOp0\&quot;" id="\&quot;hYOp0\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 750px\"="">
+   <colgroup>
+    <col width="\&quot;375\&quot;" />
+    <col width="\&quot;375\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;u6855ae8d\&quot;" id="\&quot;u6855ae8d\&quot;">
+     <td data-lake-id="\&quot;ubea8a4ca\&quot;" id="\&quot;ubea8a4ca\&quot;"><p data-lake-id="\&quot;u462a1e01\&quot;" id="\&quot;u462a1e01\&quot;"><span data-lake-id="\&quot;uc12de1ff\&quot;" id="\&quot;uc12de1ff\&quot;">角色</span></p></td>
+     <td data-lake-id="\&quot;u3b8cc95c\&quot;" id="\&quot;u3b8cc95c\&quot;"><p data-lake-id="\&quot;u8a03716a\&quot;" id="\&quot;u8a03716a\&quot;"><span data-lake-id="\&quot;u95cb18a8\&quot;" id="\&quot;u95cb18a8\&quot;">姓名</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u561bce67\&quot;" id="\&quot;u561bce67\&quot;">
+     <td data-lake-id="\&quot;u99ecad54\&quot;" id="\&quot;u99ecad54\&quot;"><p data-lake-id="\&quot;ud2270be9\&quot;" id="\&quot;ud2270be9\&quot;"><span data-lake-id="\&quot;u93a14d26\&quot;" id="\&quot;u93a14d26\&quot;">上线RD</span></p></td>
+     <td data-lake-id="\&quot;u9e5e5d46\&quot;" id="\&quot;u9e5e5d46\&quot;"><p data-lake-id="\&quot;u47ca93ff\&quot;" id="\&quot;u47ca93ff\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uddca5093\&quot;" id="\&quot;uddca5093\&quot;">
+     <td data-lake-id="\&quot;u8d38064f\&quot;" id="\&quot;u8d38064f\&quot;"><p data-lake-id="\&quot;u94803eec\&quot;" id="\&quot;u94803eec\&quot;"><span data-lake-id="\&quot;u00872fa2\&quot;" id="\&quot;u00872fa2\&quot;">Double CheckList Review 负责人</span></p></td>
+     <td data-lake-id="\&quot;u42c5ab99\&quot;" id="\&quot;u42c5ab99\&quot;"><p data-lake-id="\&quot;udb061af2\&quot;" id="\&quot;udb061af2\&quot;"><br /></p></td>
+    </tr>
+   </tbody>
+  </table>
+  <p data-lake-id="\&quot;u0c340d77\&quot;" id="\&quot;u0c340d77\&quot;"><br /></p>
+  <h2 data-lake-id="\&quot;DaQnZ\&quot;" id="\&quot;DaQnZ\&quot;"><span data-lake-id="\&quot;u7d78f7c9\&quot;" id="\&quot;u7d78f7c9\&quot;">六要准则</span></h2>
+  <table data-lake-id="\&quot;Wg9GH\&quot;" id="\&quot;Wg9GH\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 672px\"="">
+   <colgroup>
+    <col width="\&quot;172\&quot;" />
+    <col width="\&quot;250\&quot;" />
+    <col width="\&quot;250\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;u6087475f\&quot;" id="\&quot;u6087475f\&quot;">
+     <td data-lake-id="\&quot;uf235fa27\&quot;" id="\&quot;uf235fa27\&quot;"><p data-lake-id="\&quot;u5eefb18e\&quot;" id="\&quot;u5eefb18e\&quot;"><span data-lake-id="\&quot;u17698080\&quot;" id="\&quot;u17698080\&quot;">六要</span></p></td>
+     <td data-lake-id="\&quot;u73e7b7c4\&quot;" id="\&quot;u73e7b7c4\&quot;"><p data-lake-id="\&quot;u6ae13081\&quot;" id="\&quot;u6ae13081\&quot;"><span data-lake-id="\&quot;udf953350\&quot;" id="\&quot;udf953350\&quot;">开发同学填写</span></p></td>
+     <td data-lake-id="\&quot;ua4e7f65d\&quot;" id="\&quot;ua4e7f65d\&quot;"><p data-lake-id="\&quot;u921b2acd\&quot;" id="\&quot;u921b2acd\&quot;"><span data-lake-id="\&quot;ub99ebfd1\&quot;" id="\&quot;ub99ebfd1\&quot;">发布审核人/指定检查人/TL填写</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;ufca86919\&quot;" id="\&quot;ufca86919\&quot;">
+     <td data-lake-id="\&quot;uec40b9fa\&quot;" id="\&quot;uec40b9fa\&quot;"><p data-lake-id="\&quot;u2dad6542\&quot;" id="\&quot;u2dad6542\&quot;"><span data-lake-id="\&quot;u035a221e\&quot;" id="\&quot;u035a221e\&quot;">要测试</span></p></td>
+     <td data-lake-id="\&quot;u3f2b96cb\&quot;" id="\&quot;u3f2b96cb\&quot;"><p data-lake-id="\&quot;ua7220bcc\&quot;" id="\&quot;ua7220bcc\&quot;"><span data-lake-id="\&quot;u756296dc\&quot;" id="\&quot;u756296dc\&quot;">自测用例：</span></p></td>
+     <td data-lake-id="\&quot;u8f9c9248\&quot;" id="\&quot;u8f9c9248\&quot;">
+      <ul list="\&quot;uf2918f38\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u3c5817f6\&quot;" data-lake-id="\&quot;uad91f2fd\&quot;" id="\&quot;uad91f2fd\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><strong><span data-lake-id="\&quot;ubf62aa17\&quot;" id="\&quot;ubf62aa17\&quot;">是否检查确认测试是否充分</span></strong></li>
+      </ul></td>
+    </tr>
+    <tr data-lake-id="\&quot;ud7bd3176\&quot;" id="\&quot;ud7bd3176\&quot;">
+     <td data-lake-id="\&quot;u9909490b\&quot;" id="\&quot;u9909490b\&quot;"><p data-lake-id="\&quot;u9c20f11f\&quot;" id="\&quot;u9c20f11f\&quot;"><span data-lake-id="\&quot;u0c61147b\&quot;" id="\&quot;u0c61147b\&quot;">要周知</span></p></td>
+     <td data-lake-id="\&quot;ua9883aa1\&quot;" id="\&quot;ua9883aa1\&quot;"><p data-lake-id="\&quot;uc096e4e9\&quot;" id="\&quot;uc096e4e9\&quot;"><span data-lake-id="\&quot;u8ddbb3bd\&quot;" id="\&quot;u8ddbb3bd\&quot;">已周知：</span></p></td>
+     <td data-lake-id="\&quot;u6b1d89c5\&quot;" id="\&quot;u6b1d89c5\&quot;">
+      <ul list="\&quot;ue98a9199\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;ue1c96c0b\&quot;" data-lake-id="\&quot;u6b622d87\&quot;" id="\&quot;u6b622d87\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><strong><span data-lake-id="\&quot;u7a7690f5\&quot;" id="\&quot;u7a7690f5\&quot;">是否检查确认符合上线标准</span></strong></li>
+      </ul></td>
+    </tr>
+    <tr data-lake-id="\&quot;ud0006f89\&quot;" id="\&quot;ud0006f89\&quot;">
+     <td data-lake-id="\&quot;u98883d65\&quot;" id="\&quot;u98883d65\&quot;"><p data-lake-id="\&quot;u04950045\&quot;" id="\&quot;u04950045\&quot;"><span data-lake-id="\&quot;u484240b3\&quot;" id="\&quot;u484240b3\&quot;">要审核</span></p></td>
+     <td data-lake-id="\&quot;u2477b80b\&quot;" id="\&quot;u2477b80b\&quot;"><p data-lake-id="\&quot;u909373c3\&quot;" id="\&quot;u909373c3\&quot;"><span data-lake-id="\&quot;uf8eb90f7\&quot;" id="\&quot;uf8eb90f7\&quot;">已申请：</span></p></td>
+     <td data-lake-id="\&quot;u06b74f0a\&quot;" id="\&quot;u06b74f0a\&quot;">
+      <ul list="\&quot;u73ee7a96\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u5c423b22\&quot;" data-lake-id="\&quot;u040cf61b\&quot;" id="\&quot;u040cf61b\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><strong><span data-lake-id="\&quot;u118c385a\&quot;" id="\&quot;u118c385a\&quot;">是否检查确认符合上线标准</span></strong></li>
+      </ul></td>
+    </tr>
+    <tr data-lake-id="\&quot;u0f3d08a4\&quot;" id="\&quot;u0f3d08a4\&quot;">
+     <td data-lake-id="\&quot;ufc9826b7\&quot;" id="\&quot;ufc9826b7\&quot;"><p data-lake-id="\&quot;uc3e80b70\&quot;" id="\&quot;uc3e80b70\&quot;"><span data-lake-id="\&quot;u7aa3c434\&quot;" id="\&quot;u7aa3c434\&quot;">要灰度</span></p></td>
+     <td data-lake-id="\&quot;uf0b5df56\&quot;" id="\&quot;uf0b5df56\&quot;"><p data-lake-id="\&quot;u4d5e5827\&quot;" id="\&quot;u4d5e5827\&quot;"><span data-lake-id="\&quot;u0638afd7\&quot;" id="\&quot;u0638afd7\&quot;">灰度时查看灰度的机器是否正常运行，有无特殊告警</span></p></td>
+     <td data-lake-id="\&quot;ucc42f56e\&quot;" id="\&quot;ucc42f56e\&quot;">
+      <ul list="\&quot;uf45433ac\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u126990f9\&quot;" data-lake-id="\&quot;ub7b24e7a\&quot;" id="\&quot;ub7b24e7a\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><strong><span data-lake-id="\&quot;ueaf0aca5\&quot;" id="\&quot;ueaf0aca5\&quot;">是否检查确认灰度方案及灰度代码完备</span></strong></li>
+      </ul></td>
+    </tr>
+    <tr data-lake-id="\&quot;u06862410\&quot;" id="\&quot;u06862410\&quot;">
+     <td data-lake-id="\&quot;u120668a1\&quot;" id="\&quot;u120668a1\&quot;"><p data-lake-id="\&quot;uce5defc2\&quot;" id="\&quot;uce5defc2\&quot;"><span data-lake-id="\&quot;uc5da1363\&quot;" id="\&quot;uc5da1363\&quot;">要观测</span></p></td>
+     <td data-lake-id="\&quot;uf78840c6\&quot;" id="\&quot;uf78840c6\&quot;"><p data-lake-id="\&quot;u426c7602\&quot;" id="\&quot;u426c7602\&quot;"><span data-lake-id="\&quot;u626a8178\&quot;" id="\&quot;u626a8178\&quot;">观察机器有无异常和告警：</span></p></td>
+     <td data-lake-id="\&quot;u00cb30d8\&quot;" id="\&quot;u00cb30d8\&quot;">
+      <ul list="\&quot;u53aaf668\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u2b0ade0a\&quot;" data-lake-id="\&quot;u4647036b\&quot;" id="\&quot;u4647036b\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><strong><span data-lake-id="\&quot;ud1d4892e\&quot;" id="\&quot;ud1d4892e\&quot;">是否检查确认要观测的内容完备</span></strong></li>
+      </ul></td>
+    </tr>
+    <tr data-lake-id="\&quot;u8d0e8e02\&quot;" id="\&quot;u8d0e8e02\&quot;">
+     <td data-lake-id="\&quot;u3c90025c\&quot;" id="\&quot;u3c90025c\&quot;"><p data-lake-id="\&quot;u42bd86e4\&quot;" id="\&quot;u42bd86e4\&quot;"><span data-lake-id="\&quot;u58e92e89\&quot;" id="\&quot;u58e92e89\&quot;">要可回滚</span></p></td>
+     <td data-lake-id="\&quot;u11b1a754\&quot;" id="\&quot;u11b1a754\&quot;"><p data-lake-id="\&quot;u3e00664e\&quot;" id="\&quot;u3e00664e\&quot;"><span data-lake-id="\&quot;u87c62c40\&quot;" id="\&quot;u87c62c40\&quot;">代码直接回滚即可</span></p></td>
+     <td data-lake-id="\&quot;u90db2ebc\&quot;" id="\&quot;u90db2ebc\&quot;"><p data-lake-id="\&quot;u866b40c4\&quot;" id="\&quot;u866b40c4\&quot;"><br /></p></td>
+    </tr>
+   </tbody>
+  </table>
+  <p data-lake-id="\&quot;u5e9ec0cf\&quot;" id="\&quot;u5e9ec0cf\&quot;"><br /></p>
+  <h2 data-lake-id="\&quot;YjbGx\&quot;" id="\&quot;YjbGx\&quot;"><span data-lake-id="\&quot;uea7dc9fa\&quot;" id="\&quot;uea7dc9fa\&quot;">代码相关</span></h2>
+  <table data-lake-id="\&quot;QuwqO\&quot;" id="\&quot;QuwqO\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 750px\"="">
+   <colgroup>
+    <col width="\&quot;150\&quot;" />
+    <col width="\&quot;150\&quot;" />
+    <col width="\&quot;150\&quot;" />
+    <col width="\&quot;150\&quot;" />
+    <col width="\&quot;150\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;ub4038af5\&quot;" id="\&quot;ub4038af5\&quot;">
+     <td data-lake-id="\&quot;ua9fc5efd\&quot;" id="\&quot;ua9fc5efd\&quot;"><p data-lake-id="\&quot;u928aeeb9\&quot;" id="\&quot;u928aeeb9\&quot;"><span data-lake-id="\&quot;u2ac0dd11\&quot;" id="\&quot;u2ac0dd11\&quot;">服务</span></p></td>
+     <td data-lake-id="\&quot;ud47e42d2\&quot;" id="\&quot;ud47e42d2\&quot;"><p data-lake-id="\&quot;ub68ed0ef\&quot;" id="\&quot;ub68ed0ef\&quot;"><span data-lake-id="\&quot;u1e8c7778\&quot;" id="\&quot;u1e8c7778\&quot;">开发分支</span></p></td>
+     <td data-lake-id="\&quot;udcc4b5f2\&quot;" id="\&quot;udcc4b5f2\&quot;"><p data-lake-id="\&quot;u8c86bfbc\&quot;" id="\&quot;u8c86bfbc\&quot;"><span data-lake-id="\&quot;u3823ec30\&quot;" id="\&quot;u3823ec30\&quot;">Pull Request</span></p></td>
+     <td data-lake-id="\&quot;u27143fea\&quot;" id="\&quot;u27143fea\&quot;"><p data-lake-id="\&quot;uf5d3ace8\&quot;" id="\&quot;uf5d3ace8\&quot;"><span data-lake-id="\&quot;u1d22d7f0\&quot;" id="\&quot;u1d22d7f0\&quot;">Code Review 完成时间</span></p></td>
+     <td data-lake-id="\&quot;uc7068eb7\&quot;" id="\&quot;uc7068eb7\&quot;"><p data-lake-id="\&quot;u380824ef\&quot;" id="\&quot;u380824ef\&quot;"><span data-lake-id="\&quot;ub844b502\&quot;" id="\&quot;ub844b502\&quot;">Code Reviewer</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u7c432b74\&quot;" id="\&quot;u7c432b74\&quot;">
+     <td data-lake-id="\&quot;u236a0871\&quot;" id="\&quot;u236a0871\&quot;"><p data-lake-id="\&quot;u6f479570\&quot;" id="\&quot;u6f479570\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u68242338\&quot;" id="\&quot;u68242338\&quot;"><p data-lake-id="\&quot;ufff51558\&quot;" id="\&quot;ufff51558\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;ueede1270\&quot;" id="\&quot;ueede1270\&quot;"><p data-lake-id="\&quot;u5225a502\&quot;" id="\&quot;u5225a502\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u0724bc11\&quot;" id="\&quot;u0724bc11\&quot;"><p data-lake-id="\&quot;u21cdb64b\&quot;" id="\&quot;u21cdb64b\&quot;"><span data-lake-id="\&quot;u4ad60b12\&quot;" id="\&quot;u4ad60b12\&quot;">2023-02-01</span></p></td>
+     <td data-lake-id="\&quot;uef517bb9\&quot;" id="\&quot;uef517bb9\&quot;"><p data-lake-id="\&quot;u4a534e48\&quot;" id="\&quot;u4a534e48\&quot;"><span data-lake-id="\&quot;uafefadef\&quot;" id="\&quot;uafefadef\&quot;">​</span><br /></p></td>
+    </tr>
+   </tbody>
+  </table>
+  <p data-lake-id="\&quot;uf9dd52c0\&quot;" id="\&quot;uf9dd52c0\&quot;"><br /></p>
+  <h2 data-lake-id="\&quot;c5PyS\&quot;" id="\&quot;c5PyS\&quot;"><span data-lake-id="\&quot;u95e04538\&quot;" id="\&quot;u95e04538\&quot;">发布顺序</span></h2>
+  <p data-lake-id="\&quot;u997f6b88\&quot;" id="\&quot;u997f6b88\&quot;"><strong><span data-lake-id="\&quot;u7d8c4498\&quot;" id="\&quot;u7d8c4498\&quot;">提示：</span></strong><span data-lake-id="\&quot;ud85ba1e9\&quot;" id="\&quot;ud85ba1e9\&quot;"> 包括自身服务和二方包、前端和调用方/提供方</span></p>
+  <table data-lake-id="\&quot;PHeSJ\&quot;" id="\&quot;PHeSJ\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 750px\"="">
+   <colgroup>
+    <col width="\&quot;150\&quot;" />
+    <col width="\&quot;150\&quot;" />
+    <col width="\&quot;150\&quot;" />
+    <col width="\&quot;150\&quot;" />
+    <col width="\&quot;150\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;ua928dca5\&quot;" id="\&quot;ua928dca5\&quot;">
+     <td data-lake-id="\&quot;u7524f161\&quot;" id="\&quot;u7524f161\&quot;"><p data-lake-id="\&quot;ub0155df1\&quot;" id="\&quot;ub0155df1\&quot;"><span data-lake-id="\&quot;u9a2e67e9\&quot;" id="\&quot;u9a2e67e9\&quot;">项目</span></p></td>
+     <td data-lake-id="\&quot;u5daf89be\&quot;" id="\&quot;u5daf89be\&quot;"><p data-lake-id="\&quot;u2e1ed4ac\&quot;" id="\&quot;u2e1ed4ac\&quot;"><span data-lake-id="\&quot;u06173d6a\&quot;" id="\&quot;u06173d6a\&quot;">顺序</span></p></td>
+     <td data-lake-id="\&quot;udf1de7a0\&quot;" id="\&quot;udf1de7a0\&quot;"><p data-lake-id="\&quot;u93a831d9\&quot;" id="\&quot;u93a831d9\&quot;"><span data-lake-id="\&quot;uc844ab2b\&quot;" id="\&quot;uc844ab2b\&quot;">开始发布时间</span></p></td>
+     <td data-lake-id="\&quot;ud0f94e19\&quot;" id="\&quot;ud0f94e19\&quot;"><p data-lake-id="\&quot;ube12d115\&quot;" id="\&quot;ube12d115\&quot;"><span data-lake-id="\&quot;ue9b4cea0\&quot;" id="\&quot;ue9b4cea0\&quot;">发布人</span></p></td>
+     <td data-lake-id="\&quot;u00c17c5c\&quot;" id="\&quot;u00c17c5c\&quot;"><p data-lake-id="\&quot;u548fe593\&quot;" id="\&quot;u548fe593\&quot;"><span data-lake-id="\&quot;u08187b93\&quot;" id="\&quot;u08187b93\&quot;">说明（eg：灰度/全量）</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;ud09ec2ee\&quot;" id="\&quot;ud09ec2ee\&quot;">
+     <td data-lake-id="\&quot;ua2aafb35\&quot;" id="\&quot;ua2aafb35\&quot;"><p data-lake-id="\&quot;u85d7a128\&quot;" id="\&quot;u85d7a128\&quot;"><span data-lake-id="\&quot;ub519f01e\&quot;" id="\&quot;ub519f01e\&quot;">A</span></p></td>
+     <td data-lake-id="\&quot;u5a28b4d9\&quot;" id="\&quot;u5a28b4d9\&quot;"><p data-lake-id="\&quot;uf1c30cd2\&quot;" id="\&quot;uf1c30cd2\&quot;"><span data-lake-id="\&quot;ua038f429\&quot;" id="\&quot;ua038f429\&quot;">1</span></p></td>
+     <td data-lake-id="\&quot;u661e94cf\&quot;" id="\&quot;u661e94cf\&quot;"><p data-lake-id="\&quot;u1fd737d9\&quot;" id="\&quot;u1fd737d9\&quot;"><span data-lake-id="\&quot;u5af27537\&quot;" id="\&quot;u5af27537\&quot;">2023-02-01 20:00</span></p></td>
+     <td data-lake-id="\&quot;uca928515\&quot;" id="\&quot;uca928515\&quot;"><p data-lake-id="\&quot;ubebb4885\&quot;" id="\&quot;ubebb4885\&quot;"><span data-lake-id="\&quot;uff85b628\&quot;" id="\&quot;uff85b628\&quot;">@xx</span></p></td>
+     <td data-lake-id="\&quot;ua5209262\&quot;" id="\&quot;ua5209262\&quot;"><p data-lake-id="\&quot;ube8c30f7\&quot;" id="\&quot;ube8c30f7\&quot;"><span data-lake-id="\&quot;u0f84d4ed\&quot;" id="\&quot;u0f84d4ed\&quot;">灰度1个节点，观察10分钟，再分3批次发布，每批次观察一段时间后再发下一批次</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u1cfd5816\&quot;" id="\&quot;u1cfd5816\&quot;">
+     <td data-lake-id="\&quot;ud2d51dd9\&quot;" id="\&quot;ud2d51dd9\&quot;"><p data-lake-id="\&quot;uc90f2845\&quot;" id="\&quot;uc90f2845\&quot;"><span data-lake-id="\&quot;ud9d20d2e\&quot;" id="\&quot;ud9d20d2e\&quot;">B</span></p></td>
+     <td data-lake-id="\&quot;ucadf5851\&quot;" id="\&quot;ucadf5851\&quot;"><p data-lake-id="\&quot;u2866a9a3\&quot;" id="\&quot;u2866a9a3\&quot;"><span data-lake-id="\&quot;u02ee9273\&quot;" id="\&quot;u02ee9273\&quot;">2</span></p></td>
+     <td data-lake-id="\&quot;ue59cc204\&quot;" id="\&quot;ue59cc204\&quot;"><p data-lake-id="\&quot;u784dcccc\&quot;" id="\&quot;u784dcccc\&quot;"><span data-lake-id="\&quot;u28af8b69\&quot;" id="\&quot;u28af8b69\&quot;">2023-02-01 20:30</span></p></td>
+     <td data-lake-id="\&quot;u8818f409\&quot;" id="\&quot;u8818f409\&quot;"><p data-lake-id="\&quot;u853ab33a\&quot;" id="\&quot;u853ab33a\&quot;"><span data-lake-id="\&quot;u17114d8b\&quot;" id="\&quot;u17114d8b\&quot;">@xx</span></p></td>
+     <td data-lake-id="\&quot;u7c3cdc0b\&quot;" id="\&quot;u7c3cdc0b\&quot;"><p data-lake-id="\&quot;u47234970\&quot;" id="\&quot;u47234970\&quot;"><span data-lake-id="\&quot;uf8784923\&quot;" id="\&quot;uf8784923\&quot;">前端</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;ud06518a7\&quot;" id="\&quot;ud06518a7\&quot;">
+     <td data-lake-id="\&quot;u7f8ef2c2\&quot;" id="\&quot;u7f8ef2c2\&quot;"><p data-lake-id="\&quot;u7ef007d3\&quot;" id="\&quot;u7ef007d3\&quot;"><span data-lake-id="\&quot;u97a07a5d\&quot;" id="\&quot;u97a07a5d\&quot;">C</span></p></td>
+     <td data-lake-id="\&quot;u2df0c49d\&quot;" id="\&quot;u2df0c49d\&quot;"><p data-lake-id="\&quot;u13d63646\&quot;" id="\&quot;u13d63646\&quot;"><span data-lake-id="\&quot;u59e4a234\&quot;" id="\&quot;u59e4a234\&quot;">3</span></p></td>
+     <td data-lake-id="\&quot;ud1b33187\&quot;" id="\&quot;ud1b33187\&quot;"><p data-lake-id="\&quot;u4cf50c7d\&quot;" id="\&quot;u4cf50c7d\&quot;"><span data-lake-id="\&quot;u9de43835\&quot;" id="\&quot;u9de43835\&quot;">2023-02-01 21:00</span></p></td>
+     <td data-lake-id="\&quot;u65f1c587\&quot;" id="\&quot;u65f1c587\&quot;"><p data-lake-id="\&quot;u09c923c5\&quot;" id="\&quot;u09c923c5\&quot;"><span data-lake-id="\&quot;ua2edd3a2\&quot;" id="\&quot;ua2edd3a2\&quot;">@xx</span></p></td>
+     <td data-lake-id="\&quot;u502ef5a0\&quot;" id="\&quot;u502ef5a0\&quot;"><p data-lake-id="\&quot;u1edefe86\&quot;" id="\&quot;u1edefe86\&quot;"><span data-lake-id="\&quot;u3628a730\&quot;" id="\&quot;u3628a730\&quot;">&times;&times;业务，调用方/消费方/提供方</span></p></td>
+    </tr>
+   </tbody>
+  </table>
+  <p data-lake-id="\&quot;u89d3ed8e\&quot;" id="\&quot;u89d3ed8e\&quot;"><br /></p>
+  <h2 data-lake-id="\&quot;ojKlA\&quot;" id="\&quot;ojKlA\&quot;"><span data-lake-id="\&quot;u045dad68\&quot;" id="\&quot;u045dad68\&quot;">回滚顺序</span></h2>
+  <table data-lake-id="\&quot;abc5N\&quot;" id="\&quot;abc5N\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 750px\"="">
+   <colgroup>
+    <col width="\&quot;250\&quot;" />
+    <col width="\&quot;250\&quot;" />
+    <col width="\&quot;250\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;u0ad8880d\&quot;" id="\&quot;u0ad8880d\&quot;">
+     <td data-lake-id="\&quot;u2a1c0321\&quot;" id="\&quot;u2a1c0321\&quot;"><p data-lake-id="\&quot;ub61fef86\&quot;" id="\&quot;ub61fef86\&quot;"><span data-lake-id="\&quot;u88283989\&quot;" id="\&quot;u88283989\&quot;">项目</span></p></td>
+     <td data-lake-id="\&quot;u8c106a71\&quot;" id="\&quot;u8c106a71\&quot;"><p data-lake-id="\&quot;ub2134206\&quot;" id="\&quot;ub2134206\&quot;"><span data-lake-id="\&quot;udf6c0ea7\&quot;" id="\&quot;udf6c0ea7\&quot;">顺序</span></p></td>
+     <td data-lake-id="\&quot;uf5dee3bd\&quot;" id="\&quot;uf5dee3bd\&quot;"><p data-lake-id="\&quot;u274213da\&quot;" id="\&quot;u274213da\&quot;"><span data-lake-id="\&quot;u471929fd\&quot;" id="\&quot;u471929fd\&quot;">说明（需要的注意事项，比如要不要依赖非团队内的服务回滚，以及回滚影响）</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u6557c247\&quot;" id="\&quot;u6557c247\&quot;">
+     <td data-lake-id="\&quot;u1bed9ee3\&quot;" id="\&quot;u1bed9ee3\&quot;"><p data-lake-id="\&quot;u86263a83\&quot;" id="\&quot;u86263a83\&quot;"><span data-lake-id="\&quot;ud297075a\&quot;" id="\&quot;ud297075a\&quot;">C</span></p></td>
+     <td data-lake-id="\&quot;ud020277d\&quot;" id="\&quot;ud020277d\&quot;"><p data-lake-id="\&quot;u7a57c3c3\&quot;" id="\&quot;u7a57c3c3\&quot;"><span data-lake-id="\&quot;u1cab6316\&quot;" id="\&quot;u1cab6316\&quot;">1</span></p></td>
+     <td data-lake-id="\&quot;u532cc2a8\&quot;" id="\&quot;u532cc2a8\&quot;"><p data-lake-id="\&quot;u9c99e73a\&quot;" id="\&quot;u9c99e73a\&quot;"><span data-lake-id="\&quot;uacc79ad1\&quot;" id="\&quot;uacc79ad1\&quot;">需要通知xx团队，yyy服务先回滚</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;ub4887652\&quot;" id="\&quot;ub4887652\&quot;">
+     <td data-lake-id="\&quot;u2db12af8\&quot;" id="\&quot;u2db12af8\&quot;"><p data-lake-id="\&quot;u78d9b8a2\&quot;" id="\&quot;u78d9b8a2\&quot;"><span data-lake-id="\&quot;u0b479967\&quot;" id="\&quot;u0b479967\&quot;">B</span></p></td>
+     <td data-lake-id="\&quot;u083eaf0c\&quot;" id="\&quot;u083eaf0c\&quot;"><p data-lake-id="\&quot;u37433d6c\&quot;" id="\&quot;u37433d6c\&quot;"><span data-lake-id="\&quot;u970b9abe\&quot;" id="\&quot;u970b9abe\&quot;">2</span></p></td>
+     <td data-lake-id="\&quot;ub278403e\&quot;" id="\&quot;ub278403e\&quot;"><p data-lake-id="\&quot;ub8fa1323\&quot;" id="\&quot;ub8fa1323\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uf30fd94a\&quot;" id="\&quot;uf30fd94a\&quot;">
+     <td data-lake-id="\&quot;ufbfd8f6c\&quot;" id="\&quot;ufbfd8f6c\&quot;"><p data-lake-id="\&quot;u65ef1763\&quot;" id="\&quot;u65ef1763\&quot;"><span data-lake-id="\&quot;u98232fa0\&quot;" id="\&quot;u98232fa0\&quot;">A</span></p></td>
+     <td data-lake-id="\&quot;u1e9b0b9c\&quot;" id="\&quot;u1e9b0b9c\&quot;"><p data-lake-id="\&quot;u544d0fbe\&quot;" id="\&quot;u544d0fbe\&quot;"><span data-lake-id="\&quot;u56166d2a\&quot;" id="\&quot;u56166d2a\&quot;">3</span></p></td>
+     <td data-lake-id="\&quot;ueb3be45d\&quot;" id="\&quot;ueb3be45d\&quot;"><p data-lake-id="\&quot;ud81b4810\&quot;" id="\&quot;ud81b4810\&quot;"><br /></p></td>
+    </tr>
+   </tbody>
+  </table>
+  <p data-lake-id="\&quot;u7de8f1c4\&quot;" id="\&quot;u7de8f1c4\&quot;"><br /></p>
+  <h2 data-lake-id="\&quot;T0AGa\&quot;" id="\&quot;T0AGa\&quot;"><span data-lake-id="\&quot;u762aca22\&quot;" id="\&quot;u762aca22\&quot;">配置检查（RD）</span></h2>
+  <blockquote data-lake-id="\&quot;ud048b4c5\&quot;" id="\&quot;ud048b4c5\&quot;">
+   <p data-lake-id="\&quot;u2fbe0e21\&quot;" id="\&quot;u2fbe0e21\&quot;"><strong><span data-lake-id="\&quot;uc8d67aa6\&quot;" id="\&quot;uc8d67aa6\&quot;">说明：各类配置项需要在备注写明</span></strong></p>
+  </blockquote>
+  <table data-lake-id="\&quot;FIlcS\&quot;" id="\&quot;FIlcS\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 1433px\"="">
+   <colgroup>
+    <col width="\&quot;76\&quot;" />
+    <col width="\&quot;454\&quot;" />
+    <col width="\&quot;141\&quot;" />
+    <col width="\&quot;390\&quot;" />
+    <col width="\&quot;372\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;uaa21411f\&quot;" id="\&quot;uaa21411f\&quot;">
+     <td data-lake-id="\&quot;ud8802711\&quot;" id="\&quot;ud8802711\&quot;"><p data-lake-id="\&quot;u1d1bd5b8\&quot;" id="\&quot;u1d1bd5b8\&quot;"><span data-lake-id="\&quot;u27cbb85c\&quot;" id="\&quot;u27cbb85c\&quot;">序号</span></p></td>
+     <td data-lake-id="\&quot;u49006e62\&quot;" id="\&quot;u49006e62\&quot;"><p data-lake-id="\&quot;u3c22193b\&quot;" id="\&quot;u3c22193b\&quot;"><span data-lake-id="\&quot;u789bd400\&quot;" id="\&quot;u789bd400\&quot;">配置项</span></p></td>
+     <td data-lake-id="\&quot;u157bd407\&quot;" id="\&quot;u157bd407\&quot;"><p data-lake-id="\&quot;u94ca6575\&quot;" id="\&quot;u94ca6575\&quot;"><span data-lake-id="\&quot;uce1eee1f\&quot;" id="\&quot;uce1eee1f\&quot;">执行项</span></p></td>
+     <td data-lake-id="\&quot;ube379c21\&quot;" id="\&quot;ube379c21\&quot;"><p data-lake-id="\&quot;u0ddbb419\&quot;" id="\&quot;u0ddbb419\&quot;"><span data-lake-id="\&quot;u3d9005d3\&quot;" id="\&quot;u3d9005d3\&quot;">检查说明</span></p></td>
+     <td data-lake-id="\&quot;ub5cc0fbc\&quot;" id="\&quot;ub5cc0fbc\&quot;"><p data-lake-id="\&quot;ud33877f5\&quot;" id="\&quot;ud33877f5\&quot;"><span data-lake-id="\&quot;uf4df113f\&quot;" id="\&quot;uf4df113f\&quot;">备注</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;ubf287f32\&quot;" id="\&quot;ubf287f32\&quot;" style="\&quot;height:" 76px\"="">
+     <td data-lake-id="\&quot;ua9da2c9e\&quot;" id="\&quot;ua9da2c9e\&quot;"><p data-lake-id="\&quot;u44a17401\&quot;" id="\&quot;u44a17401\&quot;"><span data-lake-id="\&quot;u9e647d13\&quot;" id="\&quot;u9e647d13\&quot;">1</span></p></td>
+     <td data-lake-id="\&quot;ud6577607\&quot;" id="\&quot;ud6577607\&quot;"><p data-lake-id="\&quot;u7a49072c\&quot;" id="\&quot;u7a49072c\&quot;"><span data-lake-id="\&quot;u75281d19\&quot;" id="\&quot;u75281d19\&quot;">DB 配置</span></p></td>
+     <td data-lake-id="\&quot;u738a30f6\&quot;" id="\&quot;u738a30f6\&quot;">
+      <ul list="\&quot;u7fc8a4e8\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u4aaa3115\&quot;" data-lake-id="\&quot;ua72150da\&quot;" id="\&quot;ua72150da\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ufcfe7225\&quot;" id="\&quot;ufcfe7225\&quot;">不涉及 </span></li>
+       <li fid="\&quot;u4aaa3115\&quot;" data-lake-id="\&quot;u60ee3ba4\&quot;" id="\&quot;u60ee3ba4\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ub9c67d58\&quot;" id="\&quot;ub9c67d58\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u022d40b1\&quot;" id="\&quot;u022d40b1\&quot;"><p data-lake-id="\&quot;u2b049cbd\&quot;" id="\&quot;u2b049cbd\&quot;"><span data-lake-id="\&quot;ua45d00e1\&quot;" id="\&quot;ua45d00e1\&quot;">线上sql建表和线下保持一致（线上申请时请勿改动）</span></p></td>
+     <td data-lake-id="\&quot;u592c75ab\&quot;" id="\&quot;u592c75ab\&quot;">
+      <card type="\&quot;inline\&quot;" name="\&quot;codeblock\&quot;" value="\&quot;data:%7B%22search%22%3A%22DML%22%2C%22mode%22%3A%22java%22%2C%22code%22%3A%22%22%2C%22autoWrap%22%3Afalse%2C%22lineNumbers%22%3Atrue%2C%22heightLimit%22%3Atrue%2C%22collapsed%22%3Afalse%2C%22hideToolbar%22%3Afalse%2C%22name%22%3A%22DML%22%2C%22tabSize%22%3Anull%2C%22indentWithTab%22%3Afalse%2C%22lightLines%22%3A%5B%5D%2C%22foldLines%22%3A%5B%5D%2C%22theme%22%3A%22default%22%2C%22fontSize%22%3A14%2C%22__spacing%22%3A%22both%22%2C%22id%22%3A%22OMaTt%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%7D\&quot;"></card></td>
+    </tr>
+    <tr data-lake-id="\&quot;ue778f023\&quot;" id="\&quot;ue778f023\&quot;" style="\&quot;height:" 70px\"="">
+     <td data-lake-id="\&quot;ub8b8bdac\&quot;" id="\&quot;ub8b8bdac\&quot;"><p data-lake-id="\&quot;u6642c4ca\&quot;" id="\&quot;u6642c4ca\&quot;"><span data-lake-id="\&quot;ua05d6d46\&quot;" id="\&quot;ua05d6d46\&quot;">2</span></p></td>
+     <td data-lake-id="\&quot;u2d10cd34\&quot;" id="\&quot;u2d10cd34\&quot;"><p data-lake-id="\&quot;u175f2a30\&quot;" id="\&quot;u175f2a30\&quot;"><span data-lake-id="\&quot;u877f69ab\&quot;" id="\&quot;u877f69ab\&quot;">ES 配置</span></p></td>
+     <td data-lake-id="\&quot;uaf5b7f67\&quot;" id="\&quot;uaf5b7f67\&quot;">
+      <ul list="\&quot;u41ad4663\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;u8ffa85ce\&quot;" id="\&quot;u8ffa85ce\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ub5f4c339\&quot;" id="\&quot;ub5f4c339\&quot;">不涉及</span></li>
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;u48a938f9\&quot;" id="\&quot;u48a938f9\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u14d1776f\&quot;" id="\&quot;u14d1776f\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u08fd19d7\&quot;" id="\&quot;u08fd19d7\&quot;"><p data-lake-id="\&quot;ua54c94b5\&quot;" id="\&quot;ua54c94b5\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u14ce86a4\&quot;" id="\&quot;u14ce86a4\&quot;"><p data-lake-id="\&quot;u3f5eb452\&quot;" id="\&quot;u3f5eb452\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uc051011d\&quot;" id="\&quot;uc051011d\&quot;" style="\&quot;height:" 83px\"="">
+     <td data-lake-id="\&quot;u9bb78018\&quot;" id="\&quot;u9bb78018\&quot;"><p data-lake-id="\&quot;u16175a26\&quot;" id="\&quot;u16175a26\&quot;"><span data-lake-id="\&quot;u9fdada51\&quot;" id="\&quot;u9fdada51\&quot;">3</span></p></td>
+     <td data-lake-id="\&quot;u21d4b19d\&quot;" id="\&quot;u21d4b19d\&quot;"><p data-lake-id="\&quot;u61770afc\&quot;" id="\&quot;u61770afc\&quot;"><span data-lake-id="\&quot;u9ff7eca6\&quot;" id="\&quot;u9ff7eca6\&quot;">配置中心</span></p></td>
+     <td data-lake-id="\&quot;u28d50c82\&quot;" id="\&quot;u28d50c82\&quot;">
+      <ul list="\&quot;u566ea017\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;u848eef9c\&quot;" id="\&quot;u848eef9c\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;udd3d5713\&quot;" id="\&quot;udd3d5713\&quot;">不涉及</span></li>
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;ue8ee46a3\&quot;" id="\&quot;ue8ee46a3\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u0ab31abf\&quot;" id="\&quot;u0ab31abf\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u12cbb576\&quot;" id="\&quot;u12cbb576\&quot;"><p data-lake-id="\&quot;ue1733cc8\&quot;" id="\&quot;ue1733cc8\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u451f6c4f\&quot;" id="\&quot;u451f6c4f\&quot;"><p data-lake-id="\&quot;uef5d5281\&quot;" id="\&quot;uef5d5281\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u708660e3\&quot;" id="\&quot;u708660e3\&quot;">
+     <td data-lake-id="\&quot;udc004e78\&quot;" id="\&quot;udc004e78\&quot;"><p data-lake-id="\&quot;udc0d61e6\&quot;" id="\&quot;udc0d61e6\&quot;"><span data-lake-id="\&quot;u120b6f8a\&quot;" id="\&quot;u120b6f8a\&quot;">4</span></p></td>
+     <td data-lake-id="\&quot;u957fe3e2\&quot;" id="\&quot;u957fe3e2\&quot;"><p data-lake-id="\&quot;ub93bc569\&quot;" id="\&quot;ub93bc569\&quot;"><span data-lake-id="\&quot;uc8477259\&quot;" id="\&quot;uc8477259\&quot;">定时任务配置</span></p></td>
+     <td data-lake-id="\&quot;u2fe72c65\&quot;" id="\&quot;u2fe72c65\&quot;">
+      <ul list="\&quot;u94dc4bfd\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;u654382de\&quot;" id="\&quot;u654382de\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ue0f13d73\&quot;" id="\&quot;ue0f13d73\&quot;">不涉及</span></li>
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;uee7912d2\&quot;" id="\&quot;uee7912d2\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;uce7a0b0e\&quot;" id="\&quot;uce7a0b0e\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u0655c1f7\&quot;" id="\&quot;u0655c1f7\&quot;"><p data-lake-id="\&quot;uf14140a5\&quot;" id="\&quot;uf14140a5\&quot;"><span data-lake-id="\&quot;ub015a415\&quot;" id="\&quot;ub015a415\&quot;">检查任务的执行时间是否符合预期</span></p></td>
+     <td data-lake-id="\&quot;ucb9bb453\&quot;" id="\&quot;ucb9bb453\&quot;"><p data-lake-id="\&quot;ua109358a\&quot;" id="\&quot;ua109358a\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uf7a9406e\&quot;" id="\&quot;uf7a9406e\&quot;">
+     <td data-lake-id="\&quot;u9bb19f49\&quot;" id="\&quot;u9bb19f49\&quot;"><p data-lake-id="\&quot;ub566d648\&quot;" id="\&quot;ub566d648\&quot;"><span data-lake-id="\&quot;u6d227b04\&quot;" id="\&quot;u6d227b04\&quot;">5</span></p></td>
+     <td data-lake-id="\&quot;u5530d30a\&quot;" id="\&quot;u5530d30a\&quot;"><p data-lake-id="\&quot;u1313443f\&quot;" id="\&quot;u1313443f\&quot;"><span data-lake-id="\&quot;u165c3aa8\&quot;" id="\&quot;u165c3aa8\&quot;">消息队列配置</span></p></td>
+     <td data-lake-id="\&quot;udb761148\&quot;" id="\&quot;udb761148\&quot;">
+      <ul list="\&quot;ue7940e52\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;u8f6594d3\&quot;" id="\&quot;u8f6594d3\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u166eaa9e\&quot;" id="\&quot;u166eaa9e\&quot;">不涉及</span></li>
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;ue0b0c4f8\&quot;" id="\&quot;ue0b0c4f8\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ua36f16e9\&quot;" id="\&quot;ua36f16e9\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;ue2902749\&quot;" id="\&quot;ue2902749\&quot;"><p data-lake-id="\&quot;u9d11f606\&quot;" id="\&quot;u9d11f606\&quot;"><span data-lake-id="\&quot;ueb7e6b8c\&quot;" id="\&quot;ueb7e6b8c\&quot;">检查代码，确认namespace、主题、消费组配置正确<br /></span><span data-lake-id="\&quot;uae94fec7\&quot;" id="\&quot;uae94fec7\&quot;">检查生产者集群和消费者机器，是否均衡<br /></span><span data-lake-id="\&quot;u3b4125ce\&quot;" id="\&quot;u3b4125ce\&quot;">检查代码，消息的消费处理是否做了幂等<br /></span><span data-lake-id="\&quot;ue9dc12d7\&quot;" id="\&quot;ue9dc12d7\&quot;">检查代码，消息的反序列化是否合理，是否对新增字段兼容（忽略新增字段反序列化报错）<br /></span><span data-lake-id="\&quot;u7128de6b\&quot;" id="\&quot;u7128de6b\&quot;">检查代码，如需死信功能，代码和平台需同时开启死信配置（否则启动失败）</span></p></td>
+     <td data-lake-id="\&quot;u68f13c48\&quot;" id="\&quot;u68f13c48\&quot;"><p data-lake-id="\&quot;u30e9d868\&quot;" id="\&quot;u30e9d868\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u3ffdfabd\&quot;" id="\&quot;u3ffdfabd\&quot;">
+     <td data-lake-id="\&quot;uad358e31\&quot;" id="\&quot;uad358e31\&quot;"><p data-lake-id="\&quot;ud4a6a4ff\&quot;" id="\&quot;ud4a6a4ff\&quot;"><span data-lake-id="\&quot;u2e797ca7\&quot;" id="\&quot;u2e797ca7\&quot;">18</span></p></td>
+     <td data-lake-id="\&quot;ua49c911d\&quot;" id="\&quot;ua49c911d\&quot;"><p data-lake-id="\&quot;ubc883c6d\&quot;" id="\&quot;ubc883c6d\&quot;"><span data-lake-id="\&quot;u5013d254\&quot;" id="\&quot;u5013d254\&quot;">线程池配置</span></p></td>
+     <td data-lake-id="\&quot;u4ca18a09\&quot;" id="\&quot;u4ca18a09\&quot;">
+      <ul list="\&quot;u086a2bdd\&quot;" start="\&quot;7\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;u91aca050\&quot;" id="\&quot;u91aca050\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u2e93b1e7\&quot;" id="\&quot;u2e93b1e7\&quot;">不涉及</span></li>
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;u4a867409\&quot;" id="\&quot;u4a867409\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u8275dca2\&quot;" id="\&quot;u8275dca2\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u0dcaf55c\&quot;" id="\&quot;u0dcaf55c\&quot;"><p data-lake-id="\&quot;ue801e554\&quot;" id="\&quot;ue801e554\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u80d5e1f9\&quot;" id="\&quot;u80d5e1f9\&quot;"><p data-lake-id="\&quot;u01ebb833\&quot;" id="\&quot;u01ebb833\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u732acc17\&quot;" id="\&quot;u732acc17\&quot;">
+     <td data-lake-id="\&quot;u0d0a3fa5\&quot;" id="\&quot;u0d0a3fa5\&quot;"><p data-lake-id="\&quot;ubb88157a\&quot;" id="\&quot;ubb88157a\&quot;"><span data-lake-id="\&quot;u4923f1d5\&quot;" id="\&quot;u4923f1d5\&quot;">6</span></p></td>
+     <td data-lake-id="\&quot;u0b13e27d\&quot;" id="\&quot;u0b13e27d\&quot;"><p data-lake-id="\&quot;u82de3df2\&quot;" id="\&quot;u82de3df2\&quot;"><span data-lake-id="\&quot;u0db32251\&quot;" id="\&quot;u0db32251\&quot;">pom 是否有改动</span></p></td>
+     <td data-lake-id="\&quot;ubce025b0\&quot;" id="\&quot;ubce025b0\&quot;">
+      <ul list="\&quot;u086a2bdd\&quot;" start="\&quot;9\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;u58a796f5\&quot;" id="\&quot;u58a796f5\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u9d30b270\&quot;" id="\&quot;u9d30b270\&quot;">不涉及</span></li>
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;u940b8a16\&quot;" id="\&quot;u940b8a16\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u8dc8014d\&quot;" id="\&quot;u8dc8014d\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u8cda76aa\&quot;" id="\&quot;u8cda76aa\&quot;"><p data-lake-id="\&quot;u612d58ac\&quot;" id="\&quot;u612d58ac\&quot;"><span data-lake-id="\&quot;uc51fc911\&quot;" id="\&quot;uc51fc911\&quot;">已和线上稳定版做了jar的diff，确认改动无问题。</span></p></td>
+     <td data-lake-id="\&quot;u5a7cbf50\&quot;" id="\&quot;u5a7cbf50\&quot;"><p data-lake-id="\&quot;u5b5175ff\&quot;" id="\&quot;u5b5175ff\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u996c0c07\&quot;" id="\&quot;u996c0c07\&quot;">
+     <td data-lake-id="\&quot;ucd046783\&quot;" id="\&quot;ucd046783\&quot;"><p data-lake-id="\&quot;u8a8b68c8\&quot;" id="\&quot;u8a8b68c8\&quot;"><span data-lake-id="\&quot;ua3f3faa7\&quot;" id="\&quot;ua3f3faa7\&quot;">7</span></p></td>
+     <td data-lake-id="\&quot;u9bed33a9\&quot;" id="\&quot;u9bed33a9\&quot;"><p data-lake-id="\&quot;u016586a1\&quot;" id="\&quot;u016586a1\&quot;"><span data-lake-id="\&quot;ub3887da3\&quot;" id="\&quot;ub3887da3\&quot;">SNAPSHPT 是否替换为正式 VERSION</span></p></td>
+     <td data-lake-id="\&quot;uf5c55bb2\&quot;" id="\&quot;uf5c55bb2\&quot;">
+      <ul list="\&quot;uf189e91e\&quot;" start="\&quot;5\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;u329feb0b\&quot;" id="\&quot;u329feb0b\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u67aeec36\&quot;" id="\&quot;u67aeec36\&quot;">不涉及</span></li>
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;ud1954e5b\&quot;" id="\&quot;ud1954e5b\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u821b1b75\&quot;" id="\&quot;u821b1b75\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u1ad0391a\&quot;" id="\&quot;u1ad0391a\&quot;"><p data-lake-id="\&quot;u68370d9f\&quot;" id="\&quot;u68370d9f\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;ue723d502\&quot;" id="\&quot;ue723d502\&quot;"><p data-lake-id="\&quot;ud70fcedc\&quot;" id="\&quot;ud70fcedc\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uc6679a14\&quot;" id="\&quot;uc6679a14\&quot;">
+     <td data-lake-id="\&quot;u765659aa\&quot;" id="\&quot;u765659aa\&quot;"><p data-lake-id="\&quot;uaa9f4cb6\&quot;" id="\&quot;uaa9f4cb6\&quot;"><span data-lake-id="\&quot;u9ef60715\&quot;" id="\&quot;u9ef60715\&quot;">8</span></p></td>
+     <td data-lake-id="\&quot;ud1199642\&quot;" id="\&quot;ud1199642\&quot;"><p data-lake-id="\&quot;ucce790de\&quot;" id="\&quot;ucce790de\&quot;"><span data-lake-id="\&quot;ua63d138a\&quot;" id="\&quot;ua63d138a\&quot;">分支是否 merge 到 master</span></p></td>
+     <td data-lake-id="\&quot;u4aeab801\&quot;" id="\&quot;u4aeab801\&quot;">
+      <ul list="\&quot;uf189e91e\&quot;" start="\&quot;7\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;u08916338\&quot;" id="\&quot;u08916338\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ua84c381a\&quot;" id="\&quot;ua84c381a\&quot;">不涉及</span></li>
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;ubf77f1c0\&quot;" id="\&quot;ubf77f1c0\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u2f6d0019\&quot;" id="\&quot;u2f6d0019\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u792865d5\&quot;" id="\&quot;u792865d5\&quot;"><p data-lake-id="\&quot;ued856118\&quot;" id="\&quot;ued856118\&quot;"><span data-lake-id="\&quot;u112ad37a\&quot;" id="\&quot;u112ad37a\&quot;">已合并</span></p></td>
+     <td data-lake-id="\&quot;u8a407187\&quot;" id="\&quot;u8a407187\&quot;"><p data-lake-id="\&quot;u5e011515\&quot;" id="\&quot;u5e011515\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u1ec43dbd\&quot;" id="\&quot;u1ec43dbd\&quot;">
+     <td data-lake-id="\&quot;u83a33298\&quot;" id="\&quot;u83a33298\&quot;"><p data-lake-id="\&quot;u121c62f5\&quot;" id="\&quot;u121c62f5\&quot;"><span data-lake-id="\&quot;udc78f237\&quot;" id="\&quot;udc78f237\&quot;">9</span></p></td>
+     <td data-lake-id="\&quot;uc00234cc\&quot;" id="\&quot;uc00234cc\&quot;"><p data-lake-id="\&quot;ua1a060d8\&quot;" id="\&quot;ua1a060d8\&quot;"><span data-lake-id="\&quot;u19c4846b\&quot;" id="\&quot;u19c4846b\&quot;">检查是否所有单测都通过</span></p></td>
+     <td data-lake-id="\&quot;uc077ba3d\&quot;" id="\&quot;uc077ba3d\&quot;">
+      <ul list="\&quot;u17852c4f\&quot;" start="\&quot;11\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u4aaa3115\&quot;" data-lake-id="\&quot;u0f5c8225\&quot;" id="\&quot;u0f5c8225\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u2ed57d02\&quot;" id="\&quot;u2ed57d02\&quot;">不涉及 </span></li>
+       <li fid="\&quot;u4aaa3115\&quot;" data-lake-id="\&quot;ufdbf06a9\&quot;" id="\&quot;ufdbf06a9\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u53dda88e\&quot;" id="\&quot;u53dda88e\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u9baa0947\&quot;" id="\&quot;u9baa0947\&quot;"><p data-lake-id="\&quot;u8f055f6c\&quot;" id="\&quot;u8f055f6c\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u829d3001\&quot;" id="\&quot;u829d3001\&quot;"><p data-lake-id="\&quot;ucbd4803a\&quot;" id="\&quot;ucbd4803a\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uf33b1cf1\&quot;" id="\&quot;uf33b1cf1\&quot;">
+     <td data-lake-id="\&quot;ua745f73c\&quot;" id="\&quot;ua745f73c\&quot;"><p data-lake-id="\&quot;u2b9f11d1\&quot;" id="\&quot;u2b9f11d1\&quot;"><span data-lake-id="\&quot;u4734026b\&quot;" id="\&quot;u4734026b\&quot;">10</span></p></td>
+     <td data-lake-id="\&quot;uaaa0297d\&quot;" id="\&quot;uaaa0297d\&quot;"><p data-lake-id="\&quot;u80f0373f\&quot;" id="\&quot;u80f0373f\&quot;"><span data-lake-id="\&quot;u191626b8\&quot;" id="\&quot;u191626b8\&quot;">己方接口是否增加了鉴权</span></p></td>
+     <td data-lake-id="\&quot;u8991c2a8\&quot;" id="\&quot;u8991c2a8\&quot;">
+      <ul list="\&quot;u17852c4f\&quot;" start="\&quot;13\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u4aaa3115\&quot;" data-lake-id="\&quot;ua7091e9d\&quot;" id="\&quot;ua7091e9d\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u0888bc91\&quot;" id="\&quot;u0888bc91\&quot;">不涉及 </span></li>
+       <li fid="\&quot;u4aaa3115\&quot;" data-lake-id="\&quot;u31af457e\&quot;" id="\&quot;u31af457e\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;udad4e4aa\&quot;" id="\&quot;udad4e4aa\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;udbdfe862\&quot;" id="\&quot;udbdfe862\&quot;"><p data-lake-id="\&quot;u5d9f6a36\&quot;" id="\&quot;u5d9f6a36\&quot;"><span data-lake-id="\&quot;u61b18fbd\&quot;" id="\&quot;u61b18fbd\&quot;">己方增接口已增加鉴权，<br /></span><span data-lake-id="\&quot;u0351e692\&quot;" id="\&quot;u0351e692\&quot;">确认己方新服务健康检测url配置</span></p></td>
+     <td data-lake-id="\&quot;u6149fce1\&quot;" id="\&quot;u6149fce1\&quot;"><p data-lake-id="\&quot;ud07fee0a\&quot;" id="\&quot;ud07fee0a\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u2a8669ae\&quot;" id="\&quot;u2a8669ae\&quot;">
+     <td data-lake-id="\&quot;u0d795860\&quot;" id="\&quot;u0d795860\&quot;"><p data-lake-id="\&quot;ud741657d\&quot;" id="\&quot;ud741657d\&quot;"><span data-lake-id="\&quot;u5d3754a7\&quot;" id="\&quot;u5d3754a7\&quot;">11</span></p></td>
+     <td data-lake-id="\&quot;udfb7fcb8\&quot;" id="\&quot;udfb7fcb8\&quot;"><p data-lake-id="\&quot;u80f58499\&quot;" id="\&quot;u80f58499\&quot;"><span data-lake-id="\&quot;u3134749b\&quot;" id="\&quot;u3134749b\&quot;">依赖方接口是否开通鉴权</span></p></td>
+     <td data-lake-id="\&quot;u26dc9bfc\&quot;" id="\&quot;u26dc9bfc\&quot;">
+      <ul list="\&quot;uf189e91e\&quot;" start="\&quot;9\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;ue32e1cba\&quot;" id="\&quot;ue32e1cba\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u871d14ba\&quot;" id="\&quot;u871d14ba\&quot;">不涉及</span></li>
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;u671a200f\&quot;" id="\&quot;u671a200f\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;uc980293b\&quot;" id="\&quot;uc980293b\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u51b248a2\&quot;" id="\&quot;u51b248a2\&quot;"><p data-lake-id="\&quot;uf3dfe902\&quot;" id="\&quot;uf3dfe902\&quot;"><span data-lake-id="\&quot;u9bba376b\&quot;" id="\&quot;u9bba376b\&quot;">依赖方增接口已增加鉴权，<br /></span><span data-lake-id="\&quot;u1791fc28\&quot;" id="\&quot;u1791fc28\&quot;">确认依赖房新服务健康检测url配置</span></p></td>
+     <td data-lake-id="\&quot;uc10c412a\&quot;" id="\&quot;uc10c412a\&quot;"><p data-lake-id="\&quot;u14736397\&quot;" id="\&quot;u14736397\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uf8a5f455\&quot;" id="\&quot;uf8a5f455\&quot;">
+     <td data-lake-id="\&quot;u79817aa4\&quot;" id="\&quot;u79817aa4\&quot;"><p data-lake-id="\&quot;u73d9cf52\&quot;" id="\&quot;u73d9cf52\&quot;"><span data-lake-id="\&quot;u62706d2c\&quot;" id="\&quot;u62706d2c\&quot;">12</span></p></td>
+     <td data-lake-id="\&quot;uebc739b5\&quot;" id="\&quot;uebc739b5\&quot;"><p data-lake-id="\&quot;u25778f73\&quot;" id="\&quot;u25778f73\&quot;"><span data-lake-id="\&quot;u5ae2ad67\&quot;" id="\&quot;u5ae2ad67\&quot;">上线顺序是否已梳理</span></p></td>
+     <td data-lake-id="\&quot;uf5a92ad5\&quot;" id="\&quot;uf5a92ad5\&quot;">
+      <ul list="\&quot;uf189e91e\&quot;" start="\&quot;11\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;u52389867\&quot;" id="\&quot;u52389867\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u717d1c6e\&quot;" id="\&quot;u717d1c6e\&quot;">不涉及</span></li>
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;ufaeb2ec7\&quot;" id="\&quot;ufaeb2ec7\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ue2a01b55\&quot;" id="\&quot;ue2a01b55\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;ua5aeeed0\&quot;" id="\&quot;ua5aeeed0\&quot;"><p data-lake-id="\&quot;u8e1fd5c9\&quot;" id="\&quot;u8e1fd5c9\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u45994d0f\&quot;" id="\&quot;u45994d0f\&quot;"><p data-lake-id="\&quot;u92d53678\&quot;" id="\&quot;u92d53678\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uf6e0b0ea\&quot;" id="\&quot;uf6e0b0ea\&quot;">
+     <td data-lake-id="\&quot;uc0c3e9ea\&quot;" id="\&quot;uc0c3e9ea\&quot;"><p data-lake-id="\&quot;u12aaecac\&quot;" id="\&quot;u12aaecac\&quot;"><span data-lake-id="\&quot;u9f5e76d9\&quot;" id="\&quot;u9f5e76d9\&quot;">13</span></p></td>
+     <td data-lake-id="\&quot;u2fe769a6\&quot;" id="\&quot;u2fe769a6\&quot;"><p data-lake-id="\&quot;u5922b493\&quot;" id="\&quot;u5922b493\&quot;"><span data-lake-id="\&quot;u4e877b75\&quot;" id="\&quot;u4e877b75\&quot;">是否明确回滚方案</span></p></td>
+     <td data-lake-id="\&quot;u1f57cf89\&quot;" id="\&quot;u1f57cf89\&quot;">
+      <ul list="\&quot;u086a2bdd\&quot;" start="\&quot;11\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;uac2a0b2a\&quot;" id="\&quot;uac2a0b2a\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u60179dc3\&quot;" id="\&quot;u60179dc3\&quot;">不涉及</span></li>
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;ua1528930\&quot;" id="\&quot;ua1528930\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u6931ae75\&quot;" id="\&quot;u6931ae75\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u505eb767\&quot;" id="\&quot;u505eb767\&quot;"><p data-lake-id="\&quot;uf9927bff\&quot;" id="\&quot;uf9927bff\&quot;"><span data-lake-id="\&quot;uda239c14\&quot;" id="\&quot;uda239c14\&quot;">严重问题直接回滚本次发布</span></p></td>
+     <td data-lake-id="\&quot;u7ab87caf\&quot;" id="\&quot;u7ab87caf\&quot;"><p data-lake-id="\&quot;u8910e0cc\&quot;" id="\&quot;u8910e0cc\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uf695b816\&quot;" id="\&quot;uf695b816\&quot;">
+     <td data-lake-id="\&quot;uafe528d8\&quot;" id="\&quot;uafe528d8\&quot;"><p data-lake-id="\&quot;u72b72779\&quot;" id="\&quot;u72b72779\&quot;"><span data-lake-id="\&quot;ue2dae0e5\&quot;" id="\&quot;ue2dae0e5\&quot;">14</span></p></td>
+     <td data-lake-id="\&quot;ud6a080da\&quot;" id="\&quot;ud6a080da\&quot;"><p data-lake-id="\&quot;u280c1631\&quot;" id="\&quot;u280c1631\&quot;"><span data-lake-id="\&quot;ua7386726\&quot;" id="\&quot;ua7386726\&quot;">是否明确降级方案</span></p></td>
+     <td data-lake-id="\&quot;ua84342e6\&quot;" id="\&quot;ua84342e6\&quot;">
+      <ul list="\&quot;u086a2bdd\&quot;" start="\&quot;13\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;u908442c4\&quot;" id="\&quot;u908442c4\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u0fedca06\&quot;" id="\&quot;u0fedca06\&quot;">不涉及</span></li>
+       <li fid="\&quot;u1a161a34\&quot;" data-lake-id="\&quot;ua2ea0206\&quot;" id="\&quot;ua2ea0206\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u51582caa\&quot;" id="\&quot;u51582caa\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u06721d98\&quot;" id="\&quot;u06721d98\&quot;"><p data-lake-id="\&quot;uee21f58e\&quot;" id="\&quot;uee21f58e\&quot;"><span data-lake-id="\&quot;u5ef81dcf\&quot;" id="\&quot;u5ef81dcf\&quot;">​</span><br /></p></td>
+     <td data-lake-id="\&quot;ue6cd61d4\&quot;" id="\&quot;ue6cd61d4\&quot;"><p data-lake-id="\&quot;uc2b97798\&quot;" id="\&quot;uc2b97798\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u938da45c\&quot;" id="\&quot;u938da45c\&quot;">
+     <td data-lake-id="\&quot;u2ddf17fe\&quot;" id="\&quot;u2ddf17fe\&quot;"><p data-lake-id="\&quot;u386e39f2\&quot;" id="\&quot;u386e39f2\&quot;"><span data-lake-id="\&quot;u7c713485\&quot;" id="\&quot;u7c713485\&quot;">15</span></p></td>
+     <td data-lake-id="\&quot;u59941969\&quot;" id="\&quot;u59941969\&quot;"><p data-lake-id="\&quot;u7d14634a\&quot;" id="\&quot;u7d14634a\&quot;"><span data-lake-id="\&quot;u826a0b63\&quot;" id="\&quot;u826a0b63\&quot;">是否灰度发布</span></p></td>
+     <td data-lake-id="\&quot;u13604b80\&quot;" id="\&quot;u13604b80\&quot;">
+      <ul list="\&quot;uf189e91e\&quot;" start="\&quot;13\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;ucb6c064d\&quot;" id="\&quot;ucb6c064d\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u0de3177c\&quot;" id="\&quot;u0de3177c\&quot;">不涉及</span></li>
+       <li fid="\&quot;u233045ff\&quot;" data-lake-id="\&quot;u54860dd8\&quot;" id="\&quot;u54860dd8\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u0b809d93\&quot;" id="\&quot;u0b809d93\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;ue6ab6338\&quot;" id="\&quot;ue6ab6338\&quot;"><p data-lake-id="\&quot;u05470b8f\&quot;" id="\&quot;u05470b8f\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u5853e457\&quot;" id="\&quot;u5853e457\&quot;"><p data-lake-id="\&quot;u5ea4ae64\&quot;" id="\&quot;u5ea4ae64\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uac250100\&quot;" id="\&quot;uac250100\&quot;">
+     <td data-lake-id="\&quot;ub3f02c38\&quot;" id="\&quot;ub3f02c38\&quot;"><p data-lake-id="\&quot;u91c332ad\&quot;" id="\&quot;u91c332ad\&quot;"><span data-lake-id="\&quot;u06b15ee0\&quot;" id="\&quot;u06b15ee0\&quot;">16</span></p></td>
+     <td data-lake-id="\&quot;u1e8b58c5\&quot;" id="\&quot;u1e8b58c5\&quot;"><p data-lake-id="\&quot;ue8a74f0f\&quot;" id="\&quot;ue8a74f0f\&quot;"><span data-lake-id="\&quot;uc3401e51\&quot;" id="\&quot;uc3401e51\&quot;">是否已进行上线代码对线上的影响评估</span></p></td>
+     <td data-lake-id="\&quot;u7c566fb4\&quot;" id="\&quot;u7c566fb4\&quot;">
+      <ul list="\&quot;u17852c4f\&quot;" start="\&quot;15\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u4aaa3115\&quot;" data-lake-id="\&quot;u08c29f76\&quot;" id="\&quot;u08c29f76\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ua0b2e6d9\&quot;" id="\&quot;ua0b2e6d9\&quot;">不涉及 </span></li>
+       <li fid="\&quot;u4aaa3115\&quot;" data-lake-id="\&quot;ua792d00c\&quot;" id="\&quot;ua792d00c\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ucb862bd8\&quot;" id="\&quot;ucb862bd8\&quot;">已完成</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u23d761ee\&quot;" id="\&quot;u23d761ee\&quot;"><p data-lake-id="\&quot;ua859ae50\&quot;" id="\&quot;ua859ae50\&quot;"><span data-lake-id="\&quot;u7cfdbeaa\&quot;" id="\&quot;u7cfdbeaa\&quot;">已实现数据源兼容方案</span></p></td>
+     <td data-lake-id="\&quot;ufbf860bd\&quot;" id="\&quot;ufbf860bd\&quot;"><p data-lake-id="\&quot;u41bf001e\&quot;" id="\&quot;u41bf001e\&quot;"><br /></p></td>
+    </tr>
+   </tbody>
+  </table>
+  <p data-lake-id="\&quot;ued88752e\&quot;" id="\&quot;ued88752e\&quot;"><span data-lake-id="\&quot;uda41ea5b\&quot;" id="\&quot;uda41ea5b\&quot;">配置中心：</span></p>
+  <table data-lake-id="\&quot;cZx7L\&quot;" id="\&quot;cZx7L\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 651px\"="">
+   <colgroup>
+    <col width="\&quot;93\&quot;" />
+    <col width="\&quot;93\&quot;" />
+    <col width="\&quot;93\&quot;" />
+    <col width="\&quot;93\&quot;" />
+    <col width="\&quot;93\&quot;" />
+    <col width="\&quot;93\&quot;" />
+    <col width="\&quot;93\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;ub77c1a5d\&quot;" id="\&quot;ub77c1a5d\&quot;">
+     <td data-lake-id="\&quot;uf22569b5\&quot;" id="\&quot;uf22569b5\&quot;"><p data-lake-id="\&quot;u671ca5e4\&quot;" id="\&quot;u671ca5e4\&quot;"><span data-lake-id="\&quot;ub00e0bb6\&quot;" id="\&quot;ub00e0bb6\&quot;">服务</span></p></td>
+     <td data-lake-id="\&quot;udb0a9a51\&quot;" id="\&quot;udb0a9a51\&quot;"><p data-lake-id="\&quot;u2f2e0203\&quot;" id="\&quot;u2f2e0203\&quot;"><span data-lake-id="\&quot;u7b4e699b\&quot;" id="\&quot;u7b4e699b\&quot;">配置 key</span></p></td>
+     <td data-lake-id="\&quot;u63a62713\&quot;" id="\&quot;u63a62713\&quot;"><p data-lake-id="\&quot;u05ea2b99\&quot;" id="\&quot;u05ea2b99\&quot;"><span data-lake-id="\&quot;u2025ebcf\&quot;" id="\&quot;u2025ebcf\&quot;">配置类型</span></p></td>
+     <td data-lake-id="\&quot;u803c9bb8\&quot;" id="\&quot;u803c9bb8\&quot;"><p data-lake-id="\&quot;uff5fbd27\&quot;" id="\&quot;uff5fbd27\&quot;"><span data-lake-id="\&quot;u547e733f\&quot;" id="\&quot;u547e733f\&quot;">配置值-线上</span></p></td>
+     <td data-lake-id="\&quot;ued8718a2\&quot;" id="\&quot;ued8718a2\&quot;"><p data-lake-id="\&quot;u6bf7fe18\&quot;" id="\&quot;u6bf7fe18\&quot;"><span data-lake-id="\&quot;uea04f5d3\&quot;" id="\&quot;uea04f5d3\&quot;">配置值-线下</span></p></td>
+     <td data-lake-id="\&quot;u660f29de\&quot;" id="\&quot;u660f29de\&quot;"><p data-lake-id="\&quot;u92669fa7\&quot;" id="\&quot;u92669fa7\&quot;"><span data-lake-id="\&quot;ua530050f\&quot;" id="\&quot;ua530050f\&quot;">配置描述</span></p></td>
+     <td data-lake-id="\&quot;u678010e4\&quot;" id="\&quot;u678010e4\&quot;"><p data-lake-id="\&quot;uc7061743\&quot;" id="\&quot;uc7061743\&quot;"><span data-lake-id="\&quot;ubcd20d8f\&quot;" id="\&quot;ubcd20d8f\&quot;">备注说明</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u0460278d\&quot;" id="\&quot;u0460278d\&quot;">
+     <td data-lake-id="\&quot;u9d87a580\&quot;" id="\&quot;u9d87a580\&quot;"><p data-lake-id="\&quot;u7e1e7caf\&quot;" id="\&quot;u7e1e7caf\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;ua980908d\&quot;" id="\&quot;ua980908d\&quot;"><p data-lake-id="\&quot;uc95a9c25\&quot;" id="\&quot;uc95a9c25\&quot;"><span data-lake-id="\&quot;u6aef35a7\&quot;" id="\&quot;u6aef35a7\&quot;">hawkeye.rank.demotion.list.resource.info.map</span></p></td>
+     <td data-lake-id="\&quot;ub2358646\&quot;" id="\&quot;ub2358646\&quot;"><p data-lake-id="\&quot;ud8dca4ba\&quot;" id="\&quot;ud8dca4ba\&quot;"><span data-lake-id="\&quot;u3b69a2ab\&quot;" id="\&quot;u3b69a2ab\&quot;">json</span></p></td>
+     <td data-lake-id="\&quot;u1099408b\&quot;" id="\&quot;u1099408b\&quot;"><p data-lake-id="\&quot;ud03486a5\&quot;" id="\&quot;ud03486a5\&quot;"><span data-lake-id="\&quot;ufaabd9d8\&quot;" id="\&quot;ufaabd9d8\&quot;">同线下</span></p></td>
+     <td data-lake-id="\&quot;uaac76f68\&quot;" id="\&quot;uaac76f68\&quot;"><p data-lake-id="\&quot;u4ac80457\&quot;" id="\&quot;u4ac80457\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u9faea835\&quot;" id="\&quot;u9faea835\&quot;"><p data-lake-id="\&quot;u819a7b2b\&quot;" id="\&quot;u819a7b2b\&quot;"><span data-lake-id="\&quot;u9a0c1d7f\&quot;" id="\&quot;u9a0c1d7f\&quot;">鹰眼-降权名单</span></p></td>
+     <td data-lake-id="\&quot;uf28b9628\&quot;" id="\&quot;uf28b9628\&quot;"><p data-lake-id="\&quot;uf6397f69\&quot;" id="\&quot;uf6397f69\&quot;"><br /></p></td>
+    </tr>
+   </tbody>
+  </table>
+  <p data-lake-id="\&quot;ue1b58421\&quot;" id="\&quot;ue1b58421\&quot;"><br /></p>
+  <blockquote data-lake-id="\&quot;u2c94f8ee\&quot;" id="\&quot;u2c94f8ee\&quot;">
+   <p data-lake-id="\&quot;u0fe3f44e\&quot;" id="\&quot;u0fe3f44e\&quot;"><span data-lake-id="\&quot;u1e96a08f\&quot;" id="\&quot;u1e96a08f\&quot;">注：配置检查需因团队而调整。</span></p>
+  </blockquote>
+  <p data-lake-id="\&quot;u48a9f91d\&quot;" id="\&quot;u48a9f91d\&quot;"><br /></p>
+  <h2 data-lake-id="\&quot;W5Qbl\&quot;" id="\&quot;W5Qbl\&quot;"><span data-lake-id="\&quot;u4416166b\&quot;" id="\&quot;u4416166b\&quot;">业务配置（RD）</span></h2>
+  <blockquote data-lake-id="\&quot;uc4b3768a\&quot;" id="\&quot;uc4b3768a\&quot;">
+   <p data-lake-id="\&quot;u002dd7bc\&quot;" id="\&quot;u002dd7bc\&quot;"><strong><span data-lake-id="\&quot;uc5cdee89\&quot;" id="\&quot;uc5cdee89\&quot;">说明：</span></strong><span data-lake-id="\&quot;uf70da4d0\&quot;" id="\&quot;uf70da4d0\&quot;"> 主要针对业务级的页面配置（由RD进行配置），如：数据对象化相关配置、特性配置、脱敏配置、接口权限配置等等</span></p>
+   <p data-lake-id="\&quot;u9f1de2f4\&quot;" id="\&quot;u9f1de2f4\&quot;"><strong><span data-lake-id="\&quot;u2aec532c\&quot;" id="\&quot;u2aec532c\&quot;">PS：</span></strong><span data-lake-id="\&quot;u84df91ba\&quot;" id="\&quot;u84df91ba\&quot;"> 如不涉及此项请填写：无此项配置。</span></p>
+  </blockquote>
+  <p data-lake-id="\&quot;u6168fdfe\&quot;" id="\&quot;u6168fdfe\&quot;"><span data-lake-id="\&quot;u0a45af3a\&quot;" id="\&quot;u0a45af3a\&quot;">​</span><br /></p>
+  <h2 data-lake-id="\&quot;qNrLU\&quot;" id="\&quot;qNrLU\&quot;"><span data-lake-id="\&quot;u9061364a\&quot;" id="\&quot;u9061364a\&quot;">告警配置</span></h2>
+  <p data-lake-id="\&quot;u7a753da2\&quot;" id="\&quot;u7a753da2\&quot;"><span data-lake-id="\&quot;u22920d01\&quot;" id="\&quot;u22920d01\&quot;">【必选】外部接口调用，MAFKA消费，自定义Transcation，Event等需要在Raptor配置告警，如无请写明</span></p>
+  <table data-lake-id="\&quot;Qamox\&quot;" id="\&quot;Qamox\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 1433px\"="">
+   <colgroup>
+    <col width="\&quot;155\&quot;" />
+    <col width="\&quot;588\&quot;" />
+    <col width="\&quot;690\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;u944523f8\&quot;" id="\&quot;u944523f8\&quot;">
+     <td data-lake-id="\&quot;u89f5a13f\&quot;" id="\&quot;u89f5a13f\&quot;"><p data-lake-id="\&quot;udad7e829\&quot;" id="\&quot;udad7e829\&quot;"><span data-lake-id="\&quot;udf87a701\&quot;" id="\&quot;udf87a701\&quot;">告警项</span></p></td>
+     <td data-lake-id="\&quot;u2a9bed60\&quot;" id="\&quot;u2a9bed60\&quot;"><p data-lake-id="\&quot;ue7835d3c\&quot;" id="\&quot;ue7835d3c\&quot;"><span data-lake-id="\&quot;u03124f54\&quot;" id="\&quot;u03124f54\&quot;">告警描述</span></p></td>
+     <td data-lake-id="\&quot;u40ad8d54\&quot;" id="\&quot;u40ad8d54\&quot;"><p data-lake-id="\&quot;u6ddc4f07\&quot;" id="\&quot;u6ddc4f07\&quot;"><span data-lake-id="\&quot;u6f1b7f0e\&quot;" id="\&quot;u6f1b7f0e\&quot;">是否已配置</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u752a2996\&quot;" id="\&quot;u752a2996\&quot;">
+     <td data-lake-id="\&quot;uff131b8b\&quot;" id="\&quot;uff131b8b\&quot;"><p data-lake-id="\&quot;u1069c7aa\&quot;" id="\&quot;u1069c7aa\&quot;"><span data-lake-id="\&quot;u1e52e699\&quot;" id="\&quot;u1e52e699\&quot;">XXX</span></p></td>
+     <td data-lake-id="\&quot;u445528f5\&quot;" id="\&quot;u445528f5\&quot;"><p data-lake-id="\&quot;u1800d79d\&quot;" id="\&quot;u1800d79d\&quot;"><strong><span data-lake-id="\&quot;u66b6437b\&quot;" id="\&quot;u66b6437b\&quot;">说明：</span></strong></p><p data-lake-id="\&quot;uaac2fb42\&quot;" id="\&quot;uaac2fb42\&quot;"><strong><span data-lake-id="\&quot;u5e8bb6a2\&quot;" id="\&quot;u5e8bb6a2\&quot;">类型：</span></strong><span data-lake-id="\&quot;uc7e0623f\&quot;" id="\&quot;uc7e0623f\&quot;"> Transaction</span></p><p data-lake-id="\&quot;u8d03fb08\&quot;" id="\&quot;u8d03fb08\&quot;"><strong><span data-lake-id="\&quot;u7839cf33\&quot;" id="\&quot;u7839cf33\&quot;">指标：</span></strong><span data-lake-id="\&quot;u01acfbfa\&quot;" id="\&quot;u01acfbfa\&quot;"> TP9999</span></p><p data-lake-id="\&quot;u751417b9\&quot;" id="\&quot;u751417b9\&quot;"><strong><span data-lake-id="\&quot;u3577ca89\&quot;" id="\&quot;u3577ca89\&quot;">告警等级：</span></strong><span data-lake-id="\&quot;u2569657a\&quot;" id="\&quot;u2569657a\&quot;"> P2</span></p><p data-lake-id="\&quot;u6550d5cb\&quot;" id="\&quot;u6550d5cb\&quot;"><strong><span data-lake-id="\&quot;u6d9085ff\&quot;" id="\&quot;u6d9085ff\&quot;">条件：</span></strong><span data-lake-id="\&quot;u212537be\&quot;" id="\&quot;u212537be\&quot;"> 原始值&gt;100,5分钟周期内，触发3次</span></p></td>
+     <td data-lake-id="\&quot;ub0f1a0e7\&quot;" id="\&quot;ub0f1a0e7\&quot;">
+      <ul list="\&quot;u32f31fb6\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u33489a95\&quot;" data-lake-id="\&quot;u371d7633\&quot;" id="\&quot;u371d7633\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u7769db59\&quot;" id="\&quot;u7769db59\&quot;">已配置</span></li>
+       <li fid="\&quot;u33489a95\&quot;" data-lake-id="\&quot;u14a38add\&quot;" id="\&quot;u14a38add\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u4cd6de91\&quot;" id="\&quot;u4cd6de91\&quot;">不涉及</span></li>
+      </ul></td>
+    </tr>
+   </tbody>
+  </table>
+  <p data-lake-id="\&quot;ua2457033\&quot;" id="\&quot;ua2457033\&quot;"><br /></p>
+  <h2 data-lake-id="\&quot;zk3f2\&quot;" id="\&quot;zk3f2\&quot;"><span data-lake-id="\&quot;uf2c34a1d\&quot;" id="\&quot;uf2c34a1d\&quot;">发布checklist</span></h2>
+  <blockquote data-lake-id="\&quot;uf9290b4a\&quot;" id="\&quot;uf9290b4a\&quot;">
+   <p data-lake-id="\&quot;u80b0a69e\&quot;" id="\&quot;u80b0a69e\&quot;"><strong><span data-lake-id="\&quot;u5981f7d1\&quot;" id="\&quot;u5981f7d1\&quot;">使用灰度发布，首先发布灰度机器，有开关的，灰度期间先检查开关默认情况下是否正常，发布完成后，灰度修改开关，观察是否正常。</span></strong></p>
+   <p data-lake-id="\&quot;uf61402b4\&quot;" id="\&quot;uf61402b4\&quot;"><span data-lake-id="\&quot;u60d2cf48\&quot;" id="\&quot;u60d2cf48\&quot;">上线期间及上线后，检查系统各项指标是否正常。</span></p>
+  </blockquote>
+  <table data-lake-id="\&quot;wBtMi\&quot;" id="\&quot;wBtMi\&quot;" margin="\&quot;true\&quot;" fit-width="\&quot;true\&quot;" class="\&quot;lake-table\&quot;" style="\&quot;width:" 1433px\"="">
+   <colgroup>
+    <col width="\&quot;286\&quot;" />
+    <col width="\&quot;153\&quot;" />
+    <col width="\&quot;420\&quot;" />
+    <col width="\&quot;287\&quot;" />
+    <col width="\&quot;287\&quot;" />
+   </colgroup>
+   <tbody>
+    <tr data-lake-id="\&quot;u1dd06ec2\&quot;" id="\&quot;u1dd06ec2\&quot;">
+     <td data-lake-id="\&quot;uefbc9c44\&quot;" id="\&quot;uefbc9c44\&quot;"><p data-lake-id="\&quot;u2d67fcdd\&quot;" id="\&quot;u2d67fcdd\&quot;"><span data-lake-id="\&quot;u024d0797\&quot;" id="\&quot;u024d0797\&quot;">项目</span></p></td>
+     <td data-lake-id="\&quot;u2c18f54d\&quot;" id="\&quot;u2c18f54d\&quot;"><p data-lake-id="\&quot;u1af9884b\&quot;" id="\&quot;u1af9884b\&quot;"><span data-lake-id="\&quot;u44850df5\&quot;" id="\&quot;u44850df5\&quot;">负责人</span></p></td>
+     <td data-lake-id="\&quot;u0eafbca0\&quot;" id="\&quot;u0eafbca0\&quot;"><p data-lake-id="\&quot;u667829cb\&quot;" id="\&quot;u667829cb\&quot;"><span data-lake-id="\&quot;ucd1e13af\&quot;" id="\&quot;ucd1e13af\&quot;">内容</span></p></td>
+     <td data-lake-id="\&quot;uee095c97\&quot;" id="\&quot;uee095c97\&quot;"><p data-lake-id="\&quot;u4836950a\&quot;" id="\&quot;u4836950a\&quot;"><span data-lake-id="\&quot;u5efe8112\&quot;" id="\&quot;u5efe8112\&quot;">状态</span></p></td>
+     <td data-lake-id="\&quot;u3900ba56\&quot;" id="\&quot;u3900ba56\&quot;"><p data-lake-id="\&quot;u51ae55db\&quot;" id="\&quot;u51ae55db\&quot;"><span data-lake-id="\&quot;u1b9954ec\&quot;" id="\&quot;u1b9954ec\&quot;">备注</span></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uf05cc0fa\&quot;" id="\&quot;uf05cc0fa\&quot;">
+     <td data-lake-id="\&quot;ua77bd318\&quot;" id="\&quot;ua77bd318\&quot;"><p data-lake-id="\&quot;ue0c9ec2c\&quot;" id="\&quot;ue0c9ec2c\&quot;"><span data-lake-id="\&quot;u7e550141\&quot;" id="\&quot;u7e550141\&quot;">日志检查</span></p></td>
+     <td data-lake-id="\&quot;ue8796602\&quot;" id="\&quot;ue8796602\&quot;"><p data-lake-id="\&quot;u48a139fb\&quot;" id="\&quot;u48a139fb\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;ud1df60e6\&quot;" id="\&quot;ud1df60e6\&quot;"><p data-lake-id="\&quot;uf469b646\&quot;" id="\&quot;uf469b646\&quot;"><span data-lake-id="\&quot;ufbba6ecf\&quot;" id="\&quot;ufbba6ecf\&quot;">发布后：</span></p>
+      <ol list="\&quot;udf400b81\&quot;">
+       <li fid="\&quot;udb185614\&quot;" data-lake-id="\&quot;u9fa5b288\&quot;" id="\&quot;u9fa5b288\&quot;"><span data-lake-id="\&quot;u1da74754\&quot;" id="\&quot;u1da74754\&quot;">查看 problem是否有明显增多</span></li>
+       <li fid="\&quot;udb185614\&quot;" data-lake-id="\&quot;u6b98358c\&quot;" id="\&quot;u6b98358c\&quot;"><span data-lake-id="\&quot;ued04d544\&quot;" id="\&quot;ued04d544\&quot;">抽检机器上的日志查看是否有新error或error增加</span></li>
+      </ol></td>
+     <td data-lake-id="\&quot;u9e1f9b50\&quot;" id="\&quot;u9e1f9b50\&quot;">
+      <ul list="\&quot;u9753c95f\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u57d1ec2e\&quot;" id="\&quot;u57d1ec2e\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u787d8095\&quot;" id="\&quot;u787d8095\&quot;">OK</span></li>
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u476abc3d\&quot;" id="\&quot;u476abc3d\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ub28ebc5b\&quot;" id="\&quot;ub28ebc5b\&quot;">异常</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;uccee0e61\&quot;" id="\&quot;uccee0e61\&quot;"><p data-lake-id="\&quot;u58d065ce\&quot;" id="\&quot;u58d065ce\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u461be3cd\&quot;" id="\&quot;u461be3cd\&quot;">
+     <td data-lake-id="\&quot;uf7ec86c3\&quot;" id="\&quot;uf7ec86c3\&quot;"><p data-lake-id="\&quot;u9297405f\&quot;" id="\&quot;u9297405f\&quot;"><span data-lake-id="\&quot;u01b8906a\&quot;" id="\&quot;u01b8906a\&quot;">机器指标检查</span></p></td>
+     <td data-lake-id="\&quot;u1936ad3f\&quot;" id="\&quot;u1936ad3f\&quot;"><p data-lake-id="\&quot;u329e7b9e\&quot;" id="\&quot;u329e7b9e\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u979f46f5\&quot;" id="\&quot;u979f46f5\&quot;"><p data-lake-id="\&quot;u4eea19f6\&quot;" id="\&quot;u4eea19f6\&quot;"><span data-lake-id="\&quot;u7ec18a67\&quot;" id="\&quot;u7ec18a67\&quot;">机器指标：</span></p>
+      <ul list="\&quot;ue83401a9\&quot;">
+       <li fid="\&quot;ua50faf83\&quot;" data-lake-id="\&quot;ub36643f7\&quot;" id="\&quot;ub36643f7\&quot;"><span data-lake-id="\&quot;ufde13d4d\&quot;" id="\&quot;ufde13d4d\&quot;">load.1minPerCPU：1min每个cpu所占load，计算方式：总负载／cpu核数量</span></li>
+       <li fid="\&quot;ua50faf83\&quot;" data-lake-id="\&quot;ua4bde2f6\&quot;" id="\&quot;ua4bde2f6\&quot;"><span data-lake-id="\&quot;u301b1879\&quot;" id="\&quot;u301b1879\&quot;">cpu.idle：当前CPU处于空闲状态的百分比</span></li>
+       <li fid="\&quot;ua50faf83\&quot;" data-lake-id="\&quot;u0b9fbe57\&quot;" id="\&quot;u0b9fbe57\&quot;"><span data-lake-id="\&quot;u5fb98902\&quot;" id="\&quot;u5fb98902\&quot;">ss.estab：处于estab的TCP连接数量</span></li>
+       <li fid="\&quot;ua50faf83\&quot;" data-lake-id="\&quot;u64f3fdf1\&quot;" id="\&quot;u64f3fdf1\&quot;"><span data-lake-id="\&quot;uc84f4a4f\&quot;" id="\&quot;uc84f4a4f\&quot;">ss.closewait：处于close wait的TCP连接数量</span></li>
+       <li fid="\&quot;ua50faf83\&quot;" data-lake-id="\&quot;u5215c77d\&quot;" id="\&quot;u5215c77d\&quot;"><span data-lake-id="\&quot;u2bb1bd8c\&quot;" id="\&quot;u2bb1bd8c\&quot;">jvm.gc.count：GC的次数</span></li>
+       <li fid="\&quot;ua50faf83\&quot;" data-lake-id="\&quot;u987eb84d\&quot;" id="\&quot;u987eb84d\&quot;"><span data-lake-id="\&quot;u4d4d76cf\&quot;" id="\&quot;u4d4d76cf\&quot;">jvm.memory.used：内存使用总量</span></li>
+       <li fid="\&quot;ua50faf83\&quot;" data-lake-id="\&quot;u1a9ad8f3\&quot;" id="\&quot;u1a9ad8f3\&quot;"><span data-lake-id="\&quot;uff33b305\&quot;" id="\&quot;uff33b305\&quot;">jvm.thread.count：线程总数</span></li>
+       <li fid="\&quot;ua50faf83\&quot;" data-lake-id="\&quot;uca6a3380\&quot;" id="\&quot;uca6a3380\&quot;"><span data-lake-id="\&quot;u01f27e0f\&quot;" id="\&quot;u01f27e0f\&quot;">jvm.thread.blocked.count：blocked线程数</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;uaabd5d80\&quot;" id="\&quot;uaabd5d80\&quot;">
+      <ul list="\&quot;u9f25d72c\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;uc2d2e837\&quot;" id="\&quot;uc2d2e837\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u778bc98d\&quot;" id="\&quot;u778bc98d\&quot;">OK</span></li>
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;ua0bb6252\&quot;" id="\&quot;ua0bb6252\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u79092b0e\&quot;" id="\&quot;u79092b0e\&quot;">异常</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u490163e8\&quot;" id="\&quot;u490163e8\&quot;"><p data-lake-id="\&quot;u7b0e1c07\&quot;" id="\&quot;u7b0e1c07\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u6d00bb41\&quot;" id="\&quot;u6d00bb41\&quot;">
+     <td data-lake-id="\&quot;ueec163e1\&quot;" id="\&quot;ueec163e1\&quot;"><p data-lake-id="\&quot;u3c65d8bc\&quot;" id="\&quot;u3c65d8bc\&quot;"><span data-lake-id="\&quot;u2f7ad2c0\&quot;" id="\&quot;u2f7ad2c0\&quot;">核心业务逻辑是否正常</span></p></td>
+     <td data-lake-id="\&quot;u015102a2\&quot;" id="\&quot;u015102a2\&quot;"><p data-lake-id="\&quot;uef41a49f\&quot;" id="\&quot;uef41a49f\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;uc3020f0c\&quot;" id="\&quot;uc3020f0c\&quot;"><p data-lake-id="\&quot;udc86e376\&quot;" id="\&quot;udc86e376\&quot;"><strong><span data-lake-id="\&quot;u993185c1\&quot;" id="\&quot;u993185c1\&quot;">每个小组有自己的核心业务，各小组整理，此次发布过程中要观察的业务情况。</span></strong></p></td>
+     <td data-lake-id="\&quot;u711c8650\&quot;" id="\&quot;u711c8650\&quot;">
+      <ul list="\&quot;u5539665a\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u9fe3e4eb\&quot;" id="\&quot;u9fe3e4eb\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u32af0708\&quot;" id="\&quot;u32af0708\&quot;">OK</span></li>
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u56592e14\&quot;" id="\&quot;u56592e14\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u22c8f87a\&quot;" id="\&quot;u22c8f87a\&quot;">异常</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u419af13d\&quot;" id="\&quot;u419af13d\&quot;"><p data-lake-id="\&quot;ufddd5d62\&quot;" id="\&quot;ufddd5d62\&quot;"><span data-lake-id="\&quot;uad9ecf14\&quot;" id="\&quot;uad9ecf14\&quot;">验证思路：</span></p><p data-lake-id="\&quot;ude231e04\&quot;" id="\&quot;ude231e04\&quot;"><span data-lake-id="\&quot;ua635d7fc\&quot;" id="\&quot;ua635d7fc\&quot;">​</span><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uc42e5214\&quot;" id="\&quot;uc42e5214\&quot;">
+     <td data-lake-id="\&quot;ue8d10ba4\&quot;" id="\&quot;ue8d10ba4\&quot;"><p data-lake-id="\&quot;u4aaeda03\&quot;" id="\&quot;u4aaeda03\&quot;"><span data-lake-id="\&quot;uf64a975a\&quot;" id="\&quot;uf64a975a\&quot;">代码逻辑覆盖验证</span></p></td>
+     <td data-lake-id="\&quot;uea748c5b\&quot;" id="\&quot;uea748c5b\&quot;"><p data-lake-id="\&quot;u05b49086\&quot;" id="\&quot;u05b49086\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;u4e9505e7\&quot;" id="\&quot;u4e9505e7\&quot;"><p data-lake-id="\&quot;u614261fe\&quot;" id="\&quot;u614261fe\&quot;"><span data-lake-id="\&quot;u5598e971\&quot;" id="\&quot;u5598e971\&quot;">全部发布后，需要及时跟踪发布效果（产品使用后，确认是否有异常，必须确保功能被真实用过）</span></p></td>
+     <td data-lake-id="\&quot;ufaf0af30\&quot;" id="\&quot;ufaf0af30\&quot;">
+      <ul list="\&quot;ue4994586\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u954c0ea2\&quot;" id="\&quot;u954c0ea2\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;ud7f11fa3\&quot;" id="\&quot;ud7f11fa3\&quot;">OK</span></li>
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u865452ca\&quot;" id="\&quot;u865452ca\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u7cee7152\&quot;" id="\&quot;u7cee7152\&quot;">异常</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u780a0217\&quot;" id="\&quot;u780a0217\&quot;"><p data-lake-id="\&quot;ud3347e6f\&quot;" id="\&quot;ud3347e6f\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uc549e216\&quot;" id="\&quot;uc549e216\&quot;">
+     <td data-lake-id="\&quot;u07d7f6f5\&quot;" id="\&quot;u07d7f6f5\&quot;"><p data-lake-id="\&quot;udd3d6289\&quot;" id="\&quot;udd3d6289\&quot;"><span data-lake-id="\&quot;ufb9a1669\&quot;" id="\&quot;ufb9a1669\&quot;">消息队列验证</span></p></td>
+     <td data-lake-id="\&quot;ufd6dfac7\&quot;" id="\&quot;ufd6dfac7\&quot;"><p data-lake-id="\&quot;u68558764\&quot;" id="\&quot;u68558764\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;uc9619eaa\&quot;" id="\&quot;uc9619eaa\&quot;"><p data-lake-id="\&quot;u07e4ad70\&quot;" id="\&quot;u07e4ad70\&quot;"><span data-lake-id="\&quot;uc8e60608\&quot;" id="\&quot;uc8e60608\&quot;">是否积压</span></p></td>
+     <td data-lake-id="\&quot;u28a2d1ce\&quot;" id="\&quot;u28a2d1ce\&quot;">
+      <ul list="\&quot;u55cac2cd\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;ua83486f9\&quot;" id="\&quot;ua83486f9\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u587500bf\&quot;" id="\&quot;u587500bf\&quot;">OK</span></li>
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u9777d459\&quot;" id="\&quot;u9777d459\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u1eb1e0bb\&quot;" id="\&quot;u1eb1e0bb\&quot;">异常</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u5aadbb46\&quot;" id="\&quot;u5aadbb46\&quot;"><p data-lake-id="\&quot;u664d7f22\&quot;" id="\&quot;u664d7f22\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;uac4b2883\&quot;" id="\&quot;uac4b2883\&quot;">
+     <td data-lake-id="\&quot;ue7ff874f\&quot;" id="\&quot;ue7ff874f\&quot;"><p data-lake-id="\&quot;u759dcaa7\&quot;" id="\&quot;u759dcaa7\&quot;"><span data-lake-id="\&quot;u283601b4\&quot;" id="\&quot;u283601b4\&quot;">上线完成后点击结束发布</span></p></td>
+     <td data-lake-id="\&quot;ua2a121a5\&quot;" id="\&quot;ua2a121a5\&quot;"><p data-lake-id="\&quot;ub89b6dd8\&quot;" id="\&quot;ub89b6dd8\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;uf8b121f3\&quot;" id="\&quot;uf8b121f3\&quot;"><p data-lake-id="\&quot;u42e660c1\&quot;" id="\&quot;u42e660c1\&quot;"><span data-lake-id="\&quot;ube9bf8e8\&quot;" id="\&quot;ube9bf8e8\&quot;">发布包是否已被标记为稳定包</span></p></td>
+     <td data-lake-id="\&quot;u26827584\&quot;" id="\&quot;u26827584\&quot;">
+      <ul list="\&quot;u56e574ab\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u34fa5cf5\&quot;" id="\&quot;u34fa5cf5\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u6599191c\&quot;" id="\&quot;u6599191c\&quot;">OK</span></li>
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u0a448a74\&quot;" id="\&quot;u0a448a74\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u570cbd8e\&quot;" id="\&quot;u570cbd8e\&quot;">异常</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u31568a8b\&quot;" id="\&quot;u31568a8b\&quot;"><p data-lake-id="\&quot;u28a7f3af\&quot;" id="\&quot;u28a7f3af\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u6ed68b8e\&quot;" id="\&quot;u6ed68b8e\&quot;">
+     <td data-lake-id="\&quot;u8e28ab5b\&quot;" id="\&quot;u8e28ab5b\&quot;"><p data-lake-id="\&quot;ubea6f923\&quot;" id="\&quot;ubea6f923\&quot;"><span data-lake-id="\&quot;u250e37a1\&quot;" id="\&quot;u250e37a1\&quot;">其他检查项</span></p></td>
+     <td data-lake-id="\&quot;u2d6fa75f\&quot;" id="\&quot;u2d6fa75f\&quot;"><p data-lake-id="\&quot;u7d4c04bd\&quot;" id="\&quot;u7d4c04bd\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;ua9d00fe7\&quot;" id="\&quot;ua9d00fe7\&quot;"><p data-lake-id="\&quot;u8c276ecd\&quot;" id="\&quot;u8c276ecd\&quot;"><span data-lake-id="\&quot;ue26d121a\&quot;" id="\&quot;ue26d121a\&quot;">请根据需要自行填写</span></p></td>
+     <td data-lake-id="\&quot;u7139196e\&quot;" id="\&quot;u7139196e\&quot;">
+      <ul list="\&quot;u55cac2cd\&quot;" start="\&quot;3\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u711b29be\&quot;" id="\&quot;u711b29be\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u796b4f2b\&quot;" id="\&quot;u796b4f2b\&quot;">OK</span></li>
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;ub6845a71\&quot;" id="\&quot;ub6845a71\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u807be3d6\&quot;" id="\&quot;u807be3d6\&quot;">异常</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;uef55da04\&quot;" id="\&quot;uef55da04\&quot;"><p data-lake-id="\&quot;ufa7a7cf5\&quot;" id="\&quot;ufa7a7cf5\&quot;"><br /></p></td>
+    </tr>
+    <tr data-lake-id="\&quot;u8a9172ab\&quot;" id="\&quot;u8a9172ab\&quot;">
+     <td data-lake-id="\&quot;u20b6f7e7\&quot;" id="\&quot;u20b6f7e7\&quot;"><p data-lake-id="\&quot;u80fd9a0f\&quot;" id="\&quot;u80fd9a0f\&quot;"><span data-lake-id="\&quot;uf501a497\&quot;" id="\&quot;uf501a497\&quot;">需求池状态更新</span></p></td>
+     <td data-lake-id="\&quot;u393bb760\&quot;" id="\&quot;u393bb760\&quot;"><p data-lake-id="\&quot;ud78a7e62\&quot;" id="\&quot;ud78a7e62\&quot;"><br /></p></td>
+     <td data-lake-id="\&quot;ue9668117\&quot;" id="\&quot;ue9668117\&quot;"><p data-lake-id="\&quot;ue576f46a\&quot;" id="\&quot;ue576f46a\&quot;"><span data-lake-id="\&quot;u5f71b927\&quot;" id="\&quot;u5f71b927\&quot;">注意点：</span></p>
+      <ul list="\&quot;u47022376\&quot;">
+       <li fid="\&quot;u354df33e\&quot;" data-lake-id="\&quot;uf836b0f2\&quot;" id="\&quot;uf836b0f2\&quot;"><span data-lake-id="\&quot;uac4a709f\&quot;" id="\&quot;uac4a709f\&quot;">feature需求，提测是否流转到已关闭状态</span></li>
+       <li fid="\&quot;u354df33e\&quot;" data-lake-id="\&quot;ua09dace8\&quot;" id="\&quot;ua09dace8\&quot;"><span data-lake-id="\&quot;u1531144c\&quot;" id="\&quot;u1531144c\&quot;">上线完成后，需求状态是否正确更新，全量代码时间是否正确自动更新</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u8e03b676\&quot;" id="\&quot;u8e03b676\&quot;">
+      <ul list="\&quot;u56e574ab\&quot;" start="\&quot;3\&quot;" class="\&quot;lake-list\&quot;">
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;u87441c26\&quot;" id="\&quot;u87441c26\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u60869c95\&quot;" id="\&quot;u60869c95\&quot;">OK</span></li>
+       <li fid="\&quot;u1e33247b\&quot;" data-lake-id="\&quot;ua0170e24\&quot;" id="\&quot;ua0170e24\&quot;" class="\&quot;lake-list-node" lake-list-task\"="">
+        <card type="\&quot;inline\&quot;" name="\&quot;checkbox\&quot;" value="\&quot;data:false\&quot;"></card><span data-lake-id="\&quot;u0d71c6a4\&quot;" id="\&quot;u0d71c6a4\&quot;">异常</span></li>
+      </ul></td>
+     <td data-lake-id="\&quot;u46bae2aa\&quot;" id="\&quot;u46bae2aa\&quot;"><p data-lake-id="\&quot;ue7d1e3ee\&quot;" id="\&quot;ue7d1e3ee\&quot;"><br /></p></td>
+    </tr>
+   </tbody>
+  </table> 
+ </body>
+</html>
