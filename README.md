@@ -164,7 +164,7 @@ YuqueOut 纯本地处理，**零数据上传**。
 
 | 微信赞赏 | 支付宝 |
 | :---: | :---: |
-| <img src="assets/sponsors.png" width="200" alt="微信赞赏码"> | <img src="assets/alipay.png" width="200" alt="支付宝收款码"> |
+| <img src="assets/weixin.png" width="200" alt="微信赞赏码"> | <img src="assets/alipay.png" width="200" alt="支付宝收款码"> |
 
 ## Star History
 
