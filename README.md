@@ -1,8 +1,12 @@
 # YuqueOut - 语雀导出助手
 
-> 一键批量导出语雀知识库的 Chrome 扩展，支持收藏、协作库、加密文档导出
+[![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-Install-blue?logo=googlechrome)](https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc)
+[![GitHub Release](https://img.shields.io/github/v/release/Navyum/chrome-extension-yuque?label=Release)](https://github.com/Navyum/chrome-extension-yuque/releases)
+[![License](https://img.shields.io/badge/License-ISC-green)](https://opensource.org/licenses/ISC)
 
-官网: [https://yuque.toolab.top](https://yuque.toolab.top)
+> 一键批量导出语雀知识库的 Chrome 扩展。语雀官方不支持批量导出，YuqueOut 帮你 30 分钟搞定。
+
+**官网**: [https://yuque.toolab.top](https://yuque.toolab.top) | **Chrome 商店**: [安装地址](https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc)
 
 ---
 
@@ -66,9 +70,9 @@
 
 ## 安装
 
-### Chrome Web Store
+### Chrome Web Store（推荐）
 
-链接待定。
+[点击安装 YuqueOut](https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc)
 
 ### 本地加载
 
@@ -153,6 +157,23 @@ YuqueOut 纯本地处理，**零数据上传**。
 - 不收集任何用户数据
 - 不连接任何第三方服务器
 - Cookie 仅用于访问语雀 API，不做任何存储或转发
+
+## Sponsor
+
+如果 YuqueOut 帮到了你，欢迎请作者喝杯咖啡 :)
+
+<p align="center">
+  <img src="assets/sponsors.png" alt="微信赞赏" width="200">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="docs/images/sponsor-alipay.png" alt="支付宝赞赏" width="200">
+</p>
+
+<p align="center">微信 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 支付宝</p>
+
+## Star History
+
+如果觉得好用，请给个 Star 支持一下！
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Navyum/chrome-extension-yuque&type=Date)](https://star-history.com/#Navyum/chrome-extension-yuque&Date)
 
 ## License
 

@@ -64,16 +64,43 @@ jobs:
             ## YuqueOut ${{ github.ref_name }}
 
             ### 安装包
-            - `chrome-extension-yuque-export.zip`
-            - `chrome-extension-yuque-export.zip.sha256`
+            - `chrome-extension-yuque-export.zip` — Chrome 扩展安装包
+            - `chrome-extension-yuque-export.zip.sha256` — SHA256 校验
 
-            ### 使用方式
-            1. 下载并解压 zip。
-            2. 打开 Chrome 扩展管理页 `chrome://extensions/`。
-            3. 开启“开发者模式”。
-            4. 点击“加载已解压的扩展程序”，选择解压后的目录。
+            ### 安装方式
 
-            ### 发布说明
+            **方式一：Chrome Web Store（推荐）**
+
+            [点击安装](https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc)
+
+            **方式二：手动加载**
+            1. 下载并解压 zip
+            2. 打开 Chrome → `chrome://extensions/`
+            3. 开启「开发者模式」
+            4. 点击「加载已解压的扩展程序」→ 选择解压后的目录
+
+            ### 更新日志
             详细更新内容请查看本次 tag 对应的提交记录。
           draft: false
           prerelease: false
+
+  deploy-docs:
+    name: Deploy landing page
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
