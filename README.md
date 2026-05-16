@@ -158,16 +158,13 @@ YuqueOut 纯本地处理，**零数据上传**。
 - 不连接任何第三方服务器
 - Cookie 仅用于访问语雀 API，不做任何存储或转发
 
-## Sponsor
+## 💖 赞助支持
 
-如果 YuqueOut 帮到了你，欢迎请作者喝杯咖啡 :)
+如果这个工具帮到了你，欢迎请作者喝杯咖啡：
 
-<p align="center">
-  <img src="assets/sponsors.png" alt="微信赞赏" width="200">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/sponsor-alipay.png" alt="支付宝赞赏" width="200">
-</p>
-
-<p align="center">微信 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 支付宝</p>
+| 微信赞赏 | 支付宝 |
+| :---: | :---: |
+| <img src="assets/sponsors.png" width="200" alt="微信赞赏码"> | <img src="assets/alipay.png" width="200" alt="支付宝收款码"> |
 
 ## Star History
 
