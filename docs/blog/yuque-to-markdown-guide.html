@@ -12,7 +12,13 @@
     <meta property="og:title" content="语雀文档批量转Markdown：博客迁移与知识管理完整指南">
     <meta property="og:description" content="从语雀到 Hexo/Hugo/Obsidian/Notion 的完整迁移工作流。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-markdown-guide.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-markdown.svg">
     <meta property="article:published_time" content="2025-04-10">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀文档批量转Markdown：博客迁移与知识管理完整指南">
+    <meta name="twitter:description" content="从语雀到 Hexo/Hugo/Obsidian/Notion 的完整迁移工作流。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-markdown.svg">
 
     <meta name="theme-color" content="#060b22">
     <title>语雀文档批量转Markdown：博客迁移与知识管理完整指南 - YuqueOut 博客</title>
@@ -28,7 +34,7 @@
       "url": "https://yuque.toolab.top/blog/yuque-to-markdown-guide.html",
       "datePublished": "2025-04-10",
       "dateModified": "2025-04-10",
-      "author": { "@type": "Organization", "name": "YuqueOut" },
+      "author": { "@type": "Person", "name": "杨海俊", "url": "https://yuque.toolab.top/" },
       "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手" },
       "wordCount": 3000,
       "articleSection": "迁移指南"
@@ -42,6 +48,29 @@
         { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
         { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
         { "@type": "ListItem", "position": 3, "name": "语雀转Markdown指南", "item": "https://yuque.toolab.top/blog/yuque-to-markdown-guide.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀文档怎么转Markdown？",
+          "acceptedAnswer": { "@type": "Answer", "text": "最简单的方法是使用 YuqueOut Chrome 扩展，安装后打开语雀页面，选择知识库并选择 Markdown 格式导出即可。YuqueOut 会自动将语雀的 Lake 格式转换为标准 Markdown，同时处理图片本地化和目录结构保留，无需手动操作。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀图片导出后为什么打不开？",
+          "acceptedAnswer": { "@type": "Answer", "text": "语雀图片存储在 cdn.nlark.com 并设有 Referer 防盗链，导出的 Markdown 中图片链接在本地编辑器或其他平台无法加载。解决方法是导出时开启图片本地化功能，工具会自动下载图片到本地并替换为相对路径，确保图片在任何环境下可用。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀能迁移到Obsidian吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以。使用 YuqueOut 将语雀知识库导出为 Markdown 并开启图片本地化，导出的文件夹可直接作为 Obsidian Vault 打开。由于 YuqueOut 保留了目录结构并使用相对路径引用图片，导入 Obsidian 后文档和图片都能正常显示，基本开箱即用。" }
+        }
       ]
     }
     </script>
@@ -66,7 +95,7 @@
                     <a href="../privacy.html" class="nav-link">隐私政策</a>
                 </div>
                 <div class="nav-right">
-                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog" target="_blank" class="nav-cta-button">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="nav-cta-button">
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
                         <span>添加到 Chrome</span>
                     </a>
@@ -100,19 +129,31 @@
                     <div class="blog-toc-title">目录</div>
                     <ol>
                         <li><a href="#why-markdown">为什么要转 Markdown？</a></li>
-                        <li><a href="#challenges">语雀转 Markdown 的难点</a></li>
-                        <li><a href="#workflow">完整迁移工作流</a></li>
-                        <li><a href="#hexo-hugo">迁移到 Hexo / Hugo</a></li>
-                        <li><a href="#obsidian">迁移到 Obsidian</a></li>
-                        <li><a href="#notion">迁移到 Notion</a></li>
+                        <li><a href="#challenges">语雀转 Markdown 有哪些难点？</a></li>
+                        <li><a href="#workflow">语雀迁移到其他平台的完整流程是什么？</a></li>
+                        <li><a href="#hexo-hugo">怎么把语雀文档迁移到 Hexo 或 Hugo？</a></li>
+                        <li><a href="#obsidian">语雀文档怎么导入 Obsidian？</a></li>
+                        <li><a href="#notion">语雀能迁移到 Notion 吗？</a></li>
                         <li><a href="#vitepress">迁移到 VitePress</a></li>
                         <li><a href="#tips">实用技巧与注意事项</a></li>
                     </ol>
                 </div>
 
-                <p>越来越多的语雀用户想要将自己的文档迁移到其他平台——博客框架（Hexo、Hugo）、本地知识管理（Obsidian、Logseq）或者团队协作工具（Notion）。而<strong>Markdown</strong>作为这些平台的通用格式，成为迁移的桥梁。</p>
+                <p>越来越多的语雀用户想要将自己的文档迁移到其他平台——博客框架（<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>、<a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>）、本地知识管理（<a href="https://obsidian.md/" target="_blank" rel="noopener">Obsidian</a>、Logseq）或者团队协作工具（<a href="https://www.notion.so/" target="_blank" rel="noopener">Notion</a>）。而<strong>Markdown</strong>作为这些平台的通用格式，成为迁移的桥梁。</p>
 
-                <p>但语雀到 Markdown 的转换并没有看起来那么简单。本文将详解整个迁移工作流，帮你顺利完成从语雀到目标平台的全流程。</p>
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>Markdown 是从语雀迁移到 Hexo/Hugo/Obsidian/Notion 的通用桥梁格式</strong></li>
+                        <li><strong>语雀图片防盗链是转换最大障碍，必须开启图片本地化</strong></li>
+                        <li><strong>Obsidian 可直接将导出文件夹作为 Vault 打开，无需额外处理</strong></li>
+                    </ul>
+                </div>
+
+                <p>但语雀到 Markdown 的转换并没有看起来那么简单。如果你对语雀导出的各种限制还不了解，建议先阅读<a href="./yuque-user-pain-points.html">语雀用户最头疼的7个问题</a>。本文将详解整个迁移工作流，帮你顺利完成从语雀到目标平台的全流程。</p>
 
                 <h2 id="why-markdown">为什么要转 Markdown？</h2>
 
@@ -128,20 +169,22 @@
 
                 <p>将语雀文档转为 Markdown 后，你的知识真正属于你自己——不再被任何平台绑定。</p>
 
-                <h2 id="challenges">语雀转 Markdown 的三大难点</h2>
+                <h2 id="challenges">语雀转 Markdown 有哪些难点？</h2>
+
+                <p>语雀转 Markdown 主要面临三大难点：图片防盗链导致外部无法加载、大量文档无法逐篇手动处理、以及语雀特有格式（画板、思维导图等）与标准 Markdown 存在差异。</p>
 
                 <h3>难点一：图片防盗链</h3>
                 <p>语雀的图片存储在 <code>cdn.nlark.com</code>，设有严格的 Referer 防盗链。直接导出的 Markdown 中的图片链接在其他平台<strong>无法正常加载</strong>。必须将图片下载到本地，并替换为相对路径或重新上传到图床。</p>
 
                 <h3>难点二：批量处理</h3>
-                <p>手动逐篇导出再逐篇处理图片，对于有上百篇文档的知识库来说工作量巨大。需要一个能<strong>自动化批量处理</strong>的工具。</p>
+                <p>手动逐篇导出再逐篇处理图片，对于有上百篇文档的知识库来说工作量巨大。需要一个能<strong>自动化批量处理</strong>的工具。具体的批量操作方法可参考<a href="./yuque-batch-export-tutorial.html">语雀知识库批量导出完整教程</a>。</p>
 
                 <h3>难点三：格式差异</h3>
                 <p>语雀的富文本编辑器支持一些 Markdown 不直接支持的元素（如画板、思维导图、嵌入卡片等），这些内容在转换时需要<strong>特殊处理或降级</strong>。</p>
 
-                <h2 id="workflow">完整迁移工作流</h2>
+                <h2 id="workflow">语雀迁移到其他平台的完整流程是什么？</h2>
 
-                <p>推荐的迁移流程分为 4 个阶段：</p>
+                <p>完整的迁移流程分为4个阶段：使用 YuqueOut 批量导出、内容清洗（可选）、导入目标平台、验证与调整。整个过程最快 5 分钟即可完成。</p>
 
                 <h3>阶段一：使用 YuqueOut 批量导出</h3>
 
@@ -176,9 +219,60 @@
                 <h3>阶段四：验证与调整</h3>
                 <p>在目标平台上浏览导入的内容，检查格式是否正确，图片是否正常显示。</p>
 
-                <h2 id="hexo-hugo">迁移到 Hexo / Hugo</h2>
+<div style="overflow-x: auto; margin: 2rem 0;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+        <thead>
+            <tr style="border-bottom: 2px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 0.75rem; color: rgba(255,255,255,0.9);">目标平台</th>
+                <th style="text-align: left; padding: 0.75rem; color: rgba(255,255,255,0.9);">导入格式</th>
+                <th style="text-align: left; padding: 0.75rem; color: rgba(255,255,255,0.9);">图片处理</th>
+                <th style="text-align: left; padding: 0.75rem; color: rgba(255,255,255,0.9);">迁移难度</th>
+                <th style="text-align: left; padding: 0.75rem; color: rgba(255,255,255,0.9);">额外步骤</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);"><strong>Obsidian</strong></td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">Markdown</td>
+                <td style="padding: 0.75rem; color: #22c55e;">本地路径直接可用</td>
+                <td style="padding: 0.75rem; color: #22c55e;">极低</td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">拖入 Vault 即可</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);"><strong>Hexo / Hugo</strong></td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">Markdown + Front Matter</td>
+                <td style="padding: 0.75rem; color: #f97316;">需移到 static 目录</td>
+                <td style="padding: 0.75rem; color: #f97316;">中等</td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">添加 Front Matter、调整图片路径</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);"><strong>Notion</strong></td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">Markdown</td>
+                <td style="padding: 0.75rem; color: #ef4444;">需上传图床或云存储</td>
+                <td style="padding: 0.75rem; color: #f97316;">中等</td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">图片需替换为在线 URL</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);"><strong>飞书文档</strong></td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">Markdown / Word</td>
+                <td style="padding: 0.75rem; color: #22c55e;">导入时自动上传</td>
+                <td style="padding: 0.75rem; color: #22c55e;">低</td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">飞书批量导入即可</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);"><strong>VitePress</strong></td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">Markdown</td>
+                <td style="padding: 0.75rem; color: #22c55e;">本地相对路径可用</td>
+                <td style="padding: 0.75rem; color: #f97316;">中等</td>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">配置 sidebar、调整目录结构</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-                <p>Hexo 和 Hugo 是最流行的静态博客框架，它们使用 Markdown 文件作为内容源。</p>
+                <h2 id="hexo-hugo">怎么把语雀文档迁移到 Hexo 或 Hugo？</h2>
+
+                <p>用 YuqueOut 导出为 Markdown 后，为每篇文章添加 Front Matter（标题、日期、标签），然后将文件复制到 Hexo 的 <code>source/_posts/</code> 或 Hugo 的 <code>content/posts/</code> 目录即可。Hexo 和 Hugo 是最流行的静态博客框架，原生使用 Markdown 文件作为内容源。</p>
 
                 <h3>迁移步骤</h3>
 
@@ -203,9 +297,28 @@
                     <p>可以编写一个简单的脚本来批量添加 Front Matter。例如根据文件名生成 <code>title</code>，根据文件修改时间生成 <code>date</code>。</p>
                 </div>
 
-                <h2 id="obsidian">迁移到 Obsidian</h2>
+                <div class="info-box">
+    <div class="info-box-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        Front Matter 示例（Hexo 格式）
+    </div>
+    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 6px; overflow-x: auto; color: rgba(255,255,255,0.8); font-size: 0.85rem;"><code>---
+title: 你的文档标题
+date: 2025-05-16
+tags:
+  - 语雀
+  - 知识管理
+categories:
+  - 技术笔记
+---
 
-                <p>Obsidian 是最受欢迎的本地知识管理工具之一，原生支持 Markdown。</p>
+正文内容从这里开始...</code></pre>
+    <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.6); font-size: 0.85rem;">提示：可以写脚本批量为导出的 Markdown 文件添加 Front Matter，根据文件名生成 title，根据修改时间生成 date。</p>
+</div>
+
+                <h2 id="obsidian">语雀文档怎么导入 Obsidian？</h2>
+
+                <p>将 YuqueOut 导出的 Markdown 文件夹直接作为 Obsidian Vault 打开即可，基本开箱即用。Obsidian 原生支持 Markdown，而 YuqueOut 已自动处理好目录结构和图片相对路径。</p>
 
                 <h3>迁移步骤</h3>
 
@@ -217,9 +330,9 @@
 
                 <p>由于 YuqueOut 导出时<strong>保留了目录结构</strong>并将图片路径替换为相对路径，导入 Obsidian 后基本可以<strong>开箱即用</strong>，图片和文档结构都能正常显示。</p>
 
-                <h2 id="notion">迁移到 Notion</h2>
+                <h2 id="notion">语雀能迁移到 Notion 吗？</h2>
 
-                <p>Notion 支持导入 Markdown 文件，但有一些需要注意的地方。</p>
+                <p>可以。Notion 原生支持导入 Markdown 文件，通过「Import > Markdown & CSV」功能即可批量导入。但需要注意 Notion 不支持本地图片上传，图片需要先传到图床再导入。</p>
 
                 <h3>迁移步骤</h3>
 
@@ -240,7 +353,7 @@
 
                 <h2 id="vitepress">迁移到 VitePress</h2>
 
-                <p>VitePress 是 Vue 生态中的静态文档站点生成器，非常适合技术文档。</p>
+                <p><a href="https://vitepress.dev/" target="_blank" rel="noopener">VitePress</a> 是 Vue 生态中的静态文档站点生成器，非常适合技术文档。</p>
 
                 <h3>迁移步骤</h3>
 
@@ -271,12 +384,12 @@
                 <p>迁移完成后，建议将文档纳入 Git 版本控制。这样不仅有完整的修改历史，还可以方便地部署到 GitHub Pages、Vercel 等平台。</p>
 
                 <h3>4. 保留原始导出作为备份</h3>
-                <p>在对导出文件做任何修改之前，先<strong>复制一份原始导出文件</strong>作为备份。这样即使后续处理出了问题，也可以从原始版本重新开始。</p>
+                <p>在对导出文件做任何修改之前，先<strong>复制一份原始导出文件</strong>作为备份。这样即使后续处理出了问题，也可以从原始版本重新开始。关于备份策略的更多建议，请阅读<a href="./why-backup-yuque.html">为什么你应该定期备份语雀知识库</a>。</p>
 
                 <div class="blog-cta">
                     <h3>开始你的文档迁移之旅</h3>
                     <p>使用 YuqueOut 批量导出语雀文档为 Markdown，轻松迁移到任何平台</p>
-                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog_markdown" target="_blank" class="blog-cta-button">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_markdown" target="_blank" class="blog-cta-button">
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
                         免费安装 YuqueOut
                     </a>

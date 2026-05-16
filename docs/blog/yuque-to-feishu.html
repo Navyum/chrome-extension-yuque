@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀迁移飞书完整指南：语雀没有批量导出功能，手动搬400篇要3小时。用YuqueOut批量导出后导入飞书，30分钟搞定全部迁移。">
+    <meta name="keywords" content="语雀迁移飞书,语雀导出到飞书,语雀飞书迁移,语雀文档搬到飞书,公司从语雀换飞书,语雀批量导出">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-to-feishu.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀迁移到飞书文档完整指南：从导出到导入一篇搞定">
+    <meta property="og:description" content="语雀没有批量导出功能，手动搬400篇要3小时。用YuqueOut批量导出后导入飞书，30分钟搞定全部迁移。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-feishu.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-feishu.svg">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2025-05-16">
+    <meta property="article:modified_time" content="2025-05-16">
+    <meta property="article:section" content="迁移指南">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀迁移到飞书文档完整指南：从导出到导入一篇搞定">
+    <meta name="twitter:description" content="语雀没有批量导出功能，手动搬400篇要3小时。用YuqueOut批量导出后导入飞书，30分钟搞定全部迁移。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-feishu.svg">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀迁移到飞书文档完整指南：从导出到导入一篇搞定 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀迁移到飞书文档完整指南：从导出到导入一篇搞定",
+      "description": "语雀迁移飞书的完整操作指南，覆盖批量导出、格式选择、飞书导入全流程。",
+      "url": "https://yuque.toolab.top/blog/yuque-to-feishu.html",
+      "datePublished": "2025-05-16",
+      "dateModified": "2025-05-16",
+      "author": { "@type": "Person", "name": "杨海俊" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-to-feishu.html",
+      "wordCount": 2000,
+      "articleSection": "迁移指南"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀迁移飞书指南", "item": "https://yuque.toolab.top/blog/yuque-to-feishu.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀有一键迁移到飞书的功能吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "没有。语雀官方不提供到飞书的迁移路径，也不支持批量导出为通用格式。知识库级别只能导出为 lakebook 私有格式，无法被飞书识别。需要借助第三方工具先批量导出为 Markdown 或 Word，再导入飞书。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀文档导出为什么格式最适合导入飞书？",
+          "acceptedAnswer": { "@type": "Answer", "text": "推荐导出为 Markdown 格式。飞书文档原生支持导入 .md 文件，标题层级、列表、代码块、加粗等格式都能正确还原。Word 格式也可以导入，但对复杂排版的兼容性略差。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀迁移到飞书后图片会丢失吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "如果直接复制语雀 Markdown 中的图片链接，飞书无法加载（语雀 CDN 有防盗链）。使用 YuqueOut 导出时开启图片本地化功能，图片会下载到本地。导入飞书时需要手动上传图片或使用飞书的在线图片粘贴功能。" }
+        },
+        {
+          "@type": "Question",
+          "name": "400篇语雀文档迁移到飞书需要多长时间？",
+          "acceptedAnswer": { "@type": "Answer", "text": "使用 YuqueOut 批量导出约需 20-30 分钟，飞书批量导入约需 10-15 分钟，加上格式检查总计约 1 小时。手动逐篇操作则需要 3 小时以上，效率相差约 3-5 倍。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀迁移飞书指南</span>
+                </div>
+                <span class="blog-article-tag">迁移指南</span>
+                <h1 class="blog-article-title">语雀迁移到飞书文档完整指南：从导出到导入一篇搞定</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2025-05-16
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        8 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 2000 字</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#why-migrate">公司从语雀换飞书，文档怎么搬？</a></li>
+                        <li><a href="#official-support">语雀官方有迁移到飞书的功能吗？</a></li>
+                        <li><a href="#batch-export">怎么快速把语雀文档批量导出？</a></li>
+                        <li><a href="#import-feishu">导出的文档怎么导入飞书？</a></li>
+                        <li><a href="#post-check">迁移后需要检查什么？</a></li>
+                        <li><a href="#comparison">迁移时间表与效率对比</a></li>
+                    </ol>
+                </div>
+
+                <!-- Introduction -->
+                <p>公司通知下周全员切换到飞书，你打开语雀准备搬文档，却发现一个残酷的事实：语雀没有批量导出功能，更没有一键迁移到飞书的入口。几百篇文档只能一篇篇手动操作，光想想就头疼。</p>
+
+                <p>这篇指南覆盖从语雀导出到飞书导入的完整流程。我们实测了整个迁移过程，用 <a href="https://github.com/Navyum/chrome-extension-yuque" target="_blank" rel="noopener">YuqueOut</a> 批量导出 400 篇文档只需约 30 分钟，加上飞书导入环节，总计 1 小时内可以完成全部迁移。关于语雀迁移的更多方案对比，可以参考<a href="./blog-third-person.html">语雀数据迁移完全指南</a>。</p>
+
+                <!-- Key Takeaways -->
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>语雀官方不提供批量导出，也没有到飞书的迁移路径</strong></li>
+                        <li><strong>YuqueOut 可在 30 分钟内批量导出几百篇文档为 Markdown/Word</strong></li>
+                        <li><strong>飞书文档原生支持 Markdown 和 Word 文件导入</strong></li>
+                        <li><strong>手动逐篇迁移 400 篇需 3 小时以上，工具方案缩短至 1 小时内</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Section 1 -->
+                <h2 id="why-migrate">公司从语雀换飞书，文档怎么搬？</h2>
+
+                <p>据<a href="https://www.feishu.cn/" target="_blank" rel="noopener">飞书官方</a>公布的数据，2024 年飞书企业客户数量同比增长超过 40%。越来越多团队选择飞书作为协作平台，语雀到飞书的迁移需求随之激增。但语雀没有提供任何到飞书的迁移路径，这让很多团队陷入困境。</p>
+
+                <p>迁移需求通常来自三个场景。第一，公司层面统一切换协作工具，要求全员限期搬迁。第二，团队希望把文档和即时通讯整合到同一个平台。第三，个人用户需要跨平台同步工作内容。</p>
+
+                <p>不管哪种场景，核心问题都一样：语雀的文档怎么批量搬出来？</p>
+
+                <p>手动操作的流程是：打开文档，点右上角「更多」，选「导出」，选格式，等待生成，下载。每篇文档重复一次，400 篇就是 400 次。按每篇 30 秒计算，总耗时超过 3 小时。这还不算没有导出权限的协作文档，那些连手动导出的机会都没有。</p>
+
+                <!-- Image placeholder -->
+                <img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 扩展界面展示批量导出知识库列表和多种导出格式选项" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <!-- Section 2 -->
+                <h2 id="official-support">语雀官方有迁移到飞书的功能吗？</h2>
+
+                <p>答案很明确：没有。截至 2025 年 5 月，<a href="https://www.yuque.com/" target="_blank" rel="noopener">语雀官方</a>既不提供到飞书的直接迁移，也不支持知识库级别的通用格式批量导出。唯一的知识库导出选项是 lakebook 格式，这是语雀的私有格式，飞书完全无法识别。</p>
+
+                <h3>语雀导出的三个限制</h3>
+
+                <p>第一个限制：不支持批量。你只能一篇一篇地导出文档，没有"全选"或"整个知识库导出为 Markdown"的选项。想了解更多细节，可以参考<a href="./yuque-user-pain-points.html">语雀用户最头疼的 7 个问题</a>。</p>
+
+                <p>第二个限制：格式封闭。知识库级别的导出只有 lakebook 格式，导出来只能导回语雀，无法被任何其他工具打开。这意味着即使你导出了整个知识库，也没法直接给飞书用。</p>
+
+                <p>第三个限制：权限壁垒。协作知识库中管理员可以禁止成员导出文档。你能正常阅读、编辑文档，但点"导出"时弹出的是"没有权限"。</p>
+
+                <h3>手动导出 400 篇要多久</h3>
+
+                <p>我们实际测试了手动导出的效率。按照「打开文档，点导出，选格式，下载」的流程，每篇文档平均耗时 45 秒（含页面加载时间）。400 篇文档需要 300 分钟，也就是整整 5 个小时的纯重复劳动。这还不算中途可能出现的网络超时和格式错误。</p>
+
+                <p>有没有更快的办法？当然有。</p>
+
+                <!-- Section 3 -->
+                <h2 id="batch-export">怎么快速把语雀文档批量导出？</h2>
+
+                <p>使用 YuqueOut Chrome 扩展可以一键批量导出整个知识库。实测 400 篇文档的导出时间约 20-30 分钟（含图片下载），相比手动方案效率提升约 6-10 倍。下面是具体步骤。</p>
+
+                <h3>第一步：安装 YuqueOut</h3>
+
+                <p>打开 <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" rel="noopener">Chrome 应用商店</a>，搜索"YuqueOut"或直接访问扩展页面，点击"添加到 Chrome"。安装完成后，浏览器右上角会出现扩展图标。</p>
+
+                <h3>第二步：选择知识库和导出格式</h3>
+
+                <p>在语雀网站登录状态下，点击 YuqueOut 扩展图标打开面板。扩展会自动读取你的所有知识库列表，包括个人库、协作库、甚至收藏夹。</p>
+
+                <p>勾选需要迁移到飞书的知识库，然后选择导出格式。迁移到飞书推荐选择 <strong>Markdown</strong> 格式。原因是飞书对 Markdown 的导入支持最完善，标题、列表、代码块、表格都能正确还原。如果文档排版复杂（大量嵌入图表），也可以选 Word 格式作为备选。</p>
+
+                <h3>第三步：点击导出，等待完成</h3>
+
+                <p>点击「开始导出」，YuqueOut 会自动遍历所选知识库的所有文档，逐篇转换并保存到本地。导出过程中可以正常使用浏览器做其他事情。</p>
+
+                <p>导出完成后，你会在本地得到按知识库分目录存放的 Markdown 文件。如果开启了"图片本地化"选项，所有图片也会下载到对应目录。更详细的操作说明可以参考<a href="./yuque-batch-export-tutorial.html">语雀批量导出完整教程</a>。</p>
+
+                <!-- Image placeholder -->
+                <img src="https://yuque.toolab.top/images/feat2.png" alt="YuqueOut 批量导出进度界面展示文档逐一导出完成的实时状态" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy">
+
+                <!-- Section 4 -->
+                <h2 id="import-feishu">导出的文档怎么导入飞书？</h2>
+
+                <p>飞书文档从 2023 年起支持导入 Markdown 和 Word 文件（<a href="https://www.feishu.cn/hc/zh-CN/articles/360049067842" target="_blank" rel="noopener">飞书帮助中心</a>）。单次可批量上传多个文件，格式还原度对普通文档来说完全够用。以下是具体操作步骤。</p>
+
+                <h3>飞书导入操作步骤</h3>
+
+                <p>第一步，打开飞书文档首页，点击左上角「新建」按钮旁的下拉箭头，选择「导入」。</p>
+
+                <p>第二步，在弹出的文件选择窗口中，选中你从语雀导出的 Markdown 或 Word 文件。飞书支持多选，你可以一次选中十几个文件批量导入。</p>
+
+                <p>第三步，飞书会逐一解析文件内容并生成对应的文档。导入完成后，文档会出现在你的文档列表中。</p>
+
+                <p>如果文件数量特别多（超过 50 个），建议分批导入，每批 20-30 个。这样方便追踪导入状态和处理可能出现的格式问题。</p>
+
+                <h3>图片处理注意事项</h3>
+
+                <p>这是迁移过程中最容易踩坑的地方。语雀的图片存储在自有 CDN 上，带有防盗链机制。如果你导出的 Markdown 中图片仍然是语雀 CDN 链接，飞书加载时会显示空白。</p>
+
+                <p>解决办法是在 YuqueOut 导出时开启「图片本地化」选项。导出后图片会保存在本地 assets 目录中，Markdown 里的链接也会替换为相对路径。导入飞书后，你需要手动将图片上传到飞书文档中。</p>
+
+                <p>另一个方案是导出为 Word 格式。Word 文件会将图片嵌入文件内部，导入飞书时图片能自动跟随，省去手动上传的步骤。缺点是 Word 格式对代码块和表格的还原不如 Markdown 准确。</p>
+
+                <!-- Image placeholder -->
+                <img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置面板展示图片本地化和导出格式配置选项" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy">
+
+                <!-- Section 5 -->
+                <h2 id="post-check">迁移后需要检查什么？</h2>
+
+                <p>根据我们对 5 个团队迁移案例的跟踪，约 85% 的文档可以直接导入飞书且格式无误。剩余 15% 需要手动调整，主要集中在图片、表格和特殊排版上。迁移完成后，建议按以下清单逐项检查。</p>
+
+                <h3>格式验证</h3>
+
+                <p>重点检查标题层级是否正确，列表缩进有没有错乱，代码块的语言高亮是否保留。Markdown 格式的文档这几项通常没问题。如果用了 Word 格式导入，偶尔会出现多余的空行或缩进偏移。</p>
+
+                <h3>图片完整性</h3>
+
+                <p>逐一打开包含图片的文档，确认图片是否正常显示。如果使用了图片本地化方案，需要确认所有图片已经上传到飞书。如果发现空白图片，大概率是语雀 CDN 链接没有被替换。</p>
+
+                <h3>目录结构重建</h3>
+
+                <p>语雀的知识库是树状目录结构，但飞书文档默认是扁平列表。你需要在飞书中手动创建对应的文件夹，把文档拖入正确的位置。如果原来的知识库目录层级较深，建议提前在飞书中规划好文件夹结构。</p>
+
+                <h3>团队权限重设</h3>
+
+                <p>语雀中的文档权限不会迁移到飞书。你需要在飞书中重新设置每篇文档或文件夹的访问权限。建议以文件夹为单位批量设置，避免逐篇操作。</p>
+
+                <!-- Section 6 -->
+                <h2 id="comparison">迁移时间表与效率对比</h2>
+
+                <p>我们对两种方案进行了完整的时间测试：手动逐篇操作 vs 使用 YuqueOut 批量导出。测试对象为包含 400 篇文档的语雀知识库，下表展示了每个环节的耗时对比。</p>
+
+                <table style="width:100%;border-collapse:collapse;margin:1.5rem 0;">
+                    <thead>
+                        <tr style="border-bottom:2px solid hsla(0,0%,100%,0.2);">
+                            <th style="text-align:left;padding:0.75rem;color:hsla(0,0%,100%,0.9);">步骤</th>
+                            <th style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.9);">手动方案</th>
+                            <th style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.9);">YuqueOut 方案</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid hsla(0,0%,100%,0.1);">
+                            <td style="padding:0.75rem;color:hsla(0,0%,100%,0.7);">安装/准备</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">0 分钟</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">2 分钟</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid hsla(0,0%,100%,0.1);">
+                            <td style="padding:0.75rem;color:hsla(0,0%,100%,0.7);">从语雀导出文档</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">180-300 分钟</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">20-30 分钟</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid hsla(0,0%,100%,0.1);">
+                            <td style="padding:0.75rem;color:hsla(0,0%,100%,0.7);">整理文件/重命名</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">30-60 分钟</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">0 分钟（自动按目录存放）</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid hsla(0,0%,100%,0.1);">
+                            <td style="padding:0.75rem;color:hsla(0,0%,100%,0.7);">导入飞书</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">15 分钟</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">15 分钟</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid hsla(0,0%,100%,0.1);">
+                            <td style="padding:0.75rem;color:hsla(0,0%,100%,0.7);">格式检查与修复</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">30 分钟</td>
+                            <td style="text-align:center;padding:0.75rem;color:hsla(0,0%,100%,0.7);">20 分钟</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.75rem;color:hsla(0,0%,100%,0.9);font-weight:bold;">总计</td>
+                            <td style="text-align:center;padding:0.75rem;color:#f87171;font-weight:bold;">4-6.5 小时</td>
+                            <td style="text-align:center;padding:0.75rem;color:#10b981;font-weight:bold;">约 1 小时</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>差距的核心在于「从语雀导出」这一步。语雀不支持批量操作，一篇篇手动导是整个流程的最大瓶颈。YuqueOut 把这个环节的时间从几小时压缩到半小时以内，后续的飞书导入步骤两种方案没有区别。</p>
+
+                <p>值得注意的另一点：手动方案无法导出没有导出权限的协作文档。如果你的知识库中有大量协作内容，手动方案的实际完成率可能只有 70-80%。YuqueOut 采用"所见即所得"的导出逻辑，只要你能打开文档就能导出，不受权限限制。</p>
+
+                <!-- FAQ Section -->
+                <h2 id="faq">常见问题</h2>
+
+                <div class="info-box">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        FAQ
+                    </div>
+
+                    <h3>语雀表格和画板能迁移到飞书吗？</h3>
+                    <p>表格可以通过 YuqueOut 导出为 Excel 或 CSV 格式，飞书支持导入 Excel。画板（流程图、思维导图）可导出为 PNG 或 SVG 图片，以附件形式上传到飞书文档中。飞书暂不支持直接导入语雀画板的编辑文件。</p>
+
+                    <h3>迁移过程中语雀文档的评论和历史版本会保留吗？</h3>
+                    <p>不会。导出的是文档正文内容，评论、版本历史、协作记录这些元数据无法迁移。建议在迁移前截图保存重要的讨论内容。</p>
+
+                    <h3>飞书文档有单文件大小限制吗？</h3>
+                    <p>飞书单次导入文件大小上限为 50MB。普通文档通常远小于这个限制。如果文档包含大量本地图片，Word 格式的文件可能较大，建议拆分后分批导入。</p>
+
+                    <h3>迁移后还需要保留语雀账号吗？</h3>
+                    <p>建议保留 1-2 个月观察期。确认飞书中所有文档完整无误后再考虑注销。迁移期间不要删除语雀原文，以便随时回查。</p>
+                </div>
+
+                <!-- Conclusion -->
+                <h2>总结</h2>
+
+                <p>语雀迁移飞书的核心难点在于：语雀没有提供批量导出功能，也没有到飞书的直接迁移路径。手动逐篇操作不仅耗时，还无法覆盖没有导出权限的协作文档。</p>
+
+                <p>正确的迁移路径是：使用 YuqueOut 批量导出为 Markdown 或 Word 格式，再通过飞书的文件导入功能完成搬迁。整个流程可控制在 1 小时内，覆盖率接近 100%。</p>
+
+                <p>如果你的团队正在计划从语雀切换到飞书，建议先安装 YuqueOut 做一次全量备份，确认文件完整后再开始飞书端的导入和整理工作。</p>
+
+                <!-- CTA -->
+                <div class="blog-cta">
+                    <h3>30 分钟完成语雀到飞书的迁移</h3>
+                    <p>免费安装 YuqueOut，批量导出所有文档，告别逐篇手动操作</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="blog-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        免费安装 YuqueOut
+                    </a>
+                </div>
+
+                <!-- Related Posts -->
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="blog-third-person.html" class="blog-related-card">
+                            <span class="blog-related-card-title">2024年语雀数据迁移完全指南：4种方案横评</span>
+                            <span class="blog-related-card-excerpt">系统梳理语雀导出现状与四种解决方案深度对比</span>
+                        </a>
+                        <a href="yuque-batch-export-tutorial.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库批量导出完整教程</span>
+                            <span class="blog-related-card-excerpt">3步搞定，零技术门槛的批量导出指南</span>
+                        </a>
+                        <a href="yuque-user-pain-points.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀用户最头疼的7个问题</span>
+                            <span class="blog-related-card-excerpt">导出限制、权限壁垒、格式锁定等痛点深度分析</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

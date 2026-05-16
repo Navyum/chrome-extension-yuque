@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀文档「所见即所得」导出方案——不依赖导出权限，400篇文档30分钟全部备份到本地。支持收藏夹、画板、加密文档等全类型导出。">
+    <meta name="keywords" content="语雀所见即所得导出,语雀无权限导出,语雀收藏导出,语雀画板导出,语雀加密文档导出,YuqueOut">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-export-what-you-see.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀导出「所见即所得」：只要能打开就能导出">
+    <meta property="og:description" content="不依赖导出权限，400篇文档30分钟全部备份到本地。支持收藏夹、画板、加密文档等全类型导出。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-export-what-you-see.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-wysiwyg.svg">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2025-04-25">
+    <meta property="article:modified_time" content="2025-04-25">
+    <meta property="article:section" content="功能解析">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀导出「所见即所得」：只要能打开就能导出">
+    <meta name="twitter:description" content="不依赖导出权限，400篇文档30分钟全部备份到本地。支持收藏夹、画板、加密文档等全类型导出。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-wysiwyg.svg">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀导出「所见即所得」：只要能打开就能导出 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀导出「所见即所得」：只要能打开就能导出",
+      "description": "语雀文档「所见即所得」导出方案——不依赖导出权限，400篇文档30分钟全部备份到本地。支持收藏夹、画板、加密文档等全类型导出。",
+      "url": "https://yuque.toolab.top/blog/yuque-export-what-you-see.html",
+      "datePublished": "2025-04-25",
+      "dateModified": "2025-04-25",
+      "author": { "@type": "Person", "name": "杨海俊", "url": "https://yuque.toolab.top/" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-export-what-you-see.html",
+      "wordCount": 2200,
+      "articleSection": "功能解析"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "所见即所得导出", "item": "https://yuque.toolab.top/blog/yuque-export-what-you-see.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀没有导出权限的文档能导出吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可以。YuqueOut 采用「所见即所得」方案，只要你能在浏览器中打开并阅读文档，就能将其导出为 Markdown 等格式。不依赖语雀的导出权限设置，不需要管理员授权或 API Token。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀收藏的文章怎么导出？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "YuqueOut 将收藏夹视为一个虚拟知识库，在扩展弹窗中可以直接勾选收藏夹并批量导出其中收藏的所有文章为 Markdown 文件，无需逐篇操作。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀画板怎么保存为图片？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "语雀官方不支持将画板（流程图、思维导图、白板）导出为图片。YuqueOut 支持将画板导出为 PNG、JPG、SVG 三种图片格式，无需截屏即可获得高清画板图片。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀导出工具安全吗会上传数据吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "YuqueOut 所有操作 100% 在浏览器本地完成，不收集文档内容，不上传用户数据，不连接第三方服务器。代码完全开源，自动复用浏览器登录状态，无需额外输入密码或 Token。"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">所见即所得导出</span>
+                </div>
+                <span class="blog-article-tag">功能解析</span>
+                <h1 class="blog-article-title">语雀导出「所见即所得」：只要能打开就能导出</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2025-04-25
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        8 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 2200 字</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#your-docs">你的文档真的是你的吗？</a></li>
+                        <li><a href="#pain-points">语雀的导出权限限制有多严格？</a></li>
+                        <li><a href="#wysiwyg">什么是「所见即所得」导出？</a></li>
+                        <li><a href="#export-result">YuqueOut 是怎么绕过导出限制的？</a></li>
+                        <li><a href="#unique-features">YuqueOut 能导出哪些别人做不到的内容？</a></li>
+                        <li><a href="#privacy">使用导出工具安全吗？数据会被上传吗？</a></li>
+                        <li><a href="#comparison">和其他方案比较</a></li>
+                        <li><a href="#conclusion">最后</a></li>
+                    </ol>
+                </div>
+
+                <blockquote>
+                    <p>400 篇文档，从"云端安心"到"只想全部带走"，我用了一个下午。</p>
+                </blockquote>
+
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>YuqueOut 的"所见即所得"逻辑：能打开就能导出，不依赖导出权限</strong></li>
+                        <li><strong>唯一支持收藏夹批量导出 + 画板导为图片的工具</strong></li>
+                        <li><strong>100%本地处理，不上传任何数据到第三方服务器</strong></li>
+                    </ul>
+                </div>
+
+                <h2 id="your-docs">你的文档真的是你的吗？</h2>
+
+                <p>我在<a href="https://www.yuque.com/" target="_blank" rel="noopener">语雀</a>上写了三年文档。个人笔记、技术博客、读书摘要、项目文档......零零总总 400 多篇，散落在七八个知识库里。一直觉得挺好，云端同步，随时能看。</p>
+
+                <p>直到有一天，团队决定迁移到飞书。</p>
+
+                <p>领导一句"下周把语雀的文档都搬过来"，我才第一次认真研究语雀的导出功能。然后发现——</p>
+
+                <p><strong>语雀居然没有"批量导出"按钮。</strong></p>
+
+                <p>要导出，你得一篇一篇来：打开文档 → 点右上角更多 → 点导出 → 选格式 → 等待 → 下载。400 篇文档，每篇至少 30 秒点击等待，你算算要多久。</p>
+
+                <h2 id="pain-points">语雀的导出权限限制有多严格？</h2>
+
+                <p><strong>非常严格——没有导出权限的文档完全无法导出，收藏夹没有导出入口，画板不支持保存为图片。</strong></p>
+
+                <p>试着导了几篇之后，我发现坑更多：</p>
+
+                <h3>1. 别人分享的文档，根本导不出来</h3>
+
+                <p>同事分享给我的协作库文档，我能打开、能阅读、能评论——但点"导出"，直接提示没有权限。</p>
+
+                <p>我明明能看到所有内容，凭什么不能存一份到本地？</p>
+
+                <h3>2. 收藏夹里的文章，没有任何导出入口</h3>
+
+                <p>我收藏了上百篇别人写的好文章，想趁周末整理一下。结果发现语雀的收藏功能只管"收"，不管"出"。没有批量导出，连单篇导出都不支持。</p>
+
+                <h3>3. 表格只能导出 Excel，画板完全导不出</h3>
+
+                <p>语雀的表格只能导出 xlsx 格式。如果我只是想要一个 CSV 或者 Markdown 表格呢？不好意思，没有。</p>
+
+                <p>画板（白板/思维导图）更惨——官方压根不支持导出为图片。你在画板上精心画的流程图，想保存一张 PNG？官方：不支持。</p>
+
+                <h3>4. GitHub 上的 CLI 工具，劝退了我</h3>
+
+                <p>搜了一圈开源工具，确实有几个能批量导出的——但要装 Node.js 环境、手动获取 API Token、在命令行里敲命令。对于不写代码的同事来说，这和没有一样。</p>
+
+                <p>想了解更多语雀用户的真实痛点？参考这篇 <a href="yuque-user-pain-points.html">语雀用户痛点分析</a>。</p>
+
+                <h2 id="wysiwyg">什么是「所见即所得」导出？</h2>
+
+                <p><strong>「所见即所得」导出的核心逻辑是：只要你能在浏览器里打开并阅读一篇文档，就能将它导出为本地文件，完全不依赖语雀的导出权限设置。</strong></p>
+
+                <p>后来我换了个思路：既然我能在浏览器里看到这篇文档的全部内容，为什么不能直接把它保存下来？</p>
+
+                <p><strong>浏览器里看到的内容 = 可以保存的内容。</strong></p>
+
+                <p>这就是 YuqueOut 的核心理念——<strong>所见即所得，只要你能打开，就能导出。</strong></p>
+
+                <p>不需要导出权限，不需要管理员授权，不需要 API Token。你在语雀上能阅读的每一篇文档、每一张表格、每一个画板，YuqueOut 都能帮你保存到本地。</p>
+
+                <img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 多格式导出界面展示" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <h2 id="export-result">YuqueOut 是怎么绕过导出限制的？</h2>
+
+                <p><strong>YuqueOut 自动复用浏览器的登录状态读取文档内容，在本地完成格式转换，全程不调用语雀的导出 API，因此不受导出权限限制。</strong></p>
+
+                <p>装好扩展之后，我的导出过程是这样的：</p>
+
+                <p><strong>第一步</strong>：点开扩展，自动列出我所有的知识库（个人的、协作的、收藏的，全都有）。</p>
+
+                <p><strong>第二步</strong>：全选，点"获取文件信息"。30 秒不到，342 篇文档的列表就出来了——包括收藏夹里那些别人写的文章。</p>
+
+                <p><strong>第三步</strong>：点"开始导出"。然后泡杯咖啡，等着就行。</p>
+
+                <p>文档自动按知识库的目录结构存放，图片自动下载到本地。半小时后，我打开"下载"文件夹里的"语雀备份"目录——<strong>所有文档整整齐齐地躺在那里。</strong></p>
+
+                <p>遇到几篇加密文档，扩展弹出了密码输入框，输入后继续导出。遇到没有导出权限的协作文档，扩展自动切换到本地转换，照样导出了 Markdown。</p>
+
+                <p><strong>全程没有打开过一篇文档，没有点过一次"更多"菜单。</strong></p>
+
+<div class="info-box">
+    <div class="info-box-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        技术原理
+    </div>
+    <p>传统导出工具依赖语雀的「导出 API」，受服务端权限控制。YuqueOut 走了一条不同的路：直接在浏览器中解析语雀页面返回的文档数据（Lake 格式），通过本地转换引擎将其转为 Markdown/Word/PDF。这意味着只要浏览器能渲染文档内容，YuqueOut 就能完成转换——完全绕过了服务端的导出权限校验。</p>
+</div>
+
+                <p>如果你也想批量导出，可以参考这份 <a href="yuque-batch-export-tutorial.html">语雀批量导出完整教程</a>。</p>
+
+                <h2 id="unique-features">YuqueOut 能导出哪些别人做不到的内容？</h2>
+
+                <p><strong>收藏夹批量导出、画板导为 PNG/JPG/SVG 图片、表格导为 CSV/Markdown——这些是目前只有 YuqueOut 能做到的。</strong></p>
+
+                <p>用了一段时间后，我发现 YuqueOut 解决的不只是"批量导出"这一个问题。有几个场景让我特别惊喜：</p>
+
+                <h3>浏览文档时随手保存</h3>
+
+                <p>语雀文档页面右侧有一个小小的浮动气泡（可以拖动位置，也可以在设置里关掉）。看到一篇好文章？点一下气泡，直接保存为 Markdown 到本地。不需要打开扩展弹窗，不需要任何额外操作。</p>
+
+                <p><strong>就像浏览器的"另存为"，但聪明 100 倍。</strong></p>
+
+                <h3>表格导出为 CSV / Markdown</h3>
+
+                <p>语雀的表格只支持导出 Excel。但很多时候我只是想要一个 CSV 导入到其他工具，或者一个 Markdown 表格贴到文档里。YuqueOut 支持把表格导出为 Excel、CSV、Markdown、HTML 四种格式。</p>
+
+                <h3>画板终于能保存图片了</h3>
+
+                <p>这是我最满意的功能。语雀的画板（流程图、思维导图、白板）官方完全不支持导出为图片。YuqueOut 可以把画板导出为 PNG、JPG、SVG。</p>
+
+                <p>我的项目流程图、团队的脑暴思维导图，终于不用截屏了。</p>
+
+                <img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置页面展示表格和画板导出选项" loading="lazy" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <h2 id="privacy">使用导出工具安全吗？数据会被上传吗？</h2>
+
+                <p><strong>完全安全。YuqueOut 所有操作 100% 在浏览器本地完成，不收集文档内容，不上传任何数据到第三方服务器。</strong></p>
+
+                <p>可能有人会问：这个扩展会不会把我的文档上传到什么服务器？</p>
+
+                <p>答案是：<strong>不会。所有操作 100% 在你的浏览器本地完成。</strong></p>
+
+                <ul>
+                    <li>不收集任何文档内容</li>
+                    <li>不上传任何用户数据</li>
+                    <li>不需要 API Token 或密码（自动复用浏览器的登录状态）</li>
+                    <li>不连接任何第三方服务器</li>
+                </ul>
+
+                <p>代码完全开源，托管在 <a href="https://github.com/Navyum/chrome-extension-yuque" target="_blank" rel="noopener">GitHub</a> 上，不放心的话可以自己看。</p>
+
+                <h2 id="comparison">和其他方案比较</h2>
+
+<div style="overflow-x: auto; margin: 2rem 0;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+        <thead>
+            <tr style="border-bottom: 2px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 0.75rem; color: rgba(255,255,255,0.9);">场景</th>
+                <th style="text-align: left; padding: 0.75rem; color: rgba(255,255,255,0.9);">语雀官方导出</th>
+                <th style="text-align: left; padding: 0.75rem; color: rgba(255,255,255,0.9);">YuqueOut「所见即所得」</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">管理员禁止导出的协作文档</td>
+                <td style="padding: 0.75rem; color: #ef4444;">提示"没有权限"</td>
+                <td style="padding: 0.75rem; color: #22c55e;">正常导出（能看就能导）</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">收藏夹中他人的文章</td>
+                <td style="padding: 0.75rem; color: #ef4444;">无导出入口</td>
+                <td style="padding: 0.75rem; color: #22c55e;">列为虚拟知识库，批量导出</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">画板/思维导图/白板</td>
+                <td style="padding: 0.75rem; color: #ef4444;">完全不支持</td>
+                <td style="padding: 0.75rem; color: #22c55e;">PNG / JPG / SVG</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">表格文档格式选择</td>
+                <td style="padding: 0.75rem; color: #f97316;">仅 Excel</td>
+                <td style="padding: 0.75rem; color: #22c55e;">Excel / CSV / Markdown / HTML</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem; color: rgba(255,255,255,0.7);">加密文档</td>
+                <td style="padding: 0.75rem; color: #ef4444;">无法批量处理</td>
+                <td style="padding: 0.75rem; color: #22c55e;">输入密码后继续导出</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+                <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>YuqueOut</th>
+                            <th>手动导出</th>
+                            <th>CLI 工具</th>
+                            <th>其他扩展</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>上手难度</td>
+                            <td>装了就用</td>
+                            <td>每篇手点</td>
+                            <td>要 Node.js + Token</td>
+                            <td>装了就用</td>
+                        </tr>
+                        <tr>
+                            <td>批量导出</td>
+                            <td>支持</td>
+                            <td>不支持</td>
+                            <td>支持</td>
+                            <td>不支持</td>
+                        </tr>
+                        <tr>
+                            <td>无权限文档</td>
+                            <td><strong>能导</strong></td>
+                            <td>不能</td>
+                            <td>不能</td>
+                            <td>不能</td>
+                        </tr>
+                        <tr>
+                            <td>收藏导出</td>
+                            <td><strong>支持</strong></td>
+                            <td>不支持</td>
+                            <td>不支持</td>
+                            <td>不支持</td>
+                        </tr>
+                        <tr>
+                            <td>表格格式</td>
+                            <td>4 种</td>
+                            <td>仅 Excel</td>
+                            <td>-</td>
+                            <td>仅 Excel</td>
+                        </tr>
+                        <tr>
+                            <td>画板导图片</td>
+                            <td><strong>支持</strong></td>
+                            <td>不支持</td>
+                            <td>不支持</td>
+                            <td>依赖官方</td>
+                        </tr>
+                        <tr>
+                            <td>语雀改版影响</td>
+                            <td>不影响</td>
+                            <td>-</td>
+                            <td>不影响</td>
+                            <td><strong>容易失效</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+
+                <p>想了解更详细的工具对比？请阅读 <a href="yuque-export-tools-comparison.html">语雀导出工具全面对比评测</a>。</p>
+
+                <h2 id="conclusion">最后</h2>
+
+                <p>如果你也有这些烦恼——</p>
+
+                <ul>
+                    <li>几百篇文档想迁移到 <a href="https://obsidian.md/" target="_blank" rel="noopener">Obsidian</a> / Notion / 飞书</li>
+                    <li>团队知识库要备份，但没人愿意一篇篇手动导</li>
+                    <li>看到好文章想随手存一份 Markdown</li>
+                    <li>表格想要 CSV 但语雀只给 Excel</li>
+                    <li>画板想保存图片但官方不支持</li>
+                </ul>
+
+                <p>试试 YuqueOut（可在 <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc" target="_blank" rel="noopener">Chrome 应用商店</a>免费安装）。<strong>只要你能打开，就能导出。</strong></p>
+
+                <img src="https://yuque.toolab.top/images/feat4.png" alt="YuqueOut 功能特性全览" loading="lazy" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <div class="blog-cta">
+                    <h3>所见即所得，一键导出语雀文档</h3>
+                    <p>免费安装 YuqueOut，不依赖权限，批量导出所有文档</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="blog-cta-button" rel="noopener">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        免费安装 YuqueOut
+                    </a>
+                </div>
+
+                <!-- Related Posts -->
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="yuque-user-pain-points.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀用户痛点深度分析</span>
+                            <span class="blog-related-card-excerpt">导出限制、批量操作缺失、格式支持不足等核心痛点解析</span>
+                        </a>
+                        <a href="yuque-batch-export-tutorial.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库批量导出完整教程</span>
+                            <span class="blog-related-card-excerpt">3步搞定，零技术门槛的批量导出指南</span>
+                        </a>
+                        <a href="yuque-export-tools-comparison.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库导出工具全面对比评测</span>
+                            <span class="blog-related-card-excerpt">YuqueOut vs 命令行工具 vs 官方方案，6维度深度对比</span>
+                        </a>
+                        <a href="blog-first-person.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀里存了三年的笔记，30分钟全部抢救到本地</span>
+                            <span class="blog-related-card-excerpt">真实用户分享400篇文档批量导出的完整经历</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

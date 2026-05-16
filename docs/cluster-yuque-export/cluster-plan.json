@@ -1,0 +1,188 @@
+{
+  "seed_keyword": "语雀导出",
+  "generated_at": "2025-05-16T12:00:00Z",
+  "pillar": {
+    "id": "P",
+    "title": "2024年语雀数据迁移完全指南：4种方案横评与实操教程",
+    "primary_keyword": "语雀导出",
+    "secondary_keywords": ["语雀数据迁移", "语雀迁移方案", "语雀知识库导出"],
+    "search_volume_estimate": "high",
+    "template": "pillar-page",
+    "word_count_target": 3500,
+    "cluster": "pillar",
+    "file": "../blog/blog-third-person.html",
+    "status": "existing"
+  },
+  "clusters": [
+    {
+      "name": "Cluster A: 痛点与动机",
+      "intent": "informational",
+      "color": "#f97316",
+      "posts": [
+        {
+          "id": "A1",
+          "title": "语雀用户最头疼的7个问题（附解决方案）",
+          "primary_keyword": "语雀导出问题",
+          "secondary_keywords": ["语雀无法批量导出", "语雀图片防盗链", "语雀导出限制"],
+          "search_volume_estimate": "high",
+          "template": "problem-solution",
+          "word_count_target": 3200,
+          "file": "../blog/yuque-user-pain-points.html",
+          "status": "existing",
+          "links_to": ["P", "A2", "B1"],
+          "links_from": ["P", "A2", "A3", "B1"]
+        },
+        {
+          "id": "A2",
+          "title": "为什么你应该定期备份语雀知识库？",
+          "primary_keyword": "语雀备份",
+          "secondary_keywords": ["语雀数据安全", "语雀宕机", "语雀会员到期"],
+          "search_volume_estimate": "medium",
+          "template": "awareness",
+          "word_count_target": 2800,
+          "file": "../blog/why-backup-yuque.html",
+          "status": "existing",
+          "links_to": ["P", "B1", "A1"],
+          "links_from": ["P", "A1", "C4"]
+        },
+        {
+          "id": "A3",
+          "title": "语雀导出失败怎么办？常见报错排查与恢复指南",
+          "primary_keyword": "语雀导出失败",
+          "secondary_keywords": ["语雀导出报错", "语雀导出超时", "语雀导出格式错误", "语雀导出恢复"],
+          "search_volume_estimate": "medium",
+          "template": "troubleshooting-guide",
+          "word_count_target": 1500,
+          "file": "yuque-export-troubleshooting.html",
+          "status": "new",
+          "links_to": ["P", "A1", "B1", "B3"],
+          "links_from": ["P", "A1", "B1"]
+        }
+      ]
+    },
+    {
+      "name": "Cluster B: 方案与教程",
+      "intent": "commercial",
+      "color": "#38bdf8",
+      "posts": [
+        {
+          "id": "B1",
+          "title": "语雀知识库批量导出完整教程：3步搞定所有文档备份",
+          "primary_keyword": "语雀批量导出教程",
+          "secondary_keywords": ["语雀知识库怎么导出", "语雀一键导出", "YuqueOut使用教程"],
+          "search_volume_estimate": "high",
+          "template": "how-to-guide",
+          "word_count_target": 2500,
+          "file": "../blog/yuque-batch-export-tutorial.html",
+          "status": "existing",
+          "links_to": ["P", "B2", "A1"],
+          "links_from": ["P", "A1", "A3", "B4", "C2"]
+        },
+        {
+          "id": "B2",
+          "title": "语雀知识库导出工具全面对比评测（2025）",
+          "primary_keyword": "语雀导出工具对比",
+          "secondary_keywords": ["语雀导出工具推荐", "yuque-exporter", "elog语雀"],
+          "search_volume_estimate": "high",
+          "template": "comparison",
+          "word_count_target": 3500,
+          "file": "../blog/yuque-export-tools-comparison.html",
+          "status": "existing",
+          "links_to": ["P", "B1", "B3"],
+          "links_from": ["P", "B4", "C3"]
+        },
+        {
+          "id": "B3",
+          "title": "语雀导出「所见即所得」：只要能打开就能导出",
+          "primary_keyword": "语雀无权限导出",
+          "secondary_keywords": ["语雀所见即所得导出", "语雀收藏导出", "语雀画板导出"],
+          "search_volume_estimate": "medium",
+          "template": "feature-explainer",
+          "word_count_target": 2800,
+          "file": "../blog/yuque-export-what-you-see.html",
+          "status": "existing",
+          "links_to": ["P", "B1", "B2"],
+          "links_from": ["P", "A3", "B4"]
+        },
+        {
+          "id": "B4",
+          "title": "语雀表格、画板、数据表导出完全攻略",
+          "primary_keyword": "语雀表格导出CSV",
+          "secondary_keywords": ["语雀画板导出PNG", "语雀数据表导出Excel", "语雀特殊文档导出"],
+          "search_volume_estimate": "medium",
+          "template": "deep-dive-guide",
+          "word_count_target": 2000,
+          "file": "yuque-export-special-docs.html",
+          "status": "new",
+          "links_to": ["P", "B1", "B2", "B3"],
+          "links_from": ["P", "B2"]
+        }
+      ]
+    },
+    {
+      "name": "Cluster C: 迁移目标",
+      "intent": "commercial",
+      "color": "#a78bfa",
+      "posts": [
+        {
+          "id": "C1",
+          "title": "语雀文档批量转Markdown：博客迁移与知识管理完整指南",
+          "primary_keyword": "语雀转Markdown",
+          "secondary_keywords": ["语雀迁移Hexo", "语雀迁移Hugo", "语雀迁移Obsidian"],
+          "search_volume_estimate": "high",
+          "template": "migration-guide",
+          "word_count_target": 3000,
+          "file": "../blog/yuque-to-markdown-guide.html",
+          "status": "existing",
+          "links_to": ["P", "B1"],
+          "links_from": ["P", "C2"]
+        },
+        {
+          "id": "C2",
+          "title": "语雀导出到GitHub Pages：从知识库到个人博客部署全流程",
+          "primary_keyword": "语雀博客迁移GitHub",
+          "secondary_keywords": ["语雀GitHub Pages", "语雀Jekyll部署", "语雀Hugo部署"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 1800,
+          "file": "yuque-to-github-pages.html",
+          "status": "new",
+          "links_to": ["P", "C1", "B1"],
+          "links_from": ["P", "C1"]
+        },
+        {
+          "id": "C3",
+          "title": "语雀迁移到Confluence：企业Wiki平台切换实操指南",
+          "primary_keyword": "语雀迁移Confluence",
+          "secondary_keywords": ["语雀企业迁移", "语雀Confluence导入", "知识库平台切换"],
+          "search_volume_estimate": "low",
+          "template": "migration-guide",
+          "word_count_target": 1500,
+          "file": "yuque-to-confluence.html",
+          "status": "new",
+          "links_to": ["P", "B2", "C4"],
+          "links_from": ["P", "C4"]
+        },
+        {
+          "id": "C4",
+          "title": "团队知识库大规模迁移方案：从语雀搬家的企业级攻略",
+          "primary_keyword": "语雀团队迁移",
+          "secondary_keywords": ["语雀企业导出", "知识库批量迁移方案", "语雀迁出方案"],
+          "search_volume_estimate": "medium",
+          "template": "enterprise-guide",
+          "word_count_target": 2000,
+          "file": "yuque-team-migration.html",
+          "status": "new",
+          "links_to": ["P", "A2", "C3"],
+          "links_from": ["P", "C3"]
+        }
+      ]
+    }
+  ],
+  "existing_posts": 8,
+  "new_posts": 5,
+  "total_posts": 13,
+  "total_interlinks": 65,
+  "estimated_new_words": 8800,
+  "execution_order": ["B4", "A3", "C2", "C4", "C3"]
+}

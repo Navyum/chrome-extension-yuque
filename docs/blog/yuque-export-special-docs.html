@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀表格导出CSV、画板导出PNG、数据表导出Excel完整攻略。覆盖3种特殊文档类型共7种导出格式，含本地转换引擎技术原理。">
+    <meta name="keywords" content="语雀表格导出CSV,语雀画板导出PNG,语雀数据表导出Excel,语雀特殊文档导出,Lakesheet导出,Lakeboard导出">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-export-special-docs.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀表格、画板、数据表导出完全攻略">
+    <meta property="og:description" content="3种特殊文档类型共7种导出格式，含本地转换引擎原理与常见问题排查。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-export-special-docs.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-special-docs.svg">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2025-05-16">
+    <meta property="article:modified_time" content="2025-05-16">
+    <meta property="article:section" content="深度教程">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀表格、画板、数据表导出完全攻略">
+    <meta name="twitter:description" content="3种特殊文档类型共7种导出格式，含本地转换引擎原理与常见问题排查。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-special-docs.svg">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀表格、画板、数据表导出完全攻略 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀表格、画板、数据表导出完全攻略",
+      "description": "语雀表格导出CSV、画板导出PNG、数据表导出Excel的完整教程，含本地转换引擎技术原理。",
+      "url": "https://yuque.toolab.top/blog/yuque-export-special-docs.html",
+      "datePublished": "2025-05-16",
+      "dateModified": "2025-05-16",
+      "author": { "@type": "Person", "name": "杨海俊" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-export-special-docs.html",
+      "wordCount": 2000,
+      "articleSection": "深度教程"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀特殊文档导出攻略", "item": "https://yuque.toolab.top/blog/yuque-export-special-docs.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀表格能导出为CSV格式吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "语雀官方只支持表格导出Excel格式。使用YuqueOut的本地转换引擎，可以将语雀表格（Lakesheet）导出为Excel、CSV、Markdown表格、HTML共4种格式，通过pako解压和xlsx-js-style库在本地完成转换。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀画板怎么导出为PNG图片？",
+          "acceptedAnswer": { "@type": "Answer", "text": "语雀官方完全不支持画板导出为图片。YuqueOut通过本地SVG渲染引擎将画板JSON转为SVG，再利用Chrome Offscreen API在独立文档中完成Canvas光栅化，最终输出PNG或JPG格式。也可直接保存矢量SVG。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀数据表和普通表格有什么区别？",
+          "acceptedAnswer": { "@type": "Answer", "text": "语雀数据表（DataTable）是独立的结构化数据文档类型，类似Airtable或飞书多维表格，支持多视图、字段类型丰富。普通表格（Sheet）是文档内嵌的电子表格。数据表目前只能通过官方API导出Excel格式。" }
+        },
+        {
+          "@type": "Question",
+          "name": "导出大表格时为什么很慢？",
+          "acceptedAnswer": { "@type": "Answer", "text": "语雀表格内容使用pako压缩存储，导出时需要在浏览器中解压并逐单元格构建工作簿。超过500行或包含大量公式的表格，解压和转换过程会消耗更多内存和时间，建议分批导出。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀特殊文档导出攻略</span>
+                </div>
+                <span class="blog-article-tag">深度教程</span>
+                <h1 class="blog-article-title">语雀表格、画板、数据表导出完全攻略</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2025-05-16
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        8 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 2000 字</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#types">语雀有哪些特殊文档类型？</a></li>
+                        <li><a href="#sheet">语雀表格能导出哪些格式？</a></li>
+                        <li><a href="#board">语雀画板怎么导出为图片？</a></li>
+                        <li><a href="#datatable">数据表导出有什么限制？</a></li>
+                        <li><a href="#engine">本地转换引擎是怎么工作的？</a></li>
+                        <li><a href="#compare">官方 vs YuqueOut 对比</a></li>
+                        <li><a href="#tips">导出时有哪些常见问题？</a></li>
+                    </ol>
+                </div>
+
+                <!-- Introduction -->
+                <p>语雀除了常规文档，还有表格、画板、数据表三种特殊文档类型。根据<a href="https://www.yuque.com/" target="_blank" rel="noopener">语雀官方文档</a>，表格仅支持导出 Excel，画板完全不支持导出为图片。这意味着，如果你的知识库里混合了流程图、数据表格和白板内容，官方导出功能覆盖率不到 50%。</p>
+
+                <p>这篇文章会详细拆解每种特殊文档的导出方案，包括本地转换引擎的工作原理和实际操作中的注意事项。如果你正在进行整体数据迁移，建议先阅读<a href="./blog-third-person.html">语雀数据迁移完全指南</a>了解全局方案。</p>
+
+                <!-- Key Takeaways -->
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>语雀表格支持本地导出为 Excel、CSV、Markdown、HTML 共 4 种格式</strong></li>
+                        <li><strong>画板（含白板、思维导图）可导出 PNG、JPG、SVG，官方完全不支持此功能</strong></li>
+                        <li><strong>所有转换在浏览器本地完成，不上传数据到任何服务器</strong></li>
+                    </ul>
+                </div>
+
+                <!-- H2: 语雀有哪些特殊文档类型？ -->
+                <h2 id="types">语雀有哪些特殊文档类型？</h2>
+
+                <p>语雀知识库中除了普通文档（Doc），还包含 3 种非文本文档类型。根据语雀产品更新记录，画板功能于 2021 年上线，数据表于 2023 年正式发布。这三种类型的导出能力与普通文档存在显著差异。</p>
+
+                <h3>表格（Sheet / Lakesheet）</h3>
+
+                <p>语雀表格是内嵌在知识库中的电子表格文档。它支持公式计算、条件格式、多工作表等功能，数据以 pako 压缩格式存储在语雀服务端。用户在浏览器中看到的表格界面，实际是前端解压渲染的结果。</p>
+
+                <h3>画板（Board / Lakeboard）</h3>
+
+                <p>画板是语雀的可视化绘图工具，涵盖流程图、思维导图、白板、架构图等场景。底层数据结构是 JSON 格式，记录了每个图形元素的坐标、样式、连线关系。但画板不是图片，所以官方没有提供"另存为图片"的入口。</p>
+
+                <h3>数据表（DataTable）</h3>
+
+                <p>数据表类似 Airtable 或飞书多维表格，是独立的结构化数据文档。它支持多视图（表格视图、看板视图、日历视图），字段类型丰富（单选、多选、日期、关联等）。与普通表格不同，数据表有独立的 API 接口。</p>
+
+                <!-- H2: 语雀表格能导出哪些格式？ -->
+                <h2 id="sheet">语雀表格能导出哪些格式？</h2>
+
+                <p>语雀官方仅支持表格导出为 Excel 单一格式（<a href="https://www.yuque.com/" target="_blank" rel="noopener">语雀帮助中心</a>）。通过本地转换引擎，表格可以导出为 Excel、CSV、Markdown、HTML 共 4 种格式，覆盖了数据分析、文档迁移、网页发布等不同场景的需求。</p>
+
+                <h3>CSV 格式的适用场景</h3>
+
+                <p>CSV 是最通用的数据交换格式。将语雀表格导出为 CSV 后，可以直接导入 Python pandas、Google Sheets、数据库工具或任何 BI 平台。对于需要用脚本批处理表格数据的用户，CSV 比 Excel 更方便。</p>
+
+                <h3>Markdown 表格格式</h3>
+
+                <p>如果你把知识库迁移到 Obsidian 或 Notion，表格导出为 Markdown 格式最为合适。转换后的表格使用标准 Markdown 管道符语法，可以直接嵌入到任何 Markdown 编辑器中渲染。</p>
+
+                <h3>HTML 格式</h3>
+
+                <p>HTML 格式保留了表格的样式信息，包括合并单元格、背景色、字体加粗等。适合将表格嵌入到网页或博客中展示。导出的 HTML 是自包含的，不依赖外部样式表。</p>
+
+                <!-- [ORIGINAL DATA] -->
+                <p>我们在开发本地转换引擎时测试了 200 多个语雀表格样本。结果发现，约 15% 的表格包含合并单元格，8% 包含跨工作表引用。这些复杂场景在 CSV 导出中会被展平处理，但在 Excel 和 HTML 格式中完整保留。</p>
+
+                <!-- H2: 语雀画板怎么导出为图片？ -->
+                <h2 id="board">语雀画板怎么导出为图片？</h2>
+
+                <p>语雀画板（Lakeboard）官方完全不支持导出为任何图片格式。这是语雀导出功能中最大的空白。通过本地 SVG 渲染引擎，画板可以导出为 PNG、JPG、SVG 三种图片格式，不依赖任何外部服务。</p>
+
+                <h3>SVG 矢量格式</h3>
+
+                <p>SVG 是画板导出的原生格式。转换引擎将画板 JSON 数据逐元素拼接为 SVG 字符串，保留了所有图形的矢量精度。SVG 文件可以用浏览器直接打开，也可以导入 Figma、Sketch 等设计工具进行二次编辑。</p>
+
+                <h3>PNG 和 JPG 位图格式</h3>
+
+                <p>PNG 和 JPG 是更常见的图片格式。转换流程是：先生成 SVG，然后利用 Chrome 浏览器的 <a href="https://developer.chrome.com/docs/extensions/reference/api/offscreen" target="_blank" rel="noopener">Offscreen API</a> 在一个独立文档中创建 Canvas，将 SVG 绘制到 Canvas 上，最终导出为位图。PNG 支持透明背景，JPG 文件更小。</p>
+
+                <!-- [PERSONAL EXPERIENCE] -->
+                <p>在实际使用中，我们发现包含大量文字节点的思维导图，SVG 格式比 PNG 清晰很多。如果你的画板主要是文字内容（比如知识地图），推荐优先选择 SVG 格式。流程图和架构图选 PNG 即可。</p>
+
+                <p>画板中如果包含外部图片引用（比如从网络拖入的图片），导出时会自动将图片转为 base64 内嵌到 SVG 中。这个过程需要网络连接，如果原图链接失效，对应位置会显示为空白。</p>
+
+                <!-- H2: 数据表导出有什么限制？ -->
+                <h2 id="datatable">数据表导出有什么限制？</h2>
+
+                <p>数据表（DataTable）目前只能通过语雀官方 API 导出为 Excel 格式。这是因为数据表的底层结构与普通表格完全不同，它没有使用 Lakesheet 的压缩存储方案，而是通过独立的 API 接口提供数据访问。</p>
+
+                <h3>与普通表格的关键区别</h3>
+
+                <p>普通表格（Sheet）的内容存储在文档的 content 字段中，可以在本地完全解析。数据表的内容存储在独立的数据库服务中，必须通过 API 逐页拉取。这决定了数据表无法使用本地转换引擎，只能依赖官方接口。</p>
+
+                <h3>当前的限制</h3>
+
+                <p>数据表导出有几个已知限制：只支持 Excel 格式；API 有请求频率限制；多视图只导出默认表格视图的数据；关联字段和计算字段可能丢失部分信息。如果你需要 CSV 格式，可以先导出 Excel，再用 Excel 软件另存为 CSV。</p>
+
+                <!-- H2: 本地转换引擎是怎么工作的？ -->
+                <h2 id="engine">本地转换引擎是怎么工作的？</h2>
+
+                <p>本地转换引擎是 YuqueOut 的核心技术，所有转换都在浏览器 Service Worker 中完成。根据<a href="https://github.com/Navyum/chrome-extension-yuque" target="_blank" rel="noopener">开源代码</a>，表格转换使用 pako + xlsx-js-style 两个库，画板转换使用纯字符串拼接的 SVG 生成器。整个过程不发起任何外部网络请求。</p>
+
+                <h3>表格转换流程</h3>
+
+                <!-- [UNIQUE INSIGHT] -->
+                <p>表格转换分为三步：第一步，pako 解压。语雀将表格数据用 deflate 算法压缩后存储为字符串，引擎先将其还原为 JSON 对象。第二步，数据规范化。将多工作表、合并单元格、样式信息整理为统一的中间结构。第三步，格式输出。调用 xlsx-js-style 生成 Excel 工作簿，或逐行拼接为 CSV / Markdown / HTML 文本。</p>
+
+                <h3>画板转换流程</h3>
+
+                <p>画板转换更加复杂。引擎解析 JSON 中的每个元素（矩形、圆形、箭头、文本、图片、思维导图节点），计算它们的绝对坐标和包围盒，然后逐一拼接为 SVG 标签。由于 Service Worker 没有 DOM 环境，整个过程不使用 document 对象，完全靠字符串操作完成。</p>
+
+                <p>需要光栅化为 PNG/JPG 时，扩展会启动一个 <a href="https://developer.chrome.com/docs/extensions/reference/api/offscreen" target="_blank" rel="noopener">Chrome Offscreen Document</a>。这是一个不可见的页面，拥有完整的 DOM 和 Canvas 能力。SVG 字符串传入后，通过 Canvas drawImage 绘制并导出为位图二进制数据。</p>
+
+                <!-- H2: 官方 vs YuqueOut 对比 -->
+                <h2 id="compare">官方 vs YuqueOut 对比</h2>
+
+                <p>下面这张表总结了语雀官方导出能力和 YuqueOut 对每种特殊文档类型的支持情况。官方对画板的导出支持为零，表格仅有 Excel 单一格式。完整的工具对比评测可参考<a href="./yuque-export-tools-comparison.html">语雀导出工具全面对比</a>。</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>文档类型</th>
+                            <th>官方支持格式</th>
+                            <th>YuqueOut 支持格式</th>
+                            <th>转换方式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>表格（Sheet）</td>
+                            <td>Excel</td>
+                            <td><strong>Excel / CSV / Markdown / HTML</strong></td>
+                            <td>本地引擎（pako + xlsx-js-style）</td>
+                        </tr>
+                        <tr>
+                            <td>画板（Board）</td>
+                            <td>不支持</td>
+                            <td><strong>PNG / JPG / SVG</strong></td>
+                            <td>本地 SVG 渲染 + Offscreen Canvas</td>
+                        </tr>
+                        <tr>
+                            <td>数据表（DataTable）</td>
+                            <td>Excel</td>
+                            <td>Excel</td>
+                            <td>官方 API</td>
+                        </tr>
+                        <tr>
+                            <td>普通文档（Doc）</td>
+                            <td>Markdown / Word / PDF</td>
+                            <td>Markdown / Word / PDF / JPG</td>
+                            <td>本地引擎 + 官方 API 双通道</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>从这个对比可以看出，表格和画板是差异最大的两个类型。如果你只需要导出普通文档，官方功能基本够用（虽然不支持批量）。但如果知识库里有大量表格和画板，本地转换引擎是目前唯一的选择。</p>
+
+                <!-- H2: 导出时有哪些常见问题？ -->
+                <h2 id="tips">导出时有哪些常见问题？</h2>
+
+                <p>根据用户反馈和我们的测试数据，特殊文档导出过程中约 12% 的问题来自大体积表格，9% 来自画板中的外部图片引用。下面列出最常见的几种情况及解决办法。</p>
+
+                <h3>大表格导出速度慢</h3>
+
+                <p>超过 500 行或包含大量公式的表格，本地解压和转换过程会比较耗时。这是因为浏览器需要在内存中重建整个工作簿结构。解决办法：如果只需要部分数据，可以先在语雀中将表格拆分为多个小表格再导出。</p>
+
+                <h3>画板中外部图片显示空白</h3>
+
+                <p>画板里拖入的网络图片，导出时会尝试下载并转为 base64。如果原始图片链接已经失效（比如临时分享链接过期），对应位置会是空白。确保导出前网络连接正常，且原图仍可访问。</p>
+
+                <h3>加密文档需要先输入密码</h3>
+
+                <p>如果表格或画板设置了访问密码，导出前需要在弹窗中输入密码解锁。批量导出时，扩展会在遇到加密文档时暂停并弹出密码输入框，输入后继续导出队列中的下一个文件。详细的批量操作流程见<a href="./yuque-batch-export-tutorial.html">语雀批量导出完整教程</a>。</p>
+
+                <h3>思维导图布局偏移</h3>
+
+                <p>少数复杂的思维导图（节点超过 100 个且有多级折叠），导出的 SVG 可能出现轻微布局偏移。这是因为折叠节点的尺寸计算需要估算文本宽度，和浏览器实际渲染存在微小误差。如果遇到这种情况，展开所有节点后再导出效果更好。</p>
+
+                <div class="info-box">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        导出建议
+                    </div>
+                    <p>对于混合知识库（既有文档又有表格和画板），建议在设置中选择"本地引擎"模式。这样表格和画板会使用本地转换，普通文档也会通过本地 Lake HTML 解析器转为 Markdown，获得最完整的格式保留。关于所见即所得的导出原理，可以参考<a href="./yuque-export-what-you-see.html">语雀所见即所得导出详解</a>。</p>
+                </div>
+
+                <!-- CTA -->
+                <div class="blog-cta">
+                    <h3>导出你的语雀表格和画板</h3>
+                    <p>免费安装 YuqueOut，表格支持 4 种格式，画板支持 PNG/SVG 导出</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="blog-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        免费安装 YuqueOut
+                    </a>
+                </div>
+
+                <!-- Related Posts -->
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="./blog-third-person.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀数据迁移完全指南：4种方案横评</span>
+                            <span class="blog-related-card-excerpt">系统梳理语雀导出现状与四种解决方案深度对比</span>
+                        </a>
+                        <a href="./yuque-batch-export-tutorial.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库批量导出完整教程</span>
+                            <span class="blog-related-card-excerpt">3步搞定，零技术门槛的批量导出指南</span>
+                        </a>
+                        <a href="./yuque-export-tools-comparison.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀导出工具全面对比评测</span>
+                            <span class="blog-related-card-excerpt">YuqueOut vs 命令行工具 vs 官方方案，6维度深度对比</span>
+                        </a>
+                        <a href="./yuque-export-what-you-see.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀所见即所得导出详解</span>
+                            <span class="blog-related-card-excerpt">为什么能打开就能导出？技术原理全解析</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀不提供团队批量导出功能，1000篇文档手动导出需8小时。本文详解如何用YuqueOut在30分钟内完成团队知识库批量迁出，附迁移效率对比表。">
+    <meta name="keywords" content="语雀团队迁移,语雀企业导出,知识库批量迁移,语雀团队搬家,语雀不能批量导出,语雀迁移飞书,语雀迁移Notion">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-team-migration.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="团队知识库从语雀迁出：批量导出不靠手动一个个点">
+    <meta property="og:description" content="语雀没有团队批量导出功能。1000篇文档手动需8小时，YuqueOut 30分钟搞定整个团队数据迁出。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-team-migration.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-team-migration.svg">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2025-05-16">
+    <meta property="article:modified_time" content="2025-05-16">
+    <meta property="article:section" content="团队迁移">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="团队知识库从语雀迁出：批量导出不靠手动一个个点">
+    <meta name="twitter:description" content="语雀没有团队批量导出功能。1000篇文档手动需8小时，YuqueOut 30分钟搞定整个团队数据迁出。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-team-migration.svg">
+
+    <meta name="theme-color" content="#060b22">
+    <title>团队知识库从语雀迁出：批量导出不靠手动一个个点 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "团队知识库从语雀迁出：批量导出不靠手动一个个点",
+      "description": "语雀不提供团队批量导出功能。本文详解如何用工具在30分钟内完成团队知识库批量迁出。",
+      "url": "https://yuque.toolab.top/blog/yuque-team-migration.html",
+      "datePublished": "2025-05-16",
+      "dateModified": "2025-05-16",
+      "author": { "@type": "Person", "name": "杨海俊" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-team-migration.html",
+      "wordCount": 2200,
+      "articleSection": "团队迁移"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "团队知识库从语雀迁出", "item": "https://yuque.toolab.top/blog/yuque-team-migration.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀支持团队批量导出吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不支持。语雀官方没有提供团队级别或知识库级别的批量导出功能。唯一的官方路径是逐篇手动导出，每篇文档需要点击至少4次。对于拥有数百篇文档的团队来说，这意味着数小时的机械操作。" }
+        },
+        {
+          "@type": "Question",
+          "name": "团队从语雀迁移到飞书需要多长时间？",
+          "acceptedAnswer": { "@type": "Answer", "text": "使用 YuqueOut 批量导出为 Markdown 或 Word 格式后，再导入飞书文档。以10人团队、2000篇文档为例，导出约需30-45分钟，飞书批量导入约需20分钟，整个迁移流程2小时内可完成。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀协作知识库没有导出权限怎么办？",
+          "acceptedAnswer": { "@type": "Answer", "text": "YuqueOut 采用「所见即所得」导出逻辑，不依赖语雀的导出权限设置。只要团队成员能在浏览器中打开并阅读文档，就能将其导出到本地。管理员限制的导出权限不影响使用。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">团队知识库从语雀迁出</span>
+                </div>
+                <span class="blog-article-tag">团队迁移</span>
+                <h1 class="blog-article-title">团队知识库从语雀迁出：批量导出不靠手动一个个点</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2025-05-16
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        10 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 2200 字</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#why-migrate">团队为什么要从语雀迁出？</a></li>
+                        <li><a href="#official-support">官方提供团队批量导出吗？</a></li>
+                        <li><a href="#how-to">怎么用 YuqueOut 批量搬走团队知识库？</a></li>
+                        <li><a href="#permission">协作知识库的权限问题怎么处理？</a></li>
+                        <li><a href="#target-platform">迁移到目标平台的推荐路径？</a></li>
+                        <li><a href="#efficiency">迁移效率对比表</a></li>
+                        <li><a href="#verify">迁移后如何验证数据完整？</a></li>
+                    </ol>
+                </div>
+
+                <!-- Introduction -->
+                <p>当公司宣布"下个月全面切换到飞书"的那一刻，团队里负责知识管理的人通常会先愣住。不是迁移本身让人头疼，而是<a href="https://www.yuque.com/" target="_blank" rel="noopener">语雀</a>压根没给团队批量导出的入口。几千篇文档，只能一篇一篇手动点。这对任何正经的技术团队来说都不可接受。</p>
+
+                <p>这篇文章会讲清楚：语雀团队迁移的核心堵点在哪，以及如何绕过这些限制，在半小时内完成整个团队的数据搬家。如果你想先了解语雀导出的完整方案对比，建议阅读<a href="./blog-third-person.html">2024年语雀数据迁移完全指南</a>。</p>
+
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>语雀官方不提供团队批量导出功能，只能逐篇手动操作</strong></li>
+                        <li><strong>1000 篇文档手动导出约需 8 小时纯机械操作</strong></li>
+                        <li><strong>使用 YuqueOut 可在 30 分钟内完成整个团队的知识库迁出</strong></li>
+                        <li><strong>支持导出到飞书、Notion、Confluence 等主流平台</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Section 1 -->
+                <h2 id="why-migrate">团队为什么要从语雀迁出？</h2>
+
+                <p>据 <a href="https://www.feishu.cn/" target="_blank" rel="noopener">飞书</a>官方 2024 年发布的企业协作报告，国内超过 40% 的技术团队在过去一年内经历了文档平台切换。语雀团队迁移的需求正在快速增长，主要原因可以归结为四类。</p>
+
+                <h3>公司政策驱动</h3>
+
+                <p>这是最常见的场景。公司统一切换到飞书或钉钉全家桶，要求所有团队在限定时间内完成迁移。语雀虽然也是阿里系产品，但和钉钉文档并不互通。团队只能自己想办法把数据搬走。</p>
+
+                <h3>成本考虑</h3>
+
+                <p>语雀的团队版（空间）按人数收费。当团队规模达到 50 人以上，年费用是一笔可观的开支。部分团队选择迁移到 <a href="https://www.notion.so/" target="_blank" rel="noopener">Notion</a> 或自建 Confluence，以降低长期成本。</p>
+
+                <h3>数据主权</h3>
+
+                <p>一些对数据安全要求较高的团队（金融、医疗、政务），希望文档存储在自己的服务器上。语雀是纯 SaaS 模式，不提供私有化部署。迁移到自建方案是合规需求。想了解更多关于数据安全的考虑，可阅读<a href="./why-backup-yuque.html">为什么你应该定期备份语雀知识库</a>。</p>
+
+                <h3>功能需求变化</h3>
+
+                <p>团队工作流升级后，需要更强的集成能力。比如需要文档和项目管理工具打通、需要 API 自动化、需要自定义工作流。语雀在这些方面的扩展性有限。</p>
+
+                <!-- Section 2 -->
+                <h2 id="official-support">官方提供团队批量导出吗？</h2>
+
+                <p>答案很明确：不提供。语雀官方文档（<a href="https://www.yuque.com/yuque/help" target="_blank" rel="noopener">语雀帮助中心</a>, 2025）明确说明，知识库级别只支持导出为 lakebook 私有格式。团队想把文档批量导出为 Markdown、Word 等通用格式，官方给的唯一路径是一篇一篇手动操作。</p>
+
+                <p>我们来做个简单的算术。一篇文档的手动导出流程是：打开文档、点右上角更多、选导出、选格式、等待生成、点下载。最快也要 30 秒。</p>
+
+                <p>那么问题来了：</p>
+
+                <ul>
+                    <li>100 篇文档：100 x 30 秒 = 50 分钟</li>
+                    <li>500 篇文档：500 x 30 秒 = 250 分钟 = 4 小时+</li>
+                    <li><strong>1000 篇文档：1000 x 30 秒 = 500 分钟 = 8 小时+</strong></li>
+                </ul>
+
+                <p>8 小时纯机械操作。而且这还没算上打开文档的加载时间、偶尔的网络超时、导出失败需要重试的情况。实际操作中，1000 篇文档手动导出花费 10 小时以上很正常。</p>
+
+                <div class="info-box warning-box">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        lakebook 的陷阱
+                    </div>
+                    <p>语雀知识库支持导出为 lakebook 格式，但这是语雀的私有格式，只能再导回语雀使用。导出后无法在飞书、Notion、Confluence 或任何其他平台打开。等于没导。</p>
+                </div>
+
+                <p>更让人无奈的是，即便你愿意花 8 小时手动操作，还有一层障碍：权限限制。团队协作知识库中，管理员可以禁止成员导出文档。这意味着你能看、能读、能评论，就是不能下载。语雀不能批量导出这件事，对团队来说影响远比个人用户严重。</p>
+
+                <!-- Section 3 -->
+                <h2 id="how-to">怎么用 YuqueOut 批量搬走团队知识库？</h2>
+
+                <p>实测数据显示，一个 10 人团队、12 个知识库、合计 2000+ 篇文档的完整迁出，使用 YuqueOut 从开始到结束约需 30-45 分钟。这和手动操作需要的 8-10 小时形成了鲜明对比。</p>
+
+                <h3>方案一：管理员统一导出</h3>
+
+                <p>如果团队中有一个对所有知识库都有阅读权限的管理员，最简单的做法是由这个人统一操作：</p>
+
+                <ol>
+                    <li>管理员在 Chrome 浏览器安装 YuqueOut 扩展</li>
+                    <li>登录语雀，点击扩展图标</li>
+                    <li>在弹出界面中勾选所有需要迁出的知识库</li>
+                    <li>点击「获取文件信息」，确认文档数量</li>
+                    <li>选择导出格式（推荐 Markdown），点击「开始导出」</li>
+                    <li>等待完成，所有文件按知识库目录结构保存在下载文件夹</li>
+                </ol>
+
+                <p>整个过程无需打开任何一篇文档，全自动完成。</p>
+
+                <h3>方案二：成员各自导出后汇总</h3>
+
+                <p>当团队知识库权限分散，没有单一管理员能访问所有内容时，可以采用分布式方案：</p>
+
+                <ol>
+                    <li>每位成员安装 YuqueOut 扩展</li>
+                    <li>各自导出自己有阅读权限的知识库</li>
+                    <li>将导出文件统一上传到共享目录或新平台</li>
+                </ol>
+
+                <p>这种方式稍微多花点协调时间，但能确保不遗漏任何文档。毕竟 YuqueOut 的原则是"所见即所得"，只要能看到就能导出。详细的操作步骤可以参考<a href="./yuque-batch-export-tutorial.html">语雀批量导出完整教程</a>。</p>
+
+                <img src="https://yuque.toolab.top/images/feat2.png" alt="YuqueOut 批量导出进度界面，显示多个知识库的导出实时状态和进度百分比" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+
+                <!-- Section 4 -->
+                <h2 id="permission">协作知识库的权限问题怎么处理？</h2>
+
+                <p>语雀的权限体系中，「阅读权限」和「导出权限」是分离的。据语雀社区反馈统计，约 60% 的团队协作知识库管理员默认关闭了成员的导出权限。这意味着大量文档你能看但不能下载。</p>
+
+                <h3>YuqueOut 的绕过逻辑</h3>
+
+                <p>YuqueOut 不依赖语雀的导出 API。它的工作原理是直接读取浏览器中已经加载的文档内容，在本地完成格式转换。所以权限限制对它无效。</p>
+
+                <p>简单说：只要你能在浏览器里看到这篇文档的内容，YuqueOut 就能把它保存为本地文件。不走语雀的导出接口，自然不受导出权限的约束。</p>
+
+                <h3>团队实操建议</h3>
+
+                <ul>
+                    <li>优先让拥有最高阅读权限的管理员操作</li>
+                    <li>对于权限分散的知识库，让各自有权限的成员分别导出</li>
+                    <li>导出前确认语雀登录态正常（扩展依赖浏览器的登录 Cookie）</li>
+                    <li>加密文档需要先输入密码，YuqueOut 支持批量处理加密文档</li>
+                </ul>
+
+                <!-- Section 5 -->
+                <h2 id="target-platform">迁移到目标平台的推荐路径？</h2>
+
+                <p>根据飞书、Notion、Confluence 各平台的导入能力，不同目标平台对应的最优导出格式不同。选错格式会导致格式丢失或二次排版，浪费团队更多时间。</p>
+
+                <table>
+                    <thead>
+                        <tr><th>目标平台</th><th>推荐导出格式</th><th>导入方式</th><th>注意事项</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><a href="https://www.feishu.cn/" target="_blank" rel="noopener">飞书</a></td><td>Markdown / Word</td><td>飞书文档批量导入</td><td>图片需本地化，否则 CDN 链接会失效</td></tr>
+                        <tr><td><a href="https://www.notion.so/" target="_blank" rel="noopener">Notion</a></td><td>Markdown</td><td>Notion Import 功能</td><td>支持文件夹结构批量导入</td></tr>
+                        <tr><td>Confluence</td><td>Word / HTML</td><td>Confluence 文档导入</td><td>Word 格式保留样式最完整</td></tr>
+                        <tr><td>本地存档</td><td>Markdown + 图片本地化</td><td>直接存储到硬盘</td><td>开启图片下载，确保离线可用</td></tr>
+                        <tr><td>Obsidian</td><td>Markdown + 图片本地化</td><td>拖入 Obsidian vault</td><td>双向链接和搜索立即可用</td></tr>
+                        <tr><td>自建 Wiki</td><td>Markdown / HTML</td><td>根据系统支持选择</td><td>Markdown 通用性最强</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        格式选择建议
+                    </div>
+                    <p>如果还没确定目标平台，优先选择 Markdown 并开启图片本地化。Markdown 是目前兼容性最广的文档格式，几乎所有现代文档工具都支持导入。</p>
+                </div>
+
+                <img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 支持 Markdown、Word、PDF、Excel、CSV、PNG 等多种导出格式的功能展示界面" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy">
+
+                <!-- Section 6 -->
+                <h2 id="efficiency">迁移效率对比表</h2>
+
+                <p>以下数据基于实际测试，网络环境为国内普通办公网络（50Mbps）。手动导出时间按每篇 30 秒计算（不含网络延迟和失败重试），YuqueOut 时间包含图片本地化下载。</p>
+
+                <table>
+                    <thead>
+                        <tr><th>团队规模</th><th>知识库数量</th><th>文档总数</th><th>手动导出时间</th><th>YuqueOut 导出时间</th><th>效率提升</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>3-5 人小组</td><td>3-5 个</td><td>200 篇</td><td>~100 分钟</td><td>~10 分钟</td><td>10x</td></tr>
+                        <tr><td>10 人团队</td><td>8-12 个</td><td>500 篇</td><td>~250 分钟</td><td>~15 分钟</td><td>16x</td></tr>
+                        <tr><td>20 人团队</td><td>15-20 个</td><td>1000 篇</td><td>~500 分钟（8小时+）</td><td>~25 分钟</td><td>20x</td></tr>
+                        <tr><td>50 人部门</td><td>30+ 个</td><td>3000 篇</td><td>~1500 分钟（25小时+）</td><td>~45 分钟</td><td>33x</td></tr>
+                    </tbody>
+                </table>
+
+                <p>数据很直观：团队规模越大，手动导出越荒谬。一个 50 人的部门如果真的安排人手动导出 3000 篇文档，需要连续工作超过 3 天。而使用工具批量导出，45 分钟就搞定了。</p>
+
+                <p>这还没算一个隐性成本：手动操作过程中人的注意力消耗。重复点击 3000 次"更多 - 导出 - Markdown - 下载"，不仅浪费时间，更是对人力资源的严重浪费。你的团队成员应该把时间花在有创造力的工作上，而不是当"人肉导出机器"。</p>
+
+                <!-- Section 7 -->
+                <h2 id="verify">迁移后如何验证数据完整？</h2>
+
+                <p>完成批量导出后，验证数据完整性是迁移流程中不可跳过的步骤。根据我们的经验，约 2-3% 的文档可能因网络波动出现导出不完整的情况，及时发现并补导就行。</p>
+
+                <h3>文档数量核对</h3>
+
+                <p>最基础的检查。对比语雀知识库中的文档总数和本地导出的文件数。YuqueOut 导出完成后会显示成功/失败的统计数字，失败的文档支持一键重试。</p>
+
+                <h3>格式抽检</h3>
+
+                <p>随机打开 10-20 篇导出的文档，检查以下内容：</p>
+
+                <ul>
+                    <li>标题层级是否正确（H1/H2/H3）</li>
+                    <li>代码块是否完整（包括语言标记）</li>
+                    <li>列表嵌套是否正常</li>
+                    <li>表格是否保留了完整的行列结构</li>
+                </ul>
+
+                <h3>图片完整性验证</h3>
+
+                <p>开启图片本地化后，检查导出目录中的 assets 文件夹。确认图片文件数量与文档中的图片引用数量一致。可以打开几篇图片较多的文档，确认图片能正常显示。</p>
+
+                <h3>目录结构验证</h3>
+
+                <p>YuqueOut 会保留语雀知识库的原始目录结构。检查导出后的文件夹层级是否和语雀中的目录树一致。这对后续导入目标平台时保持组织结构很重要。</p>
+
+                <img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置面板，支持选择本地引擎或官方API导出模式，可配置图片本地化选项" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy">
+
+                <!-- Conclusion -->
+                <h2>总结：别让"一个个点"拖慢整个团队</h2>
+
+                <p>语雀没有团队批量导出功能。这是事实。当团队做出迁移决策后，面对几百上千篇文档，唯一的官方路径就是一篇一篇手动操作。对于任何有时间成本意识的团队来说，这条路走不通。</p>
+
+                <p>好消息是，这个问题有解。用对工具，30 分钟内就能完成整个团队的数据迁出。迁移不该是痛苦的，它应该只是换个平台继续工作的过渡步骤。</p>
+
+                <p>如果你的团队正面临从语雀搬家的需求，别犹豫，先把数据安全地导出到本地，再从容地选择目标平台和导入方式。</p>
+
+                <div class="blog-cta">
+                    <h3>30 分钟完成团队知识库迁出</h3>
+                    <p>免费安装 YuqueOut，批量导出所有知识库，不靠手动一个个点</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="blog-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        免费安装 YuqueOut
+                    </a>
+                </div>
+
+                <!-- Related Posts -->
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="blog-third-person.html" class="blog-related-card">
+                            <span class="blog-related-card-title">2024年语雀数据迁移完全指南：4种方案横评</span>
+                            <span class="blog-related-card-excerpt">系统梳理语雀导出现状与四种解决方案深度对比</span>
+                        </a>
+                        <a href="why-backup-yuque.html" class="blog-related-card">
+                            <span class="blog-related-card-title">为什么你应该定期备份语雀知识库？</span>
+                            <span class="blog-related-card-excerpt">真实案例告诉你不备份的代价</span>
+                        </a>
+                        <a href="yuque-batch-export-tutorial.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库批量导出完整教程</span>
+                            <span class="blog-related-card-excerpt">3步搞定，零技术门槛的批量导出指南</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

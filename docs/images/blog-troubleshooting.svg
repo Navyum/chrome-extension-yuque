@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <defs>
+    <linearGradient id="bg-trouble" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#bg-trouble)"/>
+  <!-- Warning triangle -->
+  <g transform="translate(160, 35)">
+    <path d="M40 0 L80 70 L0 70 Z" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+    <text x="40" y="55" text-anchor="middle" font-family="sans-serif" font-size="30" font-weight="700" fill="white">!</text>
+  </g>
+  <!-- Arrow to checkmark -->
+  <path d="M200 115 L200 135" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-dasharray="4 3"/>
+  <path d="M194 130 L200 138 L206 130" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Checkmark circle -->
+  <circle cx="200" cy="158" r="20" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+  <path d="M190 158 L196 164 L210 150" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Text -->
+  <text x="200" y="200" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.9)">Troubleshooting Guide</text>
+  <text x="200" y="217" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.6)">Diagnose → Fix → Recover</text>
+</svg>

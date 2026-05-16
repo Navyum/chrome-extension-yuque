@@ -12,7 +12,13 @@
     <meta property="og:title" content="语雀知识库导出工具全面对比评测（2025）">
     <meta property="og:description" content="YuqueOut、yuque-exporter、elog、官方导出全面对比，6维度深度评测。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-export-tools-comparison.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-comparison.svg">
     <meta property="article:published_time" content="2025-04-18">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀知识库导出工具全面对比评测（2025）">
+    <meta name="twitter:description" content="YuqueOut、yuque-exporter、elog、官方导出全面对比，6维度深度评测。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-comparison.svg">
 
     <meta name="theme-color" content="#060b22">
     <title>语雀知识库导出工具全面对比评测（2025）- YuqueOut 博客</title>
@@ -28,7 +34,7 @@
       "url": "https://yuque.toolab.top/blog/yuque-export-tools-comparison.html",
       "datePublished": "2025-04-18",
       "dateModified": "2025-04-18",
-      "author": { "@type": "Organization", "name": "YuqueOut" },
+      "author": { "@type": "Person", "name": "杨海俊", "url": "https://yuque.toolab.top/" },
       "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手" },
       "wordCount": 3500,
       "articleSection": "工具对比"
@@ -42,6 +48,29 @@
         { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
         { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
         { "@type": "ListItem", "position": 3, "name": "导出工具对比", "item": "https://yuque.toolab.top/blog/yuque-export-tools-comparison.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "哪个语雀导出工具最好用？",
+          "acceptedAnswer": { "@type": "Answer", "text": "综合功能、易用性和安全性来看，YuqueOut 是目前最推荐的语雀导出工具。它无需配置 API Token，支持一键批量导出、图片本地化和目录结构保留，零技术门槛，所有数据在浏览器本地处理，完全免费。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀导出工具安全吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不同工具的安全性差异很大。命令行工具需要配置语雀 API Token，Token 具有较高权限存在泄露风险。YuqueOut 使用浏览器 Cookie 鉴权，所有操作在本地完成，不需要 Token，数据不经过任何第三方服务器，安全性最高。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀画板能导出为图片吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "语雀官方不支持直接导出画板为图片。YuqueOut 通过 Chrome Offscreen API 实现了画板的 SVG 渲染和 PNG/JPG 导出，是目前唯一支持将语雀画板批量导出为高清图片的工具，导出质量与在线预览一致。" }
+        }
       ]
     }
     </script>
@@ -69,7 +98,7 @@
                     <a href="../privacy.html" class="nav-link">隐私政策</a>
                 </div>
                 <div class="nav-right">
-                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog" target="_blank" class="nav-cta-button">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="nav-cta-button">
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
                         <span>添加到 Chrome</span>
                     </a>
@@ -112,15 +141,27 @@
                     </ol>
                 </div>
 
-                <p>语雀知识库的导出需求催生了多种工具方案。但面对众多选择，用户往往不知道哪个最适合自己。本文从<strong>功能完整性、易用性、安全性、导出质量、维护状态和适用场景</strong>六个维度，对目前主流的语雀导出方案进行全面对比。</p>
+                <p><a href="https://www.yuque.com/" target="_blank" rel="noopener">语雀</a>知识库的导出需求催生了多种工具方案。关于用户在导出时遇到的具体困难，可以参阅<a href="./yuque-user-pain-points.html">语雀用户最头疼的7个问题</a>。面对众多选择，用户往往不知道哪个最适合自己。本文从<strong>功能完整性、易用性、安全性、导出质量、维护状态和适用场景</strong>六个维度，对目前主流的语雀导出方案进行全面对比。</p>
 
-                <h2 id="overview">评测维度与工具概览</h2>
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>YuqueOut 是唯一支持无权限文档导出 + 画板图片导出的工具</strong></li>
+                        <li><strong>CLI 工具（yuque-exporter/elog）受限于 API 权限体系</strong></li>
+                        <li><strong>非技术用户推荐 Chrome 扩展方案，零配置即可使用</strong></li>
+                    </ul>
+                </div>
+
+                <h2 id="overview">哪些维度决定语雀导出工具的好坏？</h2>
 
                 <p>我们选取了以下 4 种主流方案进行评测：</p>
 
                 <ol>
                     <li><strong>语雀官方导出</strong> —— 语雀内置的单篇导出功能</li>
-                    <li><strong>YuqueOut</strong> —— Chrome 浏览器扩展（本站产品）</li>
+                    <li><strong>YuqueOut</strong> —— <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc" target="_blank" rel="noopener">Chrome 应用商店</a>浏览器扩展（本站产品）</li>
                     <li><strong>yuque-exporter</strong> —— GitHub 开源的 Node.js CLI 工具</li>
                     <li><strong>elog</strong> —— 开源的文档同步/发布工具</li>
                 </ol>
@@ -136,7 +177,9 @@
                     <li><strong>适用场景</strong>：面向什么类型的用户</li>
                 </ul>
 
-                <h2 id="official">方案一：语雀官方导出</h2>
+                <h2 id="official">语雀官方导出功能够用吗？</h2>
+
+                <p><strong>语雀官方只支持逐篇手动导出，不提供批量导出、图片本地化或目录结构保留功能。</strong>对于拥有数百篇文档的知识库来说，官方方案无法满足备份需求。</p>
 
                 <h3>概述</h3>
                 <p>语雀自身提供了单篇文档的导出功能，支持 Markdown、Word、PDF 和 Lakebook 格式。</p>
@@ -160,7 +203,9 @@
                 <h3>适用场景</h3>
                 <p>临时导出少量文档（1~5 篇），不适合知识库级别的备份。</p>
 
-                <h2 id="yuqueout">方案二：YuqueOut 浏览器扩展</h2>
+                <h2 id="yuqueout">哪个语雀导出工具功能最全？</h2>
+
+                <p><strong>YuqueOut 是目前功能最完整的语雀导出工具，也是唯一同时支持画板图片导出和无 Token 鉴权的方案。</strong>它覆盖了批量导出、图片本地化、目录保留、增量备份等全部核心需求，且零技术门槛。</p>
 
                 <h3>概述</h3>
                 <p>YuqueOut 是专为语雀设计的 Chrome 浏览器扩展，提供一键批量导出、图片本地化、目录保留等功能。所有操作在浏览器本地完成。</p>
@@ -191,7 +236,7 @@
                 <h2 id="yuque-exporter">方案三：yuque-exporter (CLI)</h2>
 
                 <h3>概述</h3>
-                <p>yuque-exporter 是 GitHub 上的开源 Node.js 命令行工具，通过语雀的 API 接口实现批量导出。</p>
+                <p><a href="https://github.com/search?q=yuque-exporter" target="_blank" rel="noopener">yuque-exporter</a> 是 GitHub 上的开源 Node.js 命令行工具，通过语雀的 API 接口实现批量导出。</p>
 
                 <h3>优点</h3>
                 <ul>
@@ -239,7 +284,9 @@
                 <h3>适用场景</h3>
                 <p>需要将语雀文档同步发布到博客平台（Hexo、Hugo 等）的开发者。</p>
 
-                <h2 id="comparison-table">功能对比总表</h2>
+                <h2 id="comparison-table">四款工具的功能差距有多大？</h2>
+
+                <p><strong>在13项核心功能对比中，YuqueOut 全部支持，语雀官方仅支持3项，CLI 工具支持5-6项。</strong>以下是详细的功能对比总表：</p>
 
                 <div class="comparison-table-wrapper">
                     <table class="comparison-table">
@@ -348,16 +395,16 @@
                     </table>
                 </div>
 
-                <h2 id="recommendation">选型建议：哪个工具最适合你？</h2>
+                <h2 id="recommendation">哪个语雀导出工具最适合你？</h2>
 
                 <h3>你是非技术用户（产品经理、运营、写作者）</h3>
-                <p><strong>推荐：YuqueOut</strong>。零配置、零技术门槛，安装 Chrome 扩展后即可使用。图形化界面，操作直觉化。</p>
+                <p><strong>推荐：YuqueOut</strong>。零配置、零技术门槛，安装 Chrome 扩展后即可使用。图形化界面，操作直觉化。查看<a href="./yuque-batch-export-tutorial.html">批量导出详细教程</a>快速上手。</p>
 
                 <h3>你是开发者，需要简单可靠的备份</h3>
                 <p><strong>推荐：YuqueOut</strong>。虽然你能用命令行工具，但 YuqueOut 更省时省力。图片本地化、目录保留、增量导出等功能开箱即用，不需要额外配置。</p>
 
                 <h3>你需要将语雀文档发布到博客平台</h3>
-                <p><strong>推荐：YuqueOut + 静态博客框架</strong>（先用 YuqueOut 导出 Markdown，再部署到 Hexo/Hugo）。或者使用 <strong>elog</strong>，它专为「同步发布」场景设计。</p>
+                <p><strong>推荐：YuqueOut + 静态博客框架</strong>（先用 YuqueOut 导出 Markdown，再部署到 Hexo/Hugo）。具体迁移步骤请参考<a href="./yuque-to-markdown-guide.html">语雀文档批量转Markdown完整指南</a>。或者使用 <strong>elog</strong>，它专为「同步发布」场景设计。</p>
 
                 <h3>你需要在 CI/CD 中自动化导出</h3>
                 <p><strong>推荐：yuque-exporter</strong> 或 <strong>elog</strong>。命令行工具更适合集成到自动化流程中。</p>
@@ -365,7 +412,7 @@
                 <div class="blog-cta">
                     <h3>选择最适合你的方案</h3>
                     <p>绝大多数用户推荐使用 YuqueOut —— 功能最全、门槛最低、安全性最高</p>
-                    <a href="https://chromewebstore.google.com/detail/TODO_YUQUE_EXTENSION_ID?utm_source=blog_comparison" target="_blank" class="blog-cta-button">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_comparison" target="_blank" class="blog-cta-button">
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
                         免费安装 YuqueOut
                     </a>

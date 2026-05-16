@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <defs>
+    <linearGradient id="bg-team" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#bg-team)"/>
+  <!-- Multiple user icons -->
+  <g transform="translate(120, 40)">
+    <circle cx="30" cy="20" r="12" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5"/>
+    <circle cx="70" cy="20" r="12" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5"/>
+    <circle cx="110" cy="20" r="12" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5"/>
+    <circle cx="150" cy="20" r="12" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="150" y="25" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">...</text>
+  </g>
+  <!-- Documents stack -->
+  <g transform="translate(155, 65)">
+    <rect x="0" y="0" width="35" height="25" rx="2" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1"/>
+    <rect x="5" y="5" width="35" height="25" rx="2" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1"/>
+    <rect x="10" y="10" width="35" height="25" rx="2" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+    <text x="55" y="25" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">×1000</text>
+  </g>
+  <!-- Arrow down -->
+  <path d="M200 105 L200 125" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  <path d="M194 120 L200 128 L206 120" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Speed comparison -->
+  <g transform="translate(100, 135)">
+    <!-- Manual: slow -->
+    <rect x="0" y="0" width="80" height="30" rx="4" fill="rgba(255,255,255,0.1)"/>
+    <text x="40" y="14" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.6)">手动</text>
+    <text x="40" y="26" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="rgba(255,150,150,0.9)">8 小时+</text>
+    <!-- YuqueOut: fast -->
+    <rect x="110" y="0" width="80" height="30" rx="4" fill="rgba(255,255,255,0.2)"/>
+    <text x="150" y="14" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.6)">YuqueOut</text>
+    <text x="150" y="26" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="rgba(150,255,150,0.9)">30 分钟</text>
+  </g>
+  <!-- Text -->
+  <text x="200" y="192" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.9)">Team Knowledge Base Migration</text>
+  <text x="200" y="210" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.6)">Don't Click One by One</text>
+</svg>

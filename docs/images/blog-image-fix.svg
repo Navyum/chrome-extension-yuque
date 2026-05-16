@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <defs>
+    <linearGradient id="bg-img" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#bg-img)"/>
+  <!-- Broken image icon -->
+  <g transform="translate(130, 40)">
+    <rect x="0" y="0" width="60" height="50" rx="4" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
+    <path d="M15 35 L25 25 L35 32 L45 20 L50 25" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+    <!-- X mark (broken) -->
+    <line x1="20" y1="15" x2="40" y2="35" stroke="rgba(255,100,100,0.8)" stroke-width="2.5"/>
+    <line x1="40" y1="15" x2="20" y2="35" stroke="rgba(255,100,100,0.8)" stroke-width="2.5"/>
+  </g>
+  <!-- Arrow -->
+  <path d="M200 95 L200 115" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="4 3"/>
+  <path d="M194 110 L200 118 L206 110" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Fixed image icon -->
+  <g transform="translate(130, 125)">
+    <rect x="0" y="0" width="60" height="50" rx="4" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.5"/>
+    <path d="M15 35 L25 25 L35 32 L45 20 L50 25" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/>
+    <circle cx="20" cy="15" r="5" fill="rgba(255,255,255,0.3)"/>
+    <!-- Checkmark -->
+    <circle cx="52" cy="42" r="8" fill="rgba(34,197,94,0.9)"/>
+    <path d="M48 42 L51 45 L56 39" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- Text -->
+  <text x="280" y="75" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">cdn.nlark.com</text>
+  <text x="280" y="90" font-family="sans-serif" font-size="9" fill="rgba(255,100,100,0.8)">403 Forbidden</text>
+  <text x="280" y="150" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">./assets/img.png</text>
+  <text x="280" y="165" font-family="sans-serif" font-size="9" fill="rgba(34,197,94,0.8)">Local ✓</text>
+  <text x="200" y="205" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.9)">Image Hotlink Fix</text>
+</svg>
