@@ -1,0 +1,57 @@
+
+在插图中融入**简短有力的英文关键词（Typography）**是个非常高级的设计思路！这正是现今 Stripe、Google 等一线大厂官网插图的常用手法，能让画面更具“说明性”和“设计感”。
+现在的 AI（尤其是 Midjourney v6 或 DALL-E 3）对生成简短的英文单词已经非常在行了。秘诀是把单词用双引号括起来，并明确告诉 AI 写在哪个物体上。
+我为你全面升级了这 13 个 Prompt，不仅保留了之前的具象画面和丰富底色，还在每张图中最显眼的位置植入了契合主题的 英文关键词。
+⚠️ 生成提示：直接复制英文部分。如果偶尔 AI 拼错了一个字母，属于正常现象，直接让 Banana 重新生成（Reroll）一次即可。短单词成功率在 90% 以上。
+1. 语雀里存了三年的笔记，我花了30分钟全部「抢救」到了本地
+关键词：EXPORT (导出)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A cheerful character sitting at a sleek laptop. A waterfall of colorful document folders is flying seamlessly from a cloud icon directly into a sturdy local hard drive box. The word "EXPORT" is clearly and boldly written on the side of the hard drive box. A floating badge says "30 MIN". Soft pastel blue background. Corporate Memphis style, bright UI aesthetic. --ar 16:9 --no 3d, realistic, shading
+2. 2026年语雀数据迁移完全指南：4种方案横评
+关键词：MIGRATE (迁移)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A character holding a blueprint map. Four distinct colorful pathways lead towards a modern data archive building. Hovering UI cards with A, B, C options. The large word "MIGRATE" is clearly written as a glowing sign on top of the archive building. Soft pale yellow background. Corporate flat art, clear concept. --ar 16:9 --no 3d, shadow, realistic
+3. 语雀用户最头疼的7个问题（附解决方案）
+关键词：SOLVE (解决)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A tech-support character using an oversized wrench to tighten a giant gear. Next to them, a floating UI checklist board. The bold word "SOLVE" is clearly written at the top header of the checklist board, followed by green checkmarks. Soft mint green background. Modern flat vector, clean. --ar 16:9 --no 3d, photorealistic
+4. 语雀知识库导出工具全面对比评测
+关键词：VS (对比)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A large stylized balancing scale. On the left scale, a software box. On the right scale, analytical tools like a magnifying glass and ruler. A large, bold typography text "VS" is floating prominently in the center between the two scales. A character taking notes. Soft lavender purple background. Corporate Memphis. --ar 16:9 --no 3d, realistic
+5. 语雀知识库批量导出完整教程：3步搞定
+关键词：BATCH (批量)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A smooth automated conveyor belt passing through a sleek processing machine. Perfectly organized archive boxes are coming out. The word "BATCH" is clearly and cleanly printed on the side of the processing machine. A character pressing a Start button. Soft peach orange background. Automation concept, flat vector. --ar 16:9 --no 3d, shadow
+6. 为什么你应该定期备份语雀知识库？
+关键词：BACKUP (备份)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A giant sturdy digital umbrella protecting documents from a rainstorm of red warning signs. Underneath, a character is safely hugging a metal security vault. The bold word "BACKUP" is clearly written across the door of the vault. Soft greyish-blue background. Data protection concept. --ar 16:9 --no 3d, photorealistic
+7. 语雀文档批量转Markdown：博客迁移完整指南
+关键词：.MD (Markdown后缀)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A futuristic conversion gateway. Rich text documents entering the gate, and clean code files coming out. A sleek sign above the gateway clearly displays the typography text ".MD". Floating code brackets. Soft teal background. Format translation concept, clean flat lines. --ar 16:9 --no 3d, realistic
+8. 语雀表格、画板、数据表导出完全攻略
+关键词：DATA (数据)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A giant flat spreadsheet grid, a colorful pie chart, and a painter's palette seamlessly sliding like puzzle pieces into a universal golden folder. The word "DATA" is clearly and boldly written on the cover of the golden folder. Pale pink background. Variety concept. --ar 16:9 --no 3d, shading
+9. 语雀导出失败怎么办？常见报错排查与恢复指南
+关键词：RECOVER (恢复)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A large monitor showing an error. A character is applying a giant digital band-aid to the screen to fix the error. The word "RECOVER" is clearly written in bold letters directly on the band-aid. Soft cyan background. Troubleshooting concept, bright flat colors. --ar 16:9 --no 3d, photorealistic
+10. 语雀导出「所见即所得」：只要能打开就能导出
+关键词：100% (百分百还原)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A scanning eye looking at a digital web page, and a machine instantly generating a perfect physical paper clone. A bright floating sticker tag attached to the paper clearly says "100%". Soft pastel mint green background. Perfect symmetry, crisp vector art. --ar 16:9 --no 3d
+11. 语雀迁移到飞书文档完整指南
+关键词：SYNC (同步)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A smooth colorful bridge connecting a green island to a blue island. A character effortlessly pushing a cart of documents across the bridge. A modern road sign floating above the bridge clearly displays the bold word "SYNC". Soft gradient light blue background. --ar 16:9 --no 3d, realistic
+12. 语雀图片防盗链完美解决：图片裂了怎么办？
+关键词：FIX (修复)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A character using a glowing digital needle to stitch a broken image icon back together into a colorful photograph. A small sleek label on the corner of the picture frame clearly says "FIX". Warm beige cream background. Corporate flat design. --ar 16:9 --no 3d
+13. 团队知识库从语雀迁出：批量导出不靠手动一个个点
+关键词：TEAM (团队)
+Prompt (复制英文):
+A minimalist flat vector illustration in Google design style. A sleek automated robotic crane effortlessly lifting a massive cargo container completely filled with hundreds of file folders. The large bold word "TEAM" is clearly painted on the side of the cargo container. Three diverse team members cheering. Soft violet purple background. Bulk export concept. --ar 16:9 --no 3d, photorealistic

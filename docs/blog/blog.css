@@ -326,7 +326,9 @@
 }
 
 @media (max-width: 640px) {
-    .blog-article-section { padding: 100px 16px 60px; }
+    .blog-article-section {
+        padding: 100px 16px 60px;
+    }
 }
 
 .blog-article-header {
@@ -349,9 +351,13 @@
     transition: color 0.2s;
 }
 
-.blog-article-breadcrumb a:hover { color: #fff; }
+.blog-article-breadcrumb a:hover {
+    color: #fff;
+}
 
-.blog-article-breadcrumb span { color: hsla(0, 0%, 100%, 0.4); }
+.blog-article-breadcrumb span {
+    color: hsla(0, 0%, 100%, 0.4);
+}
 
 .blog-article-tag {
     display: inline-block;
@@ -377,7 +383,9 @@
 }
 
 @media (max-width: 640px) {
-    .blog-article-title { font-size: 1.75rem; }
+    .blog-article-title {
+        font-size: 1.75rem;
+    }
 }
 
 .blog-article-meta {
@@ -458,7 +466,9 @@
     line-height: 1.8;
 }
 
-.blog-article-content li strong { color: #fff; }
+.blog-article-content li strong {
+    color: #fff;
+}
 
 .blog-article-content blockquote {
     border-left: 3px solid #667eea;
@@ -470,7 +480,9 @@
     font-style: italic;
 }
 
-.blog-article-content blockquote p { margin-bottom: 0; }
+.blog-article-content blockquote p {
+    margin-bottom: 0;
+}
 
 /* Comparison Table */
 .comparison-table-wrapper {
@@ -510,9 +522,18 @@
     background: rgba(102, 126, 234, 0.05);
 }
 
-.comparison-table .check { color: #10b981; font-weight: 700; }
-.comparison-table .cross { color: #ef4444; }
-.comparison-table .partial { color: #f59e0b; }
+.comparison-table .check {
+    color: #10b981;
+    font-weight: 700;
+}
+
+.comparison-table .cross {
+    color: #ef4444;
+}
+
+.comparison-table .partial {
+    color: #f59e0b;
+}
 
 /* Info Box / Callout */
 .info-box {
@@ -538,14 +559,18 @@
     font-size: 0.95rem;
 }
 
-.info-box p:last-child { margin-bottom: 0; }
+.info-box p:last-child {
+    margin-bottom: 0;
+}
 
 .warning-box {
     border-color: rgba(245, 158, 11, 0.3);
     background: rgba(245, 158, 11, 0.06);
 }
 
-.warning-box .info-box-title { color: #f59e0b; }
+.warning-box .info-box-title {
+    color: #f59e0b;
+}
 
 /* Steps */
 .step-list {
@@ -645,7 +670,9 @@
 }
 
 @media (max-width: 640px) {
-    .blog-related-grid { grid-template-columns: 1fr; }
+    .blog-related-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .blog-related-card {
@@ -680,7 +707,9 @@
 }
 
 /* FAQ Schema Section */
-.faq-section { margin: 40px 0; }
+.faq-section {
+    margin: 40px 0;
+}
 
 .faq-item {
     border: 1px solid hsla(0, 0%, 100%, 0.08);
@@ -701,7 +730,9 @@
     transition: background 0.2s;
 }
 
-.faq-question:hover { background: rgba(102, 126, 234, 0.06); }
+.faq-question:hover {
+    background: rgba(102, 126, 234, 0.06);
+}
 
 .faq-question::after {
     content: "+";
@@ -742,7 +773,9 @@
 }
 
 @media (max-width: 640px) {
-    .review-grid { grid-template-columns: 1fr; }
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .review-card {
@@ -806,4 +839,6 @@
     transition: color 0.2s;
 }
 
-.blog-toc a:hover { color: #667eea; }
+.blog-toc a:hover {
+    color: #667eea;
+}
