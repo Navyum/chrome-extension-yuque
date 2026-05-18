@@ -12,17 +12,18 @@
     <meta property="og:title" content="语雀文档批量转Markdown：博客迁移与知识管理完整指南">
     <meta property="og:description" content="从语雀到 Hexo/Hugo/Obsidian/Notion 的完整迁移工作流。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-markdown-guide.html">
-    <meta property="og:image" content="https://yuque.toolab.top/images/blog-markdown.svg">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-markdown.webp">
     <meta property="article:published_time" content="2025-04-10">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="语雀文档批量转Markdown：博客迁移与知识管理完整指南">
     <meta name="twitter:description" content="从语雀到 Hexo/Hugo/Obsidian/Notion 的完整迁移工作流。">
-    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-markdown.svg">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-markdown.webp">
 
     <meta name="theme-color" content="#060b22">
     <title>语雀文档批量转Markdown：博客迁移与知识管理完整指南 - YuqueOut 博客</title>
     <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog.css">
     <script type="application/ld+json">
@@ -34,8 +35,9 @@
       "url": "https://yuque.toolab.top/blog/yuque-to-markdown-guide.html",
       "datePublished": "2025-04-10",
       "dateModified": "2025-04-10",
-      "author": { "@type": "Person", "name": "杨海俊", "url": "https://yuque.toolab.top/" },
-      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手" },
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "image": "https://yuque.toolab.top/images/blog-markdown.webp",
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
       "wordCount": 3000,
       "articleSection": "迁移指南"
     }
@@ -86,7 +88,7 @@
         <nav class="homepage-nav">
             <div class="nav-content">
                 <div class="nav-left">
-                    <a href="../"><picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture><span class="logo-text">YuqueOut 语雀导出助手</span></a>
+                    <a href="../"><picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture><span class="logo-text">YuqueOut 语雀导出助手</span></a>
                 </div>
                 <div class="nav-center">
                     <a href="../#features" class="nav-link">功能特性</a>
@@ -121,10 +123,19 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         11 分钟阅读
                     </span>
-                </div>
+                                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
+                    </div>
             </div>
 
             <div class="blog-article-content">
+                <img src="../images/blog-markdown.webp" alt="语雀文档批量转 Markdown 指南" width="1200" height="630" style="width:100%;border-radius:8px;margin-bottom:2rem;">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">将语雀文档批量转为 Markdown 需要解决三个核心问题：图片本地化（cdn.nlark.com 防盗链导致外链失效）、Front Matter 生成（适配 Hexo/Hugo/VitePress）、目录结构保留（多级嵌套文档映射为文件夹）。使用 YuqueOut 导出 Markdown 格式会自动处理这三个问题：图片下载到本地 assets 文件夹、保留原始目录层级、生成干净的 .md 文件。导出后可直接用于 Obsidian、Notion 导入或静态博客部署。</p>
+                </aside>
+
                 <div class="blog-toc">
                     <div class="blog-toc-title">目录</div>
                     <ol>
@@ -416,7 +427,7 @@ categories:
                 <div class="footer-grid">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
                             <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
                         </div>
                         <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
@@ -441,6 +452,6 @@ categories:
         </footer>
     </main>
 
-    <script src="../script.js"></script>
+    <script src="../script.js" defer></script>
 </body>
 </html>

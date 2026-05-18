@@ -12,7 +12,7 @@
     <meta property="og:title" content="语雀表格、画板、数据表导出完全攻略">
     <meta property="og:description" content="3种特殊文档类型共7种导出格式，含本地转换引擎原理与常见问题排查。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-export-special-docs.html">
-    <meta property="og:image" content="https://yuque.toolab.top/images/blog-special-docs.svg">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-special-docs.webp">
     <meta property="og:locale" content="zh_CN">
     <meta property="article:published_time" content="2025-04-30">
     <meta property="article:modified_time" content="2025-04-30">
@@ -21,11 +21,12 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="语雀表格、画板、数据表导出完全攻略">
     <meta name="twitter:description" content="3种特殊文档类型共7种导出格式，含本地转换引擎原理与常见问题排查。">
-    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-special-docs.svg">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-special-docs.webp">
 
     <meta name="theme-color" content="#060b22">
     <title>语雀表格、画板、数据表导出完全攻略 - YuqueOut 博客</title>
     <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog.css">
     <script type="application/ld+json">
@@ -37,8 +38,9 @@
       "url": "https://yuque.toolab.top/blog/yuque-export-special-docs.html",
       "datePublished": "2025-04-30",
       "dateModified": "2025-04-30",
-      "author": { "@type": "Person", "name": "杨海俊" },
-      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "image": "https://yuque.toolab.top/images/blog-special-docs.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
       "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-export-special-docs.html",
       "wordCount": 2000,
       "articleSection": "深度教程"
@@ -96,7 +98,7 @@
             <div class="nav-content">
                 <div class="nav-left">
                     <a href="../">
-                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
                         <span class="logo-text">YuqueOut 语雀导出助手</span>
                     </a>
                 </div>
@@ -134,10 +136,20 @@
                         8 分钟阅读
                     </span>
                     <span class="blog-article-meta-item">约 2000 字</span>
+                
+                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
                 </div>
             </div>
 
             <div class="blog-article-content">
+                <img src="../images/blog-special-docs.webp" alt="语雀表格画板数据表导出攻略" width="1200" height="630" style="width:100%;border-radius:8px;margin-bottom:2rem;">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">语雀三种特殊文档类型的导出方案：（1）表格（Lakesheet）：YuqueOut 在本地解压 pako 压缩数据，支持导出为 Excel、CSV、Markdown、HTML 四种格式，语雀官方仅支持 Excel；（2）画板（Lakeboard）：通过本地 SVG 字符串拼接渲染引擎，导出为 PNG、JPG、SVG 三种格式，语雀官方 API 完全不支持画板导出；（3）数据表：导出为 Excel 格式保留字段结构。这些能力均为 YuqueOut 独有。</p>
+                </aside>
+
                 <div class="blog-toc">
                     <div class="blog-toc-title">目录</div>
                     <ol>
@@ -366,7 +378,7 @@
                 <div class="footer-grid">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image" width="36" height="36"></picture>
                             <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
                         </div>
                         <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
@@ -393,6 +405,6 @@
         </footer>
     </main>
 
-    <script src="../script.js"></script>
+    <script src="../script.js" defer></script>
 </body>
 </html>

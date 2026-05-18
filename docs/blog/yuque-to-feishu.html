@@ -12,7 +12,7 @@
     <meta property="og:title" content="语雀迁移到飞书文档完整指南：从导出到导入一篇搞定">
     <meta property="og:description" content="语雀没有批量导出功能，手动搬400篇要3小时。用YuqueOut批量导出后导入飞书，30分钟搞定全部迁移。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-feishu.html">
-    <meta property="og:image" content="https://yuque.toolab.top/images/blog-feishu.svg">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-feishu.webp">
     <meta property="og:locale" content="zh_CN">
     <meta property="article:published_time" content="2025-05-08">
     <meta property="article:modified_time" content="2025-05-08">
@@ -21,11 +21,12 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="语雀迁移到飞书文档完整指南：从导出到导入一篇搞定">
     <meta name="twitter:description" content="语雀没有批量导出功能，手动搬400篇要3小时。用YuqueOut批量导出后导入飞书，30分钟搞定全部迁移。">
-    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-feishu.svg">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-feishu.webp">
 
     <meta name="theme-color" content="#060b22">
     <title>语雀迁移到飞书文档完整指南：从导出到导入一篇搞定 - YuqueOut 博客</title>
     <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog.css">
     <script type="application/ld+json">
@@ -37,8 +38,9 @@
       "url": "https://yuque.toolab.top/blog/yuque-to-feishu.html",
       "datePublished": "2025-05-08",
       "dateModified": "2025-05-08",
-      "author": { "@type": "Person", "name": "杨海俊" },
-      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "image": "https://yuque.toolab.top/images/blog-feishu.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
       "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-to-feishu.html",
       "wordCount": 2000,
       "articleSection": "迁移指南"
@@ -96,7 +98,7 @@
             <div class="nav-content">
                 <div class="nav-left">
                     <a href="../">
-                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
                         <span class="logo-text">YuqueOut 语雀导出助手</span>
                     </a>
                 </div>
@@ -134,10 +136,19 @@
                         8 分钟阅读
                     </span>
                     <span class="blog-article-meta-item">约 2000 字</span>
+                
+                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
                 </div>
             </div>
 
             <div class="blog-article-content">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">语雀迁移到飞书文档的完整流程：第一步，使用 YuqueOut 批量导出语雀知识库为 Markdown 或 Word 格式（30 分钟内完成 400+ 篇）；第二步，在飞书文档中使用「导入」功能批量上传导出的文件；第三步，检查格式兼容性并手动调整少量不兼容的元素（如嵌入卡片）。手动迁移 400 篇需要 3 小时以上，使用 YuqueOut + 飞书批量导入组合只需 30 分钟。</p>
+                </aside>
+
                 <div class="blog-toc">
                     <div class="blog-toc-title">目录</div>
                     <ol>
@@ -181,7 +192,7 @@
                 <p>手动操作的流程是：打开文档，点右上角「更多」，选「导出」，选格式，等待生成，下载。每篇文档重复一次，400 篇就是 400 次。按每篇 30 秒计算，总耗时超过 3 小时。这还不算没有导出权限的协作文档，那些连手动导出的机会都没有。</p>
 
                 <!-- Image placeholder -->
-                <img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 扩展界面展示批量导出知识库列表和多种导出格式选项" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+                <picture><source srcset="https://yuque.toolab.top/images/feat1.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 扩展界面展示批量导出知识库列表和多种导出格式选项" style="width:100%;border-radius:8px;margin:1.5rem 0;" width="1280" height="800"></picture>
 
                 <!-- Section 2 -->
                 <h2 id="official-support">语雀官方有迁移到飞书的功能吗？</h2>
@@ -224,7 +235,7 @@
                 <p>导出完成后，你会在本地得到按知识库分目录存放的 Markdown 文件。如果开启了"图片本地化"选项，所有图片也会下载到对应目录。更详细的操作说明可以参考<a href="./yuque-batch-export-tutorial.html">语雀批量导出完整教程</a>。</p>
 
                 <!-- Image placeholder -->
-                <img src="https://yuque.toolab.top/images/feat2.png" alt="YuqueOut 批量导出进度界面展示文档逐一导出完成的实时状态" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy">
+                <picture><source srcset="https://yuque.toolab.top/images/feat2.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat2.png" alt="YuqueOut 批量导出进度界面展示文档逐一导出完成的实时状态" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy" width="1280" height="800"></picture>
 
                 <!-- Section 4 -->
                 <h2 id="import-feishu">导出的文档怎么导入飞书？</h2>
@@ -250,7 +261,7 @@
                 <p>另一个方案是导出为 Word 格式。Word 文件会将图片嵌入文件内部，导入飞书时图片能自动跟随，省去手动上传的步骤。缺点是 Word 格式对代码块和表格的还原不如 Markdown 准确。</p>
 
                 <!-- Image placeholder -->
-                <img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置面板展示图片本地化和导出格式配置选项" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy">
+                <picture><source srcset="https://yuque.toolab.top/images/feat3.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置面板展示图片本地化和导出格式配置选项" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy" width="1280" height="800"></picture>
 
                 <!-- Section 5 -->
                 <h2 id="post-check">迁移后需要检查什么？</h2>
@@ -391,7 +402,7 @@
                 <div class="footer-grid">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image" width="36" height="36"></picture>
                             <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
                         </div>
                         <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
@@ -418,6 +429,6 @@
         </footer>
     </main>
 
-    <script src="../script.js"></script>
+    <script src="../script.js" defer></script>
 </body>
 </html>

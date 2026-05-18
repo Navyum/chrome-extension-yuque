@@ -31,6 +31,7 @@
     <link rel="icon" href="images/icon.png" type="image/png">
     
     
+    <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
     <script type="application/ld+json">
     {
@@ -64,11 +65,13 @@
         "https://yuque.toolab.top/images/feat2.png",
         "https://yuque.toolab.top/images/feat3.png"
       ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "reviewCount": "100"
-      }
+      "author": {
+        "@type": "Organization",
+        "name": "YuqueOut",
+        "url": "https://yuque.toolab.top/"
+      },
+      "installUrl": "https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc",
+      "datePublished": "2025-04-10"
     }
     </script>
     <script type="application/ld+json">
@@ -81,6 +84,41 @@
         "name": "首页",
         "item": "https://yuque.toolab.top/"
       }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "YuqueOut",
+      "url": "https://yuque.toolab.top/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://yuque.toolab.top/images/icon.png",
+        "width": 128,
+        "height": 128
+      },
+      "sameAs": [
+        "https://github.com/Navyum/chrome-extension-yuque",
+        "https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "yhj2433488839@gmail.com",
+        "contactType": "customer support"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "YuqueOut 语雀导出助手",
+      "url": "https://yuque.toolab.top/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "YuqueOut"
+      }
     }
     </script>
     <script type="application/ld+json">
@@ -133,7 +171,7 @@
                     <a href="/">
                         <picture>
                             
-                            <img src="images/icon-36x36.png" alt="YuqueOut">
+                            <img src="images/icon-36x36.png" alt="YuqueOut" width="36" height="36">
                         </picture>
                         <span class="logo-text">YuqueOut 语雀导出助手</span>
                     </a>
@@ -367,7 +405,7 @@
                         <div class="footer-logo">
                             <picture>
                                 
-                                <img src="images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image">
+                                <img src="images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image" width="36" height="36">
                             </picture>
                             <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
                         </div>
@@ -462,7 +500,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
 

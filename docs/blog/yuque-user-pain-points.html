@@ -12,7 +12,7 @@
     <meta property="og:title" content="语雀用户最头疼的7个问题（附解决方案）">
     <meta property="og:description" content="从无法批量导出到图片防盗链失效，深入剖析语雀用户的真实痛点并提供解决方案。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-user-pain-points.html">
-    <meta property="og:image" content="https://yuque.toolab.top/images/blog-pain-points.svg">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-pain-points.webp">
     <meta property="og:locale" content="zh_CN">
     <meta property="article:published_time" content="2025-04-20">
     <meta property="article:modified_time" content="2025-04-20">
@@ -21,11 +21,12 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="语雀用户最头疼的7个问题（附解决方案）">
     <meta name="twitter:description" content="从无法批量导出到图片防盗链失效，深入剖析语雀用户的真实痛点并提供解决方案。">
-    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-pain-points.svg">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-pain-points.webp">
 
     <meta name="theme-color" content="#060b22">
     <title>语雀用户最头疼的7个问题及解决方案 - YuqueOut 博客</title>
     <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog.css">
     <script type="application/ld+json">
@@ -37,8 +38,9 @@
       "url": "https://yuque.toolab.top/blog/yuque-user-pain-points.html",
       "datePublished": "2025-04-20",
       "dateModified": "2025-04-20",
-      "author": { "@type": "Person", "name": "杨海俊", "url": "https://yuque.toolab.top/" },
-      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "image": "https://yuque.toolab.top/images/blog-pain-points.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
       "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-user-pain-points.html",
       "wordCount": 3200,
       "articleSection": "痛点解析"
@@ -96,7 +98,7 @@
             <div class="nav-content">
                 <div class="nav-left">
                     <a href="../">
-                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
                         <span class="logo-text">YuqueOut 语雀导出助手</span>
                     </a>
                 </div>
@@ -134,10 +136,20 @@
                         12 分钟阅读
                     </span>
                     <span class="blog-article-meta-item">约 3200 字</span>
+                
+                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
                 </div>
             </div>
 
             <div class="blog-article-content">
+                <img src="../images/blog-pain-points.webp" alt="语雀用户常见问题与痛点" width="1200" height="630" style="width:100%;border-radius:8px;margin-bottom:2rem;">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">语雀用户最常遇到的 7 个痛点：（1）无法一键批量导出整个知识库；（2）收藏夹内容无法导出；（3）图片使用 cdn.nlark.com 防盗链，导出后全部裂开；（4）画板/白板无法导出为图片；（5）表格仅支持 Excel 单一格式；（6）协作文档受导出权限限制；（7）目录结构在导出时丢失。YuqueOut 通过本地双引擎架构解决了全部 7 个问题，支持 9 种导出格式。</p>
+                </aside>
+
                 <div class="blog-toc">
                     <div class="blog-toc-title">目录</div>
                     <ol>
@@ -398,7 +410,7 @@
                 <div class="footer-grid">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image" width="36" height="36"></picture>
                             <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
                         </div>
                         <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
@@ -425,7 +437,7 @@
         </footer>
     </main>
 
-    <script src="../script.js"></script>
+    <script src="../script.js" defer></script>
     <script>
     document.querySelectorAll('.faq-question').forEach(q => {
         q.addEventListener('click', () => q.parentElement.classList.toggle('open'));

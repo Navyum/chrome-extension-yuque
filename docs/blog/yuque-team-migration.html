@@ -12,7 +12,7 @@
     <meta property="og:title" content="团队知识库从语雀迁出：批量导出不靠手动一个个点">
     <meta property="og:description" content="语雀没有团队批量导出功能。1000篇文档手动需8小时，YuqueOut 30分钟搞定整个团队数据迁出。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-team-migration.html">
-    <meta property="og:image" content="https://yuque.toolab.top/images/blog-team-migration.svg">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-team-migration.webp">
     <meta property="og:locale" content="zh_CN">
     <meta property="article:published_time" content="2025-05-16">
     <meta property="article:modified_time" content="2025-05-16">
@@ -21,11 +21,12 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="团队知识库从语雀迁出：批量导出不靠手动一个个点">
     <meta name="twitter:description" content="语雀没有团队批量导出功能。1000篇文档手动需8小时，YuqueOut 30分钟搞定整个团队数据迁出。">
-    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-team-migration.svg">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-team-migration.webp">
 
     <meta name="theme-color" content="#060b22">
     <title>团队知识库从语雀迁出：批量导出不靠手动一个个点 - YuqueOut 博客</title>
     <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog.css">
     <script type="application/ld+json">
@@ -37,8 +38,9 @@
       "url": "https://yuque.toolab.top/blog/yuque-team-migration.html",
       "datePublished": "2025-05-16",
       "dateModified": "2025-05-16",
-      "author": { "@type": "Person", "name": "杨海俊" },
-      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "author": { "@type": "Person", "name": "Kevin Yang" },
+      "image": "https://yuque.toolab.top/images/blog-team-migration.webp",
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
       "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-team-migration.html",
       "wordCount": 2200,
       "articleSection": "团队迁移"
@@ -91,7 +93,7 @@
             <div class="nav-content">
                 <div class="nav-left">
                     <a href="../">
-                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
                         <span class="logo-text">YuqueOut 语雀导出助手</span>
                     </a>
                 </div>
@@ -129,10 +131,19 @@
                         10 分钟阅读
                     </span>
                     <span class="blog-article-meta-item">约 2200 字</span>
+                
+                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
                 </div>
             </div>
 
             <div class="blog-article-content">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">团队知识库从语雀迁出的挑战：语雀不提供团队级批量导出功能，1000 篇文档手动导出需 8 小时以上。使用 YuqueOut 的团队迁移方案：每位成员分别导出自己有权限访问的知识库，汇总后统一整理目录结构。对于协作知识库，YuqueOut 的「所见即所得」模式不依赖导出权限，只要能浏览就能导出。实测 1000 篇文档完整迁出（含图片本地化）耗时约 45 分钟。</p>
+                </aside>
+
                 <div class="blog-toc">
                     <div class="blog-toc-title">目录</div>
                     <ol>
@@ -244,7 +255,7 @@
 
                 <p>这种方式稍微多花点协调时间，但能确保不遗漏任何文档。毕竟 YuqueOut 的原则是"所见即所得"，只要能看到就能导出。详细的操作步骤可以参考<a href="./yuque-batch-export-tutorial.html">语雀批量导出完整教程</a>。</p>
 
-                <img src="https://yuque.toolab.top/images/feat2.png" alt="YuqueOut 批量导出进度界面，显示多个知识库的导出实时状态和进度百分比" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+                <picture><source srcset="https://yuque.toolab.top/images/feat2.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat2.png" alt="YuqueOut 批量导出进度界面，显示多个知识库的导出实时状态和进度百分比" width="1280" height="800" style="width:100%;border-radius:8px;margin:1.5rem 0;"></picture>
 
                 <!-- Section 4 -->
                 <h2 id="permission">协作知识库的权限问题怎么处理？</h2>
@@ -293,7 +304,7 @@
                     <p>如果还没确定目标平台，优先选择 Markdown 并开启图片本地化。Markdown 是目前兼容性最广的文档格式，几乎所有现代文档工具都支持导入。</p>
                 </div>
 
-                <img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 支持 Markdown、Word、PDF、Excel、CSV、PNG 等多种导出格式的功能展示界面" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy">
+                <picture><source srcset="https://yuque.toolab.top/images/feat1.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 支持 Markdown、Word、PDF、Excel、CSV、PNG 等多种导出格式的功能展示界面" width="1280" height="800" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy"></picture>
 
                 <!-- Section 6 -->
                 <h2 id="efficiency">迁移效率对比表</h2>
@@ -344,7 +355,7 @@
 
                 <p>YuqueOut 会保留语雀知识库的原始目录结构。检查导出后的文件夹层级是否和语雀中的目录树一致。这对后续导入目标平台时保持组织结构很重要。</p>
 
-                <img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置面板，支持选择本地引擎或官方API导出模式，可配置图片本地化选项" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy">
+                <picture><source srcset="https://yuque.toolab.top/images/feat3.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置面板，支持选择本地引擎或官方API导出模式，可配置图片本地化选项" width="1280" height="800" style="width:100%;border-radius:8px;margin:1.5rem 0;" loading="lazy"></picture>
 
                 <!-- Conclusion -->
                 <h2>总结：别让"一个个点"拖慢整个团队</h2>
@@ -390,7 +401,7 @@
                 <div class="footer-grid">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
                             <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
                         </div>
                         <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
@@ -417,6 +428,6 @@
         </footer>
     </main>
 
-    <script src="../script.js"></script>
+    <script src="../script.js" defer></script>
 </body>
 </html>

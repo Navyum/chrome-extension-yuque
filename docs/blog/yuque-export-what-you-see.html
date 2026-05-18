@@ -12,7 +12,7 @@
     <meta property="og:title" content="语雀导出「所见即所得」：只要能打开就能导出">
     <meta property="og:description" content="不依赖导出权限，400篇文档30分钟全部备份到本地。支持收藏夹、画板、加密文档等全类型导出。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-export-what-you-see.html">
-    <meta property="og:image" content="https://yuque.toolab.top/images/blog-wysiwyg.svg">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-wysiwyg.webp">
     <meta property="og:locale" content="zh_CN">
     <meta property="article:published_time" content="2025-04-25">
     <meta property="article:modified_time" content="2025-04-25">
@@ -21,11 +21,12 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="语雀导出「所见即所得」：只要能打开就能导出">
     <meta name="twitter:description" content="不依赖导出权限，400篇文档30分钟全部备份到本地。支持收藏夹、画板、加密文档等全类型导出。">
-    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-wysiwyg.svg">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-wysiwyg.webp">
 
     <meta name="theme-color" content="#060b22">
     <title>语雀导出「所见即所得」：只要能打开就能导出 - YuqueOut 博客</title>
     <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog.css">
     <script type="application/ld+json">
@@ -37,8 +38,9 @@
       "url": "https://yuque.toolab.top/blog/yuque-export-what-you-see.html",
       "datePublished": "2025-04-25",
       "dateModified": "2025-04-25",
-      "author": { "@type": "Person", "name": "杨海俊", "url": "https://yuque.toolab.top/" },
-      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/" },
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "image": "https://yuque.toolab.top/images/blog-wysiwyg.webp",
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
       "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-export-what-you-see.html",
       "wordCount": 2200,
       "articleSection": "功能解析"
@@ -108,7 +110,7 @@
             <div class="nav-content">
                 <div class="nav-left">
                     <a href="../">
-                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture>
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
                         <span class="logo-text">YuqueOut 语雀导出助手</span>
                     </a>
                 </div>
@@ -146,10 +148,19 @@
                         8 分钟阅读
                     </span>
                     <span class="blog-article-meta-item">约 2200 字</span>
+                
+                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
                 </div>
             </div>
 
             <div class="blog-article-content">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">YuqueOut 采用「所见即所得」导出逻辑：只要你能在浏览器中打开并阅读文档，就能将其导出到本地。不依赖语雀官方的导出权限设置——收藏的文档、协作知识库、他人分享的内容、甚至管理员禁止导出的文档都可以导出。原理是通过浏览器已有的登录态直接获取文档渲染内容，在本地完成格式转换，全程不调用语雀的导出 API，因此不受权限限制。</p>
+                </aside>
+
                 <div class="blog-toc">
                     <div class="blog-toc-title">目录</div>
                     <ol>
@@ -232,7 +243,7 @@
 
                 <p>不需要导出权限，不需要管理员授权，不需要 API Token。你在语雀上能阅读的每一篇文档、每一张表格、每一个画板，YuqueOut 都能帮你保存到本地。</p>
 
-                <img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 多格式导出界面展示" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+                <picture><source srcset="https://yuque.toolab.top/images/feat1.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat1.png" alt="YuqueOut 多格式导出界面展示" width="1280" height="800" style="width:100%;border-radius:8px;margin:1.5rem 0;"></picture>
 
                 <h2 id="export-result">YuqueOut 是怎么绕过导出限制的？</h2>
 
@@ -284,7 +295,7 @@
 
                 <p>我的项目流程图、团队的脑暴思维导图，终于不用截屏了。</p>
 
-                <img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置页面展示表格和画板导出选项" loading="lazy" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+                <picture><source srcset="https://yuque.toolab.top/images/feat3.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat3.png" alt="YuqueOut 设置页面展示表格和画板导出选项" width="1280" height="800" loading="lazy" style="width:100%;border-radius:8px;margin:1.5rem 0;"></picture>
 
                 <h2 id="privacy">使用导出工具安全吗？数据会被上传吗？</h2>
 
@@ -425,7 +436,7 @@
 
                 <p>试试 YuqueOut（可在 <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc" target="_blank" rel="noopener">Chrome 应用商店</a>免费安装）。<strong>只要你能打开，就能导出。</strong></p>
 
-                <img src="https://yuque.toolab.top/images/feat4.png" alt="YuqueOut 功能特性全览" loading="lazy" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+                <picture><source srcset="https://yuque.toolab.top/images/feat4.webp" type="image/webp"><img src="https://yuque.toolab.top/images/feat4.png" alt="YuqueOut 功能特性全览" width="1280" height="800" loading="lazy" style="width:100%;border-radius:8px;margin:1.5rem 0;"></picture>
 
                 <div class="blog-cta">
                     <h3>所见即所得，一键导出语雀文档</h3>
@@ -466,7 +477,7 @@
                 <div class="footer-grid">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
                             <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
                         </div>
                         <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
@@ -493,6 +504,6 @@
         </footer>
     </main>
 
-    <script src="../script.js"></script>
+    <script src="../script.js" defer></script>
 </body>
 </html>

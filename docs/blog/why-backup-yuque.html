@@ -12,17 +12,18 @@
     <meta property="og:title" content="为什么你应该定期备份语雀知识库？数据安全指南">
     <meta property="og:description" content="真实案例分析语雀数据风险，附自动备份方案。">
     <meta property="og:url" content="https://yuque.toolab.top/blog/why-backup-yuque.html">
-    <meta property="og:image" content="https://yuque.toolab.top/images/blog-backup.svg">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-backup.webp">
     <meta property="article:published_time" content="2025-04-12">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="为什么你应该定期备份语雀知识库？数据安全指南">
     <meta name="twitter:description" content="真实案例分析语雀数据风险，附自动备份方案。">
-    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-backup.svg">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-backup.webp">
 
     <meta name="theme-color" content="#060b22">
     <title>为什么你应该定期备份语雀知识库？数据安全指南 - YuqueOut 博客</title>
     <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog.css">
     <script type="application/ld+json">
@@ -34,8 +35,9 @@
       "url": "https://yuque.toolab.top/blog/why-backup-yuque.html",
       "datePublished": "2025-04-12",
       "dateModified": "2025-04-12",
-      "author": { "@type": "Person", "name": "杨海俊", "url": "https://yuque.toolab.top/" },
-      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手" },
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "image": "https://yuque.toolab.top/images/blog-backup.webp",
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
       "wordCount": 2800,
       "articleSection": "数据安全"
     }
@@ -86,7 +88,7 @@
         <nav class="homepage-nav">
             <div class="nav-content">
                 <div class="nav-left">
-                    <a href="../"><picture><img src="../images/icon-36x36.png" alt="YuqueOut"></picture><span class="logo-text">YuqueOut 语雀导出助手</span></a>
+                    <a href="../"><picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture><span class="logo-text">YuqueOut 语雀导出助手</span></a>
                 </div>
                 <div class="nav-center">
                     <a href="../#features" class="nav-link">功能特性</a>
@@ -121,10 +123,20 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         10 分钟阅读
                     </span>
-                </div>
+                                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
+                    </div>
             </div>
 
             <div class="blog-article-content">
+                <img src="../images/blog-backup.webp" alt="为什么应该定期备份语雀知识库" width="1200" height="630" style="width:100%;border-radius:8px;margin-bottom:2rem;">
+
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">定期备份语雀知识库有四个核心原因：（1）平台服务中断风险，2022 年 10 月语雀曾发生超过 7 小时的全站不可用事故；（2）会员到期后文档访问受限，超出免费额度的内容可能无法查看；（3）误删除或账号问题导致内容丢失无法恢复；（4）平台政策变更可能影响数据导出权限。建议使用 YuqueOut 等工具每周自动备份，支持 Markdown/Word/PDF 等 9 种格式导出到本地，确保知识资产安全。</p>
+                </aside>
+
                 <p><strong>你在<a href="https://www.yuque.com/" target="_blank" rel="noopener">语雀</a>上积累了多少知识？</strong>技术笔记、项目文档、读书摘要、团队 Wiki……这些内容可能耗费了你数百甚至数千小时来创作和整理。但你有没有想过：如果明天这些内容突然无法访问了，你该怎么办？</p>
 
                 <p>这不是危言耸听。许多用户已经遇到了<a href="./yuque-user-pain-points.html">语雀导出和备份的各种痛点</a>。以下几个真实场景，可能就发生在你身边。</p>
@@ -374,7 +386,7 @@
                 <div class="footer-grid">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image"></picture>
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
                             <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
                         </div>
                         <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
@@ -399,6 +411,6 @@
         </footer>
     </main>
 
-    <script src="../script.js"></script>
+    <script src="../script.js" defer></script>
 </body>
 </html>
