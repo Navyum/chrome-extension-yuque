@@ -410,6 +410,20 @@
     color: hsla(0, 0%, 100%, 0.8);
 }
 
+.blog-article-content img {
+    max-width: 100%;
+    height: auto;
+    max-height: 420px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+@media (max-width: 640px) {
+    .blog-article-content img {
+        max-height: 280px;
+    }
+}
+
 .blog-article-content h2 {
     font-size: 1.75rem;
     font-weight: 700;
