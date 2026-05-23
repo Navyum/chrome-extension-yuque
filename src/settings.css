@@ -612,6 +612,11 @@ body::before {
   white-space: nowrap;
   z-index: 1;
 }
+.sponsor-qr-wrap + .sponsor-qr-wrap { margin-top: 18px; }
+.sponsor-qr-badge.alipay-badge {
+  background: linear-gradient(90deg, #1677ff 0%, #00b4d8 100%);
+  box-shadow: 0 14px 30px rgba(22, 119, 255, 0.32);
+}
 .ads-qr img {
   width: 100%; max-width: 170px; aspect-ratio: 1; border-radius: 10px;
   border: 1px solid var(--glass-border); padding: 5px;

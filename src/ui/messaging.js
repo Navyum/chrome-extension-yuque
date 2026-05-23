@@ -5,6 +5,7 @@ import {
   showStatus, showConfetti, syncUiWithState, updateProgress
 } from './ui.js';
 import { showPasswordModal } from './password.js';
+import { showRatingModalAfterExport } from './rating.js';
 import { i18n } from './i18n.js';
 
 let listenerRegistered = false;
@@ -25,6 +26,7 @@ export function initRuntimeMessaging() {
         addLog(i18n('exportCompleteLog'));
         showStatus(i18n('exportCompleteStatus'), 'success');
         showConfetti();
+        showRatingModalAfterExport();
         setStartButtonLabel(START_BUTTON_DONE_TEXT());
         updateUiState({ isExporting: false });
         chrome.runtime.sendMessage({ action: 'getUiState' }).then(response => {

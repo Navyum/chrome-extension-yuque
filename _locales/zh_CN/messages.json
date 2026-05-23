@@ -173,7 +173,8 @@
   "adsSponsorTitle": { "message": "支持与鼓励" },
   "adsSponsorDesc": { "message": "如果 YuqueOut 帮到了你，不妨请我喝杯咖啡！你的支持是持续维护的最大动力。" },
   "sponsorQrAlt": { "message": "赞助二维码" },
-  "adsSponsorTip": { "message": "微信扫码，金额随意" },
+  "sponsorAlipayAlt": { "message": "支付宝赞助二维码" },
+  "adsSponsorTip": { "message": "微信/支付宝扫码，金额随意" },
   "adsTipsTitle": { "message": "使用小贴士" },
   "tip1": { "message": "建议请求间隔 500ms+" },
   "tip2": { "message": "图片并发数建议 ≤ 3" },
@@ -202,5 +203,11 @@
   "engineLocalSheet": { "message": "本地引擎（推荐）" },
   "engineLocalFixed": { "message": "本地引擎（固定）" },
   "engineApi": { "message": "官方导出 API" },
-  "settingsBoardFormatDesc2": { "message": "语雀「画板/白板」类型的导出格式。固定使用本地引擎渲染。" }
+  "settingsBoardFormatDesc2": { "message": "语雀「画板/白板」类型的导出格式。固定使用本地引擎渲染。" },
+  "ratingTitle": { "message": "🎉 导出成功！" },
+  "ratingDesc": { "message": "如果觉得好用，给个五星好评吧" },
+  "ratingReviewBtn": { "message": "⭐ 去评价" },
+  "ratingSponsorLink": { "message": "赞助开发者" },
+  "ratingDismiss": { "message": "不再提醒" },
+  "ratingLater": { "message": "下次再说" }
 }

@@ -44,6 +44,13 @@ export const domRefs = {
   selectedCountSpan: null,
   selectedDocsSpan: null,
   selectionBar: null,
+  // Rating modal
+  ratingModal: null,
+  ratingModalClose: null,
+  ratingReviewBtn: null,
+  ratingDismissBtn: null,
+  ratingLaterBtn: null,
+  ratingSponsorLink: null,
 };
 
 export function cacheDomElements() {
@@ -92,4 +99,11 @@ export function cacheDomElements() {
   domRefs.selectedCountSpan = document.getElementById('selectedCount');
   domRefs.selectedDocsSpan = document.getElementById('selectedDocs');
   domRefs.selectionBar = document.getElementById('selectionBar');
+  // Rating modal
+  domRefs.ratingModal = document.getElementById('ratingModal');
+  domRefs.ratingModalClose = document.getElementById('ratingModalClose');
+  domRefs.ratingReviewBtn = document.getElementById('ratingReviewBtn');
+  domRefs.ratingDismissBtn = document.getElementById('ratingDismissBtn');
+  domRefs.ratingLaterBtn = document.getElementById('ratingLaterBtn');
+  domRefs.ratingSponsorLink = document.getElementById('ratingSponsorLink');
 }

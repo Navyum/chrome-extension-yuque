@@ -173,7 +173,8 @@
   "adsSponsorTitle": { "message": "Support" },
   "adsSponsorDesc": { "message": "If YuqueOut helps you, consider buying me a coffee! Your support keeps this project going." },
   "sponsorQrAlt": { "message": "Sponsor QR code" },
-  "adsSponsorTip": { "message": "Scan to donate, any amount" },
+  "sponsorAlipayAlt": { "message": "Alipay sponsor QR code" },
+  "adsSponsorTip": { "message": "Scan with WeChat/Alipay, any amount" },
   "adsTipsTitle": { "message": "Tips" },
   "tip1": { "message": "Request interval: 500ms+ recommended" },
   "tip2": { "message": "Image concurrency: ≤ 3 recommended" },
@@ -202,5 +203,11 @@
   "engineLocalSheet": { "message": "Local engine (recommended)" },
   "engineLocalFixed": { "message": "Local engine (fixed)" },
   "engineApi": { "message": "Official export API" },
-  "settingsBoardFormatDesc2": { "message": "Export format for Yuque Board/Whiteboard. Always uses local rendering engine." }
+  "settingsBoardFormatDesc2": { "message": "Export format for Yuque Board/Whiteboard. Always uses local rendering engine." },
+  "ratingTitle": { "message": "🎉 Export Successful!" },
+  "ratingDesc": { "message": "If you find this useful, please leave a 5-star review" },
+  "ratingReviewBtn": { "message": "⭐ Rate Now" },
+  "ratingSponsorLink": { "message": "Sponsor Developer" },
+  "ratingDismiss": { "message": "Don't show again" },
+  "ratingLater": { "message": "Maybe later" }
 }

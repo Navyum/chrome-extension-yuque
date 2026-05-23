@@ -159,6 +159,38 @@
     </div>
   </div>
 
+  <!-- Rating Modal -->
+  <div id="ratingModal" class="rating-modal" inert>
+    <div class="rating-modal-card" role="dialog" aria-modal="true" aria-labelledby="ratingTitle">
+      <button id="ratingModalClose" class="sponsor-modal-close" aria-label="关闭">&times;</button>
+      <div class="rating-modal-header">
+        <h3 id="ratingTitle" data-i18n="ratingTitle">🎉 导出成功！</h3>
+        <p data-i18n="ratingDesc">如果觉得好用，给个五星好评吧</p>
+      </div>
+      <div class="rating-modal-body">
+        <div class="rating-stars">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        <button id="ratingReviewBtn" type="button" class="btn btn-primary rating-review-btn">
+          <span data-i18n="ratingReviewBtn">⭐ 去评价</span>
+        </button>
+        <button id="ratingSponsorLink" type="button" class="rating-sponsor-btn">
+          <span class="rating-heart">❤️</span>
+          <span data-i18n="ratingSponsorLink">赞助开发者</span>
+        </button>
+      </div>
+      <div class="rating-modal-footer">
+        <button id="ratingDismissBtn" type="button" class="rating-text-btn" data-i18n="ratingDismiss">不再提醒</button>
+        <span class="rating-sep">|</span>
+        <button id="ratingLaterBtn" type="button" class="rating-text-btn" data-i18n="ratingLater">下次再说</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Sponsor Modal -->
   <div id="sponsorModal" class="sponsor-modal" inert>
     <div class="sponsor-modal-card" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
