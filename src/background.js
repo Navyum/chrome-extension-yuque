@@ -21,7 +21,7 @@ chrome.declarativeNetRequest.updateDynamicRules({
       },
       condition: {
         urlFilter: '||cdn.nlark.com/',
-        resourceTypes: ['xmlhttprequest', 'image']
+        resourceTypes: ['xmlhttprequest', 'image', 'other']
       }
     },
     {
@@ -35,7 +35,7 @@ chrome.declarativeNetRequest.updateDynamicRules({
       },
       condition: {
         urlFilter: '||cdn.yuque.com/',
-        resourceTypes: ['xmlhttprequest', 'image']
+        resourceTypes: ['xmlhttprequest', 'image', 'other']
       }
     },
     {

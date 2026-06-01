@@ -160,12 +160,22 @@ body {
 .book-option-name { font-size: 13px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
 .book-option-meta { font-size: 11px; color: var(--text-muted); white-space: nowrap; flex-shrink: 0; }
 .book-option-group-header {
-  padding: 6px 14px 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
-  color: var(--primary-color); text-transform: uppercase;
-  border-bottom: 1px solid rgba(139, 92, 246, 0.15); margin: 4px 0 2px;
   pointer-events: none; list-style: none;
+}
+.book-option-group-header.level-1 {
+  padding: 7px 14px 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--primary-color); text-transform: uppercase;
+  border-top: 1px solid rgba(139, 92, 246, 0.15); margin: 6px 0 2px;
   background: rgba(139, 92, 246, 0.04);
 }
+.book-option-group-header.level-1:first-child,
+.select-all-item + .book-option-group-header.level-1 { border-top: none; margin-top: 2px; }
+.book-option-group-header.level-2 {
+  padding: 4px 14px 3px 28px; font-size: 10px; font-weight: 600;
+  color: var(--text-muted); margin: 3px 0 1px;
+}
+.book-option-button.indent-1 { padding-left: 20px; }
+.book-option-button.indent-2 { padding-left: 36px; }
 
 .log-placeholder {
   color: var(--text-secondary); text-align: center; padding: 16px 0 0;
@@ -363,6 +373,9 @@ select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 
 .log-container::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 3px; }
 .log-entry { margin-bottom: 3px; word-wrap: break-word; padding: 2px 0; border-bottom: 1px solid var(--border-secondary); }
 .log-entry:last-child { border-bottom: none; }
+.log-entry.log-success { color: var(--success-color); }
+.log-entry.log-error { color: var(--danger-color); }
+.log-entry.log-warn { color: var(--warning-color); }
 
 /* Rating modal */
 .rating-modal {

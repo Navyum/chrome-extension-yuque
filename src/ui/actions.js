@@ -3,7 +3,7 @@ import { uiState, updateUiState } from './state.js';
 import {
   addLog, resetUiToIdle, setButtonState, setStartButtonLabel,
   showStatus, syncUiWithState, renderBookDropdown, restoreBookSelection, getSelectedBookIds,
-  showLoginAvatar, updateUserInfoPopup, toggleUserInfoPopup
+  showLoginAvatar, updateUserInfoPopup, toggleUserInfoPopup, setBookDropdownLoading
 } from './ui.js';
 import { START_BUTTON_DEFAULT_TEXT } from './constants.js';
 import { i18n } from './i18n.js';
@@ -42,7 +42,7 @@ export function handleLoginClick() {
 
 export async function handleGetBooks() {
   try {
-    // Don't addLog here — background sendLog will push logs to avoid duplicates
+    setBookDropdownLoading(true);
     const response = await chrome.runtime.sendMessage({ action: 'getBooks' });
     if (response?.success) {
       const books = response.data || [];
@@ -54,6 +54,8 @@ export async function handleGetBooks() {
     }
   } catch (error) {
     addLog(i18n('errorPrefix', [error.message]));
+  } finally {
+    setBookDropdownLoading(false);
   }
 }
 
@@ -81,7 +83,7 @@ export async function handleGetFileInfo() {
       showStatus(i18n('fileInfoSuccess'), 'success');
       syncUiWithState({ ...response.data, isExporting: false, isPaused: false });
       setStartButtonLabel(START_BUTTON_DEFAULT_TEXT());
-      restoreGetInfoButton();
+      setGetInfoButtonSuccess();
     } else {
       throw new Error(response?.error || i18n('unknownError'));
     }
@@ -183,6 +185,21 @@ function restoreGetInfoButton() {
     span.textContent = i18n('getFileInfoBtn') || '🔍 获取文件信息';
   } else {
     getInfoBtn.textContent = i18n('getFileInfo');
+  }
+  getInfoBtn.disabled = false;
+  getInfoBtn.onclick = null;
+  getInfoBtn.removeAttribute('data-login');
+  getInfoBtn.classList.remove('btn-login-prompt');
+}
+
+function setGetInfoButtonSuccess() {
+  const { getInfoBtn } = domRefs;
+  if (!getInfoBtn) return;
+  const span = getInfoBtn.querySelector('span');
+  if (span) {
+    span.textContent = i18n('fileInfoReady') || '✅ 已成功获取';
+  } else {
+    getInfoBtn.textContent = i18n('fileInfoReady') || '✅ 已成功获取';
   }
   getInfoBtn.disabled = false;
   getInfoBtn.onclick = null;

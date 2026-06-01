@@ -9,7 +9,7 @@ export function sanitizePathComponent(name) {
   if (!name || typeof name !== 'string') return '';
 
   let result = name.normalize('NFKC')
-    .replace(/[\u0000-\u001f\u007f]/g, '')
+    .replace(/[\u0000-\u001f\u007f\u200B-\u200D\uFEFF]/g, '')
     .replace(/[\\/<>:"|?*]/g, '_')
     .replace(/\s+/g, '_')
     .replace(/_+/g, '_')

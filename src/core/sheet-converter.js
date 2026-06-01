@@ -20,6 +20,13 @@ export function convertLakeSheet(docOrContent, format = 'xlsx') {
     ? docOrContent
     : (docOrContent.content || docOrContent.body || '');
 
+  const parsed = JSON.parse(contentStr);
+
+  // Table (数据表) has a different structure from Lakesheet
+  if (parsed.format === 'laketable' || parsed.type === 'Table') {
+    return convertDataTable(parsed, format);
+  }
+
   const lakeData = decompress(contentStr);
   const sheets = normalize(lakeData);
   const vessels = lakeData.vessels || {};
@@ -35,6 +42,98 @@ export function convertLakeSheet(docOrContent, format = 'xlsx') {
       return { text: toHtml(sheets, vessels), extension: 'html', mime: 'text/html' };
     default:
       throw new Error(`Unsupported sheet export format: ${format}`);
+  }
+}
+
+/**
+ * Convert Table (数据表/多维表格) to xlsx/csv/md.
+ * Table structure: sheet[0].columns + sheet[0].records
+ */
+function convertDataTable(parsed, format) {
+  const sheet = parsed.sheet?.[0];
+  if (!sheet) throw new Error('数据表结构为空');
+
+  const columns = Array.isArray(sheet.columns) ? sheet.columns : [];
+  const records = Array.isArray(sheet.records) ? sheet.records : [];
+
+  // Build header row and data rows
+  const headers = columns.map(col => col.name || col.id);
+  const rows = records.map(record => {
+    let data = {};
+    try {
+      data = typeof record.data === 'string' ? JSON.parse(record.data) : (record.data || {});
+    } catch { data = {}; }
+
+    return columns.map(col => {
+      const cell = data[col.id];
+      if (!cell || cell.value === undefined || cell.value === null) return '';
+      return resolveDataTableCellValue(cell.value, col);
+    });
+  });
+
+  switch (format) {
+    case 'xlsx': {
+      const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+      return { blob: new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), extension: 'xlsx', mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' };
+    }
+    case 'csv': {
+      const allRows = [headers, ...rows];
+      const text = allRows.map(row => row.map(cell => {
+        const s = String(cell);
+        return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s.replace(/"/g, '""')}"` : s;
+      }).join(',')).join('\n');
+      return { text, extension: 'csv', mime: 'text/csv' };
+    }
+    case 'md': {
+      const sep = headers.map(() => '---');
+      const lines = [
+        '| ' + headers.join(' | ') + ' |',
+        '| ' + sep.join(' | ') + ' |',
+        ...rows.map(row => '| ' + row.map(c => String(c).replace(/\|/g, '\\|')).join(' | ') + ' |')
+      ];
+      return { text: lines.join('\n'), extension: 'md', mime: 'text/markdown' };
+    }
+    default:
+      throw new Error(`Unsupported table export format: ${format}`);
+  }
+}
+
+function resolveDataTableCellValue(value, column) {
+  if (value === undefined || value === null) return '';
+
+  switch (column.type) {
+    case 'select': {
+      const options = column.options || [];
+      const opt = options.find(o => o.id === value);
+      return opt ? opt.value : String(value);
+    }
+    case 'multiSelect': {
+      const options = column.options || [];
+      if (!Array.isArray(value)) return String(value);
+      return value.map(id => {
+        const opt = options.find(o => o.id === id);
+        return opt ? opt.value : id;
+      }).join(', ');
+    }
+    case 'date': {
+      if (typeof value === 'object' && value.text) return value.text;
+      if (typeof value === 'object' && value.time) return value.time.split('T')[0];
+      return String(value);
+    }
+    case 'checkbox':
+      return value ? '✓' : '';
+    case 'progress': {
+      const num = parseFloat(value);
+      return isNaN(num) ? '' : `${Math.round(num)}%`;
+    }
+    case 'mention':
+      return typeof value === 'object' ? (value.name || value.login || '') : String(value);
+    default:
+      if (typeof value === 'object') return JSON.stringify(value);
+      return String(value);
   }
 }
 

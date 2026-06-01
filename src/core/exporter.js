@@ -1,7 +1,7 @@
 import { exportState, resetExportState, saveState } from './state.js';
 import { sendLog, sendProgress, sendComplete, sendError } from './messaging.js';
-import { checkAuth, fetchAllBooks, fetchBookDocs, buildDocListFromApiDocs, exportDocAsync, downloadImage, resetThrottle, fetchBookmarks, fetchBookDocsWithPasswordCheck, verifyBookPassword, verifyDocPassword, fetchBookToc } from './yuque.js';
-import { lakeToMarkdown, fetchDocContent } from './lake-converter.js';
+import { checkAuth, fetchAllBooks, fetchBookDocs, buildDocListFromApiDocs, exportDocAsync, resetThrottle, fetchBookmarks, fetchOrgBookmarks, fetchBookDocsWithPasswordCheck, verifyBookPassword, verifyDocPassword, fetchBookToc, fetchDocContent } from './yuque.js';
+import { lakeToMarkdown } from './lake-converter.js';
 import { convertLakeSheet } from './sheet-converter.js';
 import { convertBoardToSvg, convertBoardToMermaid, convertBoardToECharts } from './board-converter.js';
 import { saveBlobToDisk, saveContentToDisk, downloadUrlToDisk } from './downloads.js';
@@ -35,6 +35,9 @@ export function registerRuntimeHandlers() {
         return true;
       case 'resetExport':
         handleResetExport(sendResponse);
+        return true;
+      case 'reExportFile':
+        handleReExportFile(message.data, sendResponse);
         return true;
       case 'verifyPassword':
         handleVerifyPassword(message.data, sendResponse);
@@ -87,7 +90,12 @@ async function handleGetBooks(sendResponse) {
     const books = await fetchAllBooks();
     exportState.bookList = books;
     await saveState();
-    sendLog(`成功获取 ${books.length} 个知识库。`);
+    const bookmarkCount = books.filter(b => b._isBookmark).length;
+    const repoCount = books.length - bookmarkCount;
+    const parts = [];
+    if (repoCount > 0) parts.push(`${repoCount} 个知识库`);
+    if (bookmarkCount > 0) parts.push(`${bookmarkCount} 个收藏`);
+    sendLog(`成功获取 ${parts.join(' + ')}。`);
     sendResponse({ success: true, data: books });
   } catch (error) {
     sendLog(`获取知识库列表失败: ${error.message}`);
@@ -113,7 +121,9 @@ async function handleGetFileInfo(data, sendResponse) {
     let totalFolders = 0;
     exportState.encryptedItems = [];
     const hasBookmarks = selectedBookIds.includes(BOOKMARKS_VIRTUAL_BOOK_ID);
-    const regularBookIds = selectedBookIds.filter(id => id !== BOOKMARKS_VIRTUAL_BOOK_ID);
+    const isBookmarkId = (id) => id === BOOKMARKS_VIRTUAL_BOOK_ID || (typeof id === 'string' && id.startsWith('__bookmarks_'));
+    const regularBookIds = selectedBookIds.filter(id => !isBookmarkId(id));
+    const orgBookmarkIds = selectedBookIds.filter(id => typeof id === 'string' && id.startsWith('__bookmarks_') && id !== BOOKMARKS_VIRTUAL_BOOK_ID);
 
     // Process regular books
     for (const bookId of regularBookIds) {
@@ -121,15 +131,16 @@ async function handleGetFileInfo(data, sendResponse) {
       if (!book) continue;
 
       sendLog(`获取知识库「${book.name}」的文档列表...`);
-      const docs = await fetchBookDocs(book.id);
-      const toc = await loadBookToc(book.namespace, book.name);
+      const docs = await fetchBookDocs(book.id, book.host || null);
+      const toc = await loadBookToc(book.namespace, book.name, book.host || null);
       const { files, folderCount } = buildDocListFromApiDocs(docs, toc);
 
       files.forEach(f => {
         f.bookId = book.id;
-        f.bookName = book.name;
+        f.bookName = buildBookFolderPath(book);
         f.bookNamespace = book.namespace;
-        f.bookType = book.type; // 'personal' or 'collab'
+        f.bookType = book.type;
+        f.bookHost = book.host || null;
       });
 
       const typeCounts = {};
@@ -141,16 +152,30 @@ async function handleGetFileInfo(data, sendResponse) {
       totalFolders += folderCount;
     }
 
-    // Process bookmarks (收藏)
+    // Process personal bookmarks
     if (hasBookmarks) {
       sendLog('获取收藏列表...');
-      const bookmarkFiles = await buildBookmarkFileList();
+      const bookmarkFiles = await buildBookmarkFileList(null, `${msg('personalSpace', '个人空间')}/${BOOKMARKS_VIRTUAL_BOOK_NAME}`);
       allFiles.push(...bookmarkFiles.files);
       totalFolders += bookmarkFiles.folderCount;
       exportState.encryptedItems = bookmarkFiles.encryptedItems;
 
       const encryptedCount = exportState.encryptedItems.length;
       if (encryptedCount > 0) sendLog(`发现 ${encryptedCount} 个加密项，将在未加密内容下载完成后处理。`);
+    }
+
+    // Process org bookmarks
+    for (const bmId of orgBookmarkIds) {
+      const bmBook = exportState.bookList.find(b => b.id === bmId);
+      if (!bmBook) continue;
+      sendLog(`获取「${bmBook.orgName}」空间收藏列表...`);
+      const folderPrefix = `${sanitizePathComponent(bmBook.orgName || '空间')}/${BOOKMARKS_VIRTUAL_BOOK_NAME}`;
+      const bookmarkFiles = await buildBookmarkFileList(bmBook.host, folderPrefix);
+      allFiles.push(...bookmarkFiles.files);
+      totalFolders += bookmarkFiles.folderCount;
+      if (bookmarkFiles.encryptedItems.length) {
+        exportState.encryptedItems.push(...bookmarkFiles.encryptedItems);
+      }
     }
 
     if (allFiles.length === 0) {
@@ -297,6 +322,93 @@ async function handleResetExport(sendResponse) {
   sendResponse({ success: true, data: exportState });
 }
 
+async function handleReExportFile(data, sendResponse) {
+  const { fileIndex } = data;
+  const file = exportState.fileList?.[fileIndex];
+  if (!file) {
+    sendResponse({ success: false, error: '文件不存在' });
+    return;
+  }
+
+  try {
+    const authInfo = await checkAuth();
+    if (!authInfo.isLoggedIn) throw new Error('登录态已过期');
+
+    const settings = await chrome.storage.local.get([
+      'subfolder', 'downloadImages', 'imageConcurrency',
+      'docExportFormat', 'sheetExportFormat', 'boardExportFormat', 'tableExportFormat',
+      'markdownMode', 'sheetMode'
+    ]);
+
+    exportState.subfolder = settings.subfolder ?? DEFAULT_SETTINGS.subfolder;
+    exportState.downloadImages = settings.downloadImages !== false;
+    exportState.imageConcurrency = settings.imageConcurrency || DEFAULT_SETTINGS.imageConcurrency;
+    exportState.docExportFormat = settings.docExportFormat || DEFAULT_SETTINGS.docExportFormat;
+    exportState.sheetExportFormat = settings.sheetExportFormat || DEFAULT_SETTINGS.sheetExportFormat;
+    exportState.boardExportFormat = settings.boardExportFormat || DEFAULT_SETTINGS.boardExportFormat;
+    exportState.tableExportFormat = settings.tableExportFormat || DEFAULT_SETTINGS.tableExportFormat;
+    exportState.markdownMode = settings.markdownMode || DEFAULT_SETTINGS.markdownMode;
+    exportState.sheetMode = settings.sheetMode || DEFAULT_SETTINGS.sheetMode;
+
+    refreshAbortController();
+    resetThrottle();
+
+    file.status = 'in_progress';
+    file.startTime = Date.now();
+    await saveState();
+
+    const docType = file.docType || DOC_TYPES.DOC;
+    const perTypeFormat = getPerTypeFormat(docType);
+    const format = EXPORT_FORMATS[perTypeFormat];
+    if (!format) throw new Error(`未知导出格式: ${perTypeFormat}`);
+
+    const isSheet = docType === DOC_TYPES.SHEET;
+    const isTable = docType === DOC_TYPES.TABLE;
+    const isBoard = docType === DOC_TYPES.BOARD;
+    const noExportPermission = file.isBookmark || file.bookType === 'collab' || file.bookType === 'team' || file.bookType === 'org-personal' || file.bookType === 'wiki';
+    const useLocalSheetConvert = (isSheet && (
+      exportState.sheetMode === 'local' || perTypeFormat !== 'xlsx' || noExportPermission
+    )) || (isTable && (perTypeFormat === 'xlsx' || perTypeFormat === 'csv'));
+    const useLocalDocConvert = (!isSheet && !isTable && !isBoard &&
+      (perTypeFormat === 'md' || noExportPermission) &&
+      (exportState.markdownMode === 'local' || noExportPermission)) ||
+      (isTable && perTypeFormat === 'md');
+
+    if (isBoard && file.slug && (file.bookSourceId || file.bookId)) {
+      await exportViaBoardContent(file, perTypeFormat);
+    } else if (useLocalSheetConvert && file.slug && (file.bookSourceId || file.bookId)) {
+      await exportViaSheetContent(file, perTypeFormat);
+    } else if (useLocalDocConvert && file.slug && (file.bookSourceId || file.bookId)) {
+      await exportViaLakeContent(file, format, perTypeFormat);
+    } else {
+      const result = await exportDocAsync(file.id, docType, perTypeFormat);
+      const savedPath = buildFilePath(file, format.extension);
+      if (result.directUrl) {
+        await downloadUrlToDisk(result.url, savedPath);
+      } else if (perTypeFormat === 'md' && exportState.downloadImages && result.blob) {
+        const mdText = await result.blob.text();
+        const { localizedMd } = await localizeMarkdownImages(mdText, file);
+        await saveContentToDisk(localizedMd, file, format.extension, 'text/markdown');
+      } else if (result.blob) {
+        await saveBlobToDisk(result.blob, savedPath);
+      }
+    }
+
+    file.status = 'success';
+    file.localPath = buildFilePath(file, format.extension);
+    file.endTime = Date.now();
+    file.duration = file.endTime - file.startTime;
+    await saveState();
+    sendResponse({ success: true, title: file.title });
+  } catch (error) {
+    file.status = 'failed';
+    file.endTime = Date.now();
+    file.duration = file.endTime - file.startTime;
+    await saveState();
+    sendResponse({ success: false, error: error.message });
+  }
+}
+
 async function handleTogglePause(data) {
   if (!exportState.isExporting) {
     sendLog('没有正在进行的任务，忽略暂停/继续指令。');
@@ -356,15 +468,20 @@ async function exportFiles() {
 
           // Determine conversion path
           const isSheet = docType === DOC_TYPES.SHEET;
+          const isTable = docType === DOC_TYPES.TABLE;
           const isBoard = docType === DOC_TYPES.BOARD;
-          const noExportPermission = file.isBookmark || file.bookType === 'collab';
-          const useLocalSheetConvert = isSheet && (
+          const noExportPermission = file.isBookmark || file.bookType === 'collab' || file.bookType === 'team' || file.bookType === 'org-personal' || file.bookType === 'wiki';
+          // Table always uses local engine (sheet-converter for xlsx/csv, lake-converter for md)
+          const useLocalSheetConvert = (isSheet && (
             exportState.sheetMode === 'local' ||
             perTypeFormat !== 'xlsx' ||
             noExportPermission
-          );
-          const useLocalDocConvert = !isSheet && !isBoard && perTypeFormat === 'md' &&
-            (exportState.markdownMode === 'local' || noExportPermission);
+          )) || (isTable && (perTypeFormat === 'xlsx' || perTypeFormat === 'csv'));
+          const useLocalDocConvert = (!isSheet && !isTable && !isBoard &&
+            (perTypeFormat === 'md' || noExportPermission) &&
+            (exportState.markdownMode === 'local' || noExportPermission)) ||
+            (isTable && perTypeFormat === 'md');
+
 
           if (isBoard && file.slug && (file.bookSourceId || file.bookId)) {
             await exportViaBoardContent(file, perTypeFormat);
@@ -394,10 +511,9 @@ async function exportFiles() {
                 sendLog(`  官方导出失败，自动切换本地转换: ${apiErr.message}`);
                 if (isSheet) {
                   await exportViaSheetContent(file, perTypeFormat);
-                } else if (perTypeFormat === 'md') {
-                  await exportViaLakeContent(file, format, perTypeFormat);
                 } else {
-                  throw apiErr;
+                  const mdFormat = EXPORT_FORMATS['md'];
+                  await exportViaLakeContent(file, mdFormat, 'md');
                 }
               } else {
                 throw apiErr;
@@ -522,18 +638,7 @@ async function localizeMarkdownImages(mdText, file, imageBasePath, imageConcurre
           ? (imageBasePath ? `${imageBasePath}/${localName}` : localName)
           : buildImagePath(file, localName);
         const cleanUrl = task.url.replace(/x-oss-process=image%2Fwatermark%2C[^&]*/, '');
-        let blob;
-        try {
-          blob = await downloadImage(cleanUrl);
-        } catch (error) {
-          throw new Error(`请求阶段失败: ${error.message}`);
-        }
-
-        try {
-          await saveBlobToDisk(blob, downloadPath);
-        } catch (error) {
-          throw new Error(`保存阶段失败: ${error.message}`);
-        }
+        await downloadUrlToDisk(cleanUrl, downloadPath);
 
         results.push({ fullMatch: task.fullMatch, alt: task.alt, localName });
       } catch (e) {
@@ -641,7 +746,10 @@ function getPerTypeFormat(docType) {
     switch (docType) {
       case DOC_TYPES.SHEET: return exportState.sheetExportFormat || typeOptions.defaultFormat;
       case DOC_TYPES.BOARD: return exportState.boardExportFormat || typeOptions.defaultFormat;
-      case DOC_TYPES.TABLE: return exportState.tableExportFormat || typeOptions.defaultFormat;
+      case DOC_TYPES.TABLE: {
+        const fmt = exportState.sheetExportFormat || exportState.tableExportFormat || typeOptions.defaultFormat;
+        return typeOptions.formats.includes(fmt) ? fmt : typeOptions.defaultFormat;
+      }
       default: return exportState.docExportFormat || typeOptions.defaultFormat;
     }
   }
@@ -653,6 +761,41 @@ function getPerTypeFormat(docType) {
 
   // This doc type doesn't support the chosen format — fall back to its default
   return typeOptions.defaultFormat;
+}
+
+function msg(key, fallback) {
+  return chrome.i18n.getMessage(key) || fallback;
+}
+
+function buildBookFolderPath(book) {
+  const name = sanitizePathComponent(book.name);
+  const personal = msg('personalSpace', '个人空间');
+  const myOwn = msg('myOwn', '我个人的');
+  const collab = msg('invitedCollab', '邀请协作的');
+  const wiki = msg('publicArea', '公共区');
+  const teamFallback = msg('teamSpace', '团队空间');
+
+  switch (book.type) {
+    case 'personal':
+      return `${personal}/${myOwn}/${name}`;
+    case 'collab':
+      return `${personal}/${collab}/${name}`;
+    case 'team': {
+      const org = sanitizePathComponent(book.orgName || teamFallback);
+      const group = sanitizePathComponent(book.groupName || msg('unnamedTeam', '团队'));
+      return `${org}/${group}/${name}`;
+    }
+    case 'wiki': {
+      const org = sanitizePathComponent(book.orgName || teamFallback);
+      return `${org}/${wiki}/${name}`;
+    }
+    case 'org-personal': {
+      const org = sanitizePathComponent(book.orgName || teamFallback);
+      return `${org}/${myOwn}/${name}`;
+    }
+    default:
+      return name;
+  }
 }
 
 /**
@@ -675,16 +818,23 @@ async function exportViaLakeContent(file, format, perTypeFormat) {
   const bookId = file.bookSourceId || file.bookId;
   sendLog(`  使用本地转换模式...`);
 
-  const { content } = await fetchDocContent(file.slug, bookId);
+  let { content } = await fetchDocContent(file.slug, bookId, file.bookHost || null);
 
   if (!content) {
     throw new Error('文档内容为空');
   }
 
+  // For Table type, records are stored separately — fetch and inject them
+  if (file.docType === DOC_TYPES.TABLE) {
+    content = await injectTableRecords(content, file);
+  }
+
+
   // Convert Lake HTML to Markdown
   const { content: contentWithBoards, boardCount } = await renderEmbeddedBoardsToAssets(content, file);
   if (boardCount > 0) sendLog(`  内嵌白板渲染: ${boardCount} 个`);
   const markdown = lakeToMarkdown(contentWithBoards);
+
 
   if (exportState.downloadImages) {
     const { localizedMd, imageCount } = await localizeMarkdownImages(markdown, file);
@@ -696,13 +846,52 @@ async function exportViaLakeContent(file, format, perTypeFormat) {
 }
 
 /**
+ * Fetch Table records from TableRecordController and inject into content JSON.
+ * Table content from /api/docs/ doesn't include records — they're in a separate API.
+ */
+async function injectTableRecords(contentStr, file) {
+  try {
+    const json = JSON.parse(contentStr);
+    const sheet = json.sheet?.[0];
+    if (!sheet || !sheet.id) return contentStr;
+
+    const host = file.bookHost || null;
+    const baseUrl = host ? `${host}/api` : 'https://www.yuque.com/api';
+    const url = `${baseUrl}/modules/table/doc/TableRecordController/show?docId=${file.id}&docType=Doc&limit=5000&offset=0&sheetId=${sheet.id}`;
+
+    const resp = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'x-requested-with': 'XMLHttpRequest',
+        'Origin': host || 'https://www.yuque.com',
+        'Referer': `${host || 'https://www.yuque.com'}/`,
+      },
+      credentials: 'include',
+    });
+
+    if (!resp.ok) return contentStr;
+    const data = await resp.json();
+    const records = Array.isArray(data.records) ? data.records : [];
+
+    if (records.length > 0) {
+      sheet.records = records;
+      sendLog(`  数据表记录: ${records.length} 条`);
+      return JSON.stringify(json);
+    }
+  } catch (e) {
+    // Fall through with original content
+  }
+  return contentStr;
+}
+
+/**
  * Export a Board doc by fetching content, converting to SVG, then to PNG/JPG via offscreen.
  */
 async function exportViaBoardContent(file, perTypeFormat) {
   const bookId = file.bookSourceId || file.bookId;
   sendLog(`  使用本地白板转换 (${perTypeFormat})...`);
 
-  const { content, body } = await fetchDocContent(file.slug, bookId);
+  const { content, body } = await fetchDocContent(file.slug, bookId, file.bookHost || null);
   const boardContent = content || body;
   if (!boardContent) throw new Error('白板内容为空');
 
@@ -772,9 +961,15 @@ async function exportViaSheetContent(file, perTypeFormat) {
   const bookId = file.bookSourceId || file.bookId;
   sendLog(`  使用本地表格转换 (${perTypeFormat})...`);
 
-  const { content, body } = await fetchDocContent(file.slug, bookId);
-  const sheetContent = content || body;
+  const { content, body } = await fetchDocContent(file.slug, bookId, file.bookHost || null);
+  let sheetContent = content || body;
   if (!sheetContent) throw new Error('表格内容为空');
+
+  // For Table type, inject records from separate API
+  if (file.docType === DOC_TYPES.TABLE) {
+    sheetContent = await injectTableRecords(sheetContent, file);
+  }
+
 
   const result = convertLakeSheet(sheetContent, perTypeFormat);
   const savedPath = buildFilePath(file, result.extension);
@@ -808,8 +1003,10 @@ async function waitIfPaused() {
  * - mark_book → fetch all docs in that book
  * Encrypted items are tracked separately.
  */
-async function buildBookmarkFileList() {
-  const actions = await fetchBookmarks();
+async function buildBookmarkFileList(host = null, folderPrefix = BOOKMARKS_VIRTUAL_BOOK_NAME) {
+  const actions = host
+    ? await fetchOrgBookmarks(host)
+    : await fetchBookmarks();
   const files = [];
   const encryptedItems = [];
   let folderCount = 0;
@@ -825,7 +1022,6 @@ async function buildBookmarkFileList() {
     const doc = action.target;
     if (!doc) continue;
 
-    // Check if doc is encrypted
     if (doc.isEncrypted) {
       encryptedItems.push({
         type: 'doc',
@@ -858,8 +1054,9 @@ async function buildBookmarkFileList() {
       updatedAt: doc.content_updated_at || doc.updated_at,
       bookId: action.target_book_id || doc.book_id,
       bookSourceId: doc.book_id || action.target_book_id,
-      bookName: `${BOOKMARKS_VIRTUAL_BOOK_NAME}/${sanitizePathComponent(bookName)}`,
+      bookName: `${folderPrefix}/${sanitizePathComponent(bookName)}`,
       bookNamespace: '',
+      bookHost: host,
       isBookmark: true,
     });
   }
@@ -871,7 +1068,7 @@ async function buildBookmarkFileList() {
 
     sendLog(`获取收藏知识库「${book.name}」的文档列表...`);
 
-    const { docs, needsPassword } = await fetchBookDocsWithPasswordCheck(book.id);
+    const { docs, needsPassword } = await fetchBookDocsWithPasswordCheck(book.id, host);
 
     if (needsPassword) {
       encryptedItems.push({
@@ -886,12 +1083,13 @@ async function buildBookmarkFileList() {
     }
 
     const bookNamespace = getBookNamespace(book);
-    const toc = await loadBookToc(bookNamespace, book.name);
+    const toc = await loadBookToc(bookNamespace, book.name, host);
     const { files: bookFiles, folderCount: bookmarkFolderCount } = buildDocListFromApiDocs(docs, toc);
     bookFiles.forEach(f => {
       f.bookId = book.id;
-      f.bookName = `${BOOKMARKS_VIRTUAL_BOOK_NAME}/${sanitizePathComponent(book.name)}`;
+      f.bookName = `${folderPrefix}/${sanitizePathComponent(book.name)}`;
       f.bookNamespace = '';
+      f.bookHost = host;
     });
 
     if (bookmarkFolderCount > 0) {
@@ -996,10 +1194,10 @@ async function handleSkipEncrypted(data, sendResponse) {
   sendResponse({ success: true, remaining: exportState.encryptedItems?.length || 0 });
 }
 
-async function loadBookToc(bookNamespace, bookName) {
+async function loadBookToc(bookNamespace, bookName, host = null) {
   if (!bookNamespace) return [];
   try {
-    return await fetchBookToc(bookNamespace);
+    return await fetchBookToc(bookNamespace, host);
   } catch (error) {
     sendLog(`  获取目录结构失败，继续按平铺方式导出「${bookName || bookNamespace}」: ${error.message}`);
     return [];

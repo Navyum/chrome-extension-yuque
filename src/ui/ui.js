@@ -58,28 +58,76 @@ export function renderBookDropdown(books) {
 
   const personalBooks = books.filter(b => b.type === 'personal');
   const collabBooks = books.filter(b => b.type === 'collab');
+  const teamBooks = books.filter(b => b.type === 'team');
+  const wikiBooks = books.filter(b => b.type === 'wiki');
+  const orgPersonalBooks = books.filter(b => b.type === 'org-personal');
+  const orgBookmarks = books.filter(b => b.type === 'org-bookmarks');
+
+  // Build org → { wiki, groups, personal, bookmarks }
+  const orgMap = new Map();
+  const ensureOrg = (orgName) => {
+    if (!orgMap.has(orgName)) orgMap.set(orgName, { wiki: [], groups: new Map(), personal: [], bookmarks: null });
+    return orgMap.get(orgName);
+  };
+  const fallbackOrg = i18n('teamSpace') || '团队空间';
+  wikiBooks.forEach(b => ensureOrg(b.orgName || fallbackOrg).wiki.push(b));
+  teamBooks.forEach(b => {
+    const org = ensureOrg(b.orgName || fallbackOrg);
+    const groupKey = b.groupName || (i18n('unnamedTeam') || '未命名团队');
+    if (!org.groups.has(groupKey)) org.groups.set(groupKey, []);
+    org.groups.get(groupKey).push(b);
+  });
+  orgPersonalBooks.forEach(b => ensureOrg(b.orgName || fallbackOrg).personal.push(b));
+  orgBookmarks.forEach(b => { ensureOrg(b.orgName || fallbackOrg).bookmarks = b; });
 
   // "Select All" as the first item in the dropdown
   appendSelectAllOption(bookSelectOptions);
 
-  // Bookmarks virtual entry
-  appendGroupHeader(bookSelectOptions, BOOKMARKS_VIRTUAL_BOOK_NAME);
+  // ── Personal Space (L1) ──
+  appendGroupHeader(bookSelectOptions, i18n('personalSpace') || '个人空间', 1);
+
+  appendGroupHeader(bookSelectOptions, i18n('bookmarks') || '收藏', 2);
   appendBookOption(bookSelectOptions, {
     id: BOOKMARKS_VIRTUAL_BOOK_ID,
     name: '我的收藏',
     docs_count: null,
-    groupName: '',
     _isBookmark: true,
+    _level: 2,
   });
 
   if (personalBooks.length) {
-    appendGroupHeader(bookSelectOptions, '个人知识库');
-    personalBooks.forEach(b => appendBookOption(bookSelectOptions, b));
+    appendGroupHeader(bookSelectOptions, i18n('myOwn') || '我个人的', 2);
+    personalBooks.forEach(b => appendBookOption(bookSelectOptions, { ...b, _level: 2 }));
   }
   if (collabBooks.length) {
-    appendGroupHeader(bookSelectOptions, '协作知识库');
-    collabBooks.forEach(b => appendBookOption(bookSelectOptions, b));
+    appendGroupHeader(bookSelectOptions, i18n('invitedCollab') || '邀请协作的', 2);
+    collabBooks.forEach(b => appendBookOption(bookSelectOptions, { ...b, _level: 2 }));
   }
+
+  // ── Organization Spaces (L1 each) ──
+  orgMap.forEach((orgData, orgName) => {
+    appendGroupHeader(bookSelectOptions, orgName, 1);
+
+    if (orgData.bookmarks) {
+      appendGroupHeader(bookSelectOptions, i18n('bookmarks') || '收藏', 2);
+      appendBookOption(bookSelectOptions, { ...orgData.bookmarks, _level: 2 });
+    }
+
+    if (orgData.personal.length) {
+      appendGroupHeader(bookSelectOptions, i18n('myOwn') || '我个人的', 2);
+      orgData.personal.forEach(b => appendBookOption(bookSelectOptions, { ...b, _level: 2 }));
+    }
+
+    if (orgData.wiki.length) {
+      appendGroupHeader(bookSelectOptions, i18n('publicArea') || '公共区', 2);
+      orgData.wiki.forEach(b => appendBookOption(bookSelectOptions, { ...b, _level: 2 }));
+    }
+
+    orgData.groups.forEach((groupBooks, groupName) => {
+      appendGroupHeader(bookSelectOptions, groupName, 2);
+      groupBooks.forEach(b => appendBookOption(bookSelectOptions, { ...b, _level: 2 }));
+    });
+  });
 
   if (!books.length) {
     const empty = document.createElement('li');
@@ -111,9 +159,9 @@ export function renderBookDropdown(books) {
   }
 }
 
-function appendGroupHeader(container, label) {
+function appendGroupHeader(container, label, level = 1) {
   const li = document.createElement('li');
-  li.className = 'book-option-group-header';
+  li.className = level === 1 ? 'book-option-group-header level-1' : 'book-option-group-header level-2';
   li.textContent = label;
   container.appendChild(li);
 }
@@ -189,7 +237,7 @@ function appendBookOption(container, book) {
 
   const btn = document.createElement('button');
   btn.type = 'button';
-  btn.className = 'book-option-button';
+  btn.className = `book-option-button ${book._level === 2 ? 'indent-2' : 'indent-1'}`;
 
   const cb = document.createElement('input');
   cb.type = 'checkbox';
@@ -204,8 +252,8 @@ function appendBookOption(container, book) {
   const metaSpan = document.createElement('span');
   metaSpan.className = 'book-option-meta';
   metaSpan.textContent = book._isBookmark
-    ? '收藏的文档和知识库'
-    : `${book.docs_count || 0} 篇${book.groupName ? ' · ' + book.groupName : ''}`;
+    ? (book.docs_count ? `${book.docs_count} 项` : '')
+    : `${book.docs_count || 0} 篇`;
   info.appendChild(nameSpan);
   info.appendChild(metaSpan);
 
@@ -254,22 +302,40 @@ function closeBookDropdown() {
   bookDropdownOpen = false;
 }
 
+let bookDropdownLoading = false;
+
+export function setBookDropdownLoading(loading) {
+  bookDropdownLoading = loading;
+  updateBookDropdownLabel();
+}
+
 function updateBookDropdownLabel() {
   const { bookSelectLabel, bookSelectOptions } = domRefs;
   if (!bookSelectLabel) return;
+
+  if (bookDropdownLoading) {
+    bookSelectLabel.textContent = i18n('bookLoadingPlaceholder') || '知识库检索中，请稍等...';
+    return;
+  }
+
   const count = selectedBookIdSet.size;
   const hasBooks = bookSelectOptions && bookSelectOptions.querySelector('.book-option-button');
   const hasBookmark = selectedBookIdSet.has(BOOKMARKS_VIRTUAL_BOOK_ID);
-  const bookCount = hasBookmark ? count - 1 : count;
+  const orgBookmarkCount = Array.from(selectedBookIdSet).filter(id => typeof id === 'string' && id.startsWith('__bookmarks_')).length;
+  const totalBookmarkCount = (hasBookmark ? 1 : 0) + orgBookmarkCount;
+  const bookCount = count - totalBookmarkCount;
   if (count > 0) {
     const parts = [];
     if (bookCount > 0) parts.push(`${bookCount} 个知识库`);
-    if (hasBookmark) parts.push('收藏');
+    if (totalBookmarkCount > 0) parts.push(`${totalBookmarkCount} 个收藏`);
     bookSelectLabel.textContent = `已选 ${parts.join(' + ')}`;
   } else if (hasBooks) {
-    bookSelectLabel.textContent = '请选择知识库...';
+    bookSelectLabel.textContent = i18n('bookSelectPrompt') || '请选择知识库...';
   } else {
-    bookSelectLabel.textContent = i18n('selectBookPlaceholder') || '请先登录语雀...';
+    const isLoggedIn = uiState.userInfo && uiState.userInfo.isLoggedIn !== false;
+    bookSelectLabel.textContent = isLoggedIn
+      ? (i18n('bookLoadingPlaceholder') || '知识库检索中，请稍等...')
+      : (i18n('selectBookPlaceholder') || '请先登录语雀...');
   }
 }
 
@@ -478,6 +544,25 @@ function mergeLogs(incomingLogs = []) {
   return mergedLogs;
 }
 
+function getLogLevel(log) {
+  if (/成功|完成|获取到/.test(log)) return 'success';
+  if (/失败|错误|Error/.test(log)) return 'error';
+  if (/暂停|取消|跳过|加密/.test(log)) return 'warn';
+  return '';
+}
+
+function shouldShowLog(log) {
+  const content = log.replace(/\[.*?\]\s*/, '');
+  if (/^\s*文档类型:/.test(content)) return false;
+  if (/^\s*类型:/.test(content)) return false;
+  if (/^\s*使用本地/.test(content)) return false;
+  if (/^\s*数据表记录:/.test(content)) return false;
+  if (/^\s*内嵌白板渲染:/.test(content)) return false;
+  if (/^\s*官方导出失败，自动切换/.test(content)) return false;
+  if (/^\s*$/.test(log)) return false;
+  return true;
+}
+
 function renderLogs(logs = []) {
   const { logContainer } = domRefs;
   if (!logContainer) return;
@@ -487,9 +572,10 @@ function renderLogs(logs = []) {
   if (!logs.length) return;
 
   logContainer.innerHTML = '';
-  logs.forEach(log => {
+  logs.filter(shouldShowLog).forEach(log => {
     const logEntry = document.createElement('div');
-    logEntry.className = 'log-entry';
+    const level = getLogLevel(log);
+    logEntry.className = `log-entry${level ? ' log-' + level : ''}`;
     logEntry.textContent = log;
     logContainer.appendChild(logEntry);
   });

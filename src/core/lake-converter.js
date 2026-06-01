@@ -335,7 +335,9 @@ function formatIsoDateTime(value) {
 }
 
 function parseDataTableRecords(content) {
-  const records = Array.isArray(content?.records) ? content.records : [];
+  const sheet = content?.sheet?.[0];
+  const records = Array.isArray(content?.records) ? content.records
+    : Array.isArray(sheet?.records) ? sheet.records : [];
   return records.map(record => {
     let data = {};
     try {
@@ -484,7 +486,7 @@ function dataTableToMarkdown(data) {
   const content = data.content;
   const viewContext = getDataTableViewContext(content);
   const columns = getDataTableColumns(content, {
-    includeHidden: viewContext.includeHidden,
+    includeHidden: data.exportAll || viewContext.includeHidden,
     forceIds: viewContext.forceIds,
   });
   const records = orderDataTableRecords(content, parseDataTableRecords(content));
@@ -803,6 +805,18 @@ function sanitizeMermaidParticipantId(name, fallbackIndex) {
 export function lakeToMarkdown(lakeHtml) {
   if (!lakeHtml) return '';
 
+  // Table (数据表) content is JSON, not HTML
+  if (typeof lakeHtml === 'string' && lakeHtml.startsWith('{')) {
+    try {
+      const json = JSON.parse(lakeHtml);
+      if (json.format === 'laketable' || json.type === 'Table') {
+        return dataTableToMarkdown({ content: json, exportAll: true }).trim();
+      }
+    } catch (e) {
+      // Not valid JSON, proceed as HTML
+    }
+  }
+
   cardOutputs = [];
 
   const html = preprocessLakeHtml(lakeHtml);
@@ -1003,27 +1017,3 @@ function markdownTableCellFromBlock(markdown = '') {
  * GET /api/docs/{slug}?book_id={bookId}
  * 返回原始 Lake HTML 内容。
  */
-export async function fetchDocContent(slug, bookId) {
-  const url = `https://www.yuque.com/api/docs/${slug}?book_id=${bookId}&merge_dynamic_data=true`;
-  const resp = await fetch(url, {
-    headers: {
-      'Accept': 'application/json',
-      'x-requested-with': 'XMLHttpRequest',
-      'Origin': 'https://www.yuque.com',
-      'Referer': 'https://www.yuque.com/',
-    },
-    credentials: 'include',
-  });
-
-  if (!resp.ok) {
-    throw new Error(`获取文档内容失败: HTTP ${resp.status}`);
-  }
-
-  const data = await resp.json();
-  return {
-    content: data.data?.content || data.data?.body_asl || '',
-    body: data.data?.body || '',
-    title: data.data?.title || '',
-    canExport: data.data?.abilities?.export === true,
-  };
-}

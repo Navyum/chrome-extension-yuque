@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YuqueOut v1.2 新增单文件重新下载功能：在设置页文件明细中对单个失败文件手动重试，无需重跑整个导出任务。附导出失败排查技巧。">
+    <meta name="keywords" content="语雀导出失败重试,语雀单文件重新下载,语雀导出失败怎么办,YuqueOut重试功能,语雀批量导出失败">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-export-retry-single-file.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀导出失败不用全部重来：单文件重新下载功能详解">
+    <meta property="og:description" content="YuqueOut 新增单文件重试，在文件明细中点一下即可重新导出失败文件，无需重跑整个任务。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-export-retry-single-file.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-troubleshooting.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2025-06-01">
+    <meta property="article:modified_time" content="2025-06-01">
+    <meta property="article:section" content="功能更新">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀导出失败不用全部重来：单文件重新下载功能详解">
+    <meta name="twitter:description" content="YuqueOut 新增单文件重试，点一下即可重新导出，无需重跑整个任务。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-troubleshooting.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀导出失败不用全部重来：单文件重新下载功能详解 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀导出失败不用全部重来：单文件重新下载功能详解",
+      "description": "YuqueOut 新增单文件重试功能，在设置页文件明细中对失败文件手动重新导出。",
+      "url": "https://yuque.toolab.top/blog/yuque-export-retry-single-file.html",
+      "datePublished": "2025-06-01",
+      "dateModified": "2025-06-01",
+      "author": { "@type": "Person", "name": "Kevin Yang" },
+      "image": "https://yuque.toolab.top/images/blog-troubleshooting.webp",
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-export-retry-single-file.html",
+      "wordCount": 1600,
+      "articleSection": "功能更新"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "单文件重新下载", "item": "https://yuque.toolab.top/blog/yuque-export-retry-single-file.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀导出失败的文件能单独重试吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以。打开 YuqueOut 设置页的「性能监控」→「文件明细」，找到失败的文件，点击右侧的「重新下载」按钮即可单独重试该文件，无需重跑整个导出任务。" }
+        },
+        {
+          "@type": "Question",
+          "name": "重新下载的文件会保存到哪里？",
+          "acceptedAnswer": { "@type": "Answer", "text": "保存到与首次导出完全相同的路径。YuqueOut 会根据文件的知识库、目录层级和设置中的子文件夹配置，自动生成一致的保存路径。" }
+        },
+        {
+          "@type": "Question",
+          "name": "重新下载时会使用什么格式？",
+          "acceptedAnswer": { "@type": "Answer", "text": "使用设置页中当前配置的格式。如果你在首次导出后修改了导出格式设置（如从 Markdown 改为 Word），重新下载时会按新设置执行。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog" target="_blank" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">单文件重新下载</span>
+                </div>
+                <span class="blog-article-tag">功能更新</span>
+                <h1 class="blog-article-title">语雀导出失败不用全部重来：单文件重新下载功能详解</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2025-06-01
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        6 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 1600 字</span>
+                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <img src="../images/blog-troubleshooting.webp" alt="单文件重新下载功能" width="1200" height="630" style="width:100%;border-radius:8px;margin-bottom:2rem;">
+
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">YuqueOut v1.2 新增单文件重新下载功能：在设置页「性能监控 → 文件明细」中，每个文件右侧新增「重新下载」按钮。点击即可对单个文件重新执行导出（包含格式判断、引擎选择、图片本地化完整流程），保存到原路径。不再需要为了几个失败文件重跑整个导出任务。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#problem">之前的痛点</a></li>
+                        <li><a href="#solution">现在的方案</a></li>
+                        <li><a href="#how-to">操作步骤</a></li>
+                        <li><a href="#details">技术细节</a></li>
+                        <li><a href="#common-failures">常见失败原因及处理</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>批量导出 500 篇文档，其中 3 篇因为网络超时失败了。之前的做法是：点击「重试失败的文件」，这会重新鉴权并启动一个新的导出流程。虽然只处理失败文件，但整个流程比较重。如果只是想补一两个文件，有点杀鸡用牛刀。</p>
+
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>设置页「文件明细」中每个文件可独立重新下载</strong></li>
+                        <li><strong>保存路径与首次导出完全一致，不会产生重复文件</strong></li>
+                        <li><strong>使用当前设置中的格式和引擎配置</strong></li>
+                        <li><strong>适合修复少量失败文件，无需重跑整个任务</strong></li>
+                    </ul>
+                </div>
+
+                <h2 id="problem">之前的痛点</h2>
+
+                <p>在 v1.2 之前，处理失败文件有两种方式：</p>
+
+                <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+                    <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                        <th style="text-align:left;padding:0.5rem 1rem;color:rgba(255,255,255,0.6);">方式</th>
+                        <th style="text-align:left;padding:0.5rem 1rem;color:rgba(255,255,255,0.6);">操作</th>
+                        <th style="text-align:left;padding:0.5rem 1rem;color:rgba(255,255,255,0.6);">问题</th>
+                    </tr></thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <td style="padding:0.5rem 1rem;">重试失败文件</td>
+                            <td style="padding:0.5rem 1rem;">Popup 点击「重试」按钮</td>
+                            <td style="padding:0.5rem 1rem;">启动完整流程，对单个文件过重</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <td style="padding:0.5rem 1rem;">重新导出全部</td>
+                            <td style="padding:0.5rem 1rem;">重置后重新开始</td>
+                            <td style="padding:0.5rem 1rem;">成功的文件也会被重新处理</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>两种方式对于「只想补一两个文件」的场景都不理想。特别是在大批量导出后（比如 1000+ 文档），为了 2-3 个失败文件去走完整流程，等待时间不成比例。</p>
+
+                <h2 id="solution">现在的方案</h2>
+
+                <p>v1.2 在设置页的「性能监控 → 文件明细」中，为每个文件新增了「重新下载」按钮。无论文件状态是成功、失败还是未完成，都可以点击重新导出。</p>
+
+                <p>按钮状态变化：</p>
+                <ul>
+                    <li><strong>重新下载</strong> → 点击前，可操作状态</li>
+                    <li><strong>下载中...</strong> → 执行中，按钮禁用</li>
+                    <li><strong>已完成</strong> → 成功，3秒后恢复</li>
+                    <li><strong>失败</strong> → 出错，hover 可查看原因，3秒后恢复</li>
+                </ul>
+
+                <h2 id="how-to">操作步骤</h2>
+
+                <ol>
+                    <li>打开 YuqueOut 设置页（右键扩展图标 → 选项）</li>
+                    <li>点击左侧导航「性能监控」</li>
+                    <li>下滑到「文件明细」区域</li>
+                    <li>用状态筛选按钮过滤出「失败」的文件</li>
+                    <li>在目标文件行末尾点击「重新下载」</li>
+                    <li>等待按钮变为「已完成」即可</li>
+                </ol>
+
+                <p>在「目录结构视图」中同样提供了重新下载按钮，方便在目录结构中定位文件后直接重试。</p>
+
+                <h2 id="details">技术细节</h2>
+
+                <p>单文件重新下载执行的是完整的导出流程，与批量导出时的逻辑完全一致：</p>
+
+                <ul>
+                    <li>读取当前设置中的格式配置（文档/表格/画板各自的格式）</li>
+                    <li>根据文档类型和权限自动选择转换引擎（本地/API）</li>
+                    <li>Markdown 导出时执行图片本地化</li>
+                    <li>保存路径按知识库/目录/文件名生成，与首次导出一致</li>
+                    <li>如果目标路径已存在同名文件，Chrome 会自动加 (1) 后缀（uniquify 策略）</li>
+                </ul>
+
+                <h2 id="common-failures">常见失败原因及处理</h2>
+
+                <h3>网络超时</h3>
+                <p>最常见的失败原因。通常直接点「重新下载」即可成功。如果反复超时，可能是语雀 API 限流，建议等待几分钟后再试。</p>
+
+                <h3>权限不足（403）</h3>
+                <p>文档的导出权限被管理员限制了。如果文档类型是普通文档（Doc），重新下载时 YuqueOut 会自动尝试本地引擎兜底。如果是 Word/PDF 格式则确实需要权限，可以先切换设置中的格式为 Markdown 后重试。</p>
+
+                <h3>文档已删除（404）</h3>
+                <p>文档在导出期间被删除或移动了。这种情况重试也会失败，属于正常情况。</p>
+
+                <h3>登录态过期</h3>
+                <p>长时间未操作后 Cookie 过期。解决办法：在浏览器中重新访问一次 yuque.com（自动刷新 Cookie），然后重试。</p>
+
+                <h2 id="faq">常见问题</h2>
+
+                <h3>Q: 重新下载会覆盖已有文件吗？</h3>
+                <p>不会直接覆盖。Chrome 下载 API 使用 <code>uniquify</code> 策略：如果路径已存在同名文件，会自动加数字后缀（如 <code>文档 (1).md</code>）。如果你想替换旧文件，需要手动删除后再重新下载。</p>
+
+                <h3>Q: 可以批量重试所有失败文件吗？</h3>
+                <p>可以。Popup 中的「重试失败的文件」按钮仍然保留，适合一次性重跑所有失败文件。单文件重试是针对精确补充的场景。</p>
+
+                <h3>Q: 重新下载的格式和首次导出不一样怎么办？</h3>
+                <p>重新下载使用当前设置中的格式配置。如果你在导出后修改了格式设置（比如从 md 改为 docx），重新下载会按新设置执行。如果需要保持一致，确保设置未变再点击重试。</p>
+
+                <div class="info-box" style="border-left-color: #6366f1;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        相关阅读
+                    </div>
+                    <ul>
+                        <li><a href="yuque-export-troubleshooting.html">语雀导出失败怎么办？常见报错排查与恢复指南</a></li>
+                        <li><a href="yuque-batch-export-tutorial.html">语雀知识库批量导出完整教程</a></li>
+                        <li><a href="yuque-image-hotlink-fix.html">语雀图片防盗链完美解决方案</a></li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image" width="36" height="36" loading="lazy"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../#privacy">隐私保护</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>

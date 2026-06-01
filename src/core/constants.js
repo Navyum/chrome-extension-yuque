@@ -50,9 +50,9 @@ export const DOC_TYPE_EXPORT_OPTIONS = {
     apiTypeMap: {},
   },
   [DOC_TYPES.TABLE]: {
-    formats: ['xlsx'],
+    formats: ['xlsx', 'csv', 'md'],
     defaultFormat: 'xlsx',
-    apiTypeMap: { xlsx: 'excel' },  // Server expects "excel", not "xlsx"
+    apiTypeMap: { xlsx: 'excel' },
   },
 };
 

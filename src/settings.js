@@ -324,15 +324,19 @@ function renderPerformanceFileList(fileList) {
     return;
   }
 
-  const rows = filteredFiles.map(file => `
+  const rows = filteredFiles.map(file => {
+    const idx = currentPerformanceFiles.indexOf(file);
+    return `
     <tr>
       <td>${escapeHtml(file.title || i18n('performanceUntitled'))}</td>
       <td>${escapeHtml(file.bookName || '-')}</td>
       <td>${escapeHtml(statusLabel(file.status))}</td>
       <td>${escapeHtml(file.localPath || buildDisplayPath(file))}</td>
       <td>${escapeHtml(formatDuration(file.duration))}</td>
+      <td><button class="re-export-btn" data-file-index="${idx}" title="${escapeHtml(i18n('reExportFile'))}">${escapeHtml(i18n('reExportBtn'))}</button></td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 
   container.innerHTML = `
     <table class="performance-table">
@@ -343,11 +347,16 @@ function renderPerformanceFileList(fileList) {
           <th>${escapeHtml(i18n('performanceColStatus'))}</th>
           <th>${escapeHtml(i18n('performanceColPath'))}</th>
           <th>${escapeHtml(i18n('performanceColDuration'))}</th>
+          <th>${escapeHtml(i18n('performanceColAction'))}</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
     </table>
   `;
+
+  container.querySelectorAll('.re-export-btn').forEach(btn => {
+    btn.addEventListener('click', () => reExportFile(btn));
+  });
 }
 
 function renderPerformanceTree(fileList) {
@@ -392,6 +401,13 @@ function renderPerformanceTree(fileList) {
       label.parentElement.classList.toggle('collapsed');
     });
   });
+
+  container.querySelectorAll('.re-export-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      reExportFile(btn);
+    });
+  });
 }
 
 function createTreeElement(node) {
@@ -406,12 +422,14 @@ function createTreeElement(node) {
         .slice()
         .sort((a, b) => String(a.title || '').localeCompare(String(b.title || ''), 'zh-CN'))
         .forEach(file => {
+          const idx = currentPerformanceFiles.indexOf(file);
           const li = document.createElement('li');
           li.className = 'performance-tree-file';
           li.innerHTML = `
             <div class="performance-tree-file-main">
               <span class="performance-tree-status performance-tree-status-${escapeHtml(file.status || 'pending')}">${escapeHtml(statusLabel(file.status))}</span>
               <span class="performance-tree-file-name">${escapeHtml(file.title || i18n('performanceUntitled'))}</span>
+              <button class="re-export-btn re-export-btn-tree" data-file-index="${idx}" title="${escapeHtml(i18n('reExportFile'))}">${escapeHtml(i18n('reExportBtn'))}</button>
             </div>
             <div class="performance-tree-file-meta">
               <span>${escapeHtml(formatDuration(file.duration))}</span>
@@ -469,4 +487,36 @@ function escapeHtml(value) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+async function reExportFile(btn) {
+  const fileIndex = Number(btn.dataset.fileIndex);
+  if (isNaN(fileIndex) || fileIndex < 0) return;
+
+  btn.disabled = true;
+  btn.textContent = i18n('reExportingBtn');
+
+  try {
+    const response = await chrome.runtime.sendMessage({
+      action: 'reExportFile',
+      data: { fileIndex }
+    });
+
+    if (response?.success) {
+      btn.textContent = i18n('reExportDoneBtn');
+      setTimeout(() => loadPerformanceData(), 1000);
+    } else {
+      btn.textContent = i18n('reExportFailBtn');
+      btn.title = response?.error || '';
+    }
+  } catch (error) {
+    btn.textContent = i18n('reExportFailBtn');
+    btn.title = error.message;
+  }
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = i18n('reExportBtn');
+    btn.title = i18n('reExportFile');
+  }, 3000);
 }

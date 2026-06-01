@@ -35,13 +35,179 @@ export async function checkAuth() {
 }
 
 /**
- * Get all knowledge bases (personal + collaboration).
- * Uses internal API endpoints discovered from yuque-tools and yuque-dl.
+ * Fetch user's organizations (spaces).
+ * GET /api/mine/organizations
+ */
+export async function fetchOrganizations() {
+  try {
+    const data = await fetchYuqueAPI('/mine/organizations');
+    const orgs = Array.isArray(data.data) ? data.data : [];
+    return orgs.map(org => ({
+      id: org.id,
+      login: org.login,
+      name: org.name,
+      host: org.host || `https://${org.login}.yuque.com`,
+    }));
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * Fetch team groups within an organization space.
+ * GET {host}/api/mine/common_used → data.groups[]
+ */
+async function fetchOrgGroups(host) {
+  try {
+    const data = await fetchYuqueAPI('/mine/common_used', 3, host);
+    const groups = data.data?.groups || [];
+    return groups
+      .filter(g => g.target_type === 'User' && g.target?.type === 'Group')
+      .map(g => ({
+        id: g.target_id,
+        name: g.target?.name || g.title || '',
+        login: g.target?.login || '',
+        booksCount: g.target?.books_count || 0,
+      }));
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * Fetch knowledge bases under a team group.
+ * GET {host}/api/groups/{groupId}/bookstacks
+ */
+async function fetchGroupBooks(host, groupId, groupName, orgName) {
+  const books = [];
+  try {
+    const data = await fetchYuqueAPI(`/groups/${groupId}/bookstacks`, 3, host);
+    const stacks = Array.isArray(data.data) ? data.data : [];
+    stacks.forEach(stack => {
+      const stackBooks = Array.isArray(stack.books) ? stack.books : [];
+      stackBooks.forEach(book => {
+        books.push({
+          id: book.id,
+          slug: book.slug,
+          name: book.name,
+          docs_count: book.items_count || book.docs_count || 0,
+          updated_at: book.updated_at,
+          namespace: `${book.user?.login || book.slug}/${book.slug}`,
+          type: 'team',
+          description: book.description || '',
+          groupId,
+          groupName,
+          orgName,
+          host,
+          stackName: stack.name || '',
+        });
+      });
+    });
+
+    // Fix inaccurate items_count
+    for (const book of books) {
+      if (book.docs_count === 0) {
+        try {
+          const docsData = await fetchYuqueAPI(`/docs?book_id=${book.id}`, 3, host);
+          const docs = Array.isArray(docsData.data) ? docsData.data : [];
+          book.docs_count = docs.length;
+        } catch (e) {}
+      }
+    }
+  } catch (e) {
+  }
+  return books;
+}
+
+/**
+ * Fetch the public wiki books for an organization.
+ * GET {host}/api/modules/org_wiki/wiki/show?organizationId={orgId}
+ */
+async function fetchOrgWikiBooks(host, orgId, orgName) {
+  const books = [];
+  try {
+    const resp = await fetch(`${host}/api/modules/org_wiki/wiki/show?organizationId=${orgId}`, {
+      headers: {
+        'Accept': 'application/json',
+        'x-requested-with': 'XMLHttpRequest',
+        'Origin': host,
+        'Referer': `${host}/`,
+      },
+      credentials: 'include',
+      signal: getAbortSignal()
+    });
+    if (!resp.ok) return books;
+    const data = await resp.json();
+
+    const extractBooks = (obj) => {
+      if (!obj || typeof obj !== 'object') return;
+      if (Array.isArray(obj)) { obj.forEach(extractBooks); return; }
+      if (Array.isArray(obj.books)) {
+        obj.books.forEach(b => {
+          if (b && b.id && !books.find(x => x.id === b.id)) {
+            books.push({
+              id: b.id,
+              slug: b.slug,
+              name: b.name,
+              docs_count: b.items_count || 0,
+              updated_at: b.updated_at,
+              namespace: `${b.user?.login || b.slug}/${b.slug}`,
+              type: 'wiki',
+              description: b.description || '',
+              orgName,
+              host,
+            });
+          }
+        });
+        return;
+      }
+      Object.values(obj).forEach(extractBooks);
+    };
+    extractBooks(data);
+
+    for (const book of books) {
+      if (book.docs_count === 0) {
+        try {
+          const docsData = await fetchYuqueAPI(`/docs?book_id=${book.id}`, 3, host);
+          const docs = Array.isArray(docsData.data) ? docsData.data : [];
+          book.docs_count = docs.length;
+        } catch (e) {}
+      }
+    }
+  } catch (e) {
+  }
+  return books;
+}
+
+/**
+ * Fetch bookmarks within an organization space.
+ * GET {host}/api/mine/marks?offset=0&limit=100&type=all
+ */
+export async function fetchOrgBookmarks(host) {
+  const allActions = [];
+  let offset = 0;
+  const limit = 100;
+  try {
+    while (true) {
+      const data = await fetchYuqueAPI(`/mine/marks?offset=${offset}&limit=${limit}&type=all`, 3, host);
+      const actions = data.data?.actions || [];
+      if (!actions.length) break;
+      allActions.push(...actions);
+      if (actions.length < limit) break;
+      offset += limit;
+    }
+  } catch (e) {
+  }
+  return allActions;
+}
+
+/**
+ * Get all knowledge bases (personal + collaboration + team spaces).
  */
 export async function fetchAllBooks() {
   const books = [];
 
-  // Personal books via /api/mine/book_stacks (grouped by stack)
+  // Personal books via /api/mine/book_stacks
   try {
     const stackData = await fetchYuqueAPI('/mine/book_stacks');
     const stacks = Array.isArray(stackData.data) ? stackData.data : [];
@@ -69,7 +235,6 @@ export async function fetchAllBooks() {
     const collabData = await fetchYuqueAPI('/mine/raw_collab_books');
     const collabBooks = Array.isArray(collabData.data) ? collabData.data : [];
     collabBooks.forEach(book => {
-      // Deduplicate
       if (!books.find(b => b.id === book.id)) {
         books.push({
           id: book.id,
@@ -87,27 +252,61 @@ export async function fetchAllBooks() {
   } catch (e) {
   }
 
-  // Group/Team books via /api/mine/user_books?user_type=Group
-  try {
-    const groupData = await fetchYuqueAPI('/mine/user_books?user_type=Group');
-    const groupBooks = Array.isArray(groupData.data) ? groupData.data : [];
-    groupBooks.forEach(book => {
-      if (!books.find(b => b.id === book.id)) {
-        books.push({
-          id: book.id,
-          slug: book.slug,
-          name: book.name,
-          docs_count: book.items_count || book.docs_count || 0,
-          updated_at: book.updated_at,
-          namespace: `${book.user?.login || ''}/${book.slug}`,
-          type: 'collab',
-          description: book.description || '',
-          groupName: book.user?.name || '',
-        });
-      }
+  // Organization spaces → wiki + groups + personal + bookmarks
+  const orgs = await fetchOrganizations();
+  for (const org of orgs) {
+    const wikiBooks = await fetchOrgWikiBooks(org.host, org.id, org.name);
+    wikiBooks.forEach(book => {
+      if (!books.find(b => b.id === book.id)) books.push(book);
     });
-  } catch (e) {
-    // Group books may not exist for personal accounts
+
+    const groups = await fetchOrgGroups(org.host);
+    for (const group of groups) {
+      const groupBooks = await fetchGroupBooks(org.host, group.id, group.name, org.name);
+      groupBooks.forEach(book => {
+        if (!books.find(b => b.id === book.id)) books.push(book);
+      });
+    }
+
+    try {
+      const orgStackData = await fetchYuqueAPI('/mine/book_stacks', 3, org.host);
+      const orgStacks = Array.isArray(orgStackData.data) ? orgStackData.data : [];
+      orgStacks.forEach(stack => {
+        const stackBooks = Array.isArray(stack.books) ? stack.books : [];
+        stackBooks.forEach(book => {
+          if (!books.find(b => b.id === book.id)) {
+            books.push({
+              id: book.id,
+              slug: book.slug,
+              name: book.name,
+              docs_count: book.items_count || book.docs_count || 0,
+              updated_at: book.updated_at,
+              namespace: `${book.user?.login || ''}/${book.slug}`,
+              type: 'org-personal',
+              description: book.description || '',
+              orgName: org.name,
+              host: org.host,
+              stackName: stack.name || '',
+            });
+          }
+        });
+      });
+    } catch (e) {
+    }
+
+    const orgMarks = await fetchOrgBookmarks(org.host);
+    if (orgMarks.length > 0) {
+      books.push({
+        id: `__bookmarks_${org.id}__`,
+        name: '收藏',
+        docs_count: orgMarks.length,
+        type: 'org-bookmarks',
+        orgName: org.name,
+        orgId: org.id,
+        host: org.host,
+        _isBookmark: true,
+      });
+    }
   }
 
   return books;
@@ -117,8 +316,8 @@ export async function fetchAllBooks() {
  * Get the document list for a knowledge base.
  * Uses /api/docs?book_id={bookId}
  */
-export async function fetchBookDocs(bookId) {
-  const data = await fetchYuqueAPI(`/docs?book_id=${bookId}`);
+export async function fetchBookDocs(bookId, host = null) {
+  const data = await fetchYuqueAPI(`/docs?book_id=${bookId}`, 3, host);
   return Array.isArray(data.data) ? data.data : [];
 }
 
@@ -126,14 +325,17 @@ export async function fetchBookDocs(bookId) {
  * Fetch embedded TOC data from a knowledge base page.
  * The page includes a URL-encoded JSON payload containing book.toc.
  */
-export async function fetchBookToc(bookNamespace) {
+export async function fetchBookToc(bookNamespace, host = null) {
   if (!bookNamespace) return [];
 
-  const resp = await fetch(`${YUQUE_API.HOME_PAGE}/${bookNamespace}`, {
+  const baseHost = host || YUQUE_API.HOME_PAGE;
+  const referer = `${baseHost}/`;
+
+  const resp = await fetch(`${baseHost}/${bookNamespace}`, {
     headers: {
       'Accept': 'text/html,application/xhtml+xml',
       'x-requested-with': 'XMLHttpRequest',
-      'Referer': 'https://www.yuque.com/',
+      'Referer': referer,
     },
     credentials: 'include',
     signal: getAbortSignal()
@@ -523,19 +725,26 @@ async function downloadExportedFile(url) {
 /**
  * Core API request function with throttle and retry.
  * Uses internal /api/ endpoints (not /api/v2/).
+ * @param {string} path - API path (e.g. '/mine/book_stacks')
+ * @param {number} retries - Number of retry attempts
+ * @param {string} [host] - Optional host override (e.g. 'https://navuym.yuque.com')
  */
-async function fetchYuqueAPI(path, retries = 3) {
+async function fetchYuqueAPI(path, retries = 3, host = null) {
   await throttle.wait();
+
+  const baseUrl = host ? `${host}/api` : YUQUE_API.BASE;
+  const origin = host || 'https://www.yuque.com';
+  const referer = `${origin}/`;
 
   for (let i = 0; i < retries; i++) {
     try {
-      const url = path.startsWith('http') ? path : `${YUQUE_API.BASE}${path}`;
+      const url = path.startsWith('http') ? path : `${baseUrl}${path}`;
       const resp = await fetch(url, {
         headers: {
           'Accept': 'application/json',
           'x-requested-with': 'XMLHttpRequest',
-          'Origin': 'https://www.yuque.com',
-          'Referer': 'https://www.yuque.com/',
+          'Origin': origin,
+          'Referer': referer,
         },
         credentials: 'include',
         signal: getAbortSignal()
@@ -651,12 +860,11 @@ export async function fetchBookmarks() {
  * Try to fetch docs for a book. Returns { docs, needsPassword }.
  * If the book requires password verification, returns needsPassword: true.
  */
-export async function fetchBookDocsWithPasswordCheck(bookId) {
+export async function fetchBookDocsWithPasswordCheck(bookId, host = null) {
   try {
-    const data = await fetchYuqueAPI(`/docs?book_id=${bookId}`);
+    const data = await fetchYuqueAPI(`/docs?book_id=${bookId}`, 3, host);
     return { docs: Array.isArray(data.data) ? data.data : [], needsPassword: false };
   } catch (e) {
-    // 404 with "custom-error" means password required (for books we know exist)
     if (e.message.includes('404')) {
       return { docs: [], needsPassword: true };
     }
@@ -776,4 +984,30 @@ export async function verifyDocPassword(docId, password) {
   }
 
   return true;
+}
+
+export async function fetchDocContent(slug, bookId, host = null) {
+  const baseHost = host || 'https://www.yuque.com';
+  const url = `${baseHost}/api/docs/${slug}?book_id=${bookId}&merge_dynamic_data=true`;
+  const resp = await fetch(url, {
+    headers: {
+      'Accept': 'application/json',
+      'x-requested-with': 'XMLHttpRequest',
+      'Origin': baseHost,
+      'Referer': `${baseHost}/`,
+    },
+    credentials: 'include',
+  });
+
+  if (!resp.ok) {
+    throw new Error(`获取文档内容失败: HTTP ${resp.status}`);
+  }
+
+  const data = await resp.json();
+  return {
+    content: data.data?.content || data.data?.body_asl || '',
+    body: data.data?.body || '',
+    title: data.data?.title || '',
+    canExport: data.data?.abilities?.export === true,
+  };
 }

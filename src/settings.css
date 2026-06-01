@@ -498,6 +498,31 @@ body::before {
   word-break: break-word;
 }
 
+.re-export-btn {
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-card);
+  color: var(--text-2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.re-export-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.re-export-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.re-export-btn-tree {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
 .performance-empty {
   color: var(--text-3);
   font-size: 0.82rem;
