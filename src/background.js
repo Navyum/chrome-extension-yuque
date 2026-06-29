@@ -6,7 +6,7 @@ import { sendLog } from './core/messaging.js';
 initDownloadHooks();
 registerRuntimeHandlers();
 
-// Override Referer for Yuque CDN image requests (bypass hotlink protection)
+// Override Referer for Yuque CDN image requests
 chrome.declarativeNetRequest.updateDynamicRules({
   removeRuleIds: [1, 2, 3],
   addRules: [

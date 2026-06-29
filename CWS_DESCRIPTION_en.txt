@@ -1,0 +1,20 @@
+YuqueOut - Yuque Export Assistant
+
+A batch export tool for Yuque. After signing in to Yuque, you can export knowledge bases and favorite documents you have access to, with no manual token setup. Export content locally in multiple formats for backup or migration to Obsidian, Feishu, and Notion.
+
+Key features
+
+✅ No token setup: Reuses your existing Yuque browser session
+✅ Team spaces: Batch export team-space documents you have access to
+✅ Batch export: Export knowledge bases and favorite documents in bulk
+✅ Floating shortcut: Shows a draggable export button on Yuque document pages for quickly saving the current document locally
+✅ Multiple formats: Markdown by default; tables support MD and CSV; boards support SVG
+✅ Encrypted content support: Enter the document password locally when required
+✅ Preserved structure: Keeps folder structure and localizes images to reduce broken links
+✅ Privacy focused: Export processing happens in your local browser; document content is not uploaded or collected
+
+Simple workflow:
+Sign in to Yuque → Select knowledge bases or favorites → Export locally with no extra token setup.
+
+Use cases:
+Local Yuque backup, organizing favorite documents, cross-platform knowledge migration, and team document archiving.
