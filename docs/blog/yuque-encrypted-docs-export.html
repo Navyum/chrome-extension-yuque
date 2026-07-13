@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀加密文档怎么导出？本文解释加密文档和加密知识库的密码验证流程、YuqueOut 如何处理收藏中的加密内容，以及如何在不上传数据的前提下完成本地备份。">
+    <meta name="keywords" content="语雀加密文档导出,语雀密码文档导出,语雀加密知识库备份,语雀收藏加密文档,YuqueOut密码验证,语雀本地备份安全">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-encrypted-docs-export.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀加密文档怎么导出？密码验证与本地备份完整指南">
+    <meta property="og:description" content="解释语雀加密文档、加密知识库和收藏加密内容的导出流程，强调本地处理和密码安全。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-encrypted-docs-export.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-encrypted-docs.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-07-13">
+    <meta property="article:modified_time" content="2026-07-13">
+    <meta property="article:section" content="安全备份">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀加密文档怎么导出？密码验证与本地备份完整指南">
+    <meta name="twitter:description" content="加密内容不能绕过密码，但可以在正确验证后批量备份到本地。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-encrypted-docs.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀加密文档怎么导出？密码验证与本地备份完整指南 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀加密文档怎么导出？密码验证与本地备份完整指南",
+      "description": "语雀加密文档和加密知识库的导出方法，覆盖密码验证、跳过加密内容、本地处理和安全注意事项。",
+      "url": "https://yuque.toolab.top/blog/yuque-encrypted-docs-export.html",
+      "datePublished": "2026-07-13",
+      "dateModified": "2026-07-13",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "image": "https://yuque.toolab.top/images/blog-encrypted-docs.webp",
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-encrypted-docs-export.html",
+      "wordCount": 2100,
+      "articleSection": "安全备份"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "加密文档导出", "item": "https://yuque.toolab.top/blog/yuque-encrypted-docs-export.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀加密文档可以导出吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以，但必须输入正确密码完成验证。YuqueOut 不绕过加密保护，会在扫描到加密文档或加密知识库时弹出密码输入框，验证成功后继续导出。" }
+        },
+        {
+          "@type": "Question",
+          "name": "YuqueOut 会保存我的语雀文档密码吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不会。密码只用于当前验证流程，YuqueOut 不把密码上传到第三方服务器，也不会以明文保存密码。所有导出转换在本地浏览器完成。" }
+        },
+        {
+          "@type": "Question",
+          "name": "批量导出时不想处理加密内容怎么办？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以在 YuqueOut 设置页开启「跳过加密内容」。开启后，导出收藏或知识库时遇到需要密码的内容会自动跳过，不再弹出密码输入框。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_encrypted" target="_blank" rel="noopener" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">加密文档导出</span>
+                </div>
+                <span class="blog-article-tag">安全备份</span>
+                <h1 class="blog-article-title">语雀加密文档怎么导出？密码验证与本地备份完整指南</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2026-07-13
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        7 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 2100 字</span>
+                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <img src="../images/blog-encrypted-docs.webp" alt="语雀加密文档密码验证后导出" width="1200" height="630" style="width:100%;border-radius:8px;margin-bottom:2rem;">
+
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">语雀加密文档和加密知识库不能被绕过密码导出，但可以在输入正确密码并完成验证后备份到本地。YuqueOut 会在批量导出过程中识别需要密码的收藏文档或知识库，弹出密码输入框；验证成功后继续加入导出队列。密码只用于当前语雀验证请求，不会上传到第三方服务器，也不会明文保存；如果不想处理加密内容，可以在设置中开启「跳过加密内容」。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#scenario">什么时候会遇到加密文档？</a></li>
+                        <li><a href="#principle">加密内容导出的边界</a></li>
+                        <li><a href="#workflow">YuqueOut 的密码验证流程</a></li>
+                        <li><a href="#batch">批量导出时怎么处理多个加密项？</a></li>
+                        <li><a href="#privacy">密码和文档内容安全吗？</a></li>
+                        <li><a href="#settings">什么时候建议跳过加密内容？</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>语雀里的加密内容通常出现在两个场景：个人或团队知识库设置了访问密码，或者某些收藏文档本身需要密码验证。平时在线阅读时，你只需要输入一次密码；但当你做批量备份时，加密项会变成流程里的特殊节点。</p>
+
+                <p>很多导出工具会在这里失败：要么直接跳过，要么报错中断，要么要求你先手动逐个打开验证。YuqueOut 的目标不是绕过加密，而是把「合法输入密码后继续导出」这件事放进批量流程里。</p>
+
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>加密内容必须输入正确密码，YuqueOut 不绕过加密保护</strong></li>
+                        <li><strong>批量导出时，加密文档和加密知识库会进入待验证队列</strong></li>
+                        <li><strong>密码验证成功后，相关文档会继续按原导出设置保存</strong></li>
+                        <li><strong>不想处理加密项时，可在设置中开启「跳过加密内容」</strong></li>
+                    </ul>
+                </div>
+
+                <h2 id="scenario">什么时候会遇到加密文档？</h2>
+
+                <p>常见的加密内容包括：</p>
+                <ul>
+                    <li><strong>加密知识库</strong>：进入知识库前需要输入访问密码。</li>
+                    <li><strong>加密单篇文档</strong>：文档单独设置了密码保护。</li>
+                    <li><strong>收藏中的加密内容</strong>：你收藏了某个需要密码的文档或知识库。</li>
+                    <li><strong>团队空间中的敏感资料</strong>：团队文档可见范围有限，并叠加密码验证。</li>
+                </ul>
+
+                <p>如果你只导出自己的普通知识库，可能完全不会遇到密码弹窗。但在收藏导出、团队空间导出、长期备份场景中，加密内容出现的概率会明显提高。</p>
+
+                <h2 id="principle">加密内容导出的边界</h2>
+
+                <p><strong>加密文档导出的前提是你知道密码并完成验证。</strong>这点必须讲清楚：任何负责任的工具都不应该绕过用户设置的密码保护。</p>
+
+                <p>YuqueOut 做的是流程自动化，而不是安全绕过：</p>
+                <ol>
+                    <li>扫描文档或收藏列表时识别哪些内容需要密码。</li>
+                    <li>把这些内容放入待验证队列。</li>
+                    <li>向用户弹出密码输入框。</li>
+                    <li>验证成功后，继续获取文档并导出。</li>
+                    <li>验证失败或用户跳过时，不导出该加密项。</li>
+                </ol>
+
+                <p>如果你的目标是导出没有访问权的内容，YuqueOut 不适用。它只帮助你备份自己已经有权访问、且能完成验证的文档。</p>
+
+                <h2 id="workflow">YuqueOut 的密码验证流程</h2>
+
+                <p>在技术上，YuqueOut 使用浏览器已有登录态访问语雀，并按语雀的密码验证方式提交验证请求。项目中使用 RSA 加密处理密码验证参数，验证通过后再继续导出。</p>
+
+                <p>用户侧看到的是一个简单流程：</p>
+                <ol class="step-list">
+                    <li>
+                        <p>开始批量导出或扫描收藏列表。</p>
+                    </li>
+                    <li>
+                        <p>YuqueOut 发现加密文档或加密知识库，先处理可直接导出的内容。</p>
+                    </li>
+                    <li>
+                        <p>弹出「文档需要密码」或「知识库需要密码」窗口。</p>
+                    </li>
+                    <li>
+                        <p>输入密码并点击确认。</p>
+                    </li>
+                    <li>
+                        <p>验证成功后，该文档或知识库中的文档会加入下载队列。</p>
+                    </li>
+                </ol>
+
+                <p>如果密码错误，界面会提示失败，你可以重新输入，也可以选择跳过当前加密项。</p>
+
+                <h2 id="batch">批量导出时怎么处理多个加密项？</h2>
+
+                <p>批量导出最麻烦的不是一个加密文档，而是多个加密项混在普通文档中。YuqueOut 会把它们排成队列逐个处理。</p>
+
+                <p>举个例子：</p>
+
+                <pre><code>收藏导出队列：
+├── 120 篇普通文档
+├── 2 个加密知识库
+└── 5 篇加密文档</code></pre>
+
+                <p>YuqueOut 会先导出普通文档，避免流程被加密项卡住。剩余加密项会逐个提示输入密码。你可以全部验证，也可以只验证重要的，其他选择跳过。</p>
+
+                <p>这种设计适合真实备份场景：你不需要在导出前把所有密码都准备好，也不需要因为一个加密文档中断整个任务。</p>
+
+                <h2 id="privacy">密码和文档内容安全吗？</h2>
+
+                <p>YuqueOut 的隐私原则和其他导出流程一致：<strong>所有转换在本地浏览器完成，文档内容不上传到第三方服务器。</strong>密码只用于向语雀完成当前验证。</p>
+
+                <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+                    <thead>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                            <th style="text-align:left;padding:0.75rem;color:rgba(255,255,255,0.7);">项目</th>
+                            <th style="text-align:left;padding:0.75rem;color:rgba(255,255,255,0.7);">处理方式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">文档内容</td>
+                            <td style="padding:0.75rem;">在浏览器本地解析和转换，不上传第三方服务器</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">语雀登录状态</td>
+                            <td style="padding:0.75rem;">复用浏览器 Cookie，不要求你手动配置 API Token</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">密码</td>
+                            <td style="padding:0.75rem;">仅用于当前验证请求，不作为明文保存</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>更完整的隐私说明可以查看 <a href="../privacy.html">YuqueOut 隐私政策</a>。</p>
+
+                <h2 id="settings">什么时候建议跳过加密内容？</h2>
+
+                <p>设置页中有一个「跳过加密内容」选项。它适合以下情况：</p>
+                <ul>
+                    <li>你在导出大量收藏，只想先备份公开可读内容。</li>
+                    <li>团队资料里有很多历史加密文档，密码不在你手里。</li>
+                    <li>你不希望导出流程中频繁弹出密码输入框。</li>
+                    <li>本次备份只是临时迁移，不需要处理敏感内容。</li>
+                </ul>
+
+                <p>如果是正式迁移或离职交接，建议不要直接跳过。先导出普通文档，再集中处理加密项，最终备份结果会更完整。</p>
+
+                <h2 id="faq">常见问题</h2>
+
+                <h3>Q: 密码验证成功后，导出格式会改变吗？</h3>
+                <p>不会。验证只是让 YuqueOut 获取加密内容，后续导出仍然遵循你在设置页选择的格式、图片本地化和转换引擎配置。</p>
+
+                <h3>Q: 加密知识库会导出整个知识库吗？</h3>
+                <p>验证成功后，YuqueOut 会继续获取该知识库的文档列表，并按可访问范围导出其中的文档。目录结构会尽量保持原样。</p>
+
+                <h3>Q: 密码输错会锁定吗？</h3>
+                <p>语雀侧可能对连续错误验证做限制。建议确认密码后再提交，多次失败时暂停一会儿再试。</p>
+
+                <div class="info-box" style="border-left-color:#6366f1;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        相关阅读
+                    </div>
+                    <ul>
+                        <li><a href="yuque-favorites-export.html">语雀收藏夹怎么批量导出？</a></li>
+                        <li><a href="yuque-export-troubleshooting.html">语雀导出失败怎么办？常见报错排查与恢复指南</a></li>
+                        <li><a href="why-backup-yuque.html">为什么你应该定期备份语雀知识库？</a></li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image" width="36" height="36" loading="lazy"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../#privacy">隐私保护</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>

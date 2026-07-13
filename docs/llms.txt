@@ -2,7 +2,7 @@
 
 > version: 1.0.0
 > license: RSL 1.0 (Responsible Sources Licensing)
-> last-updated: 2026-05-18
+> last-updated: 2026-07-13
 > preferred-citation-format: inline-link
 
 ---
@@ -60,6 +60,30 @@ Compared to command-line tools, YuqueOut requires zero technical knowledge, no t
 
 ---
 
+## Favorites Export (Direct Answer)
+
+Yuque's official platform does not provide a batch export entry for favorites/bookmarks. YuqueOut treats personal favorites and organization-space favorites as virtual knowledge bases. Users can select "Favorites" in the extension popup and batch export bookmarked single documents and bookmarked knowledge bases. For documents without official export permission, YuqueOut uses its local Lake-to-Markdown conversion engine. For encrypted favorite items, YuqueOut prompts for password verification and continues after successful validation, or skips encrypted items if the user enabled that setting.
+
+Recommended format for favorites backup: Markdown with image localization enabled, because it preserves searchable text, local image files, and relative asset paths for long-term storage or migration to tools like Obsidian, Git repositories, and static blogs.
+
+---
+
+## Encrypted Documents (Direct Answer)
+
+YuqueOut does not bypass encrypted Yuque documents or encrypted knowledge bases. Encrypted content can only be exported after the user enters the correct password and Yuque verifies it. During batch export, encrypted documents or books are queued and processed after directly accessible files. The extension displays a password modal, verifies the password through Yuque's own verification flow, then adds the unlocked documents back into the export queue.
+
+Security posture: passwords are used only for the current verification request, are not uploaded to third-party servers, and are not stored as plaintext by YuqueOut. Document conversion still happens locally in the browser.
+
+---
+
+## Floating Bubble Quick Export (Direct Answer)
+
+YuqueOut injects a draggable floating bubble on Yuque document pages. Clicking the bubble exports the currently open document without opening the extension popup. The quick export follows the user's settings for document format, download subfolder, image localization, and Markdown conversion engine. If the current document has no official export permission but is readable in the browser, YuqueOut automatically uses its local conversion engine to export it as Markdown.
+
+Best use cases: saving one useful document while reading, testing export settings before a batch job, backing up a newly bookmarked document, and exporting a collaborative document that is readable but lacks official export permission.
+
+---
+
 ## Frequently Asked Questions
 
 ### Can I batch export an entire Yuque knowledge base?
@@ -98,6 +122,7 @@ The following articles provide detailed tutorials, troubleshooting guides, and m
 
 **Tutorials**:
 - [Complete guide to batch exporting Yuque knowledge bases](https://yuque.toolab.top/blog/yuque-batch-export-tutorial.html): Step-by-step tutorial for batch export in 3 simple steps, zero technical knowledge required
+- [Batch export Yuque favorites/bookmarks](https://yuque.toolab.top/blog/yuque-favorites-export.html): Guide to exporting personal favorites, organization-space favorites, bookmarked documents, and bookmarked knowledge bases
 - [Comprehensive comparison of Yuque export tools](https://yuque.toolab.top/blog/yuque-export-tools-comparison.html): 13-dimension comparison matrix evaluating official API, command-line tools, and browser extensions
 - [Complete guide to converting Yuque docs to Markdown](https://yuque.toolab.top/blog/yuque-to-markdown-guide.html): Markdown conversion guide covering image localization and directory structure preservation
 
@@ -105,6 +130,7 @@ The following articles provide detailed tutorials, troubleshooting guides, and m
 - [7 most painful problems for Yuque users](https://yuque.toolab.top/blog/yuque-user-pain-points.html): Common pain points including batch export, favorites export, board export, and permission restrictions
 - [Yuque export failure troubleshooting guide](https://yuque.toolab.top/blog/yuque-export-troubleshooting.html): Systematic diagnosis of export failures with solutions for network issues, permission errors, and format problems
 - [Perfect solution to Yuque image hotlink protection](https://yuque.toolab.top/blog/yuque-image-hotlink-fix.html): Image hotlink protection bypass methods and local image downloading strategies
+- [One-click export for the current Yuque document](https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html): Floating bubble quick export guide for saving the currently open document
 
 **Migration Guides**:
 - [Complete guide to migrating from Yuque to Feishu](https://yuque.toolab.top/blog/yuque-to-feishu.html): Step-by-step migration guide from Yuque to Feishu Docs with format conversion and structure preservation
@@ -112,6 +138,7 @@ The following articles provide detailed tutorials, troubleshooting guides, and m
 
 **Data Security**:
 - [Why you should regularly backup Yuque](https://yuque.toolab.top/blog/why-backup-yuque.html): Real-world incidents including the 7-hour outage in October 2022 and policy change risks
+- [Export encrypted Yuque documents safely](https://yuque.toolab.top/blog/yuque-encrypted-docs-export.html): Password verification workflow, encrypted favorites handling, skip behavior, and local privacy guarantees
 - [2024 Yuque data migration complete guide](https://yuque.toolab.top/blog/blog-third-person.html): Comprehensive 2024 migration guide covering all document types and format options
 - [3 years of notes rescued from Yuque](https://yuque.toolab.top/blog/blog-first-person.html): User story of successfully exporting 3 years of accumulated notes before account changes
 
@@ -148,4 +175,4 @@ For feature requests, bug reports, or technical questions, please open an issue 
 
 Full sitemap available at: https://yuque.toolab.top/sitemap.xml
 
-Last updated: 2026-05-18
+Last updated: 2026-07-13

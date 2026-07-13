@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀单篇文档怎么一键导出？YuqueOut 浮动气泡会出现在语雀文档页右侧，点击即可导出当前文档，适合临时保存、收藏补档和无导出权限文档本地备份。">
+    <meta name="keywords" content="语雀单篇文档导出,语雀当前文档导出,语雀浮动气泡,YuqueOut快捷导出,语雀一键保存Markdown,语雀无权限文档导出">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀单篇文档一键导出：浮动气泡功能怎么用？">
+    <meta property="og:description" content="在语雀文档页右侧点击 YuqueOut 浮动气泡，即可导出当前正在浏览的文档。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-quick-export.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-07-13">
+    <meta property="article:modified_time" content="2026-07-13">
+    <meta property="article:section" content="快捷导出">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀单篇文档一键导出：浮动气泡功能怎么用？">
+    <meta name="twitter:description" content="看到一篇语雀文档想保存？点击右侧浮动气泡即可导出当前文档。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-quick-export.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀单篇文档一键导出：浮动气泡功能怎么用？ - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀单篇文档一键导出：浮动气泡功能怎么用？",
+      "description": "YuqueOut 浮动气泡功能指南：在语雀文档页一键导出当前文档，支持无导出权限文档本地转换。",
+      "url": "https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html",
+      "datePublished": "2026-07-13",
+      "dateModified": "2026-07-13",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "image": "https://yuque.toolab.top/images/blog-quick-export.webp",
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html",
+      "wordCount": 1800,
+      "articleSection": "快捷导出"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "浮动气泡快捷导出", "item": "https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "YuqueOut 浮动气泡有什么用？",
+          "acceptedAnswer": { "@type": "Answer", "text": "浮动气泡会显示在语雀文档页面右侧，点击即可导出当前正在浏览的文档。它适合临时保存单篇文章、补档收藏内容，或快速备份没有官方导出权限但可以阅读的文档。" }
+        },
+        {
+          "@type": "Question",
+          "name": "浮动气泡导出的格式怎么设置？",
+          "acceptedAnswer": { "@type": "Answer", "text": "浮动气泡使用 YuqueOut 设置页中的导出格式、下载目录、图片本地化和转换引擎配置。修改设置后，再点击气泡会按新配置导出。" }
+        },
+        {
+          "@type": "Question",
+          "name": "不想显示浮动气泡可以关闭吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以。在 YuqueOut 设置页的「快捷导出」区域关闭「显示浮动气泡」，刷新语雀文档页面后气泡就不会显示。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_quick_export" target="_blank" rel="noopener" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">浮动气泡快捷导出</span>
+                </div>
+                <span class="blog-article-tag">快捷导出</span>
+                <h1 class="blog-article-title">语雀单篇文档一键导出：浮动气泡功能怎么用？</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2026-07-13
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        6 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 1800 字</span>
+                    <span class="blog-article-meta-item blog-article-author">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Kevin Yang
+                    </span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <img src="../images/blog-quick-export.webp" alt="语雀文档页面浮动气泡一键导出" width="1200" height="630" style="width:100%;border-radius:8px;margin-bottom:2rem;">
+
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">YuqueOut 的浮动气泡是语雀单篇文档快捷导出入口：安装扩展后，在语雀文档页面右侧会显示一个可拖拽圆形按钮，点击即可导出当前正在浏览的文档。导出格式、下载子目录、图片本地化和转换引擎都遵循设置页配置；如果当前文档没有官方导出权限，YuqueOut 会自动使用本地转换引擎导出为 Markdown。该功能适合临时保存单篇文章、补档收藏内容和快速备份协作文档。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#use-case">什么时候需要单篇快捷导出？</a></li>
+                        <li><a href="#how-it-works">浮动气泡怎么工作？</a></li>
+                        <li><a href="#steps">使用步骤</a></li>
+                        <li><a href="#settings">相关设置</a></li>
+                        <li><a href="#permission">没有导出权限也能用吗？</a></li>
+                        <li><a href="#compare">和批量导出的区别</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>批量导出适合迁移整个知识库，但日常使用里还有另一种高频场景：你正在浏览一篇语雀文档，觉得以后可能用得上，只想马上保存这一篇。</p>
+
+                <p>官方流程通常需要打开菜单、选择导出、等待生成、下载文件。YuqueOut 的浮动气泡把这个动作缩短成一次点击。</p>
+
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Key Takeaways
+                    </div>
+                    <ul>
+                        <li><strong>浮动气泡用于导出当前正在浏览的单篇语雀文档</strong></li>
+                        <li><strong>导出格式和下载目录完全遵循 YuqueOut 设置页配置</strong></li>
+                        <li><strong>没有官方导出权限时，会自动走本地 Markdown 转换引擎</strong></li>
+                        <li><strong>不想显示气泡时，可在设置页关闭「显示浮动气泡」</strong></li>
+                    </ul>
+                </div>
+
+                <h2 id="use-case">什么时候需要单篇快捷导出？</h2>
+
+                <p>以下场景特别适合使用浮动气泡：</p>
+                <ul>
+                    <li><strong>临时保存资料</strong>：看到一篇有价值的语雀文章，先保存到本地。</li>
+                    <li><strong>补档收藏内容</strong>：批量导出后，后续又收藏了几篇，只想补导单篇。</li>
+                    <li><strong>保存协作文档</strong>：你能阅读文档，但官方导出按钮不可用或权限不足。</li>
+                    <li><strong>快速转 Markdown</strong>：把当前文档放进 Obsidian、VS Code 或 Git 仓库。</li>
+                    <li><strong>检查导出效果</strong>：正式批量导出前，先用一篇文档测试格式和图片本地化。</li>
+                </ul>
+
+                <p>如果你要迁移几百篇文档，仍然应该使用 <a href="yuque-batch-export-tutorial.html">批量导出流程</a>。浮动气泡更像是「看到就存」的快捷入口。</p>
+
+                <h2 id="how-it-works">浮动气泡怎么工作？</h2>
+
+                <p>YuqueOut 会在语雀文档页注入一个隔离样式的浮动按钮。按钮只在文档页显示，不会出现在语雀首页、设置页或搜索页。</p>
+
+                <p>点击气泡后，扩展会识别当前页面的文档信息，并交给后台导出流程处理：</p>
+                <ol>
+                    <li>读取当前文档的 slug、知识库信息和页面上下文。</li>
+                    <li>根据设置判断导出格式和转换引擎。</li>
+                    <li>如果官方导出可用，则调用官方导出流程。</li>
+                    <li>如果没有导出权限，则使用本地 Lake 转 Markdown 引擎。</li>
+                    <li>按设置中的下载子文件夹保存到浏览器下载目录。</li>
+                </ol>
+
+                <p>导出过程中，气泡会显示加载状态；成功后显示完成状态，失败时显示错误状态。这个反馈足够轻量，不会打断你继续阅读。</p>
+
+                <h2 id="steps">使用步骤</h2>
+
+                <ol class="step-list">
+                    <li>
+                        <p><strong>安装 YuqueOut</strong>：从 <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_quick_export" target="_blank" rel="noopener">Chrome 应用商店</a>安装扩展。</p>
+                    </li>
+                    <li>
+                        <p><strong>登录语雀</strong>：确保浏览器中已经登录 <a href="https://www.yuque.com/" target="_blank" rel="noopener">yuque.com</a>。</p>
+                    </li>
+                    <li>
+                        <p><strong>打开任意语雀文档</strong>：进入文档正文页面，右侧会出现圆形浮动气泡。</p>
+                    </li>
+                    <li>
+                        <p><strong>点击气泡</strong>：不要拖动，直接点击即可开始导出当前文档。</p>
+                    </li>
+                    <li>
+                        <p><strong>查看下载结果</strong>：文件会保存到浏览器下载目录下的 YuqueOut 子文件夹中。</p>
+                    </li>
+                </ol>
+
+                <p>气泡可以拖动到页面左侧或右侧，松开后会自动吸附到最近边缘，避免遮挡正文。</p>
+
+                <h2 id="settings">相关设置</h2>
+
+                <p>浮动气泡本身只有开关，但它会读取导出设置：</p>
+
+                <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+                    <thead>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                            <th style="text-align:left;padding:0.75rem;color:rgba(255,255,255,0.7);">设置项</th>
+                            <th style="text-align:left;padding:0.75rem;color:rgba(255,255,255,0.7);">对浮动气泡的影响</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">文档默认导出格式</td>
+                            <td style="padding:0.75rem;">决定当前文档导出为 Markdown、Word、PDF 或 JPG</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">Markdown 转换引擎</td>
+                            <td style="padding:0.75rem;">决定 Markdown 走本地转换还是官方 API</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">图片本地化</td>
+                            <td style="padding:0.75rem;">决定 Markdown 中图片是否下载到本地 assets 目录</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">下载子文件夹</td>
+                            <td style="padding:0.75rem;">决定保存路径前缀</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>如果你不想显示气泡，可以打开 YuqueOut 设置页，在「快捷导出」区域关闭「显示浮动气泡」。刷新语雀文档页后设置生效。</p>
+
+                <h2 id="permission">没有导出权限也能用吗？</h2>
+
+                <p><strong>可以，只要你能打开并阅读文档。</strong>这是浮动气泡最有用的地方之一。</p>
+
+                <p>很多协作文档、别人分享的文档和收藏文章没有官方导出权限。官方按钮可能不可用，但页面内容已经在浏览器中渲染。YuqueOut 可以使用本地转换引擎读取可见内容，转成 Markdown 并保存到本地。</p>
+
+                <p>这和 <a href="yuque-export-what-you-see.html">「所见即所得」导出逻辑</a>一致：能打开，才能导出；不能访问的内容不会被读取。</p>
+
+                <h2 id="compare">和批量导出的区别</h2>
+
+                <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+                    <thead>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                            <th style="text-align:left;padding:0.75rem;color:rgba(255,255,255,0.7);">能力</th>
+                            <th style="text-align:left;padding:0.75rem;color:rgba(255,255,255,0.7);">浮动气泡</th>
+                            <th style="text-align:left;padding:0.75rem;color:rgba(255,255,255,0.7);">批量导出</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">适合对象</td>
+                            <td style="padding:0.75rem;">当前单篇文档</td>
+                            <td style="padding:0.75rem;">整个知识库或收藏夹</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">操作成本</td>
+                            <td style="padding:0.75rem;">一次点击</td>
+                            <td style="padding:0.75rem;">先选择知识库，再扫描文件</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <td style="padding:0.75rem;">典型用途</td>
+                            <td style="padding:0.75rem;">临时保存、补导单篇</td>
+                            <td style="padding:0.75rem;">迁移、备份、团队交接</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>简单说：<strong>少量、临时、当前页，用浮动气泡；大量、结构化、要完整目录，用批量导出。</strong></p>
+
+                <h2 id="faq">常见问题</h2>
+
+                <h3>Q: 浮动气泡会不会遮挡文档内容？</h3>
+                <p>气泡默认在页面右侧中部，并且可以拖动。拖动后松手会吸附到最近边缘，通常不会遮挡正文。</p>
+
+                <h3>Q: 点击气泡后没有反应怎么办？</h3>
+                <p>先确认当前页面确实是语雀文档页，并且已经登录语雀。如果仍然失败，可以打开扩展弹窗尝试批量导出，或查看 <a href="yuque-export-troubleshooting.html">导出失败排查指南</a>。</p>
+
+                <h3>Q: 气泡导出会保存图片吗？</h3>
+                <p>如果你选择 Markdown 且开启图片本地化，YuqueOut 会下载文档中的语雀 CDN 图片，并替换为本地相对路径。</p>
+
+                <div class="info-box" style="border-left-color:#6366f1;">
+                    <div class="info-box-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        相关阅读
+                    </div>
+                    <ul>
+                        <li><a href="yuque-batch-export-tutorial.html">语雀知识库批量导出完整教程</a></li>
+                        <li><a href="yuque-favorites-export.html">语雀收藏夹怎么批量导出？</a></li>
+                        <li><a href="yuque-image-hotlink-fix.html">语雀图片防盗链完美解决</a></li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" class="footer-logo-image" width="36" height="36" loading="lazy"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。为隐私而设计，为效率而生。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../#privacy">隐私保护</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links">
+                            <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>
