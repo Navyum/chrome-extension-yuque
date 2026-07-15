@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="手把手教你把语雀知识库迁移到 Obsidian：批量导出 Markdown、开启图片本地化、保留目录结构、打开 Vault，并用双链、反向链接和图谱视图整理本地知识库。">
+    <meta name="keywords" content="语雀迁移Obsidian,语雀导入Obsidian,语雀转Obsidian,语雀导出Markdown,语雀知识库迁移,Obsidian导入Markdown,语雀图片本地化,Obsidian双链知识库,YuqueOut">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-to-obsidian.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀迁移到 Obsidian 完整教程：批量导出 Markdown、图片本地化与双链整理">
+    <meta property="og:description" content="从语雀批量导出到 Obsidian Vault 搭建，覆盖 Markdown、图片本地化、目录结构、双链整理和迁移检查清单。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-obsidian.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-obsidian-migration.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-07-15">
+    <meta property="article:modified_time" content="2026-07-15">
+    <meta property="article:section" content="迁移指南">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀迁移到 Obsidian 完整教程">
+    <meta name="twitter:description" content="批量导出 Markdown、图片本地化、打开 Vault，并整理成双链知识库。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-obsidian-migration.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀迁移到 Obsidian 完整教程：批量导出 Markdown、图片本地化与双链整理 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀迁移到 Obsidian 完整教程：从批量导出到双链知识库搭建",
+      "description": "语雀迁移到 Obsidian 的完整实操教程，覆盖 Markdown 导出、图片本地化、Vault 打开、双链整理和迁移检查。",
+      "url": "https://yuque.toolab.top/blog/yuque-to-obsidian.html",
+      "datePublished": "2026-07-15",
+      "dateModified": "2026-07-15",
+      "image": "https://yuque.toolab.top/images/blog-obsidian-migration.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-to-obsidian.html",
+      "wordCount": 3200,
+      "articleSection": "迁移指南"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀迁移 Obsidian 教程", "item": "https://yuque.toolab.top/blog/yuque-to-obsidian.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀可以直接导入 Obsidian 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不能直接一键导入。推荐先用 YuqueOut 将语雀知识库批量导出为 Markdown，并开启图片本地化，然后在 Obsidian 中把导出的文件夹作为 Vault 打开。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀迁移到 Obsidian 用什么格式最好？",
+          "acceptedAnswer": { "@type": "Answer", "text": "推荐 Markdown。Obsidian 原生使用 Markdown 文件作为笔记格式，导入后可以直接搜索、编辑、建立内部链接和查看反向链接。" }
+        },
+        {
+          "@type": "Question",
+          "name": "迁移到 Obsidian 后图片会丢失吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "如果只保留语雀 CDN 外链，图片可能无法正常显示。导出时开启 YuqueOut 的图片本地化功能，图片会保存到本地 assets 目录，并在 Markdown 中使用相对路径引用。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀的目录结构能保留到 Obsidian 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以。YuqueOut 会按语雀知识库原始目录保存 Markdown 文件，Obsidian 打开该文件夹后，会在文件浏览器中显示对应的文件夹层级。" }
+        },
+        {
+          "@type": "Question",
+          "name": "导入 Obsidian 后会自动变成双链知识库吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不会完全自动。Obsidian 支持内部链接、反向链接和图谱视图，但高质量双链需要迁移后继续整理，例如创建索引页、补充 Wikilink、处理未链接提及。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_obsidian" target="_blank" rel="noopener" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀迁移 Obsidian 教程</span>
+                </div>
+                <span class="blog-article-tag">迁移指南</span>
+                <h1 class="blog-article-title">语雀迁移到 Obsidian 完整教程：从批量导出到双链知识库搭建</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2026-07-15
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        12 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 3200 字</span>
+                    <span class="blog-article-meta-item blog-article-author">Kevin Yang</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">语雀可以迁移到 Obsidian，最稳妥的路线是 <strong>Markdown + 图片本地化</strong>：用 YuqueOut 批量导出语雀知识库，保留原目录和本地 <code>assets/</code> 图片目录；然后在 Obsidian 中把导出文件夹作为 Vault 打开；最后通过内部链接、反向链接、未链接提及和图谱视图，把原语雀目录整理成双链知识库。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#can-migrate">语雀可以迁移到 Obsidian 吗？</a></li>
+                        <li><a href="#why-markdown">为什么迁移 Obsidian 推荐用 Markdown？</a></li>
+                        <li><a href="#prepare">迁移前要准备什么？</a></li>
+                        <li><a href="#export">第一步：用 YuqueOut 批量导出语雀知识库</a></li>
+                        <li><a href="#check-files">第二步：检查 Markdown、图片和目录结构</a></li>
+                        <li><a href="#open-vault">第三步：在 Obsidian 中打开导出的 Vault</a></li>
+                        <li><a href="#double-link">第四步：整理成 Obsidian 双链知识库</a></li>
+                        <li><a href="#pitfalls">迁移后常见问题与避坑</a></li>
+                        <li><a href="#checklist">迁移效果检查清单</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>很多用户搜索“语雀怎么导入 Obsidian”，其实真正要解决的不是 Obsidian 能不能读 Markdown，而是语雀侧如何一次性导出完整知识库、图片和目录结构。手动复制粘贴只能搬走正文，图片、代码块、表格、附件和层级关系很容易丢。</p>
+
+                <p>本文给出一条可复用的实操路线：先用 <a href="yuque-batch-export-tutorial.html">YuqueOut 批量导出语雀知识库</a>，再把导出的 Markdown 文件夹交给 Obsidian 读取。你可以把它作为一次性迁移，也可以把它变成每周备份到本地 Vault 的长期流程。</p>
+
+                <div class="info-box" style="border-left-color:#10b981;">
+                    <div class="info-box-title">Key Takeaways</div>
+                    <ul>
+                        <li><strong>迁移到 Obsidian 推荐使用 Markdown + 图片本地化</strong>，这是兼容性最高的组合。</li>
+                        <li><strong>导出后的文件夹可以直接作为 Obsidian Vault 打开</strong>，目录结构会在文件浏览器中呈现。</li>
+                        <li><strong>双链不会自动生成</strong>，导入解决的是内容搬家，双链整理需要后续用 Wikilink、反向链接和图谱逐步完成。</li>
+                        <li><strong>迁移后优先检查文件数量、图片路径和核心文档链接</strong>，再做大规模重命名或整理。</li>
+                    </ul>
+                </div>
+
+                <h2 id="can-migrate">语雀可以迁移到 Obsidian 吗？</h2>
+                <p><strong>可以，但不是“一键直连导入”。</strong> 推荐流程是先把语雀知识库导出为标准 Markdown 文件，再让 Obsidian 读取这些本地文件。根据 <a href="https://obsidian.md/help/data-storage" target="_blank" rel="noopener">Obsidian 官方数据存储说明</a>，Vault 本质上是一个本地文件夹，笔记以 Markdown 纯文本文件形式保存。</p>
+
+                <p>这意味着迁移的关键条件只有三个：文档能变成 <code>.md</code> 文件，图片能保存在本地，目录结构能保留下来。YuqueOut 的作用就是把这三步合并：从语雀批量读取内容，在浏览器本地转换为 Markdown，并把语雀 CDN 图片下载到本地目录。</p>
+
+                <p>如果你的知识库包含表格、画板、加密文档或收藏文档，也建议先看 <a href="blog-third-person.html">语雀数据迁移完全指南</a>，确认每类内容的迁移边界。普通语雀文档迁移到 Obsidian 的主线，仍然应该围绕 Markdown 进行。</p>
+
+                <h2 id="why-markdown">为什么迁移 Obsidian 推荐用 Markdown？</h2>
+                <p>Obsidian 原生围绕 Markdown 文件工作。根据 <a href="https://obsidian.md/help/file-formats" target="_blank" rel="noopener">Obsidian 支持文件格式说明</a>，Markdown 是最核心的笔记格式，常见图片、PDF 等文件可以作为附件一同放在 Vault 中。</p>
+
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>格式</th><th>适合迁移 Obsidian 吗</th><th>原因</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Markdown</td><td><span class="check">推荐</span></td><td>可直接被 Obsidian 读取，支持全文搜索、编辑、内部链接和版本管理。</td></tr>
+                            <tr><td>Word</td><td><span class="partial">不作为首选</span></td><td>适合二次排版，但进入 Obsidian 前仍要转换为 Markdown。</td></tr>
+                            <tr><td>PDF</td><td><span class="partial">适合归档</span></td><td>适合只读保存，不适合双链、图谱和长期编辑。</td></tr>
+                            <tr><td>JPG/长图</td><td><span class="cross">不适合主迁移</span></td><td>只能保留视觉结果，搜索和编辑能力几乎丢失。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>Markdown 的另一个优势是可迁移性。迁出语雀后，你不仅能在 Obsidian 中使用，还可以用 Git 管理、用 VS Code 编辑，或者继续迁移到 Hugo、VitePress 等静态站点。更完整的格式说明可以参考 <a href="yuque-to-markdown-guide.html">语雀转 Markdown 完整指南</a>。</p>
+
+                <h2 id="prepare">迁移前要准备什么？</h2>
+                <p>迁移前不需要申请语雀 API Token，也不需要写脚本。建议准备以下环境：</p>
+                <ul>
+                    <li><strong>Chrome 或 Edge 浏览器</strong>：用于安装和运行 YuqueOut。</li>
+                    <li><strong>YuqueOut 扩展</strong>：用于批量导出语雀知识库。</li>
+                    <li><strong>Obsidian 桌面端</strong>：用于打开本地 Vault 并检查导入结果。</li>
+                    <li><strong>足够的本地磁盘空间</strong>：图片多的知识库通常比纯文本大很多。</li>
+                    <li><strong>一个测试知识库或小目录</strong>：大规模迁移前，先用 5-10 篇文档验证格式。</li>
+                </ul>
+
+                <div class="info-box warning-box">
+                    <div class="info-box-title">先小批量测试</div>
+                    <p>不要第一次就导出上千篇文档再直接移动到长期 Vault。先选一个包含标题、图片、表格、代码块和附件的小目录做测试，确认 Obsidian 中显示正常后再全量迁移。</p>
+                </div>
+
+                <h2 id="export">第一步：用 YuqueOut 批量导出语雀知识库</h2>
+                <p>打开语雀并保持登录状态，点击浏览器工具栏里的 YuqueOut 图标。扩展会读取你能访问的个人知识库、团队知识库和协作文档列表。具体安装和基础操作可参考 <a href="yuque-batch-export-tutorial.html">语雀知识库批量导出完整教程</a>。</p>
+
+                <ol class="step-list">
+                    <li><strong>选择要迁移的知识库。</strong> 如果文档量很大，建议按项目或目录分批导出，便于后续检查。</li>
+                    <li><strong>导出格式选择 Markdown。</strong> 这是 Obsidian 最自然的导入格式。</li>
+                    <li><strong>开启 Markdown 图片本地化。</strong> 语雀 CDN 图片直接放到 Obsidian 里可能裂图，必须优先本地化。</li>
+                    <li><strong>保留目录结构。</strong> 导出后文件夹层级会成为 Obsidian 文件浏览器中的层级。</li>
+                    <li><strong>导出完成后查看失败列表。</strong> 如果有少量失败文档，先单独重试，不要急着进入 Obsidian。</li>
+                </ol>
+
+                <p>如果你遇到导出权限限制，可以阅读 <a href="yuque-export-what-you-see.html">语雀所见即所得导出详解</a>。YuqueOut 的本地转换路径不依赖语雀官方导出 API，只要浏览器能打开的内容，就可以尝试转成 Markdown。</p>
+
+                <h2 id="check-files">第二步：检查 Markdown、图片和目录结构</h2>
+                <p>导出完成后，不要立刻开始双链整理。先做一次文件级检查，确保迁移基础是完整的。</p>
+
+                <h3>检查文件数量</h3>
+                <p>把语雀知识库中的文档数量和本地导出的 <code>.md</code> 文件数量做一次粗略对比。如果数量差异明显，先回到导出日志看是否有失败任务、加密文档或无权限文档。</p>
+
+                <h3>检查图片目录</h3>
+                <p>开启图片本地化后，文档中的图片会保存到本地 <code>assets/</code> 目录，并在 Markdown 中变成相对路径。随机打开几篇图片多的文档，确认本地 Markdown 预览能正常显示图片。图片问题的根因和处理方式可参考 <a href="yuque-image-hotlink-fix.html">语雀图片防盗链解决方案</a>。</p>
+
+                <h3>检查特殊内容</h3>
+                <p>语雀画板、思维导图、复杂表格和嵌入卡片不一定能完整变成标准 Markdown。画板类内容更适合导出为 PNG 或 SVG 后作为附件放入 Vault；语雀表格可以按需要导出为 Excel、CSV 或 Markdown 表格。混合知识库建议同时阅读 <a href="yuque-export-special-docs.html">语雀表格、画板、数据表导出攻略</a>。</p>
+
+                <h2 id="open-vault">第三步：在 Obsidian 中打开导出的 Vault</h2>
+                <p>根据 <a href="https://obsidian.md/help/manage-vaults" target="_blank" rel="noopener">Obsidian 管理 Vault 的官方说明</a>，Vault 是一个包含笔记、附件和配置的文件夹。迁移时有两种常见做法。</p>
+
+                <h3>方式一：直接将导出文件夹作为新 Vault</h3>
+                <ol>
+                    <li>打开 Obsidian。</li>
+                    <li>选择打开已有文件夹作为 Vault。</li>
+                    <li>选择 YuqueOut 导出的知识库文件夹。</li>
+                    <li>等待 Obsidian 建立索引。</li>
+                    <li>在文件浏览器中检查目录层级和 Markdown 文件。</li>
+                </ol>
+
+                <p>这种方式最适合个人知识库迁移。优点是干净，不会污染原来的 Obsidian Vault；缺点是如果你已经有长期维护的 Vault，需要后续再合并。</p>
+
+                <div class="info-box warning-box">
+                    <div class="info-box-title">打开为 Vault 后会产生配置目录</div>
+                    <p>Obsidian 会在 Vault 根目录创建 <code>.obsidian/</code> 配置目录，用来保存插件、主题和工作区设置。不要在已有 Vault 里面再创建嵌套 Vault，否则后续同步、搜索和链接维护都更容易混乱。</p>
+                </div>
+
+                <h3>方式二：复制到已有 Vault</h3>
+                <p>如果你已有一个成熟的 Obsidian Vault，可以把导出的知识库文件夹复制到 Vault 中的某个目录，例如 <code>Yuque/项目文档/</code>。复制后打开 Obsidian，等待索引完成，再检查图片是否显示。</p>
+
+                <p>这种方式适合长期知识库整合，但建议先保留原始导出备份。后续重命名、移动文件或改链接时，如果出错，还可以从原始导出重新恢复。</p>
+
+                <h2 id="double-link">第四步：把语雀目录整理成 Obsidian 双链知识库</h2>
+                <p>导入 Markdown 不等于自动拥有高质量双链。导出解决的是“内容搬家”，双链整理解决的是“知识关系”。Obsidian 支持 <a href="https://obsidian.md/help/links" target="_blank" rel="noopener">内部链接</a>、<a href="https://obsidian.md/help/plugins/backlinks" target="_blank" rel="noopener">反向链接</a> 和 <a href="https://obsidian.md/help/plugins/graph" target="_blank" rel="noopener">图谱视图</a>，但这些能力需要你在迁移后主动组织。</p>
+
+                <h3>把语雀目录页改造成 MOC</h3>
+                <p>如果语雀知识库里原本有“目录”“导航”“项目索引”这类页面，可以把它们改造成 Obsidian 中的 MOC（Map of Content）。例如把原来的项目目录整理成：</p>
+
+                <pre><code>## 项目文档
+- [[需求池]]
+- [[接口说明]]
+- [[上线流程]]
+- [[故障复盘]]
+</code></pre>
+
+                <p>这样做比一开始就给所有文件建立链接更现实。先抓住核心主题，再逐步扩散到细节文档。</p>
+
+                <h3>用未链接提及补全关系</h3>
+                <p>迁移后先挑出高频概念，例如产品名、客户名、技术模块、项目代号。创建对应主题页后，在反向链接面板中查看未链接提及，把真正相关的提及改成 <code>[[主题名]]</code>。这比全局批量替换更准确。</p>
+
+                <h3>用图谱视图检查孤立文档</h3>
+                <p>打开图谱视图后，孤立节点通常意味着文档没有和其他内容建立关系。不要追求图谱“好看”，只需要用它发现关键文档是否被孤立、重要主题是否形成连接即可。</p>
+
+                <h2 id="pitfalls">迁移后常见问题与避坑</h2>
+                <h3>图片打不开怎么办？</h3>
+                <p>先检查 Markdown 中图片地址是否仍然是 <code>https://cdn.nlark.com</code>。如果是，说明没有完成图片本地化，应重新导出或单独处理图片。正确状态通常是 <code>assets/文档名-1.png</code> 这类相对路径。</p>
+
+                <h3>语雀内部链接还是 yuque.com 链接怎么办？</h3>
+                <p>这是正常现象。语雀内部链接在导出后可能仍是网页链接。建议先保留，等核心文档导入稳定后，再逐步把高频内部链接改成 Obsidian 的 <code>[[文档名]]</code>。不要在迁移第一天就试图全量替换所有链接。</p>
+
+                <h3>团队知识库要拆成几个 Vault？</h3>
+                <p>如果团队文档边界清晰，例如研发、产品、运营互相独立，可以按团队拆分 Vault。如果文档之间引用很多，建议放在一个 Vault 中按顶层文件夹区分。团队迁移策略可以参考 <a href="yuque-team-migration.html">团队知识库迁移方案</a>。</p>
+
+                <h3>要不要把所有链接都改成 Wikilink？</h3>
+                <p>不需要。Obsidian 同时支持 Wikilink 和 Markdown 链接。迁移初期先保证内容可读、图片可见、搜索可用，再逐步把核心概念改成 Wikilink。链接整理是知识库维护工作，不应该阻塞迁移本身。</p>
+
+                <h2 id="checklist">迁移效果检查清单</h2>
+                <ul>
+                    <li>语雀知识库中的核心文档是否都有对应 <code>.md</code> 文件。</li>
+                    <li>图片是否已经进入本地 <code>assets/</code> 目录。</li>
+                    <li>Obsidian 文件浏览器是否能显示原始目录层级。</li>
+                    <li>搜索几个关键词，确认正文能被 Obsidian 检索到。</li>
+                    <li>抽查代码块、表格、引用、任务列表是否可读。</li>
+                    <li>创建 3-5 个核心主题页，开始建立第一批内部链接。</li>
+                    <li>保留一份原始导出目录，不要只保留整理后的 Vault。</li>
+                </ul>
+
+                <h2 id="faq">常见问题</h2>
+                <h3>语雀可以直接导入 Obsidian 吗？</h3>
+                <p>不能直接一键导入。推荐先用 YuqueOut 将语雀知识库批量导出为 Markdown，并开启图片本地化，然后在 Obsidian 中把导出的文件夹作为 Vault 打开。</p>
+
+                <h3>语雀迁移到 Obsidian 用什么格式最好？</h3>
+                <p>推荐 Markdown。Obsidian 原生使用 Markdown 文件作为笔记格式，导入后可以直接搜索、编辑、建立内部链接和查看反向链接。</p>
+
+                <h3>迁移到 Obsidian 后图片会丢失吗？</h3>
+                <p>如果只保留语雀 CDN 外链，图片可能无法正常显示。导出时开启 YuqueOut 的图片本地化功能，图片会保存到本地 <code>assets/</code> 目录，并在 Markdown 中使用相对路径引用。</p>
+
+                <h3>语雀的目录结构能保留到 Obsidian 吗？</h3>
+                <p>可以。YuqueOut 会按语雀知识库原始目录保存 Markdown 文件，Obsidian 打开该文件夹后，会在文件浏览器中显示对应的文件夹层级。</p>
+
+                <h3>导入 Obsidian 后会自动变成双链知识库吗？</h3>
+                <p>不会完全自动。Obsidian 支持内部链接、反向链接和图谱视图，但高质量双链需要迁移后继续整理，例如创建索引页、补充 <code>[[文档名]]</code> 链接、处理未链接提及。</p>
+
+                <div class="blog-cta">
+                    <h3>把语雀知识库搬进 Obsidian</h3>
+                    <p>使用 YuqueOut 批量导出 Markdown，并自动处理图片本地化和目录结构。</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_obsidian_cta" target="_blank" rel="noopener" class="blog-cta-button">免费安装 YuqueOut</a>
+                </div>
+
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="yuque-to-markdown-guide.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀文档批量转 Markdown 完整指南</span>
+                            <span class="blog-related-card-excerpt">迁移到 Obsidian、Notion、静态博客的通用桥梁格式</span>
+                        </a>
+                        <a href="yuque-image-hotlink-fix.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀图片防盗链解决方案</span>
+                            <span class="blog-related-card-excerpt">导出后图片裂图的根因与本地化处理</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links"><li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>

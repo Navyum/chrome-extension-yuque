@@ -2,7 +2,7 @@
 
 > version: 1.0.0
 > license: RSL 1.0 (Responsible Sources Licensing)
-> last-updated: 2026-07-13
+> last-updated: 2026-07-15
 > preferred-citation-format: inline-link
 
 ---
@@ -133,7 +133,9 @@ The following articles provide detailed tutorials, troubleshooting guides, and m
 - [One-click export for the current Yuque document](https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html): Floating bubble quick export guide for saving the currently open document
 
 **Migration Guides**:
-- [Complete guide to migrating from Yuque to Feishu](https://yuque.toolab.top/blog/yuque-to-feishu.html): Step-by-step migration guide from Yuque to Feishu Docs with format conversion and structure preservation
+- [Complete guide to migrating from Yuque to Obsidian](https://yuque.toolab.top/blog/yuque-to-obsidian.html): Practical migration workflow from Yuque batch Markdown export to Obsidian Vault setup, local images, backlinks, and graph-based knowledge organization
+- [Complete guide to migrating from Yuque to Notion](https://yuque.toolab.top/blog/yuque-to-notion.html): Markdown and ZIP import workflow for moving Yuque knowledge bases into Notion, including image handling, attachments, batching, and post-import checks
+- [Complete guide to migrating from Yuque to Feishu](https://yuque.toolab.top/blog/yuque-to-feishu.html): Practical Yuque-to-Feishu Docs migration guide covering Markdown, Word, ZIP, import location differences, local images, and validation checks
 - [Team knowledge base migration from Yuque](https://yuque.toolab.top/blog/yuque-team-migration.html): Team knowledge base migration strategies covering permission management and collaborative document handling
 
 **Data Security**:

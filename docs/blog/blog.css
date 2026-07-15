@@ -10,6 +10,30 @@
    HubSpot Style Blog Homepage Layout
    ========================================= */
 
+.blog-hub-header {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 24px 0;
+}
+
+.blog-hub-header h1 {
+    color: #fff;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 12px;
+}
+
+.blog-hub-header p {
+    max-width: 760px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
 /* Hero Container */
 .hubspot-hero-container {
     position: relative;
@@ -19,13 +43,25 @@
     gap: 24px;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 120px 24px 0;
+    padding: 32px 24px 0;
 }
 
 @media (max-width: 768px) {
+    .blog-hub-header {
+        padding: 100px 16px 0;
+    }
+
+    .blog-hub-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .blog-hub-header p {
+        font-size: 0.95rem;
+    }
+
     .hubspot-hero-container {
         grid-template-columns: 1fr !important;
-        padding: 100px 16px 0;
+        padding: 24px 16px 0;
     }
 }
 

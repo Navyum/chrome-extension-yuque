@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀迁移 Notion 实操教程：用 YuqueOut 批量导出 Markdown，再通过 Notion Text & Markdown 或 ZIP 导入，覆盖图片、附件、目录结构和大批量失败避坑。">
+    <meta name="keywords" content="语雀迁移Notion,语雀导入Notion,语雀批量导出Notion,语雀转Notion,Notion Markdown导入,Notion ZIP导入,语雀图片导入Notion,语雀知识库迁移Notion">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-to-notion.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀迁移到 Notion 完整教程：Markdown/ZIP 导入、图片处理与批量迁移避坑">
+    <meta property="og:description" content="从语雀批量导出 Markdown 到 Notion Text & Markdown/ZIP 导入，覆盖图片、附件、目录结构和大知识库分批策略。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-notion.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-notion-migration.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-07-15">
+    <meta property="article:modified_time" content="2026-07-15">
+    <meta property="article:section" content="迁移指南">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀迁移到 Notion 完整教程">
+    <meta name="twitter:description" content="Markdown/ZIP 导入、图片处理与大批量迁移避坑。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-notion-migration.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀迁移到 Notion 完整教程：Markdown/ZIP 导入、图片处理与批量迁移避坑 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀迁移到 Notion 完整教程：Markdown/ZIP 导入、图片处理与批量迁移避坑",
+      "description": "语雀迁移到 Notion 的完整实操教程，覆盖 Markdown 导出、ZIP 批量导入、图片和附件处理、大批量迁移避坑。",
+      "url": "https://yuque.toolab.top/blog/yuque-to-notion.html",
+      "datePublished": "2026-07-15",
+      "dateModified": "2026-07-15",
+      "image": "https://yuque.toolab.top/images/blog-notion-migration.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-to-notion.html",
+      "wordCount": 3300,
+      "articleSection": "迁移指南"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀迁移 Notion 教程", "item": "https://yuque.toolab.top/blog/yuque-to-notion.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀可以一键迁移到 Notion 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不可以。语雀没有官方的一键迁移 Notion 功能，建议先批量导出为 Markdown，再通过 Notion 的 Text & Markdown 或 ZIP 导入。" }
+        },
+        {
+          "@type": "Question",
+          "name": "Notion 支持批量导入 Markdown 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "支持。Notion 官方支持 Text & Markdown 导入，也可以把整个文件夹压缩为 ZIP 导入，以尽量保留目录结构。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀图片导入 Notion 后会丢失吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "如果 Markdown 里仍是语雀 CDN 外链，可能会失效。推荐导出时开启图片本地化，并让图片文件随 Markdown 一起打包导入。" }
+        },
+        {
+          "@type": "Question",
+          "name": "Notion ZIP 导入有大小限制吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "Notion 官方说明 ZIP 单包最高 5GB，但文件数量过多也可能失败，1 万个以上文件尤其容易部分导入。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀的评论、历史版本和权限能迁移到 Notion 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不能。迁移主要保留正文内容和基础格式，评论、历史版本、权限设置需要在 Notion 中重新处理。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_notion" target="_blank" rel="noopener" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀迁移 Notion 教程</span>
+                </div>
+                <span class="blog-article-tag">迁移指南</span>
+                <h1 class="blog-article-title">语雀迁移到 Notion 完整教程：Markdown/ZIP 导入、图片处理与批量迁移避坑</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2026-07-15
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        12 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 3300 字</span>
+                    <span class="blog-article-meta-item blog-article-author">Kevin Yang</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">语雀没有到 Notion 的一键迁移入口。推荐路径是：先用 YuqueOut 将语雀知识库批量导出为 Markdown，并开启图片本地化；少量文件用 Notion 的 Text & Markdown 导入，多层目录或大量文件打包为 ZIP 导入。迁移前要清理隐藏文件，超过数千文件建议分批，否则可能出现部分导入失败。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#why-not-direct">为什么语雀迁移 Notion 不能直接搬？</a></li>
+                        <li><a href="#format">语雀导出成什么格式最适合 Notion？</a></li>
+                        <li><a href="#export">用 YuqueOut 批量导出 Markdown</a></li>
+                        <li><a href="#markdown-import">Notion 导入方式一：Text & Markdown 多文件导入</a></li>
+                        <li><a href="#zip-import">Notion 导入方式二：ZIP 保留目录结构批量导入</a></li>
+                        <li><a href="#images">图片和附件怎么处理才不丢？</a></li>
+                        <li><a href="#large">1000 篇以上知识库怎么分批迁移？</a></li>
+                        <li><a href="#checklist">迁移后检查清单</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>很多人以为“语雀迁移 Notion”就是找一个导入按钮。实际卡点在前半段：语雀没有把整个知识库一键导出为 Notion 可识别格式的官方通道，手动逐篇导出又容易漏掉图片、附件和目录层级。</p>
+
+                <p>Notion 侧的能力反而比较明确。根据 <a href="https://www.notion.com/help/import-data-into-notion" target="_blank" rel="noopener">Notion 官方导入文档</a>，Notion 支持导入 Text & Markdown、Word、CSV、HTML、PDF 和 ZIP。迁移的关键，是把语雀内容整理成 Notion 能稳定吃进去的 Markdown 或 ZIP 包。</p>
+
+                <div class="info-box" style="border-left-color:#10b981;">
+                    <div class="info-box-title">Key Takeaways</div>
+                    <ul>
+                        <li><strong>语雀没有直接迁移到 Notion 的官方通道</strong>，核心是先导出为通用格式。</li>
+                        <li><strong>Notion 支持 Markdown 和 ZIP 导入</strong>，少量文档用 Markdown，多目录大批量用 ZIP。</li>
+                        <li><strong>ZIP 单包上限是 5GB</strong>，但文件数量过高仍可能失败，尤其是 10,000+ 文件。</li>
+                        <li><strong>图片必须随 Markdown 一起保留</strong>，不要依赖语雀 CDN 外链作为长期迁移方案。</li>
+                        <li><strong>大知识库应先小样本试导入，再按知识库、目录或年份拆分迁移。</strong></li>
+                    </ul>
+                </div>
+
+                <h2 id="why-not-direct">为什么语雀迁移 Notion 不能直接搬？</h2>
+                <p>语雀和 Notion 都是在线文档工具，但它们没有官方互迁接口。语雀知识库级别导出通常不是 Notion 能直接识别的通用包；Notion 也不会登录你的语雀账号去读取文档。因此，实际迁移要走中间格式：先把语雀内容导出到本地，再导入 Notion。</p>
+
+                <p>如果只有几十篇文档，复制粘贴也能临时解决。但只要知识库里有图片、代码块、表格、附件、嵌套目录，复制粘贴的成本会迅速上升。更稳的做法是用 <a href="yuque-batch-export-tutorial.html">YuqueOut 批量导出</a>，把内容先变成可检查、可备份、可批量处理的本地文件。</p>
+
+                <h2 id="format">语雀导出成什么格式最适合 Notion？</h2>
+                <p>迁移到 Notion，优先选 Markdown。Markdown 能保留标题、列表、代码块、普通表格等结构，也便于在导入前批量检查和修复。Word 适合作为排版优先的备选，PDF 只适合归档，不建议作为主迁移格式。</p>
+
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>导出格式</th><th>适合场景</th><th>迁移建议</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Markdown</td><td>技术文档、笔记、知识库正文</td><td><span class="check">首选</span>，配合图片本地化和 ZIP 导入。</td></tr>
+                            <tr><td>Word</td><td>排版复杂、非技术团队二次编辑</td><td><span class="partial">备选</span>，但评论、历史和复杂布局无法完整迁移。</td></tr>
+                            <tr><td>HTML</td><td>复杂富文本迁移尝试</td><td><span class="partial">可测试</span>，适合少量格式验证。</td></tr>
+                            <tr><td>PDF</td><td>只读归档、审计留存</td><td><span class="cross">不建议作为主格式</span>，导入后结构化编辑能力弱。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>Notion 自身也支持把页面导出为 Markdown & CSV 或 HTML。对长期迁移来说，Markdown 是比平台私有格式更可靠的中间层。关于语雀转 Markdown 的细节，可以继续阅读 <a href="yuque-to-markdown-guide.html">语雀文档批量转 Markdown 完整指南</a>。</p>
+
+                <h2 id="export">用 YuqueOut 批量导出 Markdown</h2>
+                <p>导出阶段的目标不是“马上导入 Notion”，而是先拿到一份可验证的本地包。建议这样做：</p>
+
+                <ol class="step-list">
+                    <li><strong>安装并打开 YuqueOut。</strong> 保持浏览器中已经登录语雀。</li>
+                    <li><strong>选择要迁移的知识库。</strong> 大知识库建议按空间、项目或目录分批导出。</li>
+                    <li><strong>普通文档选择 Markdown。</strong> 表格可按需要导出 Excel、CSV 或 Markdown。</li>
+                    <li><strong>开启图片本地化。</strong> 让语雀 CDN 图片下载到本地 <code>assets/</code> 目录。</li>
+                    <li><strong>导出后先本地抽查。</strong> 打开几篇含图片、代码块、表格的文档，确认内容完整。</li>
+                </ol>
+
+                <p>如果导出后的图片仍是 <code>cdn.nlark.com</code> 外链，导入 Notion 后可能无法长期稳定显示。图片问题的原因可以参考 <a href="yuque-image-hotlink-fix.html">语雀图片防盗链解决方案</a>。</p>
+
+                <h2 id="markdown-import">Notion 导入方式一：Text & Markdown 多文件导入</h2>
+                <p>少量文档迁移时，直接使用 Notion 的 Text & Markdown 导入最简单。根据 Notion 官方说明，Markdown、Word、HTML、PDF、纯文本等类型可以一次选择多个文件导入；CSV 和 ZIP 使用不同导入入口。</p>
+
+                <h3>适合什么场景？</h3>
+                <ul>
+                    <li>只有几十篇语雀文档。</li>
+                    <li>不强求完整保留多层文件夹结构。</li>
+                    <li>想先验证 Notion 的格式还原效果。</li>
+                    <li>团队成员只迁移自己负责的一小部分文档。</li>
+                </ul>
+
+                <h3>操作步骤</h3>
+                <ol>
+                    <li>打开 Notion 桌面端或网页版。</li>
+                    <li>点击侧边栏或页面中的 Import 导入入口；也可以输入 <code>/</code> 后搜索 Text & Markdown。</li>
+                    <li>选择 Text & Markdown。</li>
+                    <li>选中 YuqueOut 导出的 <code>.md</code> 文件。</li>
+                    <li>等待 Notion 创建页面，并检查导入状态。</li>
+                </ol>
+
+                <div class="info-box warning-box">
+                    <div class="info-box-title">注意</div>
+                    <p>这种方式更适合少量文件。多层目录迁移时，散选 Markdown 文件可能会丢掉原文件夹层级，后续需要在 Notion 里手动重排。</p>
+                </div>
+
+                <h2 id="zip-import">Notion 导入方式二：ZIP 保留目录结构批量导入</h2>
+                <p>当文档数量较多，或者希望尽量保留语雀知识库目录结构时，应该把导出的 Markdown 文件夹整体压缩成 ZIP，再使用 Notion 的 ZIP 导入。Notion 官方文档说明，ZIP 导入可以把大量文件转换为 Notion 页面，Markdown、HTML、DOCX 等会变成页面，CSV、XLSX 等会变成数据库。</p>
+
+                <h3>推荐 ZIP 结构</h3>
+                <pre><code>产品知识库/
+  需求管理/
+    需求池.md
+    版本规划.md
+    assets/
+      需求池-1.png
+  技术方案/
+    接口说明.md
+    数据结构.md
+    assets/
+      接口说明-1.png
+</code></pre>
+
+                <p>不要把一堆散文件直接压缩在根目录。推荐先整理成“知识库名/目录/文档.md + assets”的结构，再压缩最外层文件夹。这样导入后更容易在 Notion 中恢复页面层级。</p>
+
+                <h3>ZIP 导入步骤</h3>
+                <ol>
+                    <li>在本地先删除 <code>.DS_Store</code>、<code>__MACOSX</code>、临时下载文件等隐藏或无关文件。</li>
+                    <li>确认图片目录和 Markdown 文件仍保持相对路径关系。</li>
+                    <li>把最外层知识库文件夹压缩为 ZIP，不要只压缩里面的散文件。</li>
+                    <li>在 Notion 中打开 Import 导入入口，选择 ZIP。</li>
+                    <li>上传压缩包，等待导入任务完成。</li>
+                    <li>导入完成后按目录抽查页面数量、图片、附件、表格和代码块。</li>
+                    <li>如果出现部分导入失败，把该目录拆成更小的 ZIP 单独重试。</li>
+                </ol>
+
+                <h3>ZIP 导入限制</h3>
+                <p>Notion 官方说明 ZIP 可导入最高 5GB，但同时提醒文件数量过高时仍可能失败，10,000+ 文件尤其容易失败或部分导入。因此，大知识库不要追求一个 ZIP 搞定全部。</p>
+
+                <h2 id="images">图片和附件怎么处理才不丢？</h2>
+                <p>图片是语雀迁移 Notion 最容易踩坑的地方。语雀图片通常存储在 CDN 上，并带有访问限制。迁移前应开启 YuqueOut 的图片本地化，让 Markdown 中的远程图片变成本地相对路径。</p>
+
+                <p>导入 Notion 前，建议先做三项检查：</p>
+                <ul>
+                    <li>本地是否存在 <code>assets/</code> 图片目录。</li>
+                    <li>Markdown 中图片路径是否为相对路径，而不是语雀 CDN 外链。</li>
+                    <li>用本地 Markdown 预览器打开，图片是否能正常显示。</li>
+                </ul>
+
+                <p>根据 <a href="https://www.notion.com/help/images-files-and-media" target="_blank" rel="noopener">Notion 图片、文件和媒体说明</a>，Notion 支持在页面中上传图片和文件。但导入过程能否完整接收本地相对路径，取决于文件是否随 Markdown 或 ZIP 一起提供。最安全的做法，是让图片目录和 Markdown 保持相对位置，然后整体打包导入。</p>
+
+                <h2 id="large">1000 篇以上知识库怎么分批迁移？</h2>
+                <p>如果你的语雀知识库超过 1000 篇，不建议第一次就全量导入 Notion。更稳的策略是分批：</p>
+
+                <ul>
+                    <li><strong>按知识库拆分</strong>：每个语雀知识库一个 ZIP。</li>
+                    <li><strong>按目录拆分</strong>：研发、产品、运营、客户资料分开导入。</li>
+                    <li><strong>按年份拆分</strong>：适合周报、项目记录、会议纪要。</li>
+                    <li><strong>按图片体积分批</strong>：图片特别多的目录单独压缩，避免 ZIP 过大。</li>
+                </ul>
+
+                <p>实际迁移时，每批建议控制在 500-1000 篇文档以内。不是因为 Notion 一定不能处理更多，而是这样更容易定位导入失败、图片缺失和格式异常。团队级迁移可以参考 <a href="yuque-team-migration.html">团队知识库从语雀迁出方案</a>。</p>
+
+                <h2 id="checklist">迁移后检查清单</h2>
+                <ul>
+                    <li>Notion 导入任务是否全部完成，没有长时间卡在处理中。</li>
+                    <li>页面数量是否和本地 Markdown 文件数量大致一致。</li>
+                    <li>多层目录是否被恢复为预期页面结构。</li>
+                    <li>图片是否已经进入 Notion，而不是仍依赖语雀 CDN。</li>
+                    <li>代码块、表格、引用、任务列表是否可读。</li>
+                    <li>语雀内部链接是否需要改成 Notion 页面链接。</li>
+                    <li>评论、历史版本、权限是否已经在 Notion 重新设置。</li>
+                </ul>
+
+                <h2 id="faq">常见问题</h2>
+                <h3>语雀可以一键迁移到 Notion 吗？</h3>
+                <p>不可以。语雀没有官方的一键迁移 Notion 功能，建议先批量导出为 Markdown，再通过 Notion 的 Text & Markdown 或 ZIP 导入。</p>
+
+                <h3>Notion 支持批量导入 Markdown 吗？</h3>
+                <p>支持。Notion 官方支持 Text & Markdown 导入，也可以把整个文件夹压缩为 ZIP 导入，以尽量保留目录结构。</p>
+
+                <h3>语雀图片导入 Notion 后会丢失吗？</h3>
+                <p>如果 Markdown 里仍是语雀 CDN 外链，可能会失效。推荐导出时开启图片本地化，并让图片文件随 Markdown 一起打包导入。</p>
+
+                <h3>Notion ZIP 导入有大小限制吗？</h3>
+                <p>Notion 官方说明 ZIP 单包最高 5GB，但文件数量过多也可能失败，1 万个以上文件尤其容易部分导入。大知识库建议拆成多个 ZIP。</p>
+
+                <h3>语雀的评论、历史版本和权限能迁移到 Notion 吗？</h3>
+                <p>不能。迁移主要保留正文内容和基础格式，评论、历史版本、权限设置需要在 Notion 中重新处理。</p>
+
+                <div class="blog-cta">
+                    <h3>先把语雀导出成可迁移的 Markdown</h3>
+                    <p>使用 YuqueOut 批量导出语雀知识库，开启图片本地化后再导入 Notion。</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_notion_cta" target="_blank" rel="noopener" class="blog-cta-button">免费安装 YuqueOut</a>
+                </div>
+
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="yuque-to-markdown-guide.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀文档批量转 Markdown 完整指南</span>
+                            <span class="blog-related-card-excerpt">迁移 Notion 前先理解 Markdown、图片和目录结构</span>
+                        </a>
+                        <a href="yuque-image-hotlink-fix.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀图片防盗链解决方案</span>
+                            <span class="blog-related-card-excerpt">避免导入 Notion 后图片失效</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links"><li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>
