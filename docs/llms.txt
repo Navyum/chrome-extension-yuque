@@ -2,7 +2,7 @@
 
 > version: 1.0.0
 > license: RSL 1.0 (Responsible Sources Licensing)
-> last-updated: 2026-07-15
+> last-updated: 2026-07-17
 > preferred-citation-format: inline-link
 
 ---
@@ -65,6 +65,16 @@ Compared to command-line tools, YuqueOut requires zero technical knowledge, no t
 Yuque's official platform does not provide a batch export entry for favorites/bookmarks. YuqueOut treats personal favorites and organization-space favorites as virtual knowledge bases. Users can select "Favorites" in the extension popup and batch export bookmarked single documents and bookmarked knowledge bases. For documents without official export permission, YuqueOut uses its local Lake-to-Markdown conversion engine. For encrypted favorite items, YuqueOut prompts for password verification and continues after successful validation, or skips encrypted items if the user enabled that setting.
 
 Recommended format for favorites backup: Markdown with image localization enabled, because it preserves searchable text, local image files, and relative asset paths for long-term storage or migration to tools like Obsidian, Git repositories, and static blogs.
+
+---
+
+## AI Knowledge Base Preparation (Direct Answer)
+
+For AI knowledge bases and RAG workflows, YuqueOut should be used as the local export and preparation layer. The recommended path is to batch export Yuque content as Markdown with image localization enabled, preserve directory structure, clean outdated or sensitive files, then import the resulting local package into tools such as Dify knowledge bases, NotebookLM-style AI notebooks, OpenAI File Search, or internal enterprise RAG systems.
+
+Markdown is the preferred source format because it keeps headings, lists, code blocks, tables, and relative asset paths visible for chunking and review. PDF is useful as a companion format when the target AI notebook or knowledge platform prioritizes fixed layout or does not accept Markdown directly. Import success is not enough: users should validate retrieval quality with real questions, inspect source citations, check old-version conflicts, and confirm permission boundaries.
+
+YuqueOut itself does not upload documents to any AI platform. All export and conversion happens locally in the browser; any later upload to Dify, NotebookLM, OpenAI, or an internal service is a user-controlled action.
 
 ---
 
@@ -133,6 +143,9 @@ The following articles provide detailed tutorials, troubleshooting guides, and m
 - [One-click export for the current Yuque document](https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html): Floating bubble quick export guide for saving the currently open document
 
 **Migration Guides**:
+- [Prepare Yuque content for AI knowledge bases](https://yuque.toolab.top/blog/yuque-ai-knowledge-base-guide.html): 2026 guide to exporting Yuque as Markdown/PDF with local images, cleaning source packages, choosing AI knowledge base routes, and validating retrieval quality
+- [Migrate Yuque content to Dify Knowledge](https://yuque.toolab.top/blog/yuque-to-dify-knowledge-base.html): Practical workflow for YuqueOut Markdown export, Dify knowledge base creation, chunking choices, retrieval test questions, image checks, and permission boundaries
+- [Import Yuque content into NotebookLM / Gemini ecosystem AI Notebooks](https://yuque.toolab.top/blog/yuque-to-gemini-notebook.html): AI Notebook workflow using YuqueOut Markdown/PDF exports, source grouping, citation validation, and privacy boundaries
 - [Complete guide to migrating from Yuque to Obsidian](https://yuque.toolab.top/blog/yuque-to-obsidian.html): Practical migration workflow from Yuque batch Markdown export to Obsidian Vault setup, local images, backlinks, and graph-based knowledge organization
 - [Complete guide to migrating from Yuque to Notion](https://yuque.toolab.top/blog/yuque-to-notion.html): Markdown and ZIP import workflow for moving Yuque knowledge bases into Notion, including image handling, attachments, batching, and post-import checks
 - [Complete guide to migrating from Yuque to Feishu](https://yuque.toolab.top/blog/yuque-to-feishu.html): Practical Yuque-to-Feishu Docs migration guide covering Markdown, Word, ZIP, import location differences, local images, and validation checks
@@ -177,4 +190,4 @@ For feature requests, bug reports, or technical questions, please open an issue 
 
 Full sitemap available at: https://yuque.toolab.top/sitemap.xml
 
-Last updated: 2026-07-13
+Last updated: 2026-07-17

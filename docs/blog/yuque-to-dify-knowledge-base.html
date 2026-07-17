@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀迁移到 Dify 知识库实操教程：用 YuqueOut 批量导出 Markdown 和本地图片，再在 Dify 创建知识库、配置分段、检索测试和权限边界。">
+    <meta name="keywords" content="语雀迁移Dify,Dify知识库,语雀AI知识库,Dify导入Markdown,RAG知识库,语雀导出Markdown,YuqueOut,Dify文档导入">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-to-dify-knowledge-base.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀迁移到 Dify 知识库：Markdown 导入、分段设置与检索测试">
+    <meta property="og:description" content="从 YuqueOut 批量导出语雀 Markdown 到 Dify 知识库导入，覆盖图片本地化、资料分组、分段策略和验收问题集。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-dify-knowledge-base.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-dify-knowledge-base.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-07-17">
+    <meta property="article:modified_time" content="2026-07-17">
+    <meta property="article:section" content="AI 知识库">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀迁移到 Dify 知识库">
+    <meta name="twitter:description" content="Markdown 导入、分段设置与检索测试。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-dify-knowledge-base.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀迁移到 Dify 知识库：Markdown 导入、分段设置与检索测试 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀迁移到 Dify 知识库：Markdown 导入、分段设置与检索测试",
+      "description": "语雀迁移到 Dify 知识库的实操教程，覆盖 YuqueOut Markdown 导出、图片本地化、资料分组、分段策略和检索验收。",
+      "url": "https://yuque.toolab.top/blog/yuque-to-dify-knowledge-base.html",
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "image": "https://yuque.toolab.top/images/blog-dify-knowledge-base.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-to-dify-knowledge-base.html",
+      "wordCount": 2900,
+      "articleSection": "AI 知识库"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀迁移 Dify 知识库", "item": "https://yuque.toolab.top/blog/yuque-to-dify-knowledge-base.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀可以直接同步到 Dify 知识库吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "通常不建议依赖直接同步。更可控的路径是先用 YuqueOut 批量导出 Markdown 和本地图片，再在 Dify 中创建知识库并导入这些本地文件。" }
+        },
+        {
+          "@type": "Question",
+          "name": "导入 Dify 前要不要把语雀知识库拆开？",
+          "acceptedAnswer": { "@type": "Answer", "text": "建议拆开。按产品、业务线、权限范围或文档类型建立多个 Dify 知识库，更容易控制检索范围、更新节奏和权限边界。" }
+        },
+        {
+          "@type": "Question",
+          "name": "Dify 知识库适合导入语雀 Markdown 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "适合把语雀 Markdown 作为主要源文件，但具体可导入格式和限制以 Dify 当前官方文档和界面为准。导入后要重点测试分段和检索命中。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀图片导入 Dify 后怎么处理？",
+          "acceptedAnswer": { "@type": "Answer", "text": "先在 YuqueOut 中开启图片本地化，确保 Markdown 引用的是本地 assets 目录。不同 Dify 部署和导入方式对图片解析不同，因此导入后要抽查含图文档。" }
+        },
+        {
+          "@type": "Question",
+          "name": "Dify 导入成功就代表 AI 知识库可用吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不代表。导入成功只说明文件被处理，仍需用真实业务问题测试检索命中、引用来源、过期文档干扰和跨文档回答质量。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_dify" target="_blank" rel="noopener" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀迁移 Dify 知识库</span>
+                </div>
+                <span class="blog-article-tag">Dify 知识库</span>
+                <h1 class="blog-article-title">语雀迁移到 Dify 知识库：Markdown 导入、分段设置与检索测试</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2026-07-17
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        10 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 2900 字</span>
+                    <span class="blog-article-meta-item blog-article-author">Kevin Yang</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">把语雀迁移到 Dify 知识库，推荐先用 YuqueOut 导出 Markdown，并开启图片本地化。导入 Dify 之前按业务边界拆分资料包，导入后再用真实问题测试分段、检索命中和引用来源。不要把“文件上传成功”误认为“知识库已经可用”。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#why-dify">为什么先把语雀整理成 Dify 知识库</a></li>
+                        <li><a href="#export">用 YuqueOut 导出语雀资料</a></li>
+                        <li><a href="#structure">导入前怎么拆分资料包</a></li>
+                        <li><a href="#import">在 Dify 中创建知识库并导入</a></li>
+                        <li><a href="#chunking">分段和检索设置怎么调</a></li>
+                        <li><a href="#test">导入后的测试问题集</a></li>
+                        <li><a href="#maintain">后续更新和权限管理</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>Dify 的知识库适合把企业文档接入聊天机器人、客服助手、内部问答和工作流应用。Dify 官方 <a href="https://docs.dify.ai/en/cloud/use-dify/knowledge/readme" target="_blank" rel="noopener">Knowledge 文档</a>把知识库作为上传、处理和检索外部资料的核心模块。对语雀用户来说，最现实的问题是：语雀里的文档怎么先变成 Dify 能稳定处理的资料源。</p>
+
+                <p>答案不是直接复制网页，而是先导出。YuqueOut 能把语雀知识库批量导出到本地，优先输出 Markdown，并把图片、表格和特殊文档拆成更适合后续处理的文件。</p>
+
+                <h2 id="why-dify">为什么先把语雀整理成 Dify 知识库</h2>
+                <p>语雀适合人读、协作和沉淀文档；Dify 知识库适合被模型检索和调用。两者的文档边界、权限边界和更新方式不同，所以不建议把所有语雀内容无差别导入同一个 Dify 知识库。</p>
+
+                <div class="info-box" style="border-left-color:#10b981;">
+                    <div class="info-box-title">推荐路线</div>
+                    <ol>
+                        <li>用 YuqueOut 按知识库或目录导出 Markdown。</li>
+                        <li>开启图片本地化，保留 <code>assets/</code> 目录。</li>
+                        <li>删除过期文档、草稿和权限敏感内容。</li>
+                        <li>按业务边界创建 Dify 知识库。</li>
+                        <li>导入后用真实问题做检索验收。</li>
+                    </ol>
+                </div>
+
+                <h2 id="export">用 YuqueOut 导出语雀资料</h2>
+                <p>进入 Dify 前，先在语雀侧准备好资料包：</p>
+                <ol class="step-list">
+                    <li><strong>选择目标知识库。</strong>优先从一个业务边界清晰的语雀知识库开始，例如客服 FAQ、产品帮助中心或内部 SOP。</li>
+                    <li><strong>导出 Markdown。</strong>普通文档用 Markdown，便于 Dify 做文本切分和检索。</li>
+                    <li><strong>开启图片本地化。</strong>让图像文件随 Markdown 一起下载到本地，避免语雀 CDN 外链失效。</li>
+                    <li><strong>表格单独处理。</strong>复杂 Lakesheet 可以同时导出 Excel 或 CSV，再决定是否作为独立资料导入。</li>
+                    <li><strong>保留导出日志。</strong>如果部分文档失败，先用单文件重试，不要把不完整资料包导入 Dify。</li>
+                </ol>
+
+                <p>如果你还没有跑过批量导出，先看 <a href="yuque-batch-export-tutorial.html">语雀知识库批量导出完整教程</a>。</p>
+
+                <h2 id="structure">导入前怎么拆分资料包</h2>
+                <p>Dify 知识库的边界最好和业务问答边界一致。不要把研发接口、市场资料、HR 制度、客户 FAQ 全部放在一个知识库里，否则检索时容易混入不相关答案。</p>
+
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>语雀内容</th><th>Dify 知识库拆分建议</th><th>原因</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>客服 FAQ、售后流程</td><td>单独一个知识库</td><td>问题格式明确，适合问答机器人。</td></tr>
+                            <tr><td>产品需求、版本说明</td><td>按产品线拆分</td><td>避免旧版本和不同产品互相干扰。</td></tr>
+                            <tr><td>研发接口、架构文档</td><td>按系统或服务拆分</td><td>便于控制权限和检索范围。</td></tr>
+                            <tr><td>HR、财务、法务制度</td><td>按敏感级别拆分</td><td>避免普通助手检索到受限内容。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="import">在 Dify 中创建知识库并导入</h2>
+                <p>不同 Dify 版本、云端和自部署环境的界面可能略有差异，具体入口以当前 <a href="https://docs.dify.ai/en/cloud/use-dify/knowledge/readme" target="_blank" rel="noopener">Dify 官方文档</a>和产品界面为准。一般流程是：</p>
+                <ol>
+                    <li>进入 Dify 的 Knowledge 或知识库页面。</li>
+                    <li>创建新的知识库，命名时写清业务范围，例如“客服 FAQ 2026”或“产品 A 帮助中心”。</li>
+                    <li>上传 YuqueOut 导出的 Markdown 或其他可接受文件。</li>
+                    <li>选择或确认分段方式、索引方式和检索设置。</li>
+                    <li>等待处理完成，并记录失败文件。</li>
+                    <li>把知识库接入对应应用，再用测试问题验证回答。</li>
+                </ol>
+
+                <div class="info-box warning-box">
+                    <div class="info-box-title">注意</div>
+                    <p>Dify 的可导入格式、单文件大小、批量处理能力和索引设置会随版本变化。不要在文章或团队流程里写死限制数字，落地时以当前部署版本的界面提示和官方文档为准。</p>
+                </div>
+
+                <h2 id="chunking">分段和检索设置怎么调</h2>
+                <p>语雀文档导入 Dify 后，最常见的问题不是文件进不去，而是分段不合适。分段太短，模型看不到完整上下文；分段太长，检索命中不准，还可能把多个主题混在一起。</p>
+
+                <p>建议先按这套方法调试：</p>
+                <ul>
+                    <li>如果文档标题和二级标题很清楚，优先保留标题结构，让分段围绕章节展开。</li>
+                    <li>如果是 FAQ 文档，尽量让一个问题和答案落在同一段。</li>
+                    <li>如果是长篇产品手册，先按章节拆成多个 Markdown 文件，再导入。</li>
+                    <li>如果检索总命中过期内容，先清理旧文档，而不是只调参数。</li>
+                    <li>如果答案经常缺少上下文，回到 Markdown 源文件补充术语解释和前置条件。</li>
+                </ul>
+
+                <h2 id="test">导入后的测试问题集</h2>
+                <p>每个 Dify 知识库至少准备一组测试问题。不要只问“公司介绍是什么”这种简单问题，要覆盖真实使用场景。</p>
+
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>测试类型</th><th>示例</th><th>验收点</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>精确命中</td><td>某功能的配置入口在哪里？</td><td>能命中正确文档和章节。</td></tr>
+                            <tr><td>跨文档组合</td><td>新客户开通后需要走哪些流程？</td><td>能组合 FAQ、SOP 和权限说明。</td></tr>
+                            <tr><td>版本冲突</td><td>2026 版套餐限制是什么？</td><td>不会引用旧版本文档。</td></tr>
+                            <tr><td>图片依赖</td><td>这个配置页面怎么看？</td><td>能指向含图文档，或说明需要人工查看截图。</td></tr>
+                            <tr><td>权限边界</td><td>财务审批细则是什么？</td><td>普通应用不应从受限知识库检索。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="maintain">后续更新和权限管理</h2>
+                <p>语雀仍然可以作为文档编辑源，Dify 作为 AI 应用的检索源。推荐建立固定更新节奏：每周或每次版本发布后，用 YuqueOut 导出变更目录，复核后再更新 Dify 知识库。</p>
+
+                <p>团队知识库还要处理权限。语雀里本来只有部分成员能看的文档，不应该因为导入 Dify 就变成全员可问。迁移前先按权限拆分资料包，迁移后再按 Dify 应用和用户范围配置访问控制。</p>
+
+                <h2 id="faq">常见问题</h2>
+                <h3>语雀可以直接同步到 Dify 知识库吗？</h3>
+                <p>通常不建议依赖直接同步。更可控的路径是先用 YuqueOut 批量导出 Markdown 和本地图片，再在 Dify 中创建知识库并导入这些本地文件。</p>
+
+                <h3>导入 Dify 前要不要把语雀知识库拆开？</h3>
+                <p>建议拆开。按产品、业务线、权限范围或文档类型建立多个 Dify 知识库，更容易控制检索范围、更新节奏和权限边界。</p>
+
+                <h3>Dify 知识库适合导入语雀 Markdown 吗？</h3>
+                <p>适合把语雀 Markdown 作为主要源文件，但具体可导入格式和限制以 Dify 当前官方文档和界面为准。导入后要重点测试分段和检索命中。</p>
+
+                <h3>语雀图片导入 Dify 后怎么处理？</h3>
+                <p>先在 YuqueOut 中开启图片本地化，确保 Markdown 引用的是本地 <code>assets/</code> 目录。不同 Dify 部署和导入方式对图片解析不同，因此导入后要抽查含图文档。</p>
+
+                <h3>Dify 导入成功就代表 AI 知识库可用吗？</h3>
+                <p>不代表。导入成功只说明文件被处理，仍需用真实业务问题测试检索命中、引用来源、过期文档干扰和跨文档回答质量。</p>
+
+                <div class="blog-cta">
+                    <h3>先把语雀导出成 Dify 可处理的资料包</h3>
+                    <p>用 YuqueOut 批量导出 Markdown 和本地图片，再导入 Dify 知识库做检索测试。</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_dify_cta" target="_blank" rel="noopener" class="blog-cta-button">免费安装 YuqueOut</a>
+                </div>
+
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="yuque-ai-knowledge-base-guide.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀内容如何整理成 AI 知识库</span>
+                            <span class="blog-related-card-excerpt">先理解 Markdown、图片和 RAG 导入清单</span>
+                        </a>
+                        <a href="yuque-image-hotlink-fix.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀图片防盗链解决方案</span>
+                            <span class="blog-related-card-excerpt">避免导入 AI 知识库后图片失效</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links"><li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>

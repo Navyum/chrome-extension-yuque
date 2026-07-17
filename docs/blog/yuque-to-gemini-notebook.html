@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀导入 NotebookLM / Gemini 生态 AI Notebook 的实操指南：用 YuqueOut 导出 Markdown、PDF 和本地图片，按主题建立 AI Notebook 来源并做引用检查。">
+    <meta name="keywords" content="语雀导入NotebookLM,Gemini AI Notebook,AI Notebook,语雀AI知识库,NotebookLM知识库,语雀导出PDF,语雀导出Markdown,YuqueOut">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-to-gemini-notebook.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀导入 NotebookLM / Gemini 生态 AI Notebook：用 Markdown 和 PDF 搭建 AI 知识库">
+    <meta property="og:description" content="把语雀知识库整理成 AI Notebook 来源：先用 YuqueOut 导出 Markdown、PDF 和本地图片，再按主题导入并检查引用。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-gemini-notebook.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-gemini-notebook-yuque.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-07-17">
+    <meta property="article:modified_time" content="2026-07-17">
+    <meta property="article:section" content="AI 知识库">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀导入 NotebookLM / Gemini 生态 AI Notebook">
+    <meta name="twitter:description" content="用 Markdown 和 PDF 搭建 AI Notebook 知识库。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-gemini-notebook-yuque.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀导入 NotebookLM / Gemini 生态 AI Notebook：用 Markdown 和 PDF 搭建 AI 知识库 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀导入 NotebookLM / Gemini 生态 AI Notebook：用 Markdown 和 PDF 搭建 AI 知识库",
+      "description": "语雀导入 NotebookLM / Gemini 生态 AI Notebook 的实操指南，覆盖 YuqueOut 导出、Markdown 到 PDF 路线、来源分组、引用检查和隐私边界。",
+      "url": "https://yuque.toolab.top/blog/yuque-to-gemini-notebook.html",
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "image": "https://yuque.toolab.top/images/blog-gemini-notebook-yuque.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-to-gemini-notebook.html",
+      "wordCount": 2800,
+      "articleSection": "AI 知识库"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀导入 NotebookLM", "item": "https://yuque.toolab.top/blog/yuque-to-gemini-notebook.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "NotebookLM / Gemini 生态 AI Notebook 能直接导入语雀知识库吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "一般不能直接读取整个语雀知识库。建议先用 YuqueOut 导出 Markdown、PDF 或其他本地文件，再按 Notebook 当前支持的来源类型导入。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀导入 AI Notebook 用 Markdown 还是 PDF？",
+          "acceptedAnswer": { "@type": "Answer", "text": "Markdown 适合作为可维护源稿，PDF 适合作为上传兼容路线。实际上传前应查看当前 NotebookLM 或 Gemini 相关 Notebook 界面对文件类型的支持，并保留 Markdown 原始包便于后续更新。" }
+        },
+        {
+          "@type": "Question",
+          "name": "一个 Notebook 应该放多少语雀文档？",
+          "acceptedAnswer": { "@type": "Answer", "text": "建议按一个主题、一个项目或一个研究问题建立 Notebook，不要把整个公司知识库塞进一个 Notebook。来源过杂会降低引用质量，也会让回答难以复核。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀图片和附件在 NotebookLM 里会完整保留吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不应假设会完整保留。建议先用 YuqueOut 本地化图片，并把含关键截图的文档导出为 PDF，导入后抽查引用和图文上下文。" }
+        },
+        {
+          "@type": "Question",
+          "name": "YuqueOut 会自动上传到 Google 或 Gemini 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不会。YuqueOut 只在本地导出语雀内容，不自动上传到 Google、Gemini 或其他 AI 服务。上传动作需要用户自己在目标平台完成。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_gemini_notebook" target="_blank" rel="noopener" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀导入 NotebookLM</span>
+                </div>
+                <span class="blog-article-tag">AI Notebook</span>
+                <h1 class="blog-article-title">语雀导入 NotebookLM / Gemini 生态 AI Notebook：用 Markdown 和 PDF 搭建 AI 知识库</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        2026-07-17
+                    </span>
+                    <span class="blog-article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        9 分钟阅读
+                    </span>
+                    <span class="blog-article-meta-item">约 2800 字</span>
+                    <span class="blog-article-meta-item blog-article-author">Kevin Yang</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">NotebookLM / Gemini 生态 AI Notebook 更适合“围绕一组资料做研究和问答”，不是替代语雀的全量文档仓库。推荐用 YuqueOut 先把语雀主题知识库导出成 Markdown 和 PDF，本地检查图片与附件，再按项目、报告或研究问题建立 Notebook 来源。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#positioning">AI Notebook 和普通知识库有什么不同</a></li>
+                        <li><a href="#export">从语雀导出哪些文件</a></li>
+                        <li><a href="#markdown-pdf">Markdown 和 PDF 怎么搭配</a></li>
+                        <li><a href="#notebook">按主题建立 Notebook</a></li>
+                        <li><a href="#validation">导入后检查引用和回答</a></li>
+                        <li><a href="#team">团队资料怎么分发</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>NotebookLM 这类 AI Notebook 的价值，是让模型围绕你提供的来源材料回答、总结和生成学习资料。Google 官方 <a href="https://support.google.com/notebooklm" target="_blank" rel="noopener">NotebookLM 帮助中心</a>也强调围绕来源材料建立 Notebook 的使用方式。对于语雀用户来说，关键不是把整个语雀空间搬进去，而是把某个主题的材料整理成清晰来源。</p>
+
+                <p>这和企业 RAG 知识库稍有不同。Dify 这类平台常用于应用集成和自动问答；NotebookLM / Gemini 生态 AI Notebook 更像一个研究工作台，适合围绕产品调研、项目复盘、技术方案、培训资料和报告素材做阅读、提问和归纳。</p>
+
+                <h2 id="positioning">AI Notebook 和普通知识库有什么不同</h2>
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>场景</th><th>更适合 AI Notebook</th><th>更适合 Dify / RAG 知识库</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>产品调研</td><td><span class="check">适合</span>，围绕一组来源总结和提问。</td><td><span class="partial">可用</span>，但通常要接应用。</td></tr>
+                            <tr><td>客服机器人</td><td><span class="partial">不优先</span>，维护和发布能力不够直接。</td><td><span class="check">适合</span>，能接入应用工作流。</td></tr>
+                            <tr><td>团队培训</td><td><span class="check">适合</span>，可围绕资料生成学习问答。</td><td><span class="partial">可用</span>，适合固定问答。</td></tr>
+                            <tr><td>全公司知识搜索</td><td><span class="cross">不建议全量堆入</span>。</td><td><span class="check">更适合</span>，需权限和索引治理。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="export">从语雀导出哪些文件</h2>
+                <p>用 YuqueOut 准备 Notebook 来源时，建议同时保留两套文件：Markdown 作为可维护源稿，PDF 作为上传和阅读兼容格式。</p>
+
+                <ol class="step-list">
+                    <li><strong>按主题选择语雀知识库或目录。</strong>一个 Notebook 对应一个研究主题，不要一次导入所有团队资料。</li>
+                    <li><strong>导出 Markdown。</strong>保留标题、列表、代码块和相对图片路径，方便后续修改和复用。</li>
+                    <li><strong>必要时导出 PDF。</strong>如果当前 Notebook 入口不接受 Markdown，或者文档含大量截图和复杂排版，PDF 更适合作为上传材料。</li>
+                    <li><strong>开启图片本地化。</strong>即使最终上传 PDF，也要保留本地图片包，方便排查和重建来源。</li>
+                    <li><strong>保留目录结构。</strong>把来源按项目、章节或时间整理好，避免后续不知道文件来自哪里。</li>
+                </ol>
+
+                <h2 id="markdown-pdf">Markdown 和 PDF 怎么搭配</h2>
+                <p>Markdown 和 PDF 不是二选一。Markdown 更适合长期维护，PDF 更适合固定版式和跨平台上传。实际操作可以这样安排：</p>
+
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>资料类型</th><th>推荐导出</th><th>原因</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>技术笔记、接口说明</td><td>Markdown</td><td>代码块和标题清楚，后续可批量清洗。</td></tr>
+                            <tr><td>培训手册、制度文档</td><td>PDF + Markdown</td><td>PDF 便于上传阅读，Markdown 便于更新。</td></tr>
+                            <tr><td>含大量截图的教程</td><td>PDF</td><td>图文位置更稳定，导入后更容易人工核对。</td></tr>
+                            <tr><td>会议纪要、项目复盘</td><td>Markdown</td><td>适合按时间和主题拆分。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>如果你不确定当前 NotebookLM 或 Gemini 相关 Notebook 是否接受某种文件类型，不要在迁移前假设。先用 3 到 5 篇语雀文档做小样本测试，再批量整理。</p>
+
+                <h2 id="notebook">按主题建立 Notebook</h2>
+                <p>AI Notebook 的来源越聚焦，答案越容易复核。推荐按以下边界建立 Notebook：</p>
+                <ul>
+                    <li>一个产品版本：需求、设计、发布说明、用户反馈。</li>
+                    <li>一个客户项目：方案、会议纪要、交付清单、风险记录。</li>
+                    <li>一个培训主题：讲义、FAQ、案例、操作步骤。</li>
+                    <li>一个研究问题：竞品材料、调研笔记、内部讨论、结论草稿。</li>
+                </ul>
+
+                <p>不建议把“公司所有语雀资料”塞进同一个 Notebook。来源范围太大时，回答看似丰富，但引用很难检查，也容易把不同项目或旧版本混在一起。</p>
+
+                <h2 id="validation">导入后检查引用和回答</h2>
+                <p>NotebookLM / Gemini 生态 AI Notebook 的优势之一是围绕来源材料回答。导入后要重点检查引用是否可靠：</p>
+                <ul>
+                    <li>每个关键回答是否能追到正确来源文档。</li>
+                    <li>引用的文档是否是最新版本，而不是旧草稿。</li>
+                    <li>图片、截图、附件信息是否被正确理解，还是需要人工打开源文件。</li>
+                    <li>长文档是否被过度概括，丢掉关键前置条件。</li>
+                    <li>同一问题连续问几次，答案是否稳定。</li>
+                </ul>
+
+                <p>如果回答经常找不到来源，先回到 YuqueOut 导出的 Markdown 源稿，补充标题、摘要和关键词。不要只在 Notebook 里反复问同一个问题。</p>
+
+                <h2 id="team">团队资料怎么分发</h2>
+                <p>团队使用时，建议由资料负责人维护一份“语雀导出源包”。每次更新语雀后，用 YuqueOut 导出新的 Markdown/PDF，复核后再分发给 Notebook 使用者。这样可以避免每个人手动复制不同版本，导致 Notebook 来源不一致。</p>
+
+                <p>涉及客户资料、财务、人事、合同、未公开产品计划时，不要随意上传到外部 AI 服务。YuqueOut 的本地导出不会上传内容，但 Notebook 平台的上传动作由你自己控制，上传前应遵守团队的数据合规要求。</p>
+
+                <h2 id="faq">常见问题</h2>
+                <h3>NotebookLM / Gemini 生态 AI Notebook 能直接导入语雀知识库吗？</h3>
+                <p>一般不能直接读取整个语雀知识库。建议先用 YuqueOut 导出 Markdown、PDF 或其他本地文件，再按 Notebook 当前支持的来源类型导入。</p>
+
+                <h3>语雀导入 AI Notebook 用 Markdown 还是 PDF？</h3>
+                <p>Markdown 适合作为可维护源稿，PDF 适合作为上传兼容路线。实际上传前应查看当前 NotebookLM 或 Gemini 相关 Notebook 界面对文件类型的支持，并保留 Markdown 原始包便于后续更新。</p>
+
+                <h3>一个 Notebook 应该放多少语雀文档？</h3>
+                <p>建议按一个主题、一个项目或一个研究问题建立 Notebook，不要把整个公司知识库塞进一个 Notebook。来源过杂会降低引用质量，也会让回答难以复核。</p>
+
+                <h3>语雀图片和附件在 NotebookLM 里会完整保留吗？</h3>
+                <p>不应假设会完整保留。建议先用 YuqueOut 本地化图片，并把含关键截图的文档导出为 PDF，导入后抽查引用和图文上下文。</p>
+
+                <h3>YuqueOut 会自动上传到 Google 或 Gemini 吗？</h3>
+                <p>不会。YuqueOut 只在本地导出语雀内容，不自动上传到 Google、Gemini 或其他 AI 服务。上传动作需要用户自己在目标平台完成。</p>
+
+                <div class="blog-cta">
+                    <h3>先导出语雀，再建立 AI Notebook 来源</h3>
+                    <p>用 YuqueOut 准备 Markdown、PDF 和本地图片，让 Notebook 来源更清晰、更可复核。</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_gemini_notebook_cta" target="_blank" rel="noopener" class="blog-cta-button">免费安装 YuqueOut</a>
+                </div>
+
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="yuque-ai-knowledge-base-guide.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀内容如何整理成 AI 知识库</span>
+                            <span class="blog-related-card-excerpt">AI 知识库导入前的通用准备清单</span>
+                        </a>
+                        <a href="yuque-to-dify-knowledge-base.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀迁移到 Dify 知识库</span>
+                            <span class="blog-related-card-excerpt">面向 RAG 应用的导入和检索测试</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links"><li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>
