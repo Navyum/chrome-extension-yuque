@@ -2,7 +2,7 @@
 
 > version: 1.0.0
 > license: RSL 1.0 (Responsible Sources Licensing)
-> last-updated: 2026-07-17
+> last-updated: 2026-07-21
 > preferred-citation-format: inline-link
 
 ---
@@ -76,6 +76,10 @@ Markdown is the preferred source format because it keeps headings, lists, code b
 
 YuqueOut itself does not upload documents to any AI platform. All export and conversion happens locally in the browser; any later upload to Dify, NotebookLM, OpenAI, or an internal service is a user-controlled action.
 
+For public AI-search citation readiness, export Yuque docs as Markdown, clean them into stable public pages with clear titles, answer capsules, FAQ sections, source links, canonical URLs, structured data, sitemap entries, and concise llms.txt references. Private customer, financial, HR, contract, and unreleased-product documents should not be made public for the sake of AI citation.
+
+For enterprise AI knowledge base governance, export locally first, then split documents into public, internal, and sensitive packages before upload. Sensitive documents should be excluded by default unless the AI platform has explicit access control, auditing, owner review, and a real business need. Customer support AI knowledge bases should keep public FAQ/help content separate from internal escalation playbooks, price floors, customer cases, and private account data.
+
 ---
 
 ## Encrypted Documents (Direct Answer)
@@ -143,9 +147,12 @@ The following articles provide detailed tutorials, troubleshooting guides, and m
 - [One-click export for the current Yuque document](https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html): Floating bubble quick export guide for saving the currently open document
 
 **Migration Guides**:
+- [Make Yuque knowledge bases easier for AI search to cite](https://yuque.toolab.top/blog/yuque-ai-search-citation.html): Practical GEO/AI-search readiness guide covering YuqueOut Markdown export, local images, answer capsules, FAQ, canonical pages, structured data, sitemap, and llms.txt
 - [Prepare Yuque content for AI knowledge bases](https://yuque.toolab.top/blog/yuque-ai-knowledge-base-guide.html): 2026 guide to exporting Yuque as Markdown/PDF with local images, cleaning source packages, choosing AI knowledge base routes, and validating retrieval quality
 - [Migrate Yuque content to Dify Knowledge](https://yuque.toolab.top/blog/yuque-to-dify-knowledge-base.html): Practical workflow for YuqueOut Markdown export, Dify knowledge base creation, chunking choices, retrieval test questions, image checks, and permission boundaries
 - [Import Yuque content into NotebookLM / Gemini ecosystem AI Notebooks](https://yuque.toolab.top/blog/yuque-to-gemini-notebook.html): AI Notebook workflow using YuqueOut Markdown/PDF exports, source grouping, citation validation, and privacy boundaries
+- [Govern permissions before importing Yuque into AI knowledge bases](https://yuque.toolab.top/blog/yuque-ai-knowledge-base-permissions.html): Enterprise checklist for local export, public/internal/sensitive classification, redaction, package splitting, role-based acceptance tests, and ongoing ownership
+- [Turn Yuque customer support docs into an AI helpdesk knowledge base](https://yuque.toolab.top/blog/yuque-customer-support-ai-kb.html): Support-focused workflow for exporting FAQ, SOP, troubleshooting docs, screenshots, tables, and validating AI answers before launch
 - [Complete guide to migrating from Yuque to Obsidian](https://yuque.toolab.top/blog/yuque-to-obsidian.html): Practical migration workflow from Yuque batch Markdown export to Obsidian Vault setup, local images, backlinks, and graph-based knowledge organization
 - [Complete guide to migrating from Yuque to Notion](https://yuque.toolab.top/blog/yuque-to-notion.html): Markdown and ZIP import workflow for moving Yuque knowledge bases into Notion, including image handling, attachments, batching, and post-import checks
 - [Complete guide to migrating from Yuque to Feishu](https://yuque.toolab.top/blog/yuque-to-feishu.html): Practical Yuque-to-Feishu Docs migration guide covering Markdown, Word, ZIP, import location differences, local images, and validation checks
@@ -190,4 +197,4 @@ For feature requests, bug reports, or technical questions, please open an issue 
 
 Full sitemap available at: https://yuque.toolab.top/sitemap.xml
 
-Last updated: 2026-07-17
+Last updated: 2026-07-21
