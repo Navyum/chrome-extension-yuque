@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀内容如何导入 OpenAI File Search？用 YuqueOut 批量导出 Markdown、本地化图片、清洗权限和元数据，再上传到 vector store 做检索、引用和问答验收。">
+    <meta name="keywords" content="语雀导入OpenAI File Search,OpenAI File Search知识库,语雀RAG,YuqueOut,语雀导出Markdown,vector store,AI知识库,文件检索">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-to-openai-file-search.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀导入 OpenAI File Search：Markdown 导出、向量库分包与检索验收清单">
+    <meta property="og:description" content="把语雀知识库整理成 OpenAI File Search 可用资料源：先用 YuqueOut 导出 Markdown 和本地图片，再做清洗、分包、元数据、chunking 和真实问题验收。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-openai-file-search.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-openai-file-search.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:section" content="AI 知识库">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀导入 OpenAI File Search">
+    <meta name="twitter:description" content="Markdown 导出、向量库分包与检索验收清单。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-openai-file-search.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀导入 OpenAI File Search：Markdown 导出、向量库分包与检索验收清单 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀导入 OpenAI File Search：Markdown 导出、向量库分包与检索验收清单",
+      "description": "语雀内容导入 OpenAI File Search 的实操指南，覆盖 YuqueOut Markdown 导出、本地图片、资料清洗、vector store 分包、元数据、chunking 和检索验收。",
+      "url": "https://yuque.toolab.top/blog/yuque-to-openai-file-search.html",
+      "datePublished": "2026-07-24",
+      "dateModified": "2026-07-24",
+      "image": "https://yuque.toolab.top/images/blog-openai-file-search.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-to-openai-file-search.html",
+      "wordCount": 3100,
+      "articleSection": "AI 知识库"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀导入 OpenAI File Search", "item": "https://yuque.toolab.top/blog/yuque-to-openai-file-search.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀内容可以直接导入 OpenAI File Search 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不建议直接复制语雀网页。更稳的路径是先用 YuqueOut 导出 Markdown、HTML、PDF 或 TXT 等可解析文件，清洗敏感内容和过期文档，再上传到 OpenAI vector store 供 File Search 检索。" }
+        },
+        {
+          "@type": "Question",
+          "name": "导入 OpenAI File Search 优先选 Markdown 还是 PDF？",
+          "acceptedAnswer": { "@type": "Answer", "text": "多数语雀知识库优先选 Markdown，因为标题、列表、代码块和表格更容易清洗与版本管理。PDF 适合保留版式或合同、手册类资料，但导入后仍要测试检索命中和引用片段。" }
+        },
+        {
+          "@type": "Question",
+          "name": "一个语雀知识库应该对应一个 vector store 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不一定。vector store 的边界应按应用、权限和检索场景决定。公开帮助中心、内部 SOP、客户资料和敏感制度不应混进同一个索引。" }
+        },
+        {
+          "@type": "Question",
+          "name": "YuqueOut 会把语雀文档上传到 OpenAI 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不会。YuqueOut 只负责在浏览器本地导出和转换语雀资料。是否上传到 OpenAI File Search、Dify 或内部 RAG 系统，由用户在导出后自行决定。" }
+        },
+        {
+          "@type": "Question",
+          "name": "OpenAI File Search 导入成功就代表问答可用了么？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不代表。导入成功只说明文件进入索引流程，还需要用真实问题验证召回、引用来源、权限边界、旧版本干扰、图片附件说明和未命中问题的修复路径。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_openai_file_search" target="_blank" rel="noopener" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀导入 OpenAI File Search</span>
+                </div>
+                <span class="blog-article-tag">OpenAI File Search</span>
+                <h1 class="blog-article-title">语雀导入 OpenAI File Search：Markdown 导出、向量库分包与检索验收清单</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">2026-07-24</span>
+                    <span class="blog-article-meta-item">11 分钟阅读</span>
+                    <span class="blog-article-meta-item">约 3100 字</span>
+                    <span class="blog-article-meta-item blog-article-author">Kevin Yang</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <img src="../images/blog-openai-file-search.webp" alt="语雀导入 OpenAI File Search 的 Markdown 和向量库工作流" width="1344" height="756" loading="eager" style="width:100%;height:auto;border-radius:8px;margin-bottom:2rem;">
+
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">把语雀知识库导入 OpenAI File Search，推荐先用 YuqueOut 导出 Markdown 并开启图片本地化，再按应用和权限拆分资料包，上传到 OpenAI vector store。导入后必须用真实问题验证召回、引用来源、旧版本干扰和权限边界；不要把“上传成功”当成“AI 知识库已经可用”。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#route">推荐路线：先导出，再入库</a></li>
+                        <li><a href="#source-format">Markdown、HTML、PDF 怎么选</a></li>
+                        <li><a href="#clean">导入前清洗语雀资料包</a></li>
+                        <li><a href="#store-boundary">vector store 应该怎么分</a></li>
+                        <li><a href="#metadata">元数据、文件名和 chunking 检查</a></li>
+                        <li><a href="#validation">检索验收问题集</a></li>
+                        <li><a href="#privacy">隐私、权限和更新策略</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>OpenAI File Search 适合把产品文档、帮助中心、内部 SOP、客服 FAQ 和项目资料接入模型问答。OpenAI 官方 <a href="https://platform.openai.com/docs/guides/tools-file-search" target="_blank" rel="noopener">File Search 文档</a>把它放在 Search and retrieval 工具下，<a href="https://platform.openai.com/docs/guides/retrieval" target="_blank" rel="noopener">Retrieval 文档</a>说明检索 API 使用 vector stores 作为资料索引。对语雀用户来说，关键不是“能不能上传文件”，而是如何把语雀里的协作文档整理成结构清楚、权限边界明确、检索效果可验证的资料源。</p>
+
+                <p>语雀页面本身适合团队编辑，但不一定适合直接进入 AI 检索：标题可能含糊，图片可能依赖外链，文档可能混入草稿、内部评论、过期制度和权限敏感内容。YuqueOut 的价值是先把语雀内容导出到本地，让团队在上传到 OpenAI 之前有机会清洗、分包、审查和留档。</p>
+
+                <h2 id="route">推荐路线：先导出，再入库</h2>
+                <p>最稳的路径可以拆成六步：</p>
+                <ol class="step-list">
+                    <li><strong>用 YuqueOut 批量导出语雀知识库。</strong>普通文档优先导出 Markdown，复杂表格或画板按需要另存为 Excel、CSV、HTML、PNG、SVG 等格式。</li>
+                    <li><strong>开启图片本地化。</strong>把语雀图片保存到本地 <code>assets/</code> 目录，避免后续检索结果引用不可访问的外链。</li>
+                    <li><strong>按业务边界清洗。</strong>删除草稿、重复文档、过期版本和不应该进入模型的资料。</li>
+                    <li><strong>按应用和权限分包。</strong>公开帮助中心、内部流程、客户资料、敏感制度不要混进一个资料包。</li>
+                    <li><strong>上传到 OpenAI vector store。</strong>根据官方文档，File Search 和 Retrieval 都围绕 vector stores 组织文件和语义检索。</li>
+                    <li><strong>用真实问题验收。</strong>检查答案能否引用正确来源、是否召回旧版本、是否泄露不该出现的资料。</li>
+                </ol>
+
+                <p>如果你还没有完整导出过语雀知识库，可以先看 <a href="yuque-batch-export-tutorial.html">语雀知识库批量导出完整教程</a>；如果目标还没有定，可以先读 <a href="yuque-ai-knowledge-base-guide.html">语雀内容如何整理成 AI 知识库</a>。</p>
+
+                <h2 id="source-format">Markdown、HTML、PDF 怎么选</h2>
+                <p>OpenAI Retrieval 官方文档列出的支持文件类型包含 <code>.md</code>、<code>.html</code>、<code>.pdf</code>、<code>.txt</code>、<code>.doc</code>、<code>.docx</code>、<code>.json</code> 等格式，并要求文本 MIME 类型使用 utf-8、utf-16 或 ascii 编码。语雀导出时不需要追求单一格式，而要按资料类型选择最容易维护的源文件。</p>
+
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>语雀资料类型</th><th>推荐导出</th><th>导入 OpenAI 前重点</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>帮助中心、FAQ、SOP、产品说明</td><td>Markdown + 本地图片</td><td>保留标题层级，补充更新时间、适用版本和问题问法。</td></tr>
+                            <tr><td>合同模板、制度手册、固定版式资料</td><td>PDF，同时保留 Markdown 源稿</td><td>确认页码、目录和关键条款可被检索，不要只看上传成功。</td></tr>
+                            <tr><td>复杂表格和数据清单</td><td>Excel / CSV，必要时配套 Markdown 说明</td><td>把列名、口径、更新时间写清楚，避免模型误读字段含义。</td></tr>
+                            <tr><td>画板、流程图、截图教程</td><td>PNG/SVG + Markdown 文字说明</td><td>图片本身不等于可检索文本，建议用文字描述关键步骤。</td></tr>
+                            <tr><td>代码片段、接口说明、配置文档</td><td>Markdown 或文本文件</td><td>保留代码块语言、版本、环境和弃用说明。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>对大多数语雀知识库来说，Markdown 是首选中间格式。它便于 diff、审阅、重命名、拆分、补 FAQ，也便于和 Git 仓库或静态站点一起维护。PDF 可以作为保留排版的补充，但如果只上传 PDF，后续修复标题、段落和权限边界会更麻烦。</p>
+
+                <h2 id="clean">导入前清洗语雀资料包</h2>
+                <p>File Search 的检索质量很大程度取决于源文件质量。导入前建议做一次最小但严格的清洗：</p>
+                <ul>
+                    <li>把“最终版”“备份”“待整理”改成真实标题，例如“退款规则”“企业版开票流程”。</li>
+                    <li>删除旧版本、重复会议纪要、临时测试文档和已经废弃的产品说明。</li>
+                    <li>在文档开头补一句适用范围，例如“适用于 2026 年企业版售后流程”。</li>
+                    <li>把内部黑话补成完整名称，第一次出现时写全称。</li>
+                    <li>检查图片路径是否为本地相对路径，不要让关键步骤只存在于不可访问图片里。</li>
+                    <li>将客户、财务、人事、法务、未发布产品资料单独放置，默认不进入公开或通用助手索引。</li>
+                </ul>
+
+                <p>如果资料里有大量图片，可以参考 <a href="yuque-image-hotlink-fix.html">语雀图片防盗链和本地化处理指南</a>，先把图片依赖降到可控范围。</p>
+
+                <h2 id="store-boundary">vector store 应该怎么分</h2>
+                <p>一个常见误区是“一个语雀知识库对应一个 vector store”。实际更合理的边界是应用场景和权限范围。OpenAI Retrieval 文档把 vector stores 描述为资料索引，你可以围绕不同应用建立不同索引，而不是照搬语雀的目录结构。</p>
+
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>场景</th><th>建议边界</th><th>原因</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>官网客服机器人</td><td>只放公开 FAQ、帮助中心、产品说明</td><td>避免对外回答内部价格、客户案例和排障脚本。</td></tr>
+                            <tr><td>内部运营助手</td><td>按部门或流程分多个索引</td><td>减少跨部门资料误召回，也方便负责人维护。</td></tr>
+                            <tr><td>研发知识问答</td><td>按系统、服务或代码库边界拆分</td><td>避免不同版本 API、环境配置和架构文档互相污染。</td></tr>
+                            <tr><td>销售支持助手</td><td>公开产品资料与内部销售话术分开</td><td>便于控制不同角色能否访问价格、折扣和竞品策略。</td></tr>
+                            <tr><td>临时项目检索</td><td>设置清晰过期策略和负责人</td><td>项目结束后应删除或归档，避免长期计费和旧资料干扰。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>如果团队已经做过 AI 知识库权限治理，可以沿用 <a href="yuque-ai-knowledge-base-permissions.html">分级、脱敏、分包和验收清单</a> 的边界：公开、内部、敏感资料分开处理。</p>
+
+                <h2 id="metadata">元数据、文件名和 chunking 检查</h2>
+                <p>OpenAI Retrieval 文档支持给 vector store file 关联 attributes，并可在语义搜索前通过 attribute filtering 缩小范围。对语雀资料来说，建议至少在上传前准备这些可映射到 attributes 或文件名的信息：</p>
+                <ul>
+                    <li><strong>department：</strong>资料归属部门，例如 support、product、finance。</li>
+                    <li><strong>visibility：</strong>公开、内部、敏感，不同等级不要混用。</li>
+                    <li><strong>doc_type：</strong>FAQ、SOP、policy、release_note、troubleshooting。</li>
+                    <li><strong>updated_at：</strong>资料最后审阅日期，不只看语雀编辑时间。</li>
+                    <li><strong>owner：</strong>后续谁负责修复未命中问题和过期内容。</li>
+                </ul>
+
+                <p>文件名也很重要。不要保留 <code>doc-1.md</code>、<code>final.md</code> 这类名称，改成 <code>refund-policy-2026.md</code>、<code>enterprise-invoice-flow.md</code> 这种能反映主题的名字。中文文件名也可以，但要保持稳定、可读、无重复。</p>
+
+                <p>关于 chunking，OpenAI Retrieval 文档显示默认会按 token 分块，并提供 <code>chunking_strategy</code> 调整能力。普通 FAQ 和 SOP 通常先用默认设置跑一次验收；如果答案经常只召回半段流程、表格上下文断裂，或者同一篇大文档里混了多个主题，再考虑拆文件或调整 chunking。优先修正文档结构，不要一开始就把所有问题归因于参数。</p>
+
+                <h2 id="validation">检索验收问题集</h2>
+                <p>上传完成后，至少准备一组真实问题做验收。每个问题都要记录期望来源、期望答案和失败后的修复动作。</p>
+                <ol class="step-list">
+                    <li><strong>精确命中问题。</strong>例如“企业版怎么开票？”检查是否命中正确 SOP。</li>
+                    <li><strong>同义词问题。</strong>例如“发票抬头能不能改？”检查模型是否能找到开票规则而不是售后文档。</li>
+                    <li><strong>跨文档问题。</strong>例如“退款后发票怎么处理？”检查是否需要同时召回退款和开票文档。</li>
+                    <li><strong>旧版本干扰问题。</strong>故意问一个历史流程，确认答案不会引用废弃文档。</li>
+                    <li><strong>图片相关问题。</strong>问一个截图教程里的步骤，确认文字说明足够，不能只依赖图片。</li>
+                    <li><strong>权限边界问题。</strong>用低权限场景提问敏感信息，确认索引或应用层不会返回不该看的内容。</li>
+                    <li><strong>拒答问题。</strong>问资料库里不存在的政策，确认助手会说不知道或请求人工确认。</li>
+                </ol>
+
+                <p>验收失败时，先回到本地 Markdown 源稿修标题、摘要、FAQ 和文件边界，再重新上传或更新文件。不要只在提示词里要求“回答准确”，因为源资料混乱时提示词很难长期兜底。</p>
+
+                <h2 id="privacy">隐私、权限和更新策略</h2>
+                <p>YuqueOut 的导出和转换在浏览器本地完成，不会把语雀文档上传到第三方服务器。进入 OpenAI File Search 是导出后的独立动作，团队需要自己确认账号、合规、数据保留、权限和删除策略。OpenAI 官方文档也提供了 vector store 文件删除、批量操作、过期策略等能力说明，实际实现时应以当前控制台和 API 文档为准。</p>
+
+                <p>建议每个资料包保留三份记录：原始语雀导出包、清洗后的上传包、上传日志或文件清单。这样当答案出错时，可以快速判断是源文档问题、上传遗漏、分包错误，还是应用层检索范围不对。</p>
+
+                <p>如果资料会持续更新，建议按周或按版本重新导出，而不是在语雀和 OpenAI 里手动维护两份不一致的内容。每次更新都要跑同一组验收问题，并记录新增、删除和修改的文件。</p>
+
+                <h2 id="faq">常见问题</h2>
+                <h3>语雀内容可以直接导入 OpenAI File Search 吗？</h3>
+                <p>不建议直接复制语雀网页。更稳的路径是先用 YuqueOut 导出 Markdown、HTML、PDF 或 TXT 等可解析文件，清洗敏感内容和过期文档，再上传到 OpenAI vector store 供 File Search 检索。</p>
+
+                <h3>导入 OpenAI File Search 优先选 Markdown 还是 PDF？</h3>
+                <p>多数语雀知识库优先选 Markdown，因为标题、列表、代码块和表格更容易清洗与版本管理。PDF 适合保留版式或合同、手册类资料，但导入后仍要测试检索命中和引用片段。</p>
+
+                <h3>一个语雀知识库应该对应一个 vector store 吗？</h3>
+                <p>不一定。vector store 的边界应按应用、权限和检索场景决定。公开帮助中心、内部 SOP、客户资料和敏感制度不应混进同一个索引。</p>
+
+                <h3>YuqueOut 会把语雀文档上传到 OpenAI 吗？</h3>
+                <p>不会。YuqueOut 只负责在浏览器本地导出和转换语雀资料。是否上传到 OpenAI File Search、Dify 或内部 RAG 系统，由用户在导出后自行决定。</p>
+
+                <h3>OpenAI File Search 导入成功就代表问答可用了么？</h3>
+                <p>不代表。导入成功只说明文件进入索引流程，还需要用真实问题验证召回、引用来源、权限边界、旧版本干扰、图片附件说明和未命中问题的修复路径。</p>
+
+                <div class="blog-cta">
+                    <h3>先把语雀整理成可上传的本地资料包</h3>
+                    <p>使用 YuqueOut 批量导出 Markdown、图片和附件，再按权限边界导入 OpenAI File Search 或企业 RAG 系统。</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_openai_file_search_cta" target="_blank" rel="noopener" class="blog-cta-button">免费安装 YuqueOut</a>
+                </div>
+
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="yuque-ai-knowledge-base-guide.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀内容如何整理成 AI 知识库</span>
+                            <span class="blog-related-card-excerpt">Markdown、图片本地化与 RAG 导入清单</span>
+                        </a>
+                        <a href="yuque-ai-search-citation.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库如何被 AI 搜索引用</span>
+                            <span class="blog-related-card-excerpt">FAQ、结构化摘要和 llms.txt 准备清单</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links"><li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>

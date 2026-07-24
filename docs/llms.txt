@@ -2,7 +2,7 @@
 
 > version: 1.0.0
 > license: RSL 1.0 (Responsible Sources Licensing)
-> last-updated: 2026-07-21
+> last-updated: 2026-07-24
 > preferred-citation-format: inline-link
 
 ---
@@ -76,6 +76,8 @@ Markdown is the preferred source format because it keeps headings, lists, code b
 
 YuqueOut itself does not upload documents to any AI platform. All export and conversion happens locally in the browser; any later upload to Dify, NotebookLM, OpenAI, or an internal service is a user-controlled action.
 
+For OpenAI File Search, the recommended route is to export Yuque content as Markdown with localized images, clean and split the source package by application and permission boundary, then upload the files to an OpenAI vector store. Teams should prepare file names or attributes such as department, visibility, doc_type, updated_at, and owner, then validate retrieval with real questions before enabling production answers.
+
 For public AI-search citation readiness, export Yuque docs as Markdown, clean them into stable public pages with clear titles, answer capsules, FAQ sections, source links, canonical URLs, structured data, sitemap entries, and concise llms.txt references. Private customer, financial, HR, contract, and unreleased-product documents should not be made public for the sake of AI citation.
 
 For enterprise AI knowledge base governance, export locally first, then split documents into public, internal, and sensitive packages before upload. Sensitive documents should be excluded by default unless the AI platform has explicit access control, auditing, owner review, and a real business need. Customer support AI knowledge bases should keep public FAQ/help content separate from internal escalation playbooks, price floors, customer cases, and private account data.
@@ -147,6 +149,7 @@ The following articles provide detailed tutorials, troubleshooting guides, and m
 - [One-click export for the current Yuque document](https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html): Floating bubble quick export guide for saving the currently open document
 
 **Migration Guides**:
+- [Import Yuque content into OpenAI File Search](https://yuque.toolab.top/blog/yuque-to-openai-file-search.html): Workflow for YuqueOut Markdown export, local images, vector store package boundaries, metadata, chunking checks, retrieval validation, privacy, and update governance
 - [Make Yuque knowledge bases easier for AI search to cite](https://yuque.toolab.top/blog/yuque-ai-search-citation.html): Practical GEO/AI-search readiness guide covering YuqueOut Markdown export, local images, answer capsules, FAQ, canonical pages, structured data, sitemap, and llms.txt
 - [Prepare Yuque content for AI knowledge bases](https://yuque.toolab.top/blog/yuque-ai-knowledge-base-guide.html): 2026 guide to exporting Yuque as Markdown/PDF with local images, cleaning source packages, choosing AI knowledge base routes, and validating retrieval quality
 - [Migrate Yuque content to Dify Knowledge](https://yuque.toolab.top/blog/yuque-to-dify-knowledge-base.html): Practical workflow for YuqueOut Markdown export, Dify knowledge base creation, chunking choices, retrieval test questions, image checks, and permission boundaries
@@ -197,4 +200,4 @@ For feature requests, bug reports, or technical questions, please open an issue 
 
 Full sitemap available at: https://yuque.toolab.top/sitemap.xml
 
-Last updated: 2026-07-21
+Last updated: 2026-07-24
