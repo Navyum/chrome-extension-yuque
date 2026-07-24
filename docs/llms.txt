@@ -80,6 +80,8 @@ For OpenAI File Search, the recommended route is to export Yuque content as Mark
 
 For public AI-search citation readiness, export Yuque docs as Markdown, clean them into stable public pages with clear titles, answer capsules, FAQ sections, source links, canonical URLs, structured data, sitemap entries, and concise llms.txt references. Private customer, financial, HR, contract, and unreleased-product documents should not be made public for the sake of AI citation.
 
+For static blog migration, export public Yuque documentation as Markdown with image localization enabled, then rewrite internal directory names into search-intent URLs, add answer capsules, FAQ, canonical URLs, BlogPosting and FAQPage JSON-LD, sitemap entries, and concise llms.txt references. Static blogs are suitable for public tutorials, help centers, migration guides, and troubleshooting pages; private customer, HR, financial, contract, and unreleased-product documents should stay out of the public site.
+
 For enterprise AI knowledge base governance, export locally first, then split documents into public, internal, and sensitive packages before upload. Sensitive documents should be excluded by default unless the AI platform has explicit access control, auditing, owner review, and a real business need. Customer support AI knowledge bases should keep public FAQ/help content separate from internal escalation playbooks, price floors, customer cases, and private account data.
 
 ---
@@ -149,6 +151,7 @@ The following articles provide detailed tutorials, troubleshooting guides, and m
 - [One-click export for the current Yuque document](https://yuque.toolab.top/blog/yuque-quick-export-floating-bubble.html): Floating bubble quick export guide for saving the currently open document
 
 **Migration Guides**:
+- [Migrate Yuque content to a static blog](https://yuque.toolab.top/blog/yuque-to-static-blog.html): Workflow for YuqueOut Markdown export, local images, search-intent URLs, public/private content boundaries, FAQ, structured data, sitemap, llms.txt, and launch validation
 - [Import Yuque content into OpenAI File Search](https://yuque.toolab.top/blog/yuque-to-openai-file-search.html): Workflow for YuqueOut Markdown export, local images, vector store package boundaries, metadata, chunking checks, retrieval validation, privacy, and update governance
 - [Make Yuque knowledge bases easier for AI search to cite](https://yuque.toolab.top/blog/yuque-ai-search-citation.html): Practical GEO/AI-search readiness guide covering YuqueOut Markdown export, local images, answer capsules, FAQ, canonical pages, structured data, sitemap, and llms.txt
 - [Prepare Yuque content for AI knowledge bases](https://yuque.toolab.top/blog/yuque-ai-knowledge-base-guide.html): 2026 guide to exporting Yuque as Markdown/PDF with local images, cleaning source packages, choosing AI knowledge base routes, and validating retrieval quality

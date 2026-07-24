@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="语雀知识库如何迁移到静态博客并适合 AI 引用？用 YuqueOut 导出 Markdown 和本地图片，再整理 URL、目录、FAQ、JSON-LD、sitemap 与 llms.txt。">
+    <meta name="keywords" content="语雀迁移静态博客,语雀导出Markdown,语雀到Hexo,语雀到Hugo,语雀到VitePress,YuqueOut,AI搜索引用,llms.txt,知识库迁移">
+    <link rel="canonical" href="https://yuque.toolab.top/blog/yuque-to-static-blog.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="语雀迁移到静态博客：Markdown 导出、图片本地化、sitemap 与 AI 可引用页面清单">
+    <meta property="og:description" content="把语雀知识库变成可搜索、可引用、可长期维护的静态博客：先用 YuqueOut 导出 Markdown 和本地图片，再整理页面结构、内链、FAQ、JSON-LD、sitemap 和 llms.txt。">
+    <meta property="og:url" content="https://yuque.toolab.top/blog/yuque-to-static-blog.html">
+    <meta property="og:image" content="https://yuque.toolab.top/images/blog-migration.webp">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:section" content="迁移指南">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="语雀迁移到静态博客">
+    <meta name="twitter:description" content="Markdown 导出、图片本地化、sitemap 与 AI 可引用页面清单。">
+    <meta name="twitter:image" content="https://yuque.toolab.top/images/blog-migration.webp">
+
+    <meta name="theme-color" content="#060b22">
+    <title>语雀迁移到静态博客：Markdown 导出、图片本地化、sitemap 与 AI 可引用页面清单 - YuqueOut 博客</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "语雀迁移到静态博客：Markdown 导出、图片本地化、sitemap 与 AI 可引用页面清单",
+      "description": "语雀知识库迁移到静态博客的完整流程，覆盖 YuqueOut Markdown 导出、本地图片、信息架构、URL、FAQ、BlogPosting JSON-LD、sitemap、llms.txt 和上线验收。",
+      "url": "https://yuque.toolab.top/blog/yuque-to-static-blog.html",
+      "datePublished": "2026-07-24",
+      "dateModified": "2026-07-24",
+      "image": "https://yuque.toolab.top/images/blog-migration.webp",
+      "author": { "@type": "Person", "name": "Kevin Yang", "url": "https://yuque.toolab.top/" },
+      "publisher": { "@type": "Organization", "name": "YuqueOut 语雀导出助手", "url": "https://yuque.toolab.top/", "logo": {"@type": "ImageObject", "url": "https://yuque.toolab.top/images/icon.png", "width": 36, "height": 36} },
+      "mainEntityOfPage": "https://yuque.toolab.top/blog/yuque-to-static-blog.html",
+      "wordCount": 2800,
+      "articleSection": "迁移指南"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://yuque.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://yuque.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "语雀迁移到静态博客", "item": "https://yuque.toolab.top/blog/yuque-to-static-blog.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "语雀知识库适合直接迁移到静态博客吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "适合公开教程、产品文档、帮助中心和可分享的知识沉淀；不适合客户资料、财务、人事、合同和未发布方案。推荐先用 YuqueOut 本地导出，再筛选可公开内容。" }
+        },
+        {
+          "@type": "Question",
+          "name": "迁移到静态博客优先导出 Markdown 还是 HTML？",
+          "acceptedAnswer": { "@type": "Answer", "text": "多数场景优先 Markdown，因为它便于静态站点生成、Git 审阅、标题整理和 AI 检索。HTML 适合保留更接近语雀原页面的版式，可作为补充归档。" }
+        },
+        {
+          "@type": "Question",
+          "name": "语雀图片迁移到静态博客为什么会裂图？",
+          "acceptedAnswer": { "@type": "Answer", "text": "常见原因是页面仍引用语雀或临时 CDN 外链，迁移后访问权限、Referer 或有效期变化导致不可见。导出时应开启图片本地化，并在上线前检查所有相对路径。" }
+        },
+        {
+          "@type": "Question",
+          "name": "llms.txt 对静态博客有什么用？",
+          "acceptedAnswer": { "@type": "Answer", "text": "llms.txt 可以给 AI 助手提供站点摘要、核心页面入口和引用边界，但不能替代 sitemap、canonical、结构化数据、内部链接和高质量正文。" }
+        },
+        {
+          "@type": "Question",
+          "name": "YuqueOut 会替我发布静态博客吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不会。YuqueOut 负责在浏览器本地导出语雀资料和图片。静态博客生成、部署、域名、sitemap 和 llms.txt 更新由用户在导出后自行处理。" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main class="homepage">
+        <div class="dot-grid">
+            <div class="dot-grid__wrap">
+                <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+            </div>
+        </div>
+
+        <nav class="homepage-nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="../">
+                        <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36"></picture>
+                        <span class="logo-text">YuqueOut 语雀导出助手</span>
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a href="../#features" class="nav-link">功能特性</a>
+                    <a href="./" class="nav-link">博客</a>
+                    <a href="../#privacy" class="nav-link">隐私保护</a>
+                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_static_blog" target="_blank" rel="noopener" class="nav-cta-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                        <span>添加到 Chrome</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <article class="blog-article-section">
+            <div class="blog-article-header">
+                <div class="blog-article-breadcrumb">
+                    <a href="../">首页</a> <span>/</span>
+                    <a href="./">博客</a> <span>/</span>
+                    <span style="color: hsla(0,0%,100%,0.7);">语雀迁移到静态博客</span>
+                </div>
+                <span class="blog-article-tag">静态博客迁移</span>
+                <h1 class="blog-article-title">语雀迁移到静态博客：Markdown 导出、图片本地化、sitemap 与 AI 可引用页面清单</h1>
+                <div class="blog-article-meta">
+                    <span class="blog-article-meta-item">2026-07-24</span>
+                    <span class="blog-article-meta-item">10 分钟阅读</span>
+                    <span class="blog-article-meta-item">约 2800 字</span>
+                    <span class="blog-article-meta-item blog-article-author">Kevin Yang</span>
+                </div>
+            </div>
+
+            <div class="blog-article-content">
+                <img src="../images/blog-migration.webp" alt="语雀知识库迁移到静态博客的 Markdown、图片和 sitemap 工作流" width="1344" height="768" loading="eager" style="width:100%;height:auto;border-radius:8px;margin-bottom:2rem;">
+
+                <aside class="citation-capsule" style="background:rgba(99,102,241,0.08);border-left:4px solid #6366f1;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:2rem;">
+                    <p style="margin:0;font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.85);">把语雀知识库迁移到静态博客，推荐先用 YuqueOut 导出 Markdown 并开启图片本地化，再按搜索意图重写标题、固定 URL、补 FAQ、canonical、BlogPosting JSON-LD、sitemap 和 llms.txt。公开博客只放可公开资料；客户、人事、合同和未发布内容应保留在本地或内部知识库。</p>
+                </aside>
+
+                <div class="blog-toc">
+                    <div class="blog-toc-title">目录</div>
+                    <ol>
+                        <li><a href="#fit">哪些语雀内容适合变成静态博客</a></li>
+                        <li><a href="#export">先导出 Markdown 和本地图片</a></li>
+                        <li><a href="#architecture">从语雀目录改成搜索意图目录</a></li>
+                        <li><a href="#page">一篇可引用页面应该包含什么</a></li>
+                        <li><a href="#assets">图片、附件和链接迁移检查</a></li>
+                        <li><a href="#geo">sitemap、FAQ 和 llms.txt 怎么配合</a></li>
+                        <li><a href="#workflow">推荐发布流程和验收清单</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                    </ol>
+                </div>
+
+                <p>很多团队把语雀当成内部写作空间，但当文档已经沉淀为产品教程、迁移指南、帮助中心或公开方法论时，继续只放在语雀里会限制搜索收录、外部引用和长期归档。静态博客的优势是 URL 稳定、源码可版本管理、部署可自动化，也更容易为 AI 搜索提供清晰的页面结构和来源信号。</p>
+
+                <p>迁移的关键不是把所有语雀页面原样搬走，而是把适合公开的内容整理成可读、可检索、可维护的网页。YuqueOut 在这个流程里负责第一步：把语雀知识库批量导出为 Markdown、HTML、PDF 等通用格式，并把图片保存到本地，后续再交给 Hexo、Hugo、VitePress、Astro、Next.js 静态导出或自建 HTML 模板。</p>
+
+                <h2 id="fit">哪些语雀内容适合变成静态博客</h2>
+                <p>静态博客适合承载长期公开内容，不适合承载所有协作过程。迁移前先把语雀知识库分成三类：</p>
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>内容类型</th><th>处理建议</th><th>原因</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>产品教程、公开 FAQ、迁移指南、故障排查</td><td>优先迁移到静态博客</td><td>搜索意图明确，适合被用户和 AI 助手引用。</td></tr>
+                            <tr><td>内部 SOP、销售话术、运营复盘、客服升级流程</td><td>进入内部知识库或受限站点</td><td>可能有业务上下文和权限边界，不应默认公开。</td></tr>
+                            <tr><td>客户资料、财务、人事、合同、未发布产品方案</td><td>不迁移到公开博客</td><td>公开会带来隐私和合规风险。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>如果团队还没做过资料分级，可以参考 <a href="yuque-ai-knowledge-base-permissions.html">企业语雀导入 AI 知识库前的权限治理清单</a>。公开博客和内部 AI 知识库都需要同一个前置动作：先确认哪些内容能离开原始语雀权限范围。</p>
+
+                <h2 id="export">先导出 Markdown 和本地图片</h2>
+                <p>静态博客最稳的源格式通常是 Markdown。它保留标题、列表、代码块、表格和链接，方便 Git diff、批量替换、构建页面，也容易转成结构化摘要和 FAQ。建议按这个顺序处理：</p>
+                <ol class="step-list">
+                    <li><strong>用 YuqueOut 按知识库批量导出。</strong>不要逐篇手动复制，避免遗漏目录、图片和特殊文档。</li>
+                    <li><strong>格式选择 Markdown。</strong>需要保留原页面版式时，可以同时导出 HTML 作为归档参考。</li>
+                    <li><strong>开启图片本地化。</strong>让正文引用本地相对路径，不依赖语雀 CDN 或登录态。</li>
+                    <li><strong>保留目录结构。</strong>先完整保留，再决定哪些目录进入公开站点。</li>
+                    <li><strong>导出后立即抽查。</strong>打开 5 到 10 篇代表性文档，确认标题、图片、表格、代码块和附件都在。</li>
+                </ol>
+
+                <p>Markdown 导出细节可以看 <a href="yuque-to-markdown-guide.html">语雀文档批量转 Markdown 完整指南</a>；如果图片迁移后经常裂图，先看 <a href="yuque-image-hotlink-fix.html">语雀图片防盗链和本地化处理指南</a>。</p>
+
+                <h2 id="architecture">从语雀目录改成搜索意图目录</h2>
+                <p>语雀目录多半服务内部协作，例如“项目资料”“归档”“运营”“临时”。静态博客目录应该服务读者和搜索意图，例如“导出教程”“迁移指南”“故障排查”“AI 知识库”。不要把语雀目录原样变成博客分类，否则外部用户很难判断入口。</p>
+                <p>建议迁移时建立一张映射表：</p>
+                <ul>
+                    <li><strong>原目录：</strong>保留语雀里的来源路径，用于追溯。</li>
+                    <li><strong>新分类：</strong>按照用户问题重新归类，例如“迁移指南”。</li>
+                    <li><strong>目标 URL：</strong>使用稳定英文 slug，例如 <code>/blog/yuque-to-static-blog.html</code>。</li>
+                    <li><strong>主关键词：</strong>每篇只服务一个核心搜索意图。</li>
+                    <li><strong>内链目标：</strong>列出 3 到 5 篇应该互相引用的旧文章。</li>
+                </ul>
+
+                <p>比如“语雀导出 Markdown”“语雀迁移到 Obsidian”“语雀迁移到静态博客”可以互相链接，但不要把三篇文章写成同一套段落。每篇都应回答自己的主问题：一个讲源格式，一个讲 Obsidian Vault，一个讲公开站点和可引用页面。</p>
+
+                <h2 id="page">一篇可引用页面应该包含什么</h2>
+                <p>面向搜索引擎和 AI 助手的页面，首要任务是让读者马上知道答案。建议每篇迁移后的页面都包含：</p>
+                <ul>
+                    <li>一个明确 H1，包含“语雀”“迁移”“导出”或目标平台关键词。</li>
+                    <li>开头 100 到 150 字的直接答案，说明推荐路径和边界。</li>
+                    <li>目录，覆盖步骤、判断标准、注意事项、检查清单和 FAQ。</li>
+                    <li>至少 3 个内部链接，指向更细的导出、图片、故障或迁移教程。</li>
+                    <li>可见 FAQ，并同步维护 FAQPage JSON-LD。</li>
+                    <li>准确的 title、description、canonical、robots、OG、Twitter 和 BlogPosting JSON-LD。</li>
+                </ul>
+
+                <p>如果目标是提高 AI 搜索引用，还可以参考 <a href="yuque-ai-search-citation.html">语雀知识库如何被 AI 搜索引用</a>。静态博客的优势不是“自动被引用”，而是给机器和人都提供稳定、清晰、可复核的内容单元。</p>
+
+                <h2 id="assets">图片、附件和链接迁移检查</h2>
+                <p>迁移失败最常见的问题不是正文丢失，而是图片、附件、目录和链接失效。上线前至少检查四类路径：</p>
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr><th>检查项</th><th>正确状态</th><th>常见问题</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>正文图片</td><td>引用站内 <code>images/</code> 或同级 assets 目录</td><td>仍指向语雀 CDN，换环境后裂图。</td></tr>
+                            <tr><td>OG / Twitter 图片</td><td>使用绝对 URL，图片可公开访问</td><td>社交分享和 AI 预览拿不到封面。</td></tr>
+                            <tr><td>内部链接</td><td>链接到 canonical 页面</td><td>链接到本地 Markdown 文件或旧语雀地址。</td></tr>
+                            <tr><td>附件下载</td><td>标明格式、大小、用途和权限</td><td>把内部资料当公开附件发布。</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>对大型知识库，可以先只迁移 20 篇高意图文章，跑通路径检查和站点构建，再批量迁移剩余内容。一次性搬全部页面，往往会把过期文档、重复标题和坏图一起搬进新站。</p>
+
+                <h2 id="geo">sitemap、FAQ 和 llms.txt 怎么配合</h2>
+                <p>静态博客发布后，页面本身、sitemap、结构化数据和 <code>llms.txt</code> 分工不同：</p>
+                <ul>
+                    <li><strong>页面正文</strong>负责完整回答搜索意图，是最重要的内容主体。</li>
+                    <li><strong>sitemap</strong>告诉搜索引擎有哪些 URL、最近何时更新。</li>
+                    <li><strong>BlogPosting JSON-LD</strong>补充标题、作者、发布时间、封面图和文章分类。</li>
+                    <li><strong>FAQPage JSON-LD</strong>应与可见 FAQ 同步，不要写页面上不存在的问题。</li>
+                    <li><strong>llms.txt</strong>提供站点摘要、重要页面入口和引用边界，适合 AI 助手快速理解站点。</li>
+                </ul>
+
+                <p>不要把 <code>llms.txt</code> 当作排名开关。它更像一份给 AI 助手看的来源地图：列出最值得引用的教程，并说明产品边界。例如 YuqueOut 可以强调“本地处理、零数据上传、导出后由用户自行决定是否发布或导入 AI 平台”。</p>
+
+                <h2 id="workflow">推荐发布流程和验收清单</h2>
+                <ol class="step-list">
+                    <li><strong>选题：</strong>从语雀导出的文档里挑公开价值最高的主题，不按内部目录机械发布。</li>
+                    <li><strong>清洗：</strong>删除草稿、客户名、内部价格、权限说明和过期流程。</li>
+                    <li><strong>重写标题：</strong>让标题直接匹配用户问题，例如“语雀迁移到静态博客”。</li>
+                    <li><strong>补结构：</strong>增加 answer capsule、目录、步骤、表格、FAQ 和相关文章。</li>
+                    <li><strong>补元数据：</strong>维护 canonical、OG、Twitter、BlogPosting、Breadcrumb 和 FAQPage。</li>
+                    <li><strong>检查资源：</strong>验证图片、附件、内部链接、sitemap URL 和重复 URL。</li>
+                    <li><strong>构建上线：</strong>通过静态站点构建，再发布到主站或文档站。</li>
+                    <li><strong>复盘更新：</strong>观察真实搜索问题，把未回答的问题变成后续文章。</li>
+                </ol>
+
+                <p>如果迁移对象是团队空间，建议先看 <a href="yuque-team-migration.html">团队知识库从语雀迁出</a>，确认负责人、权限和分批计划。静态博客是结果，不是第一步；第一步永远是把资料安全、完整地拿到本地。</p>
+
+                <h2 id="faq">常见问题</h2>
+                <h3>语雀知识库适合直接迁移到静态博客吗？</h3>
+                <p>适合公开教程、产品文档、帮助中心和可分享的知识沉淀；不适合客户资料、财务、人事、合同和未发布方案。推荐先用 YuqueOut 本地导出，再筛选可公开内容。</p>
+
+                <h3>迁移到静态博客优先导出 Markdown 还是 HTML？</h3>
+                <p>多数场景优先 Markdown，因为它便于静态站点生成、Git 审阅、标题整理和 AI 检索。HTML 适合保留更接近语雀原页面的版式，可作为补充归档。</p>
+
+                <h3>语雀图片迁移到静态博客为什么会裂图？</h3>
+                <p>常见原因是页面仍引用语雀或临时 CDN 外链，迁移后访问权限、Referer 或有效期变化导致不可见。导出时应开启图片本地化，并在上线前检查所有相对路径。</p>
+
+                <h3>llms.txt 对静态博客有什么用？</h3>
+                <p><code>llms.txt</code> 可以给 AI 助手提供站点摘要、核心页面入口和引用边界，但不能替代 sitemap、canonical、结构化数据、内部链接和高质量正文。</p>
+
+                <h3>YuqueOut 会替我发布静态博客吗？</h3>
+                <p>不会。YuqueOut 负责在浏览器本地导出语雀资料和图片。静态博客生成、部署、域名、sitemap 和 <code>llms.txt</code> 更新由用户在导出后自行处理。</p>
+
+                <div class="blog-cta">
+                    <h3>先把语雀资料安全导出到本地</h3>
+                    <p>用 YuqueOut 批量导出 Markdown 和本地图片，再迁移到静态博客、文档站或内部 AI 知识库。</p>
+                    <a href="https://chromewebstore.google.com/detail/icljaabdjepbbbhjpncinffplhghignc?utm_source=blog_static_blog_cta" target="_blank" rel="noopener" class="blog-cta-button">免费安装 YuqueOut</a>
+                </div>
+
+                <div class="blog-related">
+                    <h2>相关文章</h2>
+                    <div class="blog-related-grid">
+                        <a href="yuque-to-markdown-guide.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀文档批量转 Markdown 完整指南</span>
+                            <span class="blog-related-card-excerpt">静态博客迁移前的源格式准备</span>
+                        </a>
+                        <a href="yuque-ai-search-citation.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀知识库如何被 AI 搜索引用</span>
+                            <span class="blog-related-card-excerpt">把公开页面整理成 AI 更容易引用的资料源</span>
+                        </a>
+                        <a href="yuque-image-hotlink-fix.html" class="blog-related-card">
+                            <span class="blog-related-card-title">语雀图片防盗链和本地化处理指南</span>
+                            <span class="blog-related-card-excerpt">避免迁移后图片裂图和封面失效</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="homepage-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <picture><img src="../images/icon-36x36.png" alt="YuqueOut" width="36" height="36" class="footer-logo-image"></picture>
+                            <span class="footer-logo-text">YuqueOut 语雀导出助手</span>
+                        </div>
+                        <p class="footer-description">专业的语雀知识库批量导出解决方案。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">产品</h3>
+                        <ul class="footer-links">
+                            <li><a href="../#features">功能特性</a></li>
+                            <li><a href="./">博客</a></li>
+                            <li><a href="../privacy.html">隐私政策</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">支持</h3>
+                        <ul class="footer-links"><li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 YuqueOut 语雀导出助手. Built with passion for better data freedom.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js" defer></script>
+</body>
+</html>
