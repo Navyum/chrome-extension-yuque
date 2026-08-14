@@ -9,6 +9,7 @@ function createInitialState() {
     fileList: [],       // { id, slug, title, bookId, bookName, folderPath, status, localPath, ... }
     exportType: 'md',
     subfolder: '',
+    downloadLocation: '',  // 自定义下载保存位置（绝对路径），留空则使用浏览器默认下载目录
     requestInterval: 500,
     downloadImages: true,
     logs: [],

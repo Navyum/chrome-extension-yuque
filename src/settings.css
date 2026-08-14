@@ -242,6 +242,20 @@ body::before {
   transition: opacity 0.3s ease;
 }
 
+.download-location-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+.download-location-row input[type="text"] {
+  flex: 1;
+  min-width: 0;
+}
+.download-location-row .download-settings-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 /* ── Performance Monitor ── */
 .performance-header {
   display: flex;

@@ -2,7 +2,7 @@ import { domRefs } from './dom.js';
 import { uiState, updateUiState } from './state.js';
 import { START_BUTTON_DEFAULT_TEXT } from './constants.js';
 import { i18n } from './i18n.js';
-import { BOOKMARKS_VIRTUAL_BOOK_ID, BOOKMARKS_VIRTUAL_BOOK_NAME } from '../core/constants.js';
+import { BOOKMARKS_VIRTUAL_BOOK_ID, BOOKMARKS_VIRTUAL_BOOK_NAME, BOOKMARK_BOOK_ID_PREFIX } from '../core/constants.js';
 
 const STATUS_ICONS = { success: '🎉', error: '⚠️', info: 'ℹ️' };
 let statusHideTimer = null;
@@ -62,11 +62,12 @@ export function renderBookDropdown(books) {
   const wikiBooks = books.filter(b => b.type === 'wiki');
   const orgPersonalBooks = books.filter(b => b.type === 'org-personal');
   const orgBookmarks = books.filter(b => b.type === 'org-bookmarks');
+  const bookmarkBookBooks = books.filter(b => b.type === 'bookmark-book');
 
-  // Build org → { wiki, groups, personal, bookmarks }
+  // Build org → { wiki, groups, personal, bookmarks, bookmarkBooks }
   const orgMap = new Map();
   const ensureOrg = (orgName) => {
-    if (!orgMap.has(orgName)) orgMap.set(orgName, { wiki: [], groups: new Map(), personal: [], bookmarks: null });
+    if (!orgMap.has(orgName)) orgMap.set(orgName, { wiki: [], groups: new Map(), personal: [], bookmarks: null, bookmarkBooks: [] });
     return orgMap.get(orgName);
   };
   const fallbackOrg = i18n('teamSpace') || '团队空间';
@@ -79,6 +80,9 @@ export function renderBookDropdown(books) {
   });
   orgPersonalBooks.forEach(b => ensureOrg(b.orgName || fallbackOrg).personal.push(b));
   orgBookmarks.forEach(b => { ensureOrg(b.orgName || fallbackOrg).bookmarks = b; });
+  bookmarkBookBooks.forEach(b => {
+    if (b.orgName) ensureOrg(b.orgName).bookmarkBooks.push(b);
+  });
 
   // "Select All" as the first item in the dropdown
   appendSelectAllOption(bookSelectOptions);
@@ -94,6 +98,13 @@ export function renderBookDropdown(books) {
     _isBookmark: true,
     _level: 2,
   });
+
+  // Individually selectable favorited knowledge bases (personal space 收藏)
+  const personalBookmarkBooks = bookmarkBookBooks.filter(b => !b.orgName);
+  if (personalBookmarkBooks.length) {
+    appendGroupHeader(bookSelectOptions, i18n('bookmarkBooksGroup') || '收藏的知识库', 2);
+    personalBookmarkBooks.forEach(b => appendBookOption(bookSelectOptions, { ...b, _level: 2 }));
+  }
 
   if (personalBooks.length) {
     appendGroupHeader(bookSelectOptions, i18n('myOwn') || '我个人的', 2);
@@ -111,6 +122,11 @@ export function renderBookDropdown(books) {
     if (orgData.bookmarks) {
       appendGroupHeader(bookSelectOptions, i18n('bookmarks') || '收藏', 2);
       appendBookOption(bookSelectOptions, { ...orgData.bookmarks, _level: 2 });
+    }
+
+    if (orgData.bookmarkBooks.length) {
+      appendGroupHeader(bookSelectOptions, i18n('bookmarkBooksGroup') || '收藏的知识库', 2);
+      orgData.bookmarkBooks.forEach(b => appendBookOption(bookSelectOptions, { ...b, _level: 2 }));
     }
 
     if (orgData.personal.length) {
@@ -322,7 +338,8 @@ function updateBookDropdownLabel() {
   const hasBooks = bookSelectOptions && bookSelectOptions.querySelector('.book-option-button');
   const hasBookmark = selectedBookIdSet.has(BOOKMARKS_VIRTUAL_BOOK_ID);
   const orgBookmarkCount = Array.from(selectedBookIdSet).filter(id => typeof id === 'string' && id.startsWith('__bookmarks_')).length;
-  const totalBookmarkCount = (hasBookmark ? 1 : 0) + orgBookmarkCount;
+  const bookmarkBookCount = Array.from(selectedBookIdSet).filter(id => typeof id === 'string' && id.startsWith(BOOKMARK_BOOK_ID_PREFIX)).length;
+  const totalBookmarkCount = (hasBookmark ? 1 : 0) + orgBookmarkCount + bookmarkBookCount;
   const bookCount = count - totalBookmarkCount;
   if (count > 0) {
     const parts = [];

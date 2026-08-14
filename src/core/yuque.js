@@ -1,4 +1,4 @@
-import { YUQUE_API, SUPPORTED_DOC_TYPES, SKIPPED_DOC_TYPES, DOC_TYPES, DOC_TYPE_EXPORT_OPTIONS, EXPORT_OPTIONS, EXPORT_POLL_MAX, EXPORT_POLL_INTERVAL, YUQUE_RSA_PUBLIC_KEY } from './constants.js';
+import { YUQUE_API, SUPPORTED_DOC_TYPES, SKIPPED_DOC_TYPES, DOC_TYPES, DOC_TYPE_EXPORT_OPTIONS, EXPORT_OPTIONS, EXPORT_POLL_MAX, EXPORT_POLL_INTERVAL, YUQUE_RSA_PUBLIC_KEY, BOOKMARK_BOOK_ID_PREFIX } from './constants.js';
 import { getAbortSignal } from './task-controller.js';
 import { sanitizePathComponent } from './utils.js';
 import { RequestThrottle } from './throttle.js';
@@ -222,6 +222,46 @@ export async function fetchOrgBookmarks(host) {
 }
 
 /**
+ * Build selectable entries for individually favorited knowledge bases
+ * (mark_book actions). Each favorited knowledge base becomes its own
+ * selectable entry with a synthetic id, so users can pick specific
+ * knowledge bases from the 收藏 group instead of downloading all bookmarks.
+ * @param {Array} actions - bookmark actions from fetchBookmarks/fetchOrgBookmarks
+ * @param {string|null} host - org host; null for the personal space
+ * @param {string|null} orgName - org display name; null for the personal space
+ * @param {number|null} orgId - org id; null for the personal space
+ */
+export function buildBookmarkBookEntries(actions, host = null, orgName = null, orgId = null) {
+  const entries = [];
+  const seen = new Set();
+  for (const action of actions || []) {
+    if (action.action_name !== 'mark_book' || !action.target) continue;
+    const book = action.target;
+    if (!book || !book.id || seen.has(book.id)) continue;
+    seen.add(book.id);
+    const login = book.user?.login || book.creator?.login || book.owner?.login || '';
+    const slug = book.slug || '';
+    entries.push({
+      id: `${BOOKMARK_BOOK_ID_PREFIX}${book.id}`,
+      slug,
+      name: book.name || '未命名知识库',
+      docs_count: book.items_count || book.docs_count || 0,
+      updated_at: book.updated_at,
+      namespace: login && slug ? `${login}/${slug}` : '',
+      type: 'bookmark-book',
+      description: book.description || '',
+      host,
+      orgName,
+      orgId,
+      _isBookmark: true,
+      _bookmarkBookId: book.id,
+      _bookmarkBookName: book.name || '未命名知识库',
+    });
+  }
+  return entries;
+}
+
+/**
  * Get all knowledge bases (personal + collaboration + team spaces).
  */
 export async function fetchAllBooks() {
@@ -269,6 +309,13 @@ export async function fetchAllBooks() {
         });
       }
     });
+  } catch (e) {
+  }
+
+  // Individually selectable favorited knowledge bases (personal space 收藏)
+  try {
+    const personalMarks = await fetchBookmarks();
+    books.push(...buildBookmarkBookEntries(personalMarks, null, null, null));
   } catch (e) {
   }
 
@@ -326,6 +373,8 @@ export async function fetchAllBooks() {
         host: org.host,
         _isBookmark: true,
       });
+      // Individually selectable favorited knowledge bases in this space
+      books.push(...buildBookmarkBookEntries(orgMarks, org.host, org.name, org.id));
     }
   }
 

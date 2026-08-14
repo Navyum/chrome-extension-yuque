@@ -50,6 +50,15 @@
             <input id="subfolder" type="text" data-i18n-placeholder="subfolderPlaceholder" placeholder="例如: 语雀备份">
           </div>
           <div class="setting-item">
+            <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span data-i18n="downloadLocationLabel">下载保存位置</span></label>
+            <p class="setting-desc" data-i18n="downloadLocationDesc">默认保存到浏览器「下载」目录。填写一个绝对路径（例如 D:\备份\语雀）后，所有导出文件将保存到该目录，并在其中自动创建子目录结构。留空则使用系统默认下载位置。</p>
+            <div class="download-location-row">
+              <input id="downloadLocation" type="text" data-i18n-placeholder="downloadLocationPlaceholder" placeholder="例如: D:\备份\语雀">
+              <button id="testDownloadLocationBtn" class="download-settings-btn" type="button" data-i18n="testDownloadLocation">测试位置</button>
+            </div>
+            <div id="downloadLocationStatus" class="save-status download-settings-status" style="display:none;"></div>
+          </div>
+          <div class="setting-item">
             <label><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span data-i18n="downloadPromptLabel">系统批量下载每次询问</span></label>
             <p class="setting-desc" data-i18n="downloadPromptDesc">如果批量导出时总是弹出保存位置确认，请前往浏览器下载设置，关闭“下载前询问每个文件的保存位置”。</p>
             <button id="openDownloadsBtn" class="download-settings-btn" type="button" data-i18n="openDownloadsSettings">打开下载设置</button>

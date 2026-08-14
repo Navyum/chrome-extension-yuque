@@ -225,5 +225,15 @@
   "ratingReviewBtn": { "message": "⭐ Rate Now" },
   "ratingSponsorLink": { "message": "Sponsor Developer" },
   "ratingDismiss": { "message": "Don't show again" },
-  "ratingLater": { "message": "Maybe later" }
+  "ratingLater": { "message": "Maybe later" },
+  "downloadLocationLabel": { "message": "Download Location" },
+  "downloadLocationDesc": { "message": "By default files are saved to the browser Downloads folder. Enter an absolute path (e.g. D:\\Backup\\Yuque) to save all exported files there with the folder structure created automatically. Leave empty to use the system default location." },
+  "downloadLocationPlaceholder": { "message": "e.g. D:\\Backup\\Yuque" },
+  "testDownloadLocation": { "message": "Test Location" },
+  "testDownloadLocationTesting": { "message": "Testing..." },
+  "testDownloadLocationSuccess": { "message": "Test succeeded. File saved to: $PATH$", "placeholders": { "path": { "content": "$1" } } },
+  "testDownloadLocationDefault": { "message": "No custom folder set. File saved to: $PATH$", "placeholders": { "path": { "content": "$1" } } },
+  "testDownloadLocationFallback": { "message": "This browser does not support custom download folders. File was saved to the default location: $PATH$", "placeholders": { "path": { "content": "$1" } } },
+  "testDownloadLocationFailed": { "message": "Test failed: $ERROR$", "placeholders": { "error": { "content": "$1" } } },
+  "bookmarkBooksGroup": { "message": "Favorited Knowledge Bases" }
 }

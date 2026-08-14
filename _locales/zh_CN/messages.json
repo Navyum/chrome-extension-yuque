@@ -225,5 +225,15 @@
   "ratingReviewBtn": { "message": "⭐ 去评价" },
   "ratingSponsorLink": { "message": "赞助开发者" },
   "ratingDismiss": { "message": "不再提醒" },
-  "ratingLater": { "message": "下次再说" }
+  "ratingLater": { "message": "下次再说" },
+  "downloadLocationLabel": { "message": "下载保存位置" },
+  "downloadLocationDesc": { "message": "默认保存到浏览器「下载」目录。填写一个绝对路径（例如 D:\\备份\\语雀）后，所有导出文件将保存到该目录，并在其中自动创建子目录结构。留空则使用系统默认下载位置。" },
+  "downloadLocationPlaceholder": { "message": "例如: D:\\备份\\语雀" },
+  "testDownloadLocation": { "message": "测试位置" },
+  "testDownloadLocationTesting": { "message": "测试中..." },
+  "testDownloadLocationSuccess": { "message": "测试成功，文件已保存到: $PATH$", "placeholders": { "path": { "content": "$1" } } },
+  "testDownloadLocationDefault": { "message": "未设置自定义目录，文件已保存到: $PATH$", "placeholders": { "path": { "content": "$1" } } },
+  "testDownloadLocationFallback": { "message": "当前浏览器不支持自定义下载目录，已保存到默认下载位置: $PATH$", "placeholders": { "path": { "content": "$1" } } },
+  "testDownloadLocationFailed": { "message": "测试失败: $ERROR$", "placeholders": { "error": { "content": "$1" } } },
+  "bookmarkBooksGroup": { "message": "收藏的知识库" }
 }

@@ -108,7 +108,12 @@ export async function downloadUrlToDisk(url, relativePath) {
 
 function download(url, filename) {
   const normalizedFilename = normalizeRelativePath(filename);
-  enqueuePendingDownload(url, normalizedFilename);
+  // When a custom download location is configured, the onDeterminingFilename
+  // handler suggests an absolute path so files land outside the browser's
+  // default Downloads directory. The chrome.downloads.download() call itself
+  // still uses the relative path (absolute paths there cause an error).
+  const targetPath = resolveTargetFilename(normalizedFilename);
+  enqueuePendingDownload(url, targetPath);
 
   return new Promise((resolve, reject) => {
     let settled = false;
@@ -118,7 +123,7 @@ function download(url, filename) {
         settleDownloadWaiter(downloadId, new Error('下载等待超时'));
       } else if (!settled) {
         settled = true;
-        removeQueuedDownload(url, normalizedFilename);
+        removeQueuedDownload(url, targetPath);
         reject(new Error('下载启动超时'));
       }
     }, DOWNLOAD_WAIT_TIMEOUT);
@@ -147,12 +152,12 @@ function download(url, filename) {
       if (chrome.runtime.lastError) {
         clearTimeout(timer);
         settled = true;
-        removeQueuedDownload(url, normalizedFilename);
+        removeQueuedDownload(url, targetPath);
         reject(new Error(chrome.runtime.lastError.message));
       } else if (typeof id !== 'number') {
         clearTimeout(timer);
         settled = true;
-        removeQueuedDownload(url, normalizedFilename);
+        removeQueuedDownload(url, targetPath);
         reject(new Error('下载启动失败'));
       } else {
         downloadId = id;
@@ -161,6 +166,20 @@ function download(url, filename) {
       }
     });
   });
+}
+
+/**
+ * Resolve the actual save path for a relative download path.
+ * If the user configured a custom download location, returns an absolute
+ * path inside that location; otherwise returns the relative path unchanged
+ * (saved into the browser's default Downloads directory).
+ */
+function resolveTargetFilename(relativePath) {
+  const location = exportState?.downloadLocation;
+  if (!location) return relativePath;
+  const base = String(location).trim().replace(/\\/g, '/').replace(/\/+$/, '');
+  if (!base) return relativePath;
+  return `${base}/${relativePath}`;
 }
 
 function settleDownloadWaiter(id, error = null) {

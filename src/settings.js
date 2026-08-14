@@ -1,7 +1,7 @@
 import { applyI18n, i18n } from './ui/i18n.js';
 
 const SETTINGS_KEYS = [
-  'subfolder', 'requestInterval',
+  'subfolder', 'downloadLocation', 'requestInterval',
   'downloadImages', 'imageConcurrency',
   'docExportFormat', 'sheetExportFormat', 'tableExportFormat', 'boardExportFormat',
   'showBubble', 'skipEncryptedBookmarks', 'markdownMode', 'sheetMode'
@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initIconSelects();
   await loadSettings();
   bindDownloadSettingsShortcut();
+  bindTestDownloadLocation();
   bindNavigation();
   bindAutoSave();
   bindPerformanceControls();
@@ -30,6 +31,7 @@ async function loadSettings() {
   const data = await chrome.storage.local.get(SETTINGS_KEYS);
 
   setVal('subfolder', data.subfolder ?? '语雀备份');
+  setVal('downloadLocation', data.downloadLocation || '');
   setVal('requestInterval', data.requestInterval || 500);
   setChecked('downloadImages', data.downloadImages !== false);
   setVal('imageConcurrency', data.imageConcurrency || 3);
@@ -71,6 +73,7 @@ function bindAutoSave() {
 async function saveAllSettings() {
   const settings = {
     subfolder: getVal('subfolder'),
+    downloadLocation: getVal('downloadLocation').trim(),
     downloadImages: getChecked('downloadImages'),
     requestInterval: Number(getVal('requestInterval')) || 500,
     imageConcurrency: Number(getVal('imageConcurrency')) || 3,
@@ -188,6 +191,55 @@ function bindDownloadSettingsShortcut() {
       }
     } catch (error) {
       await fallbackToClipboard();
+    }
+  });
+}
+
+function bindTestDownloadLocation() {
+  const btn = document.getElementById('testDownloadLocationBtn');
+  const statusEl = document.getElementById('downloadLocationStatus');
+  if (!btn || !statusEl) return;
+
+  let hideTimer = null;
+  const showStatus = (message, isError = false) => {
+    statusEl.textContent = message;
+    statusEl.style.display = 'block';
+    statusEl.style.opacity = '1';
+    statusEl.style.color = isError ? 'var(--danger)' : 'var(--success)';
+    statusEl.style.borderColor = isError ? 'rgba(239,68,68,0.25)' : 'rgba(16,185,129,0.25)';
+    statusEl.style.background = isError ? 'rgba(239,68,68,0.08)' : 'rgba(16,185,129,0.08)';
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      statusEl.style.opacity = '0';
+      setTimeout(() => { statusEl.style.display = 'none'; }, 300);
+    }, 8000);
+  };
+
+  btn.addEventListener('click', async () => {
+    const location = getVal('downloadLocation').trim();
+    btn.disabled = true;
+    btn.textContent = i18n('testDownloadLocationTesting') || '测试中...';
+    try {
+      const response = await chrome.runtime.sendMessage({
+        action: 'testDownloadLocation',
+        data: { location }
+      });
+      if (response?.success) {
+        if (response.fallback) {
+          showStatus(i18n('testDownloadLocationFallback', [response.path]), true);
+        } else if (location) {
+          showStatus(i18n('testDownloadLocationSuccess', [response.path]));
+        } else {
+          showStatus(i18n('testDownloadLocationDefault', [response.path]));
+        }
+      } else {
+        showStatus(i18n('testDownloadLocationFailed', [response?.error || '']), true);
+      }
+    } catch (error) {
+      showStatus(i18n('testDownloadLocationFailed', [error.message]), true);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = i18n('testDownloadLocation') || '测试位置';
     }
   });
 }

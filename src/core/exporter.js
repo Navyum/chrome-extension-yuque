@@ -7,7 +7,7 @@ import { convertBoardToSvg, convertBoardToMermaid, convertBoardToECharts } from 
 import { saveBlobToDisk, saveContentToDisk, downloadUrlToDisk } from './downloads.js';
 import { delay, sanitizePathComponent, sanitizePathSegments, guessImageExt } from './utils.js';
 import { refreshAbortController, abortActiveTasks } from './task-controller.js';
-import { EXPORT_FORMATS, DEFAULT_SETTINGS, DOC_TYPES, DOC_TYPE_EXPORT_OPTIONS, SMART_EXPORT_KEY, BOOKMARKS_VIRTUAL_BOOK_ID, BOOKMARKS_VIRTUAL_BOOK_NAME, BOOKMARKS_LOOSE_DOCS_FOLDER, SUPPORTED_DOC_TYPES } from './constants.js';
+import { EXPORT_FORMATS, DEFAULT_SETTINGS, DOC_TYPES, DOC_TYPE_EXPORT_OPTIONS, SMART_EXPORT_KEY, BOOKMARKS_VIRTUAL_BOOK_ID, BOOKMARKS_VIRTUAL_BOOK_NAME, BOOKMARKS_LOOSE_DOCS_FOLDER, BOOKMARK_BOOK_ID_PREFIX, SUPPORTED_DOC_TYPES } from './constants.js';
 
 let activeRunToken = null;
 let alarmListenerRegistered = false;
@@ -98,6 +98,9 @@ async function dispatchRuntimeMessage(message, sender, sendResponse) {
         return;
       case 'resetExport':
         await handleResetExport(sendResponse);
+        return;
+      case 'testDownloadLocation':
+        await handleTestDownloadLocation(message.data, sendResponse);
         return;
       case 'reExportFile':
         await handleReExportFile(message.data, sendResponse);
@@ -249,7 +252,7 @@ async function handleGetBooks(sendResponse) {
     const books = await fetchAllBooks();
     exportState.bookList = books;
     await saveStateSafely();
-    const bookmarkCount = books.filter(b => b._isBookmark).length;
+    const bookmarkCount = books.filter(b => b._isBookmark && b.type !== 'bookmark-book').length;
     const repoCount = books.length - bookmarkCount;
     const parts = [];
     if (repoCount > 0) parts.push(`${repoCount} 个知识库`);
@@ -281,8 +284,10 @@ async function handleGetFileInfo(data, sendResponse) {
     exportState.encryptedItems = [];
     const hasBookmarks = selectedBookIds.includes(BOOKMARKS_VIRTUAL_BOOK_ID);
     const isBookmarkId = (id) => id === BOOKMARKS_VIRTUAL_BOOK_ID || (typeof id === 'string' && id.startsWith('__bookmarks_'));
-    const regularBookIds = selectedBookIds.filter(id => !isBookmarkId(id));
+    const isBookmarkBookId = (id) => typeof id === 'string' && id.startsWith(BOOKMARK_BOOK_ID_PREFIX);
+    const regularBookIds = selectedBookIds.filter(id => !isBookmarkId(id) && !isBookmarkBookId(id));
     const orgBookmarkIds = selectedBookIds.filter(id => typeof id === 'string' && id.startsWith('__bookmarks_') && id !== BOOKMARKS_VIRTUAL_BOOK_ID);
+    const bookmarkBookIds = selectedBookIds.filter(isBookmarkBookId);
 
     // Process regular books
     for (const bookId of regularBookIds) {
@@ -330,6 +335,29 @@ async function handleGetFileInfo(data, sendResponse) {
       sendLog(`获取「${bmBook.orgName}」空间收藏列表...`);
       const folderPrefix = `${sanitizePathComponent(bmBook.orgName || '空间')}/${BOOKMARKS_VIRTUAL_BOOK_NAME}`;
       const bookmarkFiles = await buildBookmarkFileList(bmBook.host, folderPrefix);
+      allFiles.push(...bookmarkFiles.files);
+      totalFolders += bookmarkFiles.folderCount;
+      if (bookmarkFiles.encryptedItems.length) {
+        exportState.encryptedItems.push(...bookmarkFiles.encryptedItems);
+      }
+    }
+
+    // Process individually selected favorited knowledge bases (收藏中的单个知识库)
+    for (const bmBookId of bookmarkBookIds) {
+      const bmBook = exportState.bookList.find(b => b.id === bmBookId);
+      if (!bmBook) continue;
+
+      // Skip when the corresponding master 收藏 selection already covers this book
+      const masterSelected = bmBook.orgId
+        ? selectedBookIds.includes(`__bookmarks_${bmBook.orgId}__`)
+        : hasBookmarks;
+      if (masterSelected) continue;
+
+      sendLog(`获取收藏知识库「${bmBook.name}」的文档列表...`);
+      const folderPrefix = bmBook.orgId
+        ? `${sanitizePathComponent(bmBook.orgName || '空间')}/${BOOKMARKS_VIRTUAL_BOOK_NAME}`
+        : `${msg('personalSpace', '个人空间')}/${BOOKMARKS_VIRTUAL_BOOK_NAME}`;
+      const bookmarkFiles = await buildBookmarkBookFileList(bmBook, folderPrefix);
       allFiles.push(...bookmarkFiles.files);
       totalFolders += bookmarkFiles.folderCount;
       if (bookmarkFiles.encryptedItems.length) {
@@ -395,7 +423,7 @@ async function handleStartExport(data, sendResponse) {
       'subfolder', 'requestInterval',
       'downloadImages', 'imageConcurrency',
       'docExportFormat', 'sheetExportFormat', 'boardExportFormat', 'tableExportFormat',
-      'markdownMode', 'sheetMode'
+      'markdownMode', 'sheetMode', 'downloadLocation'
     ]);
 
     exportState.isExporting = true;
@@ -403,6 +431,7 @@ async function handleStartExport(data, sendResponse) {
     exportState.currentFileIndex = 0;
     exportState.exportType = data?.exportType || 'smart';
     exportState.subfolder = settings.subfolder ?? DEFAULT_SETTINGS.subfolder;
+    exportState.downloadLocation = settings.downloadLocation ?? DEFAULT_SETTINGS.downloadLocation;
     exportState.requestInterval = Number(settings.requestInterval) || DEFAULT_SETTINGS.requestInterval;
     exportState.downloadImages = settings.downloadImages !== false;
     exportState.imageConcurrency = settings.imageConcurrency || DEFAULT_SETTINGS.imageConcurrency;
@@ -452,7 +481,7 @@ async function handleRetryFailedFiles(sendResponse) {
     const settings = await chrome.storage.local.get([
       'subfolder', 'exportType', 'requestInterval', 'downloadImages', 'imageConcurrency',
       'docExportFormat', 'sheetExportFormat', 'boardExportFormat', 'tableExportFormat',
-      'markdownMode', 'sheetMode'
+      'markdownMode', 'sheetMode', 'downloadLocation'
     ]);
 
     exportState.fileList.forEach(file => {
@@ -466,6 +495,7 @@ async function handleRetryFailedFiles(sendResponse) {
     exportState.isPaused = false;
     exportState.currentFileIndex = 0;
     exportState.subfolder = settings.subfolder ?? DEFAULT_SETTINGS.subfolder;
+    exportState.downloadLocation = settings.downloadLocation ?? DEFAULT_SETTINGS.downloadLocation;
     exportState.requestInterval = Number(settings.requestInterval) || DEFAULT_SETTINGS.requestInterval;
     exportState.exportType = settings.exportType || 'smart';
     exportState.docExportFormat = settings.docExportFormat || DEFAULT_SETTINGS.docExportFormat;
@@ -497,6 +527,40 @@ async function handleResetExport(sendResponse) {
   sendResponse({ success: true, data: exportState });
 }
 
+/**
+ * Download a small test file to the given custom location so the user can
+ * verify the download directory works before starting a batch export.
+ */
+async function handleTestDownloadLocation(data, sendResponse) {
+  const location = String(data?.location || '').trim();
+  const previous = exportState.downloadLocation;
+  exportState.downloadLocation = location;
+  try {
+    const relative = 'yuqueout-下载位置测试.txt';
+    await downloadUrlToDisk(
+      `data:text/plain;charset=utf-8,YuqueOut 下载位置测试 ${new Date().toLocaleString()}`,
+      relative
+    );
+    let finalPath = '';
+    try {
+      const items = await chrome.downloads.search({ orderBy: ['-startTime'], limit: 1 });
+      const item = items?.[0];
+      if (item && item.filename && item.filename.includes('yuqueout-下载位置测试')) {
+        finalPath = item.filename;
+      }
+    } catch {}
+
+    const locationNorm = location.replace(/\\/g, '/').replace(/\/+$/, '');
+    const pathNorm = finalPath ? finalPath.replace(/\\/g, '/') : '';
+    const fallback = Boolean(locationNorm) && !(pathNorm.startsWith(`${locationNorm}/`) || pathNorm === locationNorm);
+    sendResponse({ success: true, path: finalPath || relative, fallback });
+  } catch (error) {
+    sendResponse({ success: false, error: error.message });
+  } finally {
+    exportState.downloadLocation = previous;
+  }
+}
+
 async function handleReExportFile(data, sendResponse) {
   if (exportState.isExporting || isRunnerActive()) {
     sendResponse({ success: false, error: '当前有任务正在运行，请先暂停或重置。' });
@@ -517,10 +581,11 @@ async function handleReExportFile(data, sendResponse) {
     const settings = await chrome.storage.local.get([
       'subfolder', 'requestInterval', 'downloadImages', 'imageConcurrency',
       'docExportFormat', 'sheetExportFormat', 'boardExportFormat', 'tableExportFormat',
-      'markdownMode', 'sheetMode'
+      'markdownMode', 'sheetMode', 'downloadLocation'
     ]);
 
     exportState.subfolder = settings.subfolder ?? DEFAULT_SETTINGS.subfolder;
+    exportState.downloadLocation = settings.downloadLocation ?? DEFAULT_SETTINGS.downloadLocation;
     exportState.requestInterval = Number(settings.requestInterval) || DEFAULT_SETTINGS.requestInterval;
     exportState.downloadImages = settings.downloadImages !== false;
     exportState.imageConcurrency = settings.imageConcurrency || DEFAULT_SETTINGS.imageConcurrency;
@@ -1328,8 +1393,49 @@ async function buildBookmarkFileList(host = null, folderPrefix = BOOKMARKS_VIRTU
 }
 
 /**
- * Handle password verification request from popup.
+ * Build file list for a single favorited knowledge base (individual 收藏 selection).
+ * Mirrors the mark_book handling in buildBookmarkFileList, but only for one book.
  */
+async function buildBookmarkBookFileList(bmBook, folderPrefix) {
+  const files = [];
+  const encryptedItems = [];
+  let folderCount = 0;
+  const bookId = bmBook._bookmarkBookId || bmBook.bookId;
+  const bookName = bmBook._bookmarkBookName || bmBook.name || '未命名知识库';
+
+  const { docs, needsPassword } = await fetchBookDocsWithPasswordCheck(bookId, bmBook.host || null);
+
+  if (needsPassword) {
+    encryptedItems.push({
+      type: 'book',
+      id: bookId,
+      title: bookName,
+      bookName,
+      bookNamespace: bmBook.namespace || '',
+    });
+    sendLog(`  知识库「${bookName}」需要密码验证，稍后处理。`);
+    return { files, folderCount, encryptedItems };
+  }
+
+  const toc = await loadBookToc(bmBook.namespace, bookName, bmBook.host || null);
+  const { files: bookFiles, folderCount: bookmarkFolderCount } = buildDocListFromApiDocs(docs, toc);
+  bookFiles.forEach(f => {
+    f.bookId = bookId;
+    f.bookName = `${folderPrefix}/${sanitizePathComponent(bookName)}`;
+    f.bookNamespace = '';
+    f.bookHost = bmBook.host || null;
+  });
+
+  if (bookmarkFolderCount > 0) {
+    folderCount += bookmarkFolderCount;
+  } else if (bookFiles.length > 0) {
+    folderCount++;
+    sendLog(`  获取到 ${bookFiles.length} 篇文档。`);
+  }
+
+  files.push(...bookFiles);
+  return { files, folderCount, encryptedItems };
+}
 async function handleVerifyPassword(data, sendResponse) {
   const { bookId, password, itemType } = data;
   try {
@@ -1484,10 +1590,11 @@ async function handleQuickExport(data, sendResponse) {
     // Step 1: Load user settings early so we can determine whether we need full content
     const settings = await chrome.storage.local.get([
       'subfolder', 'docExportFormat', 'sheetExportFormat', 'boardExportFormat',
-      'markdownMode', 'sheetMode', 'downloadImages', 'imageConcurrency'
+      'markdownMode', 'sheetMode', 'downloadImages', 'imageConcurrency', 'downloadLocation'
     ]);
 
     const subfolder = settings.subfolder ?? DEFAULT_SETTINGS.subfolder;
+    exportState.downloadLocation = settings.downloadLocation ?? DEFAULT_SETTINGS.downloadLocation;
     const downloadImages = settings.downloadImages !== false;
     const markdownMode = settings.markdownMode || DEFAULT_SETTINGS.markdownMode;
     const sheetMode = settings.sheetMode || DEFAULT_SETTINGS.sheetMode;

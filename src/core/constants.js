@@ -73,6 +73,7 @@ export const DEFAULT_SETTINGS = {
   exportType: 'smart',
   requestInterval: 500,
   subfolder: '语雀备份',
+  downloadLocation: '',          // 自定义下载保存位置（绝对路径），留空则使用浏览器默认下载目录
   downloadImages: true,       // Download CDN images to local assets/ for Markdown
   imageConcurrency: 3,
   docExportFormat: 'md',
@@ -91,6 +92,8 @@ export const EXPORT_POLL_INTERVAL = 3000;
 export const BOOKMARKS_VIRTUAL_BOOK_ID = '__bookmarks__';
 export const BOOKMARKS_VIRTUAL_BOOK_NAME = '收藏';
 export const BOOKMARKS_LOOSE_DOCS_FOLDER = '单篇收藏';
+// Individually selectable favorited knowledge base entry id prefix
+export const BOOKMARK_BOOK_ID_PREFIX = '__bookmark_book_';
 
 // RSA public key for Yuque password encryption
 export const YUQUE_RSA_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
