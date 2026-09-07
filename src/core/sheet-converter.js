@@ -185,11 +185,21 @@ function normalize(lakeData) {
 
 // ── Helpers ──
 
+function formulaExpression(value) {
+  if (!value || value.class !== 'formula' || typeof value.formula !== 'string') return '';
+  return value.formula.replace(/^=/, '');
+}
+
 function cellValue(cell) {
   if (!cell || cell.v === undefined) return '';
   const v = cell.v;
   if (typeof v === 'string' || typeof v === 'number') return v;
   if (typeof v === 'object') {
+    if (v.class === 'formula') {
+      if (v.value !== undefined && v.value !== null) return v.value;
+      const formula = formulaExpression(v);
+      return formula ? `=${formula}` : '';
+    }
     if (v.class === 'select') return (v.value || []).join(', ');
     if (v.text) return v.text;
     if (v.url) return v.url;
@@ -216,6 +226,13 @@ function rgbHex(rgb) {
   return m ? [m[1], m[2], m[3]].map(x => (+x).toString(16).padStart(2, '0')).join('') : null;
 }
 
+function xlsxCellType(value) {
+  if (typeof value === 'number') return 'n';
+  if (typeof value === 'boolean') return 'b';
+  if (value instanceof Date) return 'd';
+  return 's';
+}
+
 // ── XLSX ──
 
 function toXlsx(sheets) {
@@ -229,11 +246,16 @@ function toXlsx(sheets) {
       for (let c = 0; c < sheet.cols; c++) {
         const cell = data[r]?.[c];
         const val = cellValue(cell);
+        const formula = formulaExpression(cell?.v);
         const hasSt = cell?.s !== undefined && styles[cell.s];
-        if (val === '' && !hasSt) continue;
+        if (val === '' && !hasSt && !formula) continue;
 
         const ref = XLSX.utils.encode_cell({ r, c });
-        const wc = { t: typeof val === 'number' ? 'n' : 's', v: val };
+        const wc = formula ? { t: 's', v: '', f: formula } : { t: xlsxCellType(val), v: val };
+        if (formula && cell.v.value !== undefined && cell.v.value !== null) {
+          wc.t = xlsxCellType(cell.v.value);
+          wc.v = cell.v.value;
+        }
 
         if (hasSt) {
           const p = parseStyle(styles[cell.s]);
