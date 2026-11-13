@@ -140,7 +140,6 @@ export function renderBookDropdown(books) {
   toggleAllBooks(true);
   updateBookDropdownLabel();
   updateSelectedCount();
-  saveBookSelection();
 
   // Setup trigger click (once)
   if (bookSelectTrigger && !bookSelectTrigger._bound) {
@@ -352,17 +351,25 @@ function saveBookSelection() {
 export async function restoreBookSelection() {
   const data = await chrome.storage.local.get('selectedBookIds');
   const savedIds = data.selectedBookIds;
-  if (!Array.isArray(savedIds) || !savedIds.length) return;
+  if (!Array.isArray(savedIds)) return;
 
   const { bookSelectOptions } = domRefs;
   if (!bookSelectOptions) return;
 
   const savedSet = new Set(savedIds);
+  selectedBookIdSet.clear();
   bookSelectOptions.querySelectorAll('.book-option-button').forEach(btn => {
-    if (btn._bookId && savedSet.has(btn._bookId) && !selectedBookIdSet.has(btn._bookId)) {
-      btn.click(); // Triggers the handler which adds to selectedBookIdSet
-    }
+    if (!btn._bookId) return;
+    const checked = savedSet.has(btn._bookId);
+    if (checked) selectedBookIdSet.add(btn._bookId);
+    btn.classList.toggle('is-checked', checked);
+    const cb = btn.querySelector('.book-option-cb');
+    if (cb) cb.checked = checked;
   });
+  syncSelectAllCheckbox();
+  updateBookDropdownLabel();
+  updateSelectedCount();
+  saveBookSelection();
 }
 
 export function getSelectedDocsCount() {

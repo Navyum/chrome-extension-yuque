@@ -1,6 +1,6 @@
 {
   "name": "chrome-extension-yuque-export",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "一键批量导出语雀知识库为 Markdown/HTML/PDF/Word/Excel/CSV 等格式，自动下载图片和附件，保留目录结构。",
   "main": "src/background.js",
   "scripts": {

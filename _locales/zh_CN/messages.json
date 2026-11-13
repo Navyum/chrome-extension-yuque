@@ -198,7 +198,7 @@
   "tip4": { "message": "导出中断后可重新打开继续查看进度" },
   "tip5": { "message": "导出前请确认已登录语雀" },
   "settingsDocFormat": { "message": "文档默认导出格式" },
-  "settingsDocFormatDesc": { "message": "语雀「文档」类型的默认导出格式。" },
+  "settingsDocFormatDesc": { "message": "用于智能导出和浮动气泡。弹窗中选择具体格式时，以弹窗选择为准。Word/PDF/JPG 需要语雀官方导出权限；失败时会报错，不会自动改为 Markdown。" },
   "settingsSheetFormat": { "message": "表格/数据表导出格式" },
   "settingsSheetFormatDesc": { "message": "语雀「表格」和「数据表」类型的导出格式。" },
   "settingsBoardFormat": { "message": "画板导出格式" },
@@ -225,5 +225,7 @@
   "ratingReviewBtn": { "message": "⭐ 去评价" },
   "ratingSponsorLink": { "message": "赞助开发者" },
   "ratingDismiss": { "message": "不再提醒" },
-  "ratingLater": { "message": "下次再说" }
+  "ratingLater": { "message": "下次再说" },
+  "refreshBooks": { "message": "刷新列表" },
+  "refreshBooksFailed": { "message": "刷新知识库列表失败：$1" }
 }

@@ -64,7 +64,8 @@ function bindAutoSave() {
     const el = document.getElementById(key);
     if (!el) return;
     const event = el.type === 'checkbox' ? 'change' : 'input';
-    el.addEventListener(event, debounce(saveAllSettings, 500));
+    el.addEventListener(event, el.type === 'hidden' || el.type === 'checkbox'
+      ? saveAllSettings : debounce(saveAllSettings, 500));
   });
 }
 

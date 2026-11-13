@@ -41,6 +41,9 @@ export function handleLoginClick() {
 }
 
 export async function handleGetBooks() {
+  const refreshBtn = document.getElementById('refreshBooksBtn');
+  if (refreshBtn?.disabled) return;
+  if (refreshBtn) refreshBtn.disabled = true;
   try {
     setBookDropdownLoading(true);
     const response = await chrome.runtime.sendMessage({ action: 'getBooks' });
@@ -53,9 +56,11 @@ export async function handleGetBooks() {
       throw new Error(response?.error || i18n('unknownError'));
     }
   } catch (error) {
+    showStatus(i18n('refreshBooksFailed', [error.message]), 'error');
     addLog(i18n('errorPrefix', [error.message]));
   } finally {
     setBookDropdownLoading(false);
+    if (refreshBtn) refreshBtn.disabled = false;
   }
 }
 

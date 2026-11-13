@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extName__",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "__MSG_extDescription__",
   "default_locale": "zh_CN",
   "permissions": [
@@ -29,7 +29,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.yuque.com/*"],
+      "matches": ["https://*.yuque.com/*"],
       "js": ["src/content/bubble.js"],
       "run_at": "document_idle"
     }
@@ -37,7 +37,7 @@
   "web_accessible_resources": [
     {
       "resources": ["icons/icon-round.png"],
-      "matches": ["https://www.yuque.com/*"]
+      "matches": ["https://*.yuque.com/*"]
     }
   ],
   "icons": {

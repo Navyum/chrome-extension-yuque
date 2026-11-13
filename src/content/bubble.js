@@ -4,9 +4,8 @@
  */
 
 (async () => {
-  if (!isDocPage()) return;
   const { showBubble } = await chrome.storage.local.get('showBubble');
-  if (showBubble === false) return;
+  let enabled = showBubble !== false;
 
   const BUBBLE_SIZE = 46;
   const EDGE_MARGIN = 16;
@@ -77,6 +76,22 @@
 
   document.body.appendChild(host);
   const bubble = shadow.getElementById('bubble');
+  const updateVisibility = () => {
+    host.style.display = enabled && isDocPage() ? '' : 'none';
+  };
+  updateVisibility();
+  // Yuque uses client-side routing; content scripts only run on full loads.
+  let lastPath = location.pathname;
+  setInterval(() => {
+    if (lastPath === location.pathname) return;
+    lastPath = location.pathname;
+    updateVisibility();
+  }, 500);
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area !== 'local' || !changes.showBubble) return;
+    enabled = changes.showBubble.newValue !== false;
+    updateVisibility();
+  });
 
   // ── Drag ──
 
@@ -155,6 +170,7 @@
     } catch (err) {
       bubble.classList.remove('is-exporting');
       bubble.classList.add('is-error');
+      shadow.querySelector('.tooltip').textContent = err.message;
       console.error('[YuqueOut]', err.message);
       setTimeout(() => bubble.classList.remove('is-error'), 2000);
     }
@@ -175,9 +191,10 @@
 
   function isDocPage() {
     const path = location.pathname;
-    if (/^\/(dashboard|settings|explore|notifications|search|login|register|account|new)/i.test(path)) return false;
+    if (/^\/(dashboard|settings|explore|notifications|search|login|register|account|new)(\/|$)/i.test(path)) return false;
     if (/^\/(api|r)\//i.test(path)) return false;
     const segments = path.split('/').filter(Boolean);
-    return segments.length >= 3;
+    const isSpace = location.hostname !== 'www.yuque.com' && location.hostname !== 'yuque.com';
+    return segments.length >= (isSpace ? 2 : 3);
   }
 })();

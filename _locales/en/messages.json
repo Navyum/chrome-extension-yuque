@@ -198,7 +198,7 @@
   "tip4": { "message": "Reopen the popup to view resumed export progress" },
   "tip5": { "message": "Login to Yuque before exporting" },
   "settingsDocFormat": { "message": "Doc default export format" },
-  "settingsDocFormatDesc": { "message": "Default export format for Yuque 'Doc' type documents." },
+  "settingsDocFormatDesc": { "message": "Used for Doc documents in Smart Export and by the floating bubble. A specific format selected in the popup takes priority. Word/PDF/JPG require Yuque export permission; failures are reported without switching to Markdown." },
   "settingsSheetFormat": { "message": "Sheet/Table export format" },
   "settingsSheetFormatDesc": { "message": "Export format for Yuque 'Sheet' and 'Table' types." },
   "settingsBoardFormat": { "message": "Board export format" },
@@ -225,5 +225,7 @@
   "ratingReviewBtn": { "message": "⭐ Rate Now" },
   "ratingSponsorLink": { "message": "Sponsor Developer" },
   "ratingDismiss": { "message": "Don't show again" },
-  "ratingLater": { "message": "Maybe later" }
+  "ratingLater": { "message": "Maybe later" },
+  "refreshBooks": { "message": "Refresh list" },
+  "refreshBooksFailed": { "message": "Could not refresh knowledge bases: $1" }
 }

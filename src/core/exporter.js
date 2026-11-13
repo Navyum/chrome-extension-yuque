@@ -112,7 +112,7 @@ async function dispatchRuntimeMessage(message, sender, sendResponse) {
         await handleGetPageDocInfo(sender, sendResponse);
         return;
       case 'quickExport':
-        await handleQuickExport(message.data, sendResponse);
+        await handleQuickExport(message.data, sendResponse, sender);
         return;
       default:
         sendResponse({ success: false, error: '未知操作' });
@@ -552,7 +552,7 @@ async function handleReExportFile(data, sendResponse) {
       exportState.sheetMode === 'local' || perTypeFormat !== 'xlsx' || noExportPermission
     )) || (isTable && (perTypeFormat === 'xlsx' || perTypeFormat === 'csv'));
     const useLocalDocConvert = (!isSheet && !isTable && !isBoard &&
-      (perTypeFormat === 'md' || noExportPermission) &&
+      perTypeFormat === 'md' &&
       (exportState.markdownMode === 'local' || noExportPermission)) ||
       (isTable && perTypeFormat === 'md');
 
@@ -675,7 +675,7 @@ async function exportFiles(runToken) {
             noExportPermission
           )) || (isTable && (perTypeFormat === 'xlsx' || perTypeFormat === 'csv'));
           const useLocalDocConvert = (!isSheet && !isTable && !isBoard &&
-            (perTypeFormat === 'md' || noExportPermission) &&
+            perTypeFormat === 'md' &&
             (exportState.markdownMode === 'local' || noExportPermission)) ||
             (isTable && perTypeFormat === 'md');
 
@@ -710,7 +710,8 @@ async function exportFiles(runToken) {
                 throw apiErr;
               }
               // Fallback: if export API fails and we have slug, try local conversion
-              if (file.slug && (file.bookSourceId || file.bookId)) {
+              if (file.slug && (file.bookSourceId || file.bookId) &&
+                  ((isSheet && ['xlsx', 'csv', 'md', 'html'].includes(perTypeFormat)) || perTypeFormat === 'md')) {
                 sendLog('  官方导出失败，自动切换本地转换: ' + apiErr.message);
                 if (isSheet) {
                   await exportViaSheetContent(file, perTypeFormat);
@@ -1476,8 +1477,12 @@ async function handleGetPageDocInfo(sender, sendResponse) {
 // Quick Export (floating bubble, single doc)
 // ═══════════════════════════════════════════
 
-async function handleQuickExport(data, sendResponse) {
+async function handleQuickExport(data, sendResponse, sender) {
   try {
+    const pageUrl = sender?.tab?.url ? new URL(sender.tab.url) : null;
+    const host = pageUrl?.protocol === 'https:' &&
+      (pageUrl.hostname === 'yuque.com' || pageUrl.hostname.endsWith('.yuque.com'))
+      ? pageUrl.origin : null;
     const { slug, namespace, title, bookId, docId, docType: pageDocType, content: pageContent, canExport } = data;
     if (!slug) throw new Error('缺少文档 slug');
 
@@ -1499,17 +1504,13 @@ async function handleQuickExport(data, sendResponse) {
     const typeOptions = DOC_TYPE_EXPORT_OPTIONS[docType];
     const noPermission = canExport !== true;
     let perTypeFormat;
-    if (noPermission && docType === DOC_TYPES.DOC) {
-      perTypeFormat = 'md';
-    } else {
-      switch (docType) {
-        case DOC_TYPES.SHEET: perTypeFormat = settings.sheetExportFormat || DEFAULT_SETTINGS.sheetExportFormat; break;
-        case DOC_TYPES.BOARD: perTypeFormat = settings.boardExportFormat || DEFAULT_SETTINGS.boardExportFormat; break;
-        default: perTypeFormat = settings.docExportFormat || DEFAULT_SETTINGS.docExportFormat; break;
-      }
-      if (typeOptions && !typeOptions.formats.includes(perTypeFormat)) {
-        perTypeFormat = typeOptions.defaultFormat;
-      }
+    switch (docType) {
+      case DOC_TYPES.SHEET: perTypeFormat = settings.sheetExportFormat || DEFAULT_SETTINGS.sheetExportFormat; break;
+      case DOC_TYPES.BOARD: perTypeFormat = settings.boardExportFormat || DEFAULT_SETTINGS.boardExportFormat; break;
+      default: perTypeFormat = settings.docExportFormat || DEFAULT_SETTINGS.docExportFormat; break;
+    }
+    if (typeOptions && !typeOptions.formats.includes(perTypeFormat)) {
+      perTypeFormat = typeOptions.defaultFormat;
     }
 
     const needsLocalContent =
@@ -1520,13 +1521,13 @@ async function handleQuickExport(data, sendResponse) {
     // Step 2: Resolve doc info from page store data or API
     let resolvedBookId = bookId;
     if ((!docId || needsLocalContent) && !resolvedBookId) {
-      resolvedBookId = await resolveBookId(namespace);
+      resolvedBookId = await resolveBookId(namespace, host);
     }
 
     let docInfo;
     if (!docId) {
       if (!resolvedBookId) throw new Error('无法获取知识库信息');
-      docInfo = await resolveFullDocInfo(slug, resolvedBookId);
+      docInfo = await resolveFullDocInfo(slug, resolvedBookId, host);
     } else {
       docInfo = {
         id: docId,
@@ -1537,7 +1538,7 @@ async function handleQuickExport(data, sendResponse) {
       };
       if (needsLocalContent && !pageContent) {
         if (!resolvedBookId) throw new Error('无法获取知识库信息');
-        const full = await fetchDocContent(slug, resolvedBookId);
+        const full = await fetchDocContent(slug, resolvedBookId, host);
         docInfo.content = full.content || '';
         docInfo.body = full.body || '';
         if (full.title) docInfo.title = full.title;
@@ -1551,7 +1552,7 @@ async function handleQuickExport(data, sendResponse) {
     // Build file object + save path
     const file = {
       id: docInfo.id, slug, title: actualTitle, docType,
-      bookId: resolvedBookId, bookSourceId: resolvedBookId,
+      bookId: resolvedBookId, bookSourceId: resolvedBookId, bookHost: host,
       bookName: '', folderPath: '',
     };
     const segments = [];
@@ -1605,15 +1606,16 @@ async function handleQuickExport(data, sendResponse) {
   }
 }
 
-async function resolveBookId(namespace) {
+async function resolveBookId(namespace, host = null) {
   if (!namespace) return null;
+  const origin = host || 'https://www.yuque.com';
   try {
-    const resp = await fetch(`https://www.yuque.com/api/v2/repos/${namespace}`, {
+    const resp = await fetch(`${origin}/api/v2/repos/${namespace}`, {
       headers: {
         'Accept': 'application/json',
         'x-requested-with': 'XMLHttpRequest',
-        'Origin': 'https://www.yuque.com',
-        'Referer': 'https://www.yuque.com/',
+        'Origin': origin,
+        'Referer': `${origin}/`,
       },
       credentials: 'include',
     });
@@ -1623,13 +1625,14 @@ async function resolveBookId(namespace) {
   } catch { return null; }
 }
 
-async function resolveFullDocInfo(slug, bookId) {
-  const resp = await fetch(`https://www.yuque.com/api/docs/${slug}?book_id=${bookId}&merge_dynamic_data=true`, {
+async function resolveFullDocInfo(slug, bookId, host = null) {
+  const origin = host || 'https://www.yuque.com';
+  const resp = await fetch(`${origin}/api/docs/${slug}?book_id=${bookId}&merge_dynamic_data=true`, {
     headers: {
       'Accept': 'application/json',
       'x-requested-with': 'XMLHttpRequest',
-      'Origin': 'https://www.yuque.com',
-      'Referer': 'https://www.yuque.com/',
+      'Origin': origin,
+      'Referer': `${origin}/`,
     },
     credentials: 'include',
   });

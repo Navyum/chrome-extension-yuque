@@ -206,6 +206,8 @@ body {
   position: relative; z-index: 0;
 }
 .form-group.select-group { z-index: 20; }
+.refresh-books-btn { float: right; border: 0; background: transparent; color: var(--primary-color); cursor: pointer; font-size: 12px; padding: 0 0 4px 8px; }
+.refresh-books-btn:disabled { opacity: 0.5; cursor: wait; }
 .form-group.is-select-open { z-index: 500; }
 
 label { display: block; margin-bottom: 6px; font-weight: 500; color: var(--text-primary); font-size: 13px; }

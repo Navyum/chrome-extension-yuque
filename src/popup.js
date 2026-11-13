@@ -6,7 +6,7 @@ import {
 } from './ui/ui.js';
 import {
   handleCheckAuth, handleLoginClick, handleGetFileInfo, handlePause,
-  handleReset, handleRetryFailed, handleStart, saveSettings
+  handleReset, handleRetryFailed, handleStart, handleGetBooks, saveSettings
 } from './ui/actions.js';
 import { initSponsorInteractions } from './ui/sponsor.js';
 import { initRatingModal } from './ui/rating.js';
@@ -133,6 +133,7 @@ function bindEventListeners() {
   } = domRefs;
 
   getInfoBtn?.addEventListener('click', handleGetFileInfo);
+  document.getElementById('refreshBooksBtn')?.addEventListener('click', handleGetBooks);
   startBtn?.addEventListener('click', handleStart);
   pauseBtn?.addEventListener('click', handlePause);
   resetBtn?.addEventListener('click', handleReset);
