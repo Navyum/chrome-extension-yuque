@@ -1,0 +1,17 @@
+Generation mode: built-in image_gen
+Edit target: docs/images/banner2.png
+Final asset: banner2-optimized-1400x560.png
+Delivery: 1400 x 560, 24-bit RGB PNG, no alpha.
+Post-processing: resized to exact dimensions and encoded as PNG24 with ImageMagick.
+
+Use case: ads-marketing.
+Asset: YuqueOut Chrome Web Store large promotional banner. EXACT 1400 x 560 pixels, very wide 2.5:1 landscape aspect ratio. One single finished banner, opaque.
+Input image 1 (banner2.png): existing banner to redesign, source of the actual YuqueOut blue bird app mark. Faithfully keep the blue bird's recognisable silhouette, hues and white rounded-square background. Change typography, composition, supporting illustration and background. The old giant bird logo must become a modest brand mark, not dominate.
+Input image 2: approved store screenshot, style reference only for pale blue/off-white background, dark navy bold Chinese lettering, vivid blue emphasis, rounded geometry and subtle shadows. Do NOT include screenshot UI in this banner.
+Primary request: a striking, polished, cohesive product marketing banner with immediate legibility and one clear message. Use the full ultra-wide canvas. Left 58% is clear marketing copy, right 38% is one clean file-export illustration. Safe margin 55px on all sides.
+At top left, a small accurate blue bird logo around 46px tall, followed by brand word 'YuqueOut' in dark navy medium-bold, approx 28px.
+Main headline below it, two lines, very large confident clean Simplified Chinese sans-serif: first line '语雀知识库' in dark navy, second line '批量导出到本地' in vivid royal blue. Around 62px text. It is the strongest element. Below headline add supporting copy '文档、表格、画板，多格式备份' in muted dark navy around 24px.
+Near the bottom left add four tidy subtle format pills, exact labels 'Markdown', 'Word', 'PDF', 'Excel'. White/light blue pills, thin light-blue borders, dark navy text. Good spacing.
+Right illustration: a small tasteful fan of white rounded document cards, one blue text document, one green spreadsheet, one red-accent PDF card and a small image thumbnail, flowing with a single simple blue curved arrow into a large warm yellow local file folder. Restrained blue/green/red/yellow accents, clean semi-flat Material-like editorial graphics with only subtle depth, no heavy 3D. This represents exporting to local files. The illustration remains secondary to the headline. Tiny blank geometric blue nodes may suggest multiple files but no clutter.
+Background: warm off-white, very pale sky blue abstract broad curved shape behind right illustration; restrained soft blue edge shapes, generous whitespace, no harsh diagonal split, no purple. No people, no invented app screens, no browser window, no CTA button, no store badges, no Google or Chrome logos, no watermark, no emoji, no speed claims.
+All text verbatim and beautifully typeset; no extra words or gibberish. Accurate Chinese. Whole banner fills an ultra-wide 1400x560 2.5:1 composition, not a 16:10 screenshot.

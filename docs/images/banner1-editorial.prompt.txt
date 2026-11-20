@@ -1,0 +1,14 @@
+Generation mode: built-in image_gen
+Final asset: banner1-editorial-440x280.png
+Delivery: 440 x 280, 24-bit RGB PNG, no transparency.
+Design revision: retain concise content with asymmetric composition, typography hierarchy, a curved blue field and one fine ring.
+Post-processing: resize and PNG24 encoding with ImageMagick.
+
+Use case: ads-marketing.
+Create the matching SMALL 440x280 (EXACT 11:7 aspect ratio) YuqueOut promotional banner, fully opaque.
+Input 1: original banner1.png, authoritative reference for original blue bird logo.
+Input 2: newly designed companion wide banner, authoritative visual direction. Match its editorial asymmetry, vivid cobalt curved right-hand field, off-white left-hand field, bold navy/blue Chinese title, delicate thin pale-blue circle and single white bird app tile.
+This is a compact layout designed for readability at 440x280, not a squeezed large banner.
+Composition: left 60% off-white, right 40% a full-bleed vivid cobalt field with a beautifully curved left boundary. Top-left small brand 'YuqueOut', 18px at actual delivery size, left margin 26px and top margin 26px. Below brand, two bold headline lines at roughly 39px, left aligned at 26px: exact '语雀导出' in dark ink navy, exact '轻松备份' in cobalt. Main title occupies middle-left. Subtitle below headline, exact '让知识留在本地', 16px in muted navy, ample separation. All letters fully within off-white region. No other text.
+Right: ONE original blue bird logo on white rounded-square app tile, about 104x104px, centered around x=345,y=142, subtle soft shadow. Behind tile, only one large very thin pale blue circular outline partially cropped at right edge. Logo must not overlap text. The curved color boundary and outline add refined design character; keep everything else calm.
+Strictly preserve the original bird identity. Use ONLY off-white, navy, cobalt and pale blue, no other color accents. No supporting icons, no file-format tags, no folders, no documents, no diagrams, no arrows, no buttons, no UI, no sparkles, no watermark, no emoji. No plain centered stack; no crowded marketing card. Simple content, distinct designed composition with whitespace, contrast and careful alignment.

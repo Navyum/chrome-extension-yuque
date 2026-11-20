@@ -1,0 +1,13 @@
+Generation mode: built-in image_gen
+Edit target: docs/images/banner1.png
+Final asset: banner1-optimized-440x280.png
+Delivery: 440 x 280, 24-bit RGB PNG, no alpha.
+Post-processing: resized to exact dimensions and encoded as PNG24 with ImageMagick.
+
+Use case: ads-marketing.
+Asset: YuqueOut Chrome Web Store SMALL promotional tile. Required final size 440 x 280 pixels, aspect ratio 11:7. A single fully opaque finished image. Can render at higher resolution but EXACT 11:7 ratio.
+Input image 1 (original banner1.png): existing small tile to redesign. Preserve the actual recognisable blue bird app mark in a white rounded square, but change layout and messaging.
+Input image 2 (new wide banner): approved companion design. Match its white/very pale blue palette, bold dark navy and blue Chinese typography, clean curved blue background shapes, subtle shadows and yellow folder / blue-green-red document illustration. Make a specifically designed compact version; do NOT squeeze the wide layout down.
+Composition optimized to be read at 440x280: safe padding 24px. At upper left a small 30px-tall bird app icon next to 'YuqueOut' approx 20px. Main bold headline in two lines on the left below brand: '语雀知识库' in dark navy, then '批量导出' in vivid blue. Text roughly 37px at delivery size. These two short lines must be the focal point and very easy to read at thumbnail size. Under headline, one short supporting line '多种格式，备份到本地' in navy, roughly 16px. At bottom-left a small plain text row 'Markdown · Word · PDF' around 13px, no pill borders and no extra text.
+On right, in about the rightmost 35% of canvas, a single compact warm yellow folder with three white document cards peeking out, using small blue text lines, green grid and red PDF accent. Keep this graphic modest, approximately 125px wide, with soft pale blue abstract circle backdrop. It must not overlap or crowd text. Shape contours stay comfortably inside canvas. This small tile is a companion to the large banner, not a different brand.
+Background off-white with subtle pale blue curved edge accents; generous spacing. Semi-flat clean Material-like illustration with gentle shadow, not heavy 3D. Accurate Simplified Chinese. Exact quoted copy only, no other slogans or invented UI. No screenshot panels, no buttons, no Google/Chrome logos, no watermark, no emoji, no review stars. Strong visual hierarchy and readable compact marketing design. Final composition is 440x280 ratio.

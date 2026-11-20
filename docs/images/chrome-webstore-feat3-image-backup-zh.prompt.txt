@@ -1,0 +1,16 @@
+Generation mode: built-in image_gen
+Reference: docs/images/feat3.png
+Style reference: docs/images/chrome-webstore-multiformat-zh-1280x800.png
+Final asset: chrome-webstore-feat3-image-backup-zh-1280x800.png
+Delivery: 1280 x 800, 24-bit RGB PNG, no alpha.
+Post-processing: resized to exact dimensions and encoded as PNG24 with ImageMagick.
+
+Use case: ads-marketing.
+Asset: one finished Chrome Web Store Chinese feature screenshot, 1280 x 800, landscape 16:10, opaque.
+Input image 1 is the source product reference for this feature: retain its actual YuqueOut UI structure, dark navy surfaces and purple controls; omit its old blue/pink diagonal background and old heading.
+Input image 2 is the approved style reference from this same screenshot series. Match its warm white / very pale blue background, soft abstract blue edge shapes, dark navy bold Chinese typography, vivid blue headline emphasis, generous whitespace, subtle rounded cards and shadows. Same small 'YuqueOut 语雀导出助手' brand at upper left. Faithful readable Simplified Chinese. No invented product capabilities or controls, no watermark, no Chrome/Google badges or logos, no review stars, no emoji. Product screenshot is straight-on and legible. All content comfortably within safe margins. Use a polished consistent series design, not a collage of alternatives.
+Feature: batch export of selected knowledge bases and downloading document images, based on feat3.png.
+Layout: left 48% contains marketing copy, right 46% contains a large dark YuqueOut panel faithfully derived from source screenshot with knowledge-base multi-select dropdown OPEN, four checked rows and counts; simplify/remove empty log area, retain the core interface. The Yuque website behind it can be a very faint secondary backdrop of folder cards, not another competing full screenshot. Rename any emoji-containing sample knowledge-base names to neutral plain Chinese names and do not reproduce emoji anywhere: rows '默认知识库' (7篇), '我的知识1' (0篇), '知识整理' (0篇), '归档知识' (4篇). These are illustrative names only; keep source selector structure.
+Exact left copy: brand 'YuqueOut 语雀导出助手'; huge navy headline '批量备份'; huge blue second line '图片一起保存'; supporting line '导出文档，同时下载文档图片'.
+Below it a small clean horizontal illustration of document sheets and a photo thumbnail flowing via a short blue arrow into a local yellow folder; blue/green/yellow restrained accents. This is an explanatory graphic OUTSIDE the UI, never an invented UI control. Two concise feature labels below illustration '多知识库批量选择' and '图片保存到本地', each with a simple outlined geometric icon (no emoji). Footer left '文档与图片，便于整理和备份'.
+Keep brand and typography scale aligned with reference image 2. Ensure readable multi-select UI and clearly distinct feature focus from the first two screenshots. No claims that every external image is guaranteed downloadable, no '一键', no cloud upload.

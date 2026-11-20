@@ -1,0 +1,16 @@
+Generation mode: built-in image_gen
+Reference: docs/images/feat2.png
+Style reference: docs/images/chrome-webstore-multiformat-zh-1280x800.png
+Final asset: chrome-webstore-feat2-batch-export-zh-1280x800.png
+Delivery: 1280 x 800, 24-bit RGB PNG, no alpha.
+Post-processing: resized to exact dimensions and encoded as PNG24 with ImageMagick.
+
+Use case: ads-marketing.
+Asset: one finished Chrome Web Store Chinese feature screenshot, 1280 x 800, landscape 16:10, opaque.
+Input image 1 is the source product reference for this feature: retain its actual YuqueOut UI structure, dark navy surfaces and purple controls; omit its old blue/pink diagonal background and old heading.
+Input image 2 is the approved style reference from this same screenshot series. Match its warm white / very pale blue background, soft abstract blue edge shapes, dark navy bold Chinese typography, vivid blue headline emphasis, generous whitespace, subtle rounded cards and shadows. Same small 'YuqueOut 语雀导出助手' brand at upper left. Faithful readable Simplified Chinese. No invented product capabilities or controls, no watermark, no Chrome/Google badges or logos, no review stars, no emoji. Product screenshot is straight-on and legible. All content comfortably within safe margins. Use a polished consistent series design, not a collage of alternatives.
+Feature: easy batch export workflow, based on feat2.png.
+Layout: left half marketing copy, right half the actual dark YuqueOut popup with knowledge-base selector and open export-format dropdown, like the approved first graphic. Trim empty lower log area. Keep UI labels and items 智能导出, Markdown (.md), Word (.docx), PDF (.pdf), JPG (.jpg).
+Exact left copy: small brand 'YuqueOut 语雀导出助手'; huge dark first headline line '批量导出'; huge blue second line '轻松备份'; supporting text '选好知识库，按需导出'.
+Below headline, two vertically arranged clean step rows: blue circular number '1' with label '选择知识库', small sublabel '支持多选'; green circular number '2' with label '选择格式并导出', small sublabel '集中备份，方便管理'. At left bottom small line '从选择到导出，流程清晰'.
+Add small discreet external numbered blue callout 1 pointing to knowledge-base selector, and callout 2 pointing to export-format selector, staying outside the actual UI and not obscuring it. No new buttons or UI claims. This is screenshot 2 of a consistent series.

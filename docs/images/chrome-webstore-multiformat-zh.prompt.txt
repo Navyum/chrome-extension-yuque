@@ -1,0 +1,13 @@
+Generation mode: built-in image_gen
+Reference: docs/images/feat1.png
+Final asset: chrome-webstore-multiformat-zh-1280x800.png
+Delivery: 1280 x 800, 24-bit RGB PNG, no alpha.
+Post-processing: resized generated image to exact delivery dimensions and encoded as PNG24 with ImageMagick.
+
+Use case: ads-marketing
+Asset type: Chrome Web Store global screenshot, exactly 1280 x 800 pixels, landscape 16:10, fully opaque.
+Primary request: Create one polished Chinese feature-introduction marketing screenshot for the YuqueOut Chrome extension using the supplied feat1.png as the product reference.
+Input image 1: reference for the actual dark YuqueOut extension UI and its multi-format dropdown. Keep the UI faithfully recognizable, preserve its visible Chinese labels and format entries; this is a genuine product demonstration, not a fictional dashboard.
+Composition: clean professional store-listing design. Warm white/light blue background, restrained blue accents with tiny red/yellow/green document accents, generous whitespace and subtle rounded geometric shapes. Left area about 52% contains a small brand label 'YuqueOut 语雀导出助手', a large bold Chinese headline on two lines '语雀知识库' and '多格式导出', and supporting text 'Markdown、Word、PDF、JPG'. Under that use four tasteful small document-format tiles labeled 'MD', 'DOCX', 'PDF', 'JPG', and a smaller closing line '选择知识库，按需导出'. Right area features a crisp, straight-on large dark extension panel derived faithfully from the screenshot, its visible opened format dropdown the main UI focus. Place the panel fully inside the canvas with comfortable margins, around 410px wide and 640px tall; trim the empty lower log area to avoid wasting space. Subtle shadow, no perspective distortion. Preserve the actual UI structure including brand, knowledge-base selector, selected summary, export-format control and opened dropdown with 智能导出 / Markdown (.md) / Word (.docx) / PDF (.pdf) / JPG (.jpg). Do not invent extra controls. Remove the old garish blue/pink diagonal background and its original top heading entirely.
+Typography: accurate Simplified Chinese, clean sans-serif, very legible, strong dark navy headline, blue emphasis on 多格式导出. Every marketing text must appear exactly as quoted.
+Constraints: one finished image, not multiple panels or a collage of variants. No Chrome or Google logos, no review stars, no store badges, no watermark, no emoji, no fictional claims, no decorative human figures. Balanced premium Material-like clarity. Opaque RGB background, no transparency. Required output size 1280x800.

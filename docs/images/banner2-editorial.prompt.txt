@@ -1,0 +1,17 @@
+Generation mode: built-in image_gen
+Final asset: banner2-editorial-1400x560.png
+Delivery: 1400 x 560, 24-bit RGB PNG, no transparency.
+Design revision: retain concise content with asymmetric composition, typography hierarchy, a curved blue field and one fine ring.
+Post-processing: resize and PNG24 encoding with ImageMagick.
+
+Use case: ads-marketing.
+Create a professionally art-directed YuqueOut promotional banner, EXACT 1400x560, ultra-wide 2.5:1, opaque.
+Input image: original banner2.png, reference ONLY for the authentic blue bird app logo. Preserve the bird shape and colors accurately in a white rounded-square app tile.
+User feedback: a previous design with folders, formats and feature lists was too busy; the subsequent centered logo+title on blue was too plain and undesigned. This version must find the middle: FEW ELEMENTS, STRONG COMPOSITION. Do not reproduce either failed layout.
+Design direction: premium contemporary Swiss/editorial tech identity, clean asymmetric composition, precise typography, sculptural GEOMETRY rather than object illustration. Use only off-white, deep ink navy and vivid cobalt blue. No red/yellow/green accents.
+Composition: left approximately 63% warm white #F7F9FC, right approximately 37% a vivid cobalt-blue field with one beautiful oversized curved/rounded corner boundary. The blue field extends flush to the top/right/bottom edges; its curved left edge establishes a confident graphic silhouette. This is an intentional two-zone layout, not a generic soft gradient background.
+At top left with 85px margin, small restrained brand text 'YuqueOut' in navy, around 25px. No logo there.
+Main message on left, typographic focal point, two left-aligned lines: '语雀导出' in deep ink navy, then '轻松备份' in cobalt. Bold modern Simplified Chinese sans-serif around 85px at final size, careful line spacing, no text shadow, no underline.
+One short subtitle below, exact '让知识留在本地', medium muted navy about 27px, with breathing room. No other text.
+On the blue right field, feature the ONE original bird logo tile, roughly 205px square, straight-on, optically centered within field, slightly offset toward the boundary, subtle realistic soft shadow. Behind this tile use ONLY ONE large thin pale-blue circular outline cropped by right edge, creating spatial rhythm. The ring is a purely abstract graphic device. Do not duplicate logo. Strong empty space around it. No documents, folders, file-format pills, arrows, screenshots, badges, feature lists, CTA, watermark, emoji, sparkles or random dots.
+Result should look carefully composed by a brand designer, with memorable cobalt silhouette, beautiful negative space and large readable Chinese copy. Not a slide template, not a flat centered logo banner, not a crowded ad.

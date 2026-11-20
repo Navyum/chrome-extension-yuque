@@ -1,0 +1,13 @@
+Generation mode: built-in image_gen
+Final asset: banner1-minimal-440x280.png
+Delivery: 440 x 280, 24-bit RGB PNG, no transparency.
+Revision: user requested simpler, more direct content. Retain only original logo and title.
+Post-processing: resize and PNG24 encoding with ImageMagick.
+
+Use case: ads-marketing.
+Asset: EXTREMELY SIMPLE YuqueOut Chrome Web Store SMALL banner, final dimensions 440 x 280 pixels, EXACT 11:7 aspect ratio. Fully opaque.
+Input 1: original small banner, preserve its blue bird logo identity and title.
+Input 2: newly approved design direction for large banner; use EXACT same almost-solid rich cobalt blue background and clean white typography, same bird app tile.
+User explicitly requires fewer elements and direct comprehension. ONLY two foreground elements allowed: original blue bird logo on its white rounded-square tile, plus exact headline "语雀导出备份工具". No other elements or words.
+Small-format-specific layout: centered vertical stack. Blue bird logo centered horizontally at top-middle, white tile around 86 x 86 pixels at final output, top about 45 pixels. Then 30 pixels whitespace, followed by ONE single line title "语雀导出备份工具", centered, white modern bold Simplified Chinese sans-serif, around 27 pixels at delivery size, not condensed, normal tracking, no text shadow. Generous bottom margin. Perfect optical alignment, all text readable at 440x280.
+The stack must feel calm and deliberately designed, avoiding the crowded horizontal shape of the original. Logo and single title only, no subtitle, no 'YuqueOut' wordmark, no folder, no documents, no format list, no labels, no badge, no decorative curves, no sparkles, no CTA, no watermark, no emoji. Background cobalt blue with only an extremely subtle natural blue tone shift, matching companion large banner; no teal or purple. Faithful original blue bird silhouette.

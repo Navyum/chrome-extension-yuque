@@ -1,0 +1,17 @@
+Generation mode: built-in image_gen
+Reference: docs/images/feat4.png
+Style reference: docs/images/chrome-webstore-multiformat-zh-1280x800.png
+Final asset: chrome-webstore-feat4-custom-settings-zh-1280x800.png
+Delivery: 1280 x 800, 24-bit RGB PNG, no alpha.
+Post-processing: resized to exact dimensions and encoded as PNG24 with ImageMagick.
+
+Use case: ads-marketing.
+Asset: one finished Chrome Web Store Chinese feature screenshot, 1280 x 800, landscape 16:10, opaque.
+Input image 1 is the source product reference for this feature: retain its actual YuqueOut UI structure, dark navy surfaces and purple controls; omit its old blue/pink diagonal background and old heading.
+Input image 2 is the approved style reference from this same screenshot series. Match its warm white / very pale blue background, soft abstract blue edge shapes, dark navy bold Chinese typography, vivid blue headline emphasis, generous whitespace, subtle rounded cards and shadows. Same small 'YuqueOut 语雀导出助手' brand at upper left. Faithful readable Simplified Chinese. No invented product capabilities or controls, no watermark, no Chrome/Google badges or logos, no review stars, no emoji. Product screenshot is straight-on and legible. All content comfortably within safe margins. Use a polished consistent series design, not a collage of alternatives.
+Feature: customizable export settings, based on feat4.png.
+Layout: left 43% marketing copy, right 51% large straight-on dark settings panel faithfully reproducing the visible key fields from source. Adapt crop to show export configuration plus download images checkbox clearly. Keep actual UI labels and values. The settings panel is NOT the popup and must NOT have the popup header or knowledge-base selector from style reference 2. Show compact source sidebar with '通用设置' active and '关于' below; main card title '导出配置', field '下载子文件夹' with input placeholder '例如: 语雀备份', field '文档默认导出格式' with value 'Markdown (.md)', field '表格/数据表导出格式' with value 'Excel (.xlsx)'. At bottom a separate source card '性能调优', checked '下载图片', and concise source explanation '自动下载文档中的图片到 assets/ 子目录，并替换为本地路径。'. Small helper under download subfolder '保存到浏览器下载目录下的指定子文件夹'. Preserve dark navy/purple authentic settings style while making the small text clean and legible. No invented controls.
+Exact left copy: brand 'YuqueOut 语雀导出助手'; huge navy headline '导出偏好'; huge blue second line '自由设置'; supporting text on two comfortable lines '下载目录、默认格式' and '按你的习惯配置'.
+Below supporting text, three clean vertically arranged short feature rows with simple small outlined geometric icons: '下载子文件夹', '文档与表格默认格式', '图片下载开关'. Use restrained blue, green and yellow accents.
+Footer left '一次配置，方便后续导出'.
+Match the approved screenshot's brand, background and typographic hierarchy. No statement about arbitrary filesystem paths; this is only a subfolder of the browser downloads directory. No emoji, no marketing exaggeration.

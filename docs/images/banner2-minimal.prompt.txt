@@ -1,0 +1,13 @@
+Generation mode: built-in image_gen
+Final asset: banner2-minimal-1400x560.png
+Delivery: 1400 x 560, 24-bit RGB PNG, no transparency.
+Revision: user requested simpler, more direct content. Retain only original logo and title.
+Post-processing: resize and PNG24 encoding with ImageMagick.
+
+Use case: ads-marketing.
+Redesign the attached original YuqueOut promotional banner with EXTREME SIMPLICITY. User rejected a previous revision as too busy and explicitly wants simple and immediately understandable.
+Canvas: EXACT 1400 x 560, 2.5:1 landscape, opaque.
+Only TWO foreground elements are allowed: (1) the original blue bird app logo in its white rounded-square tile, faithfully preserved from the input; (2) ONE headline with exact text "语雀导出备份工具". Absolutely nothing else.
+Composition: a clean centered horizontal lockup occupying the middle of the canvas. Logo on left, around 180 x 180 pixels, with subtle natural edge shadow only. Headline to the right with roughly 65px space, modern bold Simplified Chinese sans-serif, white, around 66px at final size. Entire lockup optically centered. Text is ONE LINE. Keep generous calm empty space above, below and at edges. No text shadow, no exaggerated letter spacing.
+Background: elegant rich royal/cobalt blue, almost solid with an exceptionally subtle shift from slightly lighter blue at upper left to slightly darker blue at lower right. No teal, no purple. The blue bird stands out on its white app tile; the white headline is high contrast.
+Preserve original bird identity and original core title. DELETE the original green subtitle entirely. Do not add 'YuqueOut' text, secondary copy, file formats, folders, document icons, abstract shapes, swooshes, sparkles, badges, borders, cards, UI, underline, CTA, watermark or emoji. Just logo + one clear title on blue. Refined restrained brand banner.
